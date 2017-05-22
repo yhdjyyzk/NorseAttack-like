@@ -12,6 +12,7 @@ export default class Map {
 
         let map = L.map(this.dom, {
             renderer: 'canvas',
+            minZoom: 2
         }).setView([15, 15], 2);
 
         L.tileLayer(this.tileLayer).addTo(map);

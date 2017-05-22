@@ -1,27 +1,28 @@
-// var router = require('express').Router();
-
-// router.all("/", function (req, res, next) {
-//    let data = req.body;
-//    res.send("hello, I am server.");
-// });
-
-// module.exports = router;
 var WebSocket = require('ws');
 var url = require('url');
 
-function createWebSocketServer(httpServer) {
+function createWebSocketServer(client) {
     var wss = new WebSocket.Server({
-        server: httpServer
+        // server: httpServer
+        port: 9000
     });
 
-    wss.on('connection', (client, req) => {
-        // const location = url.parse(req.url, true);
-        console.log("===========");
+    wss.on('open', () => {
+        console.log('== open ws ==');
+    })
+
+    wss.on('connection', (ws, req) => {
+        client = ws;
+        console.log('== connect ==');
     });
 
     wss.on('message', (message) => {
         console.log(message);
     });
+
+    wss.on('close', () => {
+        console.log("== close ws ==");
+    })
 }
 
 module.exports = createWebSocketServer;

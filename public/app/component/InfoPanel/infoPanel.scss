@@ -1,0 +1,33 @@
+@import '../../scss/open-color.scss';
+@import '../../scss/variable.scss';
+
+.infoPanel{
+    flex-grow: 1;
+    height: $panel-height;
+    background-color: $panel-bgcolor;
+    margin: 0 2px;
+
+    .title{
+        text-align: center;
+        line-height: 30px;
+        height: 30px;
+        background-color: $oc-blue-2;
+    }
+
+    .items{
+        display: flex;
+         flex-direction: column;
+        justify-content: flex-start;
+
+        .row{
+            display: inline-flex;
+            justify-content: flex-start;
+            width: 100%;
+
+            .item{
+               flex-grow: 1;
+               flex-shrink: 1;
+            }
+        }
+    }
+}

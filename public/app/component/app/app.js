@@ -1,15 +1,23 @@
-import Migrate from '../migrate/migrate';
-import React, { Component } from 'react';
+import Attack from '../attack2d/Attack';
+import Globe from '../attack3d/Globe';
+import InfoContainer from '../InfoContainer/InfoContainer';
+import InfoPanel from '../InfoPanel/InfoPanel';
+import React, { PureComponent } from 'react';
 import 'normalize.css';
 import './app.scss';
 
-export default class App extends Component {
+export default class App extends PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
             nodes: {},
-            edges: []
+            edges: [],
+            flight: [],
+            origins: [],//攻击源
+            types: [],//攻击类型
+            targets: [], //攻击目标
+            attacks: [], //实时信息
         };
     }
 
@@ -55,14 +63,56 @@ export default class App extends Component {
 
         this.setState({
             nodes: nodes,
-            edges: edges
+            edges: edges,
+            flight: [
+                [
+                    [120, 66], // 起点的经纬度坐标
+                    [122, 67]  // 终点的经纬度坐标
+                ]
+            ]
         });
     }
 
     render() {
+        let origins = new Array(5).fill(0).map((d, i) => {
+            return {
+                N: '1',
+                COUNTRY: 'China',
+            }
+        });
+
+        let types = new Array(3).fill(0).map((d, i) => {
+            return {
+                N: 1,
+                PORT: 222,
+                ' SERVICE TYPE': 'smtp'
+            }
+        });
+
+        let targets = new Array(5).fill(0).map((d, i) => {
+            return {
+                N: '11',
+                COUNTRY: 'America',
+            }
+        });
+
+        let attacks = new Array(2).fill(0).map((d,i)=>{
+            return {
+                TIMESTAMP:'2017.1.2.17:27:12',
+                ATTACKER:'TOM'
+            }
+        });
+
         return (
             <div className='app'>
-                <Migrate nodes={this.state.nodes} edges={this.state.edges} />
+                <Attack nodes={this.state.nodes} edges={this.state.edges} />
+                <InfoContainer>
+                    <InfoPanel items={origins} title='ATTACK ORIGINS' />
+                    <InfoPanel items={types} title='ATTACK TYPES' />
+                    <InfoPanel items={targets} title='ATTACK TARGETS' />
+                    <InfoPanel items={attacks} title='LIVE ATTACKS' />
+                    <Globe data={this.state.flight} />
+                </InfoContainer>
             </div>
         );
     }
