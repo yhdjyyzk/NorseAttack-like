@@ -1,0 +1,73 @@
+{
+  "name": "migrate-map",
+  "version": "1.0.0",
+  "description": "a migrate map using ZRender.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "react": "webpack-dev-server --progress --colors --watch --port 8000",
+    "react-build": "webpack --watch",
+    "start": "node ./bin/www",
+    "build": "rm -rf ./dist/* && webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuanzhaokang/migrate-map.git"
+  },
+  "keywords": [
+    "migrate",
+    "map",
+    "ZRender",
+    "ZRender",
+    "canvas",
+    "visualization"
+  ],
+  "author": "yuanzhaokang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yuanzhaokang/migrate-map/issues"
+  },
+  "homepage": "https://github.com/yuanzhaokang/migrate-map#readme",
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.4.0",
+    "babel-plugin-transform-class-properties": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "body-parser": "~1.16.0",
+    "cookie-parser": "~1.4.3",
+    "css-loader": "^0.28.0",
+    "debug": "~2.6.0",
+    "express": "~4.14.1",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.10.1",
+    "images": "^3.0.0",
+    "jade": "~1.11.0",
+    "jquery": "^3.2.1",
+    "json-loader": "^0.5.4",
+    "jsx-loader": "^0.13.2",
+    "leaflet": "^1.0.3",
+    "morgan": "~1.7.0",
+    "node-sass": "^4.5.2",
+    "normalize.css": "^5.0.0",
+    "postcss-loader": "^2.0.5",
+    "raw-loader": "^0.5.1",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "sass-lint": "^1.10.2",
+    "sass-loader": "^6.0.3",
+    "serve-favicon": "~2.3.2",
+    "style-loader": "^0.16.1",
+    "supervisor": "^0.12.0",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1",
+    "ws": "^2.3.1",
+    "zrender": "^3.4.4"
+  },
+  "dependencies": {
+    "express-ws": "^3.0.0"
+  }
+}
