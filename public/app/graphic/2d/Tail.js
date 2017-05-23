@@ -15,7 +15,7 @@ export default class Tail {
    render() {
       let g = new Group();
 
-      for(let index = 100; index > 0; index--) {
+      for(let index = 60; index > 0; index--) {
          let c = new Circle({
             shape: {
                cx: 0,

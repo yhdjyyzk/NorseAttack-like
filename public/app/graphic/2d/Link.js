@@ -10,11 +10,12 @@ export default class Link {
       this.curveness = opts['curveness'] || 0; // greater than 0 and less than 1. If 0, it is a stright line.
       this.loop = opts['loop'];
       this.callback = opts['callback'];
-      this.lineWidth = opts['lineWidth'] || 1;
+      this.lineWidth = opts['lineWidth'] || 2;
       this.stroke = opts['stroke'] || 'rgba(255, 255, 0, 1)';
       this.lineJoin = opts['lineJoin'] || 'round';
       this.lineCap = opts['lineCap'] || 'round';
       this.during = opts['during'] || Config.animationDefaultDuring;
+      this.shadowBlur = opts['shadowBlur'] || 25;
    }
 
    render() {
@@ -35,7 +36,9 @@ export default class Link {
             lineWidth: this.lineWidth,
             fill: null,
             lineJoin: this.lineJoin,
-            lineCap: this.lineCap
+            lineCap: this.lineCap,
+            shadowBlur: this.shadowBlur,
+            shadowColor: this.stroke,
          }
       });
 
