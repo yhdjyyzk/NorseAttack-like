@@ -2,6 +2,7 @@ import Attack from '../attack2d/Attack';
 import Globe from '../attack3d/Globe';
 import InfoContainer from '../InfoContainer/InfoContainer';
 import InfoPanel from '../InfoPanel/InfoPanel';
+import io from 'socket.io-client';
 import React, { PureComponent } from 'react';
 import 'normalize.css';
 import './app.scss';
@@ -73,6 +74,27 @@ export default class App extends PureComponent {
         });
     }
 
+    componentDidMount() {
+        let socket = io('http://localhost:4000');
+
+        socket.on('connect', (c) => {
+            console.log("连接成功..." + new Date().getTime());
+            socket.emit('hello', 'hello world!');
+        });
+
+        socket.on('disconnect', () => {
+            console.log('you have been disconnected.')
+        });
+
+        socket.on('reconnect', () => {
+            console.log('you have been reconnected');
+        });
+
+        socket.on('reconnect_error', () => {
+            console.log('attempt to reconnect has failed');
+        });
+    }
+
     render() {
         let origins = new Array(5).fill(0).map((d, i) => {
             return {
@@ -96,10 +118,10 @@ export default class App extends PureComponent {
             }
         });
 
-        let attacks = new Array(2).fill(0).map((d,i)=>{
+        let attacks = new Array(2).fill(0).map((d, i) => {
             return {
-                TIMESTAMP:'2017.1.2.17:27:12',
-                ATTACKER:'TOM'
+                TIMESTAMP: '2017.1.2.17:27:12',
+                ATTACKER: 'TOM'
             }
         });
 
