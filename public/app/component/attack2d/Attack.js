@@ -170,7 +170,7 @@ export default class App extends PureComponent {
 
             let symbol = new Symbol({
                 path: path,
-                scale: [0.03, 0.03],
+                scale: [0.02, 0.02],
                 link: link,
                 fill: 'rgba(255, 255, 0, 1)',
                 loop: true

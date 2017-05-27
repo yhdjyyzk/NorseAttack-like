@@ -13,11 +13,11 @@ export default class Config {
                 color: 'rgba(255, 255, 0, 0)'
             },
             {
-                offset: 0.5,
+                offset: 0.65,
                 color: 'rgba(255, 255, 0, 0)'
             },
             {
-                offset: 0.5,
+                offset: 0.65,
                 color: 'rgba(255, 255, 0, 0)'
             },
             {
