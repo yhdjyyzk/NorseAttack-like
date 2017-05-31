@@ -1,4 +1,5 @@
 import Attack from '../attack2d/Attack';
+import Detector from '../../util/Detector';
 import Globe from '../attack3d/Globe';
 import InfoContainer from '../InfoContainer/InfoContainer';
 import InfoPanel from '../InfoPanel/InfoPanel';
@@ -133,7 +134,7 @@ export default class App extends PureComponent {
                     <InfoPanel items={types} title='ATTACK TYPES' />
                     <InfoPanel items={targets} title='ATTACK TARGETS' />
                     <InfoPanel items={attacks} title='LIVE ATTACKS' />
-                    <Globe data={this.state.flight} />
+                    {Detector.webgl ? <Globe data={this.state.flight} /> : null}
                 </InfoContainer>
             </div>
         );
