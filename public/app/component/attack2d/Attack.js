@@ -115,10 +115,9 @@ export default class App extends PureComponent {
             this.zr.add(points);
         }
 
-        let curveness = 0.5;
         let links = [];
 
-        // 生成连接.
+        // 生成连接，目的是为飞线生成飞行路径.
         for (let i = 0; i < this.props.edges.length; i++) {
             let fromPixel = this.map.latLngToContainerPoint([this.props.edges[i]['from'].lat, this.props.edges[i]['from'].lng]);
             let toPixel = this.map.latLngToContainerPoint([this.props.edges[i]['to'].lat, this.props.edges[i]['to'].lng]);
@@ -132,8 +131,7 @@ export default class App extends PureComponent {
                     x: toPixel.x,
                     y: toPixel.y
                 },
-                curveness: curveness,
-                // stroke: 'rgba(0, 0, 0, 0)',
+                stroke: 'rgba(0, 0, 0, 0)',
             }).render();
 
             // 若是闭环的点, 那么就不加上去.
@@ -164,20 +162,20 @@ export default class App extends PureComponent {
         }
 
         // 生成symbol.
-        for (let index = 0; index < links.length; index++) {
-            let link = links[index];
-            let path = 'M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
+        // for (let index = 0; index < links.length; index++) {
+        //     let link = links[index];
+        //     let path = 'M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
 
-            let symbol = new Symbol({
-                path: path,
-                scale: [0.02, 0.02],
-                link: link,
-                fill: 'rgba(255, 255, 0, 1)',
-                loop: true
-            }).render();
+        //     let symbol = new Symbol({
+        //         path: path,
+        //         scale: [0.02, 0.02],
+        //         link: link,
+        //         fill: 'rgba(255, 255, 0, 1)',
+        //         loop: true
+        //     }).render();
 
-            this.zr.add(symbol);
-        }
+        //     this.zr.add(symbol);
+        // }
     }
 
     /**

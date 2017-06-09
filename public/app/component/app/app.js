@@ -49,6 +49,11 @@ export default class App extends PureComponent {
                 lng: 105,
                 lat: 23,
                 count: 50
+            },
+            NewYork: {
+                lng: -70,
+                lat: 37,
+                count: 100
             }
         };
 
@@ -60,6 +65,10 @@ export default class App extends PureComponent {
             {
                 from: nodes['Xian'],
                 to: nodes['Hangzhou']
+            },
+            {
+                from:nodes["NewYork"],
+                to: nodes["Beijing"]
             }
         ];
 
