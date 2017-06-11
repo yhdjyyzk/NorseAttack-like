@@ -23,7 +23,6 @@ var server = http.createServer(app);
 var io = require('socket.io')(server);
 io.on('connection', function (socket) {
     console.log('连接成功 =====> ' + new Date().getTime());
-
     socket.on('hello', (data) => {
         console.log(data);
     });

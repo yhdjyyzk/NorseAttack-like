@@ -76,6 +76,7 @@ export default class App extends PureComponent {
     }
 
     componentDidMount() {
+        // add SocketIO.
         let socket = io('http://localhost:4000');
 
         socket.on('connect', (c) => {
