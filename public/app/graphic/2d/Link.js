@@ -7,7 +7,6 @@ export default class Link {
    constructor(opts) {
       this.from = opts['from'] || 0;
       this.to = opts['to'] || 0;
-      this.curveness = opts['curveness'] || 0; // greater than 0 and less than 1. If 0, it is a stright line.
       this.loop = opts['loop'];
       this.callback = opts['callback'];
       this.lineWidth = opts['lineWidth'] || 2;
@@ -20,7 +19,7 @@ export default class Link {
 
    render() {
       let { from, to } = this;
-      let cp = MathUtil.getCurvenessPoint(this.from, this.to, this.curveness);
+      let cp = MathUtil.getCurvenessPoint(this.from, this.to);
 
       let link = new BezierCurve({
          shape: {

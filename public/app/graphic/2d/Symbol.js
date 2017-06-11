@@ -3,9 +3,6 @@ import Group from 'zrender/src/container/Group';
 import Path from 'zrender/src/tool/path';
 
 export default class Symbol {
-   /**
-    * @param string. svg path string.
-    */
    constructor(opts) {
       this.path = opts['path'] || '';
       this.scale = opts['scale'] || [1, 1];
