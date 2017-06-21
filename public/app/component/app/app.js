@@ -67,7 +67,7 @@ export default class App extends PureComponent {
                 to: nodes['Hangzhou']
             },
             {
-                from:nodes["NewYork"],
+                from: nodes["NewYork"],
                 to: nodes["Beijing"]
             }
         ];
@@ -82,11 +82,10 @@ export default class App extends PureComponent {
                 ]
             ]
         });
-    }
 
-    componentDidMount() {
         // add SocketIO.
         let socket = io('http://localhost:4000');
+        window.webSocket = socket; // 存入全局变量.
 
         socket.on('connect', (c) => {
             console.log("连接成功..." + new Date().getTime());
@@ -104,6 +103,12 @@ export default class App extends PureComponent {
         socket.on('reconnect_error', () => {
             console.log('attempt to reconnect has failed');
         });
+    }
+
+    componentWillUnMount() {
+        if(window.webSocket) {
+            delete window.webSocket;
+        }
     }
 
     render() {
@@ -137,14 +142,15 @@ export default class App extends PureComponent {
         });
 
         return (
+            // nodes={this.state.nodes} edges={this.state.edges}
             <div className='app'>
-                <Attack nodes={this.state.nodes} edges={this.state.edges} />
+                <Attack />
                 <InfoContainer>
                     <InfoPanel items={origins} title='ATTACK ORIGINS' />
                     <InfoPanel items={types} title='ATTACK TYPES' />
                     <InfoPanel items={targets} title='ATTACK TARGETS' />
                     <InfoPanel items={attacks} title='LIVE ATTACKS' />
-                    {Detector.webgl ? <Globe data={this.state.flight} /> : null}
+                    {/*{Detector.webgl ? <Globe data={this.state.flight} /> : null}*/}
                 </InfoContainer>
             </div>
         );

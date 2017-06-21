@@ -23,6 +23,9 @@ var server = http.createServer(app);
 var io = require('socket.io')(server);
 io.on('connection', function (socket) {
     console.log('连接成功 =====> ' + new Date().getTime());
+
+    global.webSocket = socket; //将websocket存储到全局变量中.
+
     socket.on('hello', (data) => {
         console.log(data);
     });
@@ -43,12 +46,12 @@ server.on('listening', onListening);
 function normalizePort(val) {
     var port = parseInt(val, 10);
 
-    if (isNaN(port)) {
+    if(isNaN(port)) {
         // named pipe
         return val;
     }
 
-    if (port >= 0) {
+    if(port >= 0) {
         // port number
         return port;
     }
@@ -61,7 +64,7 @@ function normalizePort(val) {
  */
 
 function onError(error) {
-    if (error.syscall !== 'listen') {
+    if(error.syscall !== 'listen') {
         throw error;
     }
 
@@ -70,7 +73,7 @@ function onError(error) {
         : 'Port ' + port;
 
     // handle specific listen errors with friendly messages
-    switch (error.code) {
+    switch(error.code) {
         case 'EACCES':
             console.error(bind + ' requires elevated privileges');
             process.exit(1);

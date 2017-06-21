@@ -34,7 +34,7 @@ export default class App extends PureComponent {
             height: attack['height']
         });
 
-        this._drawAttack();
+        // this._drawAttack();
         this._receiveData();
 
         window.addEventListener('resize', this._windowResize);
@@ -76,7 +76,7 @@ export default class App extends PureComponent {
         }).render();
 
         this.map.on('move', (event) => {
-            if (this.zr) { //每次重绘  清空界面.
+            if(this.zr) { //每次重绘  清空界面.
                 this.zr.clear();
             }
 
@@ -91,7 +91,7 @@ export default class App extends PureComponent {
         let pixel = [0, 0];
         let node = [];
 
-        for (let k of Object.keys(this.props.nodes)) {
+        for(let k of Object.keys(this.props.nodes)) {
             pixel = this.map.latLngToContainerPoint([this.props.nodes[k]['lat'], this.props.nodes[k]['lng']]);
             node.push(
                 {
@@ -102,7 +102,7 @@ export default class App extends PureComponent {
             );
         }
 
-        for (let i = 0; i < node.length; i++) {
+        for(let i = 0; i < node.length; i++) {
             let points = new AnimatePoints({
                 r: node[i].r,
                 x: node[i].x,
@@ -118,7 +118,7 @@ export default class App extends PureComponent {
         let links = [];
 
         // 生成连接，目的是为飞线生成飞行路径.
-        for (let i = 0; i < this.props.edges.length; i++) {
+        for(let i = 0; i < this.props.edges.length; i++) {
             let fromPixel = this.map.latLngToContainerPoint([this.props.edges[i]['from'].lat, this.props.edges[i]['from'].lng]);
             let toPixel = this.map.latLngToContainerPoint([this.props.edges[i]['to'].lat, this.props.edges[i]['to'].lng]);
 
@@ -135,7 +135,7 @@ export default class App extends PureComponent {
             }).render();
 
             // 若是闭环的点, 那么就不加上去.
-            if (link.shape.x1 == link.shape.x2 && link.shape.y1 == link.shape.y2) {
+            if(link.shape.x1 == link.shape.x2 && link.shape.y1 == link.shape.y2) {
                 continue;
             }
 
@@ -144,7 +144,7 @@ export default class App extends PureComponent {
         }
 
         // 生成尾焰
-        for (let index = 0; index < links.length; index++) {
+        for(let index = 0; index < links.length; index++) {
             let link = links[index];
             // let tail = new Tail({
             //     link: link,
@@ -183,31 +183,68 @@ export default class App extends PureComponent {
      */
     _receiveData() {
         let _this = this;
-        let wsUrl = Config.wsServer;
-        let ws = new WebSocket(wsUrl);
 
-        ws.onopen = function (event) {
-            console.log(`open ws. ${new Date().getTime()}`);
-        };
+        if(window.webSocket) {
+            //后台触发link事件,传送关联信息.
+            window.webSocket.on('link', function (data) {
+                let { from, to } = JSON.parse(data.info);
 
-        ws.onmessage = function (e) {
-            let { lat, lng } = querystring.parse(e.data);
-            let point = _this.map.latLngToContainerPoint([lat, lng]);
+                let fpoint = _this.map.latLngToContainerPoint([from.lat, from.lng]);
+                let tpoint = _this.map.latLngToContainerPoint([to.lat, to.lng]);
 
-            let p = new AnimatePoints({
-                r: Math.random() * 10 + 10,
-                x: point.x,
-                y: point.y,
-                lineWidth: 1,
-                fill: Config.gradient,
-            }).render();
+                let fp = new AnimatePoints({
+                    r: Math.random() * 10 + 10,
+                    x: fpoint.x,
+                    y: fpoint.y,
+                    lineWidth: 1,
+                    fill: Config.gradient,
+                    loop: false,
+                    callback: function () {
+                        _this.zr.remove(fp);
+                    }
+                }).render();
 
-            _this.zr.add(p);
-        };
+                let tp = new AnimatePoints({
+                    r: Math.random() * 10 + 10,
+                    x: tpoint.x,
+                    y: tpoint.y,
+                    lineWidth: 1,
+                    fill: Config.gradient,
+                    loop: false,
+                    callback: function () {
+                        _this.zr.remove(tp);
+                    }
+                }).render();
 
-        ws.onclose = function () {
-            console.log(`close ws ${new Date().getTime()}`);
-        };
+                let link = new Link({
+                    from: {
+                        x: fpoint.x,
+                        y: fpoint.y
+                    },
+                    to: {
+                        x: tpoint.x,
+                        y: tpoint.y
+                    },
+                    stroke: 'rgba(0, 0, 0, 0)',
+                }).render();
+
+                let flightLine = null;
+                let attackLine = new AttackLine({
+                    link: link,
+                    size: 3,
+                    loop: false,
+                    callback: function () {
+                        _this.zr.remove(link);
+                        _this.zr.remove(flightLine);
+                    }
+                });
+
+                flightLine = attackLine.render();
+                _this.zr.add(flightLine);
+                _this.zr.add(fp);
+                _this.zr.add(tp);
+            });
+        }
     }
 
     /**
@@ -216,7 +253,7 @@ export default class App extends PureComponent {
     _windowResize() {
         let { innerHeight, innerWidth } = window;
 
-        if (this.zr) {
+        if(this.zr) {
             this.zr.resize({
                 width: innerWidth,
                 height: innerHeight

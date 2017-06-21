@@ -1,16 +1,20 @@
 $(function () {
     $("#send").on('click', function () {
-        let lat = $("#lat").val();
-        let lng = $("#lng").val();
+        let info = {
+            from: {
+                'lat': $('#flat').val(),
+                'lng': $('#flng').val()
+            },
+            to: {
+                'lat': $('#tlat').val(),
+                'lng': $('#tlng').val()
+            }
+        };
 
         $.ajax({
             type: 'post',
             url: 'http://localhost:4000/wsSender/receiver',
-            data: {
-                'lat': lat,
-                'lng': lng
-            },
-            // dataType: 'json',
+            data: { 'info': JSON.stringify(info) },
             success: function (data) {
                 console.log(data);
             },
