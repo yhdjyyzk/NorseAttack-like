@@ -41,7 +41,6 @@ export default class App extends PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // this.componentDidMount(); //测试方便
     }
 
     componentWillUnmount() {
@@ -76,11 +75,11 @@ export default class App extends PureComponent {
         }).render();
 
         this.map.on('move', (event) => {
-            if(this.zr) { //每次重绘  清空界面.
+            if (this.zr) { //每次重绘  清空界面.
                 this.zr.clear();
             }
 
-            this._drawAttack();
+            // this._drawAttack();
         });
     }
 
@@ -91,7 +90,7 @@ export default class App extends PureComponent {
         let pixel = [0, 0];
         let node = [];
 
-        for(let k of Object.keys(this.props.nodes)) {
+        for (let k of Object.keys(this.props.nodes)) {
             pixel = this.map.latLngToContainerPoint([this.props.nodes[k]['lat'], this.props.nodes[k]['lng']]);
             node.push(
                 {
@@ -102,7 +101,7 @@ export default class App extends PureComponent {
             );
         }
 
-        for(let i = 0; i < node.length; i++) {
+        for (let i = 0; i < node.length; i++) {
             let points = new AnimatePoints({
                 r: node[i].r,
                 x: node[i].x,
@@ -118,7 +117,7 @@ export default class App extends PureComponent {
         let links = [];
 
         // 生成连接，目的是为飞线生成飞行路径.
-        for(let i = 0; i < this.props.edges.length; i++) {
+        for (let i = 0; i < this.props.edges.length; i++) {
             let fromPixel = this.map.latLngToContainerPoint([this.props.edges[i]['from'].lat, this.props.edges[i]['from'].lng]);
             let toPixel = this.map.latLngToContainerPoint([this.props.edges[i]['to'].lat, this.props.edges[i]['to'].lng]);
 
@@ -135,7 +134,7 @@ export default class App extends PureComponent {
             }).render();
 
             // 若是闭环的点, 那么就不加上去.
-            if(link.shape.x1 == link.shape.x2 && link.shape.y1 == link.shape.y2) {
+            if (link.shape.x1 == link.shape.x2 && link.shape.y1 == link.shape.y2) {
                 continue;
             }
 
@@ -144,7 +143,7 @@ export default class App extends PureComponent {
         }
 
         // 生成尾焰
-        for(let index = 0; index < links.length; index++) {
+        for (let index = 0; index < links.length; index++) {
             let link = links[index];
             // let tail = new Tail({
             //     link: link,
@@ -184,10 +183,14 @@ export default class App extends PureComponent {
     _receiveData() {
         let _this = this;
 
-        if(window.webSocket) {
+        if (window.webSocket) {
             //后台触发link事件,传送关联信息.
             window.webSocket.on('link', function (data) {
-                let { from, to } = JSON.parse(data.info);
+                if(!data) {
+                    return;
+                }
+    
+                let { from, to, origin, target, type, live } = JSON.parse(data.info);
 
                 let fpoint = _this.map.latLngToContainerPoint([from.lat, from.lng]);
                 let tpoint = _this.map.latLngToContainerPoint([to.lat, to.lng]);
@@ -253,7 +256,7 @@ export default class App extends PureComponent {
     _windowResize() {
         let { innerHeight, innerWidth } = window;
 
-        if(this.zr) {
+        if (this.zr) {
             this.zr.resize({
                 width: innerWidth,
                 height: innerHeight

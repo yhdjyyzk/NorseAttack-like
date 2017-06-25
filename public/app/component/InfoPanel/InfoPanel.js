@@ -1,13 +1,14 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import './infoPanel.scss';
 
-export default class InfoPanel extends PureComponent {
+export default class InfoPanel extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
-        let cols = Object.keys(this.props.items[0]).length;
+        // let cols = (this.props.items && this.props.items.length > 0)
+        //     ? Object.keys(this.props.items[0]).length : 0;
 
         return (
             <div className='infoPanel' style={{ width: this.props.width, height: this.props.height }}>

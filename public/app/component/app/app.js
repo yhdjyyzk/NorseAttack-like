@@ -4,11 +4,11 @@ import Globe from '../attack3d/Globe';
 import InfoContainer from '../InfoContainer/InfoContainer';
 import InfoPanel from '../InfoPanel/InfoPanel';
 import io from 'socket.io-client';
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import 'normalize.css';
 import './app.scss';
 
-export default class App extends PureComponent {
+export default class App extends Component {
     constructor(props) {
         super(props);
 
@@ -20,69 +20,18 @@ export default class App extends PureComponent {
             types: [],//攻击类型
             targets: [], //攻击目标
             attacks: [], //实时信息
+            data: {
+                info: {
+                    origin: {},
+                    target: {},
+                    type: {},
+                    live: {}
+                }
+            }
         };
     }
 
     componentWillMount() {
-        let nodes = {
-            Beijing: {
-                lng: 116.5,
-                lat: 39.8,
-                count: 100
-            },
-            Hangzhou: {
-                lng: 120,
-                lat: 30.2,
-                count: 80
-            },
-            Guangzhou: {
-                lng: 113,
-                lat: 23,
-                count: 60
-            },
-            Xian: {
-                lng: 109,
-                lat: 34.5,
-                count: 70
-            },
-            Kunming: {
-                lng: 105,
-                lat: 23,
-                count: 50
-            },
-            NewYork: {
-                lng: -70,
-                lat: 37,
-                count: 100
-            }
-        };
-
-        let edges = [
-            {
-                from: nodes['Beijing'],
-                to: nodes['Kunming']
-            },
-            {
-                from: nodes['Xian'],
-                to: nodes['Hangzhou']
-            },
-            {
-                from: nodes["NewYork"],
-                to: nodes["Beijing"]
-            }
-        ];
-
-        this.setState({
-            nodes: nodes,
-            edges: edges,
-            flight: [
-                [
-                    [120, 66], // 起点的经纬度坐标
-                    [122, 67]  // 终点的经纬度坐标
-                ]
-            ]
-        });
-
         // add SocketIO.
         let socket = io('http://localhost:4000');
         window.webSocket = socket; // 存入全局变量.
@@ -105,51 +54,61 @@ export default class App extends PureComponent {
         });
     }
 
+    componentDidMount() {
+        let _this = this;
+
+        window.webSocket.on('link',  function(data) {
+            let { origin, target, type, live } = JSON.parse(data.info);
+            let origins = _this.state.origins,
+                targets = _this.state.targets,
+                types = _this.state.types,
+                attacks = _this.state.attacks;
+
+            origins.push(origin);
+            targets.push(target);
+            types.push(type);
+            attacks.push(live);
+
+            if (origins.length >= 8) {
+                origins.shift();
+            }
+
+            if (targets.length >= 8) {
+                targets.shift();
+            }
+
+            if (types.length >= 8) {
+                types.shift();
+            }
+
+            if (attacks.length >= 8) {
+                attacks.shift();
+            }
+
+            _this.setState({
+                'origins': origins,
+                'targets': targets,
+                'types': types,
+                'attacks': attacks
+            });
+        });
+    }
+
     componentWillUnMount() {
-        if(window.webSocket) {
+        if (window.webSocket) {
             delete window.webSocket;
         }
     }
 
     render() {
-        let origins = new Array(5).fill(0).map((d, i) => {
-            return {
-                N: '1',
-                COUNTRY: 'China',
-            }
-        });
-
-        let types = new Array(3).fill(0).map((d, i) => {
-            return {
-                N: 1,
-                PORT: 222,
-                ' SERVICE TYPE': 'smtp'
-            }
-        });
-
-        let targets = new Array(5).fill(0).map((d, i) => {
-            return {
-                N: '11',
-                COUNTRY: 'America',
-            }
-        });
-
-        let attacks = new Array(2).fill(0).map((d, i) => {
-            return {
-                TIMESTAMP: '2017.1.2.17:27:12',
-                ATTACKER: 'TOM'
-            }
-        });
-
         return (
-            // nodes={this.state.nodes} edges={this.state.edges}
             <div className='app'>
                 <Attack />
                 <InfoContainer>
-                    <InfoPanel items={origins} title='ATTACK ORIGINS' />
-                    <InfoPanel items={types} title='ATTACK TYPES' />
-                    <InfoPanel items={targets} title='ATTACK TARGETS' />
-                    <InfoPanel items={attacks} title='LIVE ATTACKS' />
+                    <InfoPanel items={this.state.origins} title='ATTACK ORIGINS' />
+                    <InfoPanel items={this.state.types} title='ATTACK TYPES' />
+                    <InfoPanel items={this.state.targets} title='ATTACK TARGETS' />
+                    <InfoPanel items={this.state.attacks} title='LIVE ATTACKS' />
                     {/*{Detector.webgl ? <Globe data={this.state.flight} /> : null}*/}
                 </InfoContainer>
             </div>

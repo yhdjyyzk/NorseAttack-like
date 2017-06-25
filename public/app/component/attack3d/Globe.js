@@ -17,8 +17,6 @@ export default class Globe extends PureComponent {
     }
 
     componentDidMount() {
-        // console.log(this.props.data)
-
         echarts - gl
         var series = {
             type: 'lines3D',
