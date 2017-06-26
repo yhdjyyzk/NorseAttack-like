@@ -55,6 +55,8 @@
     "node-sass": "^4.5.2",
     "normalize.css": "^5.0.0",
     "postcss-loader": "^2.0.5",
+    "proj4": "^2.4.3",
+    "proj4leaflet": "^1.0.1",
     "raw-loader": "^0.5.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",

@@ -1,1 +1,21881 @@
-webpackJsonp([0],{115:function(t,e,r){var n;void 0!==(n=function(t){var e=r(32),n=r(353),i=r(89),o=function(t){t=t||{},n.call(this,t);for(var e in t)t.hasOwnProperty(e)&&(this[e]=t[e]);this._children=[],this.__storage=null,this.__dirty=!0};return o.prototype={constructor:o,isGroup:!0,type:"group",silent:!1,children:function(){return this._children.slice()},childAt:function(t){return this._children[t]},childOfName:function(t){for(var e=this._children,r=0;r<e.length;r++)if(e[r].name===t)return e[r]},childCount:function(){return this._children.length},add:function(t){return t&&t!==this&&t.parent!==this&&(this._children.push(t),this._doAdd(t)),this},addBefore:function(t,e){if(t&&t!==this&&t.parent!==this&&e&&e.parent===this){var r=this._children,n=r.indexOf(e);n>=0&&(r.splice(n,0,t),this._doAdd(t))}return this},_doAdd:function(t){t.parent&&t.parent.remove(t),t.parent=this;var e=this.__storage,r=this.__zr;e&&e!==t.__storage&&(e.addToStorage(t),t instanceof o&&t.addChildrenToStorage(e)),r&&r.refresh()},remove:function(t){var r=this.__zr,n=this.__storage,i=this._children,a=e.indexOf(i,t);return a<0?this:(i.splice(a,1),t.parent=null,n&&(n.delFromStorage(t),t instanceof o&&t.delChildrenFromStorage(n)),r&&r.refresh(),this)},removeAll:function(){var t,e,r=this._children,n=this.__storage;for(e=0;e<r.length;e++)t=r[e],n&&(n.delFromStorage(t),t instanceof o&&t.delChildrenFromStorage(n)),t.parent=null;return r.length=0,this},eachChild:function(t,e){for(var r=this._children,n=0;n<r.length;n++){var i=r[n];t.call(e,i,n)}return this},traverse:function(t,e){for(var r=0;r<this._children.length;r++){var n=this._children[r];t.call(e,n),"group"===n.type&&n.traverse(t,e)}return this},addChildrenToStorage:function(t){for(var e=0;e<this._children.length;e++){var r=this._children[e];t.addToStorage(r),r instanceof o&&r.addChildrenToStorage(t)}},delChildrenFromStorage:function(t){for(var e=0;e<this._children.length;e++){var r=this._children[e];t.delFromStorage(r),r instanceof o&&r.delChildrenFromStorage(t)}},dirty:function(){return this.__dirty=!0,this.__zr&&this.__zr.refresh(),this},getBoundingRect:function(t){for(var e=null,r=new i(0,0,0,0),n=t||this._children,o=[],a=0;a<n.length;a++){var s=n[a];if(!s.ignore&&!s.invisible){var c=s.getBoundingRect(),u=s.getLocalTransform(o);u?(r.copy(c),r.applyTransform(u),e=e||r.clone(),e.union(r)):(e=e||c.clone(),e.union(c))}}return e||r}},e.inherits(o,n),o}.call(e,r,e,t))&&(t.exports=n)},116:function(t,e){t.exports=function(t,e){var r=function(){};r.prototype=e.prototype,t.prototype=new r,t.prototype.constructor=t}},132:function(t,e){e.encode=function(t){var e="";for(var r in t)t.hasOwnProperty(r)&&(e.length&&(e+="&"),e+=encodeURIComponent(r)+"="+encodeURIComponent(t[r]));return e},e.decode=function(t){for(var e={},r=t.split("&"),n=0,i=r.length;n<i;n++){var o=r[n].split("=");e[decodeURIComponent(o[0])]=decodeURIComponent(o[1])}return e}},149:function(t,e,r){var n;void 0!==(n=function(){var t=1;return"undefined"!=typeof window&&(t=Math.max(window.devicePixelRatio||1,1)),{debugMode:0,devicePixelRatio:t}}.call(e,r,e,t))&&(t.exports=n)},150:function(t,e,r){var n;void 0!==(n=function(t){"use strict";var e=r(90),n=r(75),i=r(937),o=r(89),a=r(149).devicePixelRatio,s={M:1,L:2,C:3,Q:4,A:5,Z:6,R:7},c=[],u=[],h=[],l=[],f=Math.min,p=Math.max,d=Math.cos,v=Math.sin,g=Math.sqrt,y=Math.abs,m="undefined"!=typeof Float32Array,_=function(t){this._saveData=!t,this._saveData&&(this.data=[]),this._ctx=null};return _.prototype={constructor:_,_xi:0,_yi:0,_x0:0,_y0:0,_ux:0,_uy:0,_len:0,_lineDash:null,_dashOffset:0,_dashIdx:0,_dashSum:0,setScale:function(t,e){this._ux=y(1/a/t)||0,this._uy=y(1/a/e)||0},getContext:function(){return this._ctx},beginPath:function(t){return this._ctx=t,t&&t.beginPath(),t&&(this.dpr=t.dpr),this._saveData&&(this._len=0),this._lineDash&&(this._lineDash=null,this._dashOffset=0),this},moveTo:function(t,e){return this.addData(s.M,t,e),this._ctx&&this._ctx.moveTo(t,e),this._x0=t,this._y0=e,this._xi=t,this._yi=e,this},lineTo:function(t,e){var r=y(t-this._xi)>this._ux||y(e-this._yi)>this._uy||this._len<5;return this.addData(s.L,t,e),this._ctx&&r&&(this._needsDash()?this._dashedLineTo(t,e):this._ctx.lineTo(t,e)),r&&(this._xi=t,this._yi=e),this},bezierCurveTo:function(t,e,r,n,i,o){return this.addData(s.C,t,e,r,n,i,o),this._ctx&&(this._needsDash()?this._dashedBezierTo(t,e,r,n,i,o):this._ctx.bezierCurveTo(t,e,r,n,i,o)),this._xi=i,this._yi=o,this},quadraticCurveTo:function(t,e,r,n){return this.addData(s.Q,t,e,r,n),this._ctx&&(this._needsDash()?this._dashedQuadraticTo(t,e,r,n):this._ctx.quadraticCurveTo(t,e,r,n)),this._xi=r,this._yi=n,this},arc:function(t,e,r,n,i,o){return this.addData(s.A,t,e,r,r,n,i-n,0,o?0:1),this._ctx&&this._ctx.arc(t,e,r,n,i,o),this._xi=d(i)*r+t,this._yi=v(i)*r+t,this},arcTo:function(t,e,r,n,i){return this._ctx&&this._ctx.arcTo(t,e,r,n,i),this},rect:function(t,e,r,n){return this._ctx&&this._ctx.rect(t,e,r,n),this.addData(s.R,t,e,r,n),this},closePath:function(){this.addData(s.Z);var t=this._ctx,e=this._x0,r=this._y0;return t&&(this._needsDash()&&this._dashedLineTo(e,r),t.closePath()),this._xi=e,this._yi=r,this},fill:function(t){t&&t.fill(),this.toStatic()},stroke:function(t){t&&t.stroke(),this.toStatic()},setLineDash:function(t){if(t instanceof Array){this._lineDash=t,this._dashIdx=0;for(var e=0,r=0;r<t.length;r++)e+=t[r];this._dashSum=e}return this},setLineDashOffset:function(t){return this._dashOffset=t,this},len:function(){return this._len},setData:function(t){var e=t.length;this.data&&this.data.length==e||!m||(this.data=new Float32Array(e));for(var r=0;r<e;r++)this.data[r]=t[r];this._len=e},appendPath:function(t){t instanceof Array||(t=[t]);for(var e=t.length,r=0,n=this._len,i=0;i<e;i++)r+=t[i].len();m&&this.data instanceof Float32Array&&(this.data=new Float32Array(n+r));for(var i=0;i<e;i++)for(var o=t[i].data,a=0;a<o.length;a++)this.data[n++]=o[a];this._len=n},addData:function(t){if(this._saveData){var e=this.data;this._len+arguments.length>e.length&&(this._expandData(),e=this.data);for(var r=0;r<arguments.length;r++)e[this._len++]=arguments[r];this._prevCmd=t}},_expandData:function(){if(!(this.data instanceof Array)){for(var t=[],e=0;e<this._len;e++)t[e]=this.data[e];this.data=t}},_needsDash:function(){return this._lineDash},_dashedLineTo:function(t,e){var r,n,i=this._dashSum,o=this._dashOffset,a=this._lineDash,s=this._ctx,c=this._xi,u=this._yi,h=t-c,l=e-u,d=g(h*h+l*l),v=c,y=u,m=a.length;for(h/=d,l/=d,o<0&&(o=i+o),o%=i,v-=o*h,y-=o*l;h>0&&v<=t||h<0&&v>=t||0==h&&(l>0&&y<=e||l<0&&y>=e);)n=this._dashIdx,r=a[n],v+=h*r,y+=l*r,this._dashIdx=(n+1)%m,h>0&&v<c||h<0&&v>c||l>0&&y<u||l<0&&y>u||s[n%2?"moveTo":"lineTo"](h>=0?f(v,t):p(v,t),l>=0?f(y,e):p(y,e));h=v-t,l=y-e,this._dashOffset=-g(h*h+l*l)},_dashedBezierTo:function(t,r,n,i,o,a){var s,c,u,h,l,f=this._dashSum,p=this._dashOffset,d=this._lineDash,v=this._ctx,y=this._xi,m=this._yi,_=e.cubicAt,b=0,w=this._dashIdx,x=d.length,k=0;for(p<0&&(p=f+p),p%=f,s=0;s<1;s+=.1)c=_(y,t,n,o,s+.1)-_(y,t,n,o,s),u=_(m,r,i,a,s+.1)-_(m,r,i,a,s),b+=g(c*c+u*u);for(;w<x&&!((k+=d[w])>p);w++);for(s=(k-p)/b;s<=1;)h=_(y,t,n,o,s),l=_(m,r,i,a,s),w%2?v.moveTo(h,l):v.lineTo(h,l),s+=d[w]/b,w=(w+1)%x;w%2!=0&&v.lineTo(o,a),c=o-h,u=a-l,this._dashOffset=-g(c*c+u*u)},_dashedQuadraticTo:function(t,e,r,n){var i=r,o=n;r=(r+2*t)/3,n=(n+2*e)/3,t=(this._xi+2*t)/3,e=(this._yi+2*e)/3,this._dashedBezierTo(t,e,r,n,i,o)},toStatic:function(){var t=this.data;t instanceof Array&&(t.length=this._len,m&&(this.data=new Float32Array(t)))},getBoundingRect:function(){c[0]=c[1]=h[0]=h[1]=Number.MAX_VALUE,u[0]=u[1]=l[0]=l[1]=-Number.MAX_VALUE;for(var t=this.data,e=0,r=0,a=0,f=0,p=0;p<t.length;){var g=t[p++];switch(1==p&&(e=t[p],r=t[p+1],a=e,f=r),g){case s.M:a=t[p++],f=t[p++],e=a,r=f,h[0]=a,h[1]=f,l[0]=a,l[1]=f;break;case s.L:i.fromLine(e,r,t[p],t[p+1],h,l),e=t[p++],r=t[p++];break;case s.C:i.fromCubic(e,r,t[p++],t[p++],t[p++],t[p++],t[p],t[p+1],h,l),e=t[p++],r=t[p++];break;case s.Q:i.fromQuadratic(e,r,t[p++],t[p++],t[p],t[p+1],h,l),e=t[p++],r=t[p++];break;case s.A:var y=t[p++],m=t[p++],_=t[p++],b=t[p++],w=t[p++],x=t[p++]+w,k=(t[p++],1-t[p++]);1==p&&(a=d(w)*_+y,f=v(w)*b+m),i.fromArc(y,m,_,b,w,x,k,h,l),e=d(x)*_+y,r=v(x)*b+m;break;case s.R:a=e=t[p++],f=r=t[p++];var T=t[p++],C=t[p++];i.fromLine(a,f,a+T,f+C,h,l);break;case s.Z:e=a,r=f}n.min(c,c,h),n.max(u,u,l)}return 0===p&&(c[0]=c[1]=u[0]=u[1]=0),new o(c[0],c[1],u[0]-c[0],u[1]-c[1])},rebuildPath:function(t){for(var e,r,n,i,o,a,c=this.data,u=this._ux,h=this._uy,l=this._len,f=0;f<l;){var p=c[f++];switch(1==f&&(n=c[f],i=c[f+1],e=n,r=i),p){case s.M:e=n=c[f++],r=i=c[f++],t.moveTo(n,i);break;case s.L:o=c[f++],a=c[f++],(y(o-n)>u||y(a-i)>h||f===l-1)&&(t.lineTo(o,a),n=o,i=a);break;case s.C:t.bezierCurveTo(c[f++],c[f++],c[f++],c[f++],c[f++],c[f++]),n=c[f-2],i=c[f-1];break;case s.Q:t.quadraticCurveTo(c[f++],c[f++],c[f++],c[f++]),n=c[f-2],i=c[f-1];break;case s.A:var g=c[f++],m=c[f++],_=c[f++],b=c[f++],w=c[f++],x=c[f++],k=c[f++],T=c[f++],C=_>b?_:b,S=_>b?1:_/b,A=_>b?b/_:1,P=Math.abs(_-b)>.001,M=w+x;P?(t.translate(g,m),t.rotate(k),t.scale(S,A),t.arc(0,0,C,w,M,1-T),t.scale(1/S,1/A),t.rotate(-k),t.translate(-g,-m)):t.arc(g,m,C,w,M,1-T),1==f&&(e=d(w)*_+g,r=v(w)*b+m),n=d(M)*_+g,i=v(M)*b+m;break;case s.R:e=n=c[f],r=i=c[f+1],t.rect(c[f++],c[f++],c[f++],c[f++]);break;case s.Z:t.closePath(),n=e,i=r}}}},_.CMD=s,_}.call(e,r,e,t))&&(t.exports=n)},151:function(t,e,r){var n;void 0!==(n=function(){return"undefined"==typeof navigator?{browser:{},os:{},node:!0,canvasSupported:!0}:function(t){var e={},r={},n=t.match(/Firefox\/([\d.]+)/),i=t.match(/MSIE\s([\d.]+)/)||t.match(/Trident\/.+?rv:(([\d.]+))/),o=t.match(/Edge\/([\d.]+)/),a=/micromessenger/i.test(t);return n&&(r.firefox=!0,r.version=n[1]),i&&(r.ie=!0,r.version=i[1]),o&&(r.edge=!0,r.version=o[1]),a&&(r.weChat=!0),{browser:r,os:e,node:!1,canvasSupported:!!document.createElement("canvas").getContext,touchEventsSupported:"ontouchstart"in window&&!r.ie&&!r.edge,pointerEventsSupported:"onpointerdown"in window&&(r.edge||r.ie&&r.version>=11)}}(navigator.userAgent)}.call(e,r,e,t))&&(t.exports=n)},152:function(t,e,r){var n;void 0!==(n=function(t){var e=Array.prototype.slice,r=function(){this._$handlers={}};return r.prototype={constructor:r,one:function(t,e,r){var n=this._$handlers;if(!e||!t)return this;n[t]||(n[t]=[]);for(var i=0;i<n[t].length;i++)if(n[t][i].h===e)return this;return n[t].push({h:e,one:!0,ctx:r||this}),this},on:function(t,e,r){var n=this._$handlers;if(!e||!t)return this;n[t]||(n[t]=[]);for(var i=0;i<n[t].length;i++)if(n[t][i].h===e)return this;return n[t].push({h:e,one:!1,ctx:r||this}),this},isSilent:function(t){var e=this._$handlers;return e[t]&&e[t].length},off:function(t,e){var r=this._$handlers;if(!t)return this._$handlers={},this;if(e){if(r[t]){for(var n=[],i=0,o=r[t].length;i<o;i++)r[t][i].h!=e&&n.push(r[t][i]);r[t]=n}r[t]&&0===r[t].length&&delete r[t]}else delete r[t];return this},trigger:function(t){if(this._$handlers[t]){var r=arguments,n=r.length;n>3&&(r=e.call(r,1));for(var i=this._$handlers[t],o=i.length,a=0;a<o;){switch(n){case 1:i[a].h.call(i[a].ctx);break;case 2:i[a].h.call(i[a].ctx,r[1]);break;case 3:i[a].h.call(i[a].ctx,r[1],r[2]);break;default:i[a].h.apply(i[a].ctx,r)}i[a].one?(i.splice(a,1),o--):a++}}return this},triggerWithContext:function(t){if(this._$handlers[t]){var r=arguments,n=r.length;n>4&&(r=e.call(r,1,r.length-1));for(var i=r[r.length-1],o=this._$handlers[t],a=o.length,s=0;s<a;){switch(n){case 1:o[s].h.call(i);break;case 2:o[s].h.call(i,r[1]);break;case 3:o[s].h.call(i,r[1],r[2]);break;default:o[s].h.apply(i,r)}o[s].one?(o.splice(s,1),a--):s++}}return this}},r}.call(e,r,e,t))&&(t.exports=n)},180:function(t,e,r){function n(t){this.path=t.path,this.hostname=t.hostname,this.port=t.port,this.secure=t.secure,this.query=t.query,this.timestampParam=t.timestampParam,this.timestampRequests=t.timestampRequests,this.readyState="",this.agent=t.agent||!1,this.socket=t.socket,this.enablesXDR=t.enablesXDR,this.pfx=t.pfx,this.key=t.key,this.passphrase=t.passphrase,this.cert=t.cert,this.ca=t.ca,this.ciphers=t.ciphers,this.rejectUnauthorized=t.rejectUnauthorized,this.forceNode=t.forceNode,this.extraHeaders=t.extraHeaders,this.localAddress=t.localAddress}var i=r(81),o=r(76);t.exports=n,o(n.prototype),n.prototype.onError=function(t,e){var r=new Error(t);return r.type="TransportError",r.description=e,this.emit("error",r),this},n.prototype.open=function(){return"closed"!==this.readyState&&""!==this.readyState||(this.readyState="opening",this.doOpen()),this},n.prototype.close=function(){return"opening"!==this.readyState&&"open"!==this.readyState||(this.doClose(),this.onClose()),this},n.prototype.send=function(t){if("open"!==this.readyState)throw new Error("Transport not open");this.write(t)},n.prototype.onOpen=function(){this.readyState="open",this.writable=!0,this.emit("open")},n.prototype.onData=function(t){var e=i.decodePacket(t,this.socket.binaryType);this.onPacket(e)},n.prototype.onPacket=function(t){this.emit("packet",t)},n.prototype.onClose=function(){this.readyState="closed",this.emit("close")}},181:function(t,e,r){(function(e){var n=r(754);t.exports=function(t){var r=t.xdomain,i=t.xscheme,o=t.enablesXDR;try{if("undefined"!=typeof XMLHttpRequest&&(!r||n))return new XMLHttpRequest}catch(t){}try{if("undefined"!=typeof XDomainRequest&&!i&&o)return new XDomainRequest}catch(t){}if(!r)try{return new(e[["Active"].concat("Object").join("X")])("Microsoft.XMLHTTP")}catch(t){}}}).call(e,r(30))},208:function(t,e,r){function n(){}function i(t){var r=""+t.type;return e.BINARY_EVENT!==t.type&&e.BINARY_ACK!==t.type||(r+=t.attachments+"-"),t.nsp&&"/"!==t.nsp&&(r+=t.nsp+","),null!=t.id&&(r+=t.id),null!=t.data&&(r+=JSON.stringify(t.data)),l("encoded %j as %s",t,r),r}function o(t,e){function r(t){var r=d.deconstructPacket(t),n=i(r.packet),o=r.buffers;o.unshift(n),e(o)}d.removeBlobs(t,r)}function a(){this.reconstructor=null}function s(t){var r=0,n={type:Number(t.charAt(0))};if(null==e.types[n.type])return h();if(e.BINARY_EVENT===n.type||e.BINARY_ACK===n.type){for(var i="";"-"!==t.charAt(++r)&&(i+=t.charAt(r),r!=t.length););if(i!=Number(i)||"-"!==t.charAt(r))throw new Error("Illegal attachments");n.attachments=Number(i)}if("/"===t.charAt(r+1))for(n.nsp="";++r;){var o=t.charAt(r);if(","===o)break;if(n.nsp+=o,r===t.length)break}else n.nsp="/";var a=t.charAt(r+1);if(""!==a&&Number(a)==a){for(n.id="";++r;){var o=t.charAt(r);if(null==o||Number(o)!=o){--r;break}if(n.id+=t.charAt(r),r===t.length)break}n.id=Number(n.id)}return t.charAt(++r)&&(n=c(n,t.substr(r))),l("decoded %s as %j",t,n),n}function c(t,e){try{t.data=JSON.parse(e)}catch(t){return h()}return t}function u(t){this.reconPack=t,this.buffers=[]}function h(){return{type:e.ERROR,data:"parser error"}}var l=r(48)("socket.io-parser"),f=r(76),p=r(287),d=r(887),v=r(337);e.protocol=4,e.types=["CONNECT","DISCONNECT","EVENT","ACK","ERROR","BINARY_EVENT","BINARY_ACK"],e.CONNECT=0,e.DISCONNECT=1,e.EVENT=2,e.ACK=3,e.ERROR=4,e.BINARY_EVENT=5,e.BINARY_ACK=6,e.Encoder=n,e.Decoder=a,n.prototype.encode=function(t,r){if(t.type!==e.EVENT&&t.type!==e.ACK||!p(t.data)||(t.type=t.type===e.EVENT?e.BINARY_EVENT:e.BINARY_ACK),l("encoding packet %j",t),e.BINARY_EVENT===t.type||e.BINARY_ACK===t.type)o(t,r);else{r([i(t)])}},f(a.prototype),a.prototype.add=function(t){var r;if("string"==typeof t)r=s(t),e.BINARY_EVENT===r.type||e.BINARY_ACK===r.type?(this.reconstructor=new u(r),0===this.reconstructor.reconPack.attachments&&this.emit("decoded",r)):this.emit("decoded",r);else{if(!v(t)&&!t.base64)throw new Error("Unknown type: "+t);if(!this.reconstructor)throw new Error("got binary data when not reconstructing a packet");(r=this.reconstructor.takeBinaryData(t))&&(this.reconstructor=null,this.emit("decoded",r))}},a.prototype.destroy=function(){this.reconstructor&&this.reconstructor.finishedReconstruction()},u.prototype.takeBinaryData=function(t){if(this.buffers.push(t),this.buffers.length===this.reconPack.attachments){var e=d.reconstructPacket(this.reconPack,this.buffers);return this.finishedReconstruction(),e}return null},u.prototype.finishedReconstruction=function(){this.reconPack=null,this.buffers=[]}},217:function(t,e,r){var n;void 0!==(n=function(t){"use strict";function e(t){return t.getBoundingClientRect?t.getBoundingClientRect():{left:0,top:0}}function n(t,e,r,n){return r=r||{},n||!u.canvasSupported?i(t,e,r):u.browser.firefox&&null!=e.layerX&&e.layerX!==e.offsetX?(r.zrX=e.layerX,r.zrY=e.layerY):null!=e.offsetX?(r.zrX=e.offsetX,r.zrY=e.offsetY):i(t,e,r),r}function i(t,r,n){var i=e(t);n.zrX=r.clientX-i.left,n.zrY=r.clientY-i.top}function o(t,e,r){if(e=e||window.event,null!=e.zrX)return e;var i=e.type;if(i&&i.indexOf("touch")>=0){var o="touchend"!=i?e.targetTouches[0]:e.changedTouches[0];o&&n(t,o,e,r)}else n(t,e,e,r),e.zrDelta=e.wheelDelta?e.wheelDelta/120:-(e.detail||0)/3;return e}function a(t,e,r){h?t.addEventListener(e,r):t.attachEvent("on"+e,r)}function s(t,e,r){h?t.removeEventListener(e,r):t.detachEvent("on"+e,r)}var c=r(152),u=r(151),h="undefined"!=typeof window&&!!window.addEventListener;return{clientToLocal:n,normalizeEvent:o,addEventListener:a,removeEventListener:s,stop:h?function(t){t.preventDefault(),t.stopPropagation(),t.cancelBubble=!0}:function(t){t.returnValue=!1,t.cancelBubble=!0},Dispatcher:c}}.call(e,r,e,t))&&(t.exports=n)},218:function(t,e,r){var n;void 0!==(n=function(t){function e(t){n.call(this,t),this.path=null}var n=r(362),i=r(32),o=r(150),a=r(932),s=r(363),c=s.prototype.getCanvasPattern,u=Math.abs,h=new o(!0);return e.prototype={constructor:e,type:"path",__dirtyPath:!0,strokeContainThreshold:5,brush:function(t,e){var r=this.style,n=this.path||h,i=r.hasStroke(),o=r.hasFill(),a=r.fill,s=r.stroke,u=o&&!!a.colorStops,l=i&&!!s.colorStops,f=o&&!!a.image,p=i&&!!s.image;if(r.bind(t,this,e),this.setTransform(t),this.__dirty){var d;u&&(d=d||this.getBoundingRect(),this._fillGradient=r.getGradient(t,a,d)),l&&(d=d||this.getBoundingRect(),this._strokeGradient=r.getGradient(t,s,d))}u?t.fillStyle=this._fillGradient:f&&(t.fillStyle=c.call(a,t)),l?t.strokeStyle=this._strokeGradient:p&&(t.strokeStyle=c.call(s,t));var v=r.lineDash,g=r.lineDashOffset,y=!!t.setLineDash,m=this.getGlobalScale();n.setScale(m[0],m[1]),this.__dirtyPath||v&&!y&&i?(n.beginPath(t),v&&!y&&(n.setLineDash(v),n.setLineDashOffset(g)),this.buildPath(n,this.shape,!1),this.path&&(this.__dirtyPath=!1)):(t.beginPath(),this.path.rebuildPath(t)),o&&n.fill(t),v&&y&&(t.setLineDash(v),t.lineDashOffset=g),i&&n.stroke(t),v&&y&&t.setLineDash([]),this.restoreTransform(t),null!=r.text&&this.drawRectText(t,this.getBoundingRect())},buildPath:function(t,e,r){},createPathProxy:function(){this.path=new o},getBoundingRect:function(){var t=this._rect,e=this.style,r=!t;if(r){var n=this.path;n||(n=this.path=new o),this.__dirtyPath&&(n.beginPath(),this.buildPath(n,this.shape,!1)),t=n.getBoundingRect()}if(this._rect=t,e.hasStroke()){var i=this._rectWithStroke||(this._rectWithStroke=t.clone());if(this.__dirty||r){i.copy(t);var a=e.lineWidth,s=e.strokeNoScale?this.getLineScale():1;e.hasFill()||(a=Math.max(a,this.strokeContainThreshold||4)),s>1e-10&&(i.width+=a/s,i.height+=a/s,i.x-=a/s/2,i.y-=a/s/2)}return i}return t},contain:function(t,e){var r=this.transformCoordToLocal(t,e),n=this.getBoundingRect(),i=this.style;if(t=r[0],e=r[1],n.contain(t,e)){var o=this.path.data;if(i.hasStroke()){var s=i.lineWidth,c=i.strokeNoScale?this.getLineScale():1;if(c>1e-10&&(i.hasFill()||(s=Math.max(s,this.strokeContainThreshold)),a.containStroke(o,s/c,t,e)))return!0}if(i.hasFill())return a.contain(o,t,e)}return!1},dirty:function(t){null==t&&(t=!0),t&&(this.__dirtyPath=t,this._rect=null),this.__dirty=!0,this.__zr&&this.__zr.refresh(),this.__clipTarget&&this.__clipTarget.dirty()},animateShape:function(t){return this.animate("shape",t)},attrKV:function(t,e){"shape"===t?(this.setShape(e),this.__dirtyPath=!0,this._rect=null):n.prototype.attrKV.call(this,t,e)},setShape:function(t,e){var r=this.shape;if(r){if(i.isObject(t))for(var n in t)t.hasOwnProperty(n)&&(r[n]=t[n]);else r[t]=e;this.dirty(!0)}return this},getLineScale:function(){var t=this.transform;return t&&u(t[0]-1)>1e-10&&u(t[3]-1)>1e-10?Math.sqrt(u(t[0]*t[3]-t[2]*t[1])):1}},e.extend=function(t){var r=function(r){e.call(this,r),t.style&&this.style.extendFrom(t.style,!1);var n=t.shape;if(n){this.shape=this.shape||{};var i=this.shape;for(var o in n)!i.hasOwnProperty(o)&&n.hasOwnProperty(o)&&(i[o]=n[o])}t.init&&t.init.call(this,r)};i.inherits(r,e);for(var n in t)"style"!==n&&"shape"!==n&&(r.prototype[n]=t[n]);return r},i.inherits(e,n),e}.call(e,r,e,t))&&(t.exports=n)},222:function(t,e,r){"use strict";function n(t){return t&&t.__esModule?t:{default:t}}function i(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var o=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),a=r(91),s=n(a),c=r(380),u=n(c),h=r(942),l=n(h),f=r(115),p=(n(f),function(){function t(e){i(this,t),this.from=e.from||0,this.to=e.to||0,this.loop=e.loop,this.callback=e.callback,this.lineWidth=e.lineWidth||2,this.stroke=e.stroke||"rgba(255, 255, 0, 1)",this.lineJoin=e.lineJoin||"round",this.lineCap=e.lineCap||"round",this.during=e.during||s.default.animationDefaultDuring,this.shadowBlur=e.shadowBlur||25}return o(t,[{key:"render",value:function(){var t=this.from,e=this.to,r=u.default.getCurvenessPoint(this.from,this.to);return new l.default({shape:{x1:t.x,y1:t.y,x2:e.x,y2:e.y,cpx1:r.x,cpy1:r.y},style:{stroke:this.stroke,lineWidth:this.lineWidth,fill:null,lineJoin:this.lineJoin,lineCap:this.lineCap,shadowBlur:this.shadowBlur,shadowColor:this.stroke}})}}]),t}());e.default=p},223:function(t,e,r){"use strict";function n(t){return t&&t.__esModule?t:{default:t}}function i(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var o=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),a=r(91),s=n(a),c=r(222),u=(n(c),r(366)),h=n(u),l=r(115),f=n(l),p=function(){function t(e){i(this,t),this.link=e.link||null,this.size=e.size||2,this.during=e.during||s.default.animationDefaultDuring,this.loop=e.loop,this.callback=e.callback}return o(t,[{key:"render",value:function(){for(var t=this,e=new f.default,r=60;r>0;r--){var n=new h.default({shape:{cx:0,cy:0,r:this.size},style:{fill:"rgba(255, 255, 255, "+.003*r+")"},position:[0,0]});e.add(n)}return this.link&&e.animate("",this.loop).when(this.during,{position:[1,0]}).during(function(r,n){for(var i=n,o=0;o<e.childCount();o++){if(i>=0){var a=e.childAt(o);if(i>=.98){var s=t.link.pointAt(1);a.position=s,a.style.opacity=0;continue}var c=t.link.pointAt(i);a.position=c,a.style.opacity=1}i-=.005}}).start(s.default.animationEasing).done(this.callback),e}}]),t}();e.default=p},224:function(t,e){var r=[].slice;t.exports=function(t,e){if("string"==typeof e&&(e=t[e]),"function"!=typeof e)throw new Error("bind() requires a function");var n=r.call(arguments,2);return function(){return e.apply(t,n.concat(r.call(arguments)))}}},282:function(t,e,r){(function(t){function n(e){var r=!1,n=!1,s=!1!==e.jsonp;if(t.location){var c="https:"===location.protocol,u=location.port;u||(u=c?443:80),r=e.hostname!==location.hostname||u!==e.port,n=e.secure!==c}if(e.xdomain=r,e.xscheme=n,"open"in new i(e)&&!e.forceJSONP)return new o(e);if(!s)throw new Error("JSONP disabled");return new a(e)}var i=r(181),o=r(729),a=r(728),s=r(730);e.polling=n,e.websocket=s}).call(e,r(30))},283:function(t,e,r){function n(t){var e=t&&t.forceBase64;h&&!e||(this.supportsBinary=!1),i.call(this,t)}var i=r(180),o=r(132),a=r(81),s=r(116),c=r(339),u=r(48)("engine.io-client:polling");t.exports=n;var h=function(){return null!=new(r(181))({xdomain:!1}).responseType}();s(n,i),n.prototype.name="polling",n.prototype.doOpen=function(){this.poll()},n.prototype.pause=function(t){function e(){u("paused"),r.readyState="paused",t()}var r=this;if(this.readyState="pausing",this.polling||!this.writable){var n=0;this.polling&&(u("we are currently polling - waiting to pause"),n++,this.once("pollComplete",function(){u("pre-pause polling complete"),--n||e()})),this.writable||(u("we are currently writing - waiting to pause"),n++,this.once("drain",function(){u("pre-pause writing complete"),--n||e()}))}else e()},n.prototype.poll=function(){u("polling"),this.polling=!0,this.doPoll(),this.emit("poll")},n.prototype.onData=function(t){var e=this;u("polling got data %s",t);var r=function(t,r,n){if("opening"===e.readyState&&e.onOpen(),"close"===t.type)return e.onClose(),!1;e.onPacket(t)};a.decodePayload(t,this.socket.binaryType,r),"closed"!==this.readyState&&(this.polling=!1,this.emit("pollComplete"),"open"===this.readyState?this.poll():u('ignoring poll - transport state "%s"',this.readyState))},n.prototype.doClose=function(){function t(){u("writing close packet"),e.write([{type:"close"}])}var e=this;"open"===this.readyState?(u("transport open - closing"),t()):(u("transport not open - deferring close"),this.once("open",t))},n.prototype.write=function(t){var e=this;this.writable=!1;var r=function(){e.writable=!0,e.emit("drain")};a.encodePayload(t,this.supportsBinary,function(t){e.doWrite(t,r)})},n.prototype.uri=function(){var t=this.query||{},e=this.secure?"https":"http",r="";return!1!==this.timestampRequests&&(t[this.timestampParam]=c()),this.supportsBinary||t.sid||(t.b64=1),t=o.encode(t),this.port&&("https"===e&&443!==Number(this.port)||"http"===e&&80!==Number(this.port))&&(r=":"+this.port),t.length&&(t="?"+t),e+"://"+(-1!==this.hostname.indexOf(":")?"["+this.hostname+"]":this.hostname)+r+this.path+t}},287:function(t,e,r){(function(e){function n(t){if(!t||"object"!=typeof t)return!1;if(i(t)){for(var r=0,o=t.length;r<o;r++)if(n(t[r]))return!0;return!1}if("function"==typeof e.Buffer&&e.Buffer.isBuffer&&e.Buffer.isBuffer(t)||"function"==typeof e.ArrayBuffer&&t instanceof ArrayBuffer||a&&t instanceof Blob||s&&t instanceof File)return!0;if(t.toJSON&&"function"==typeof t.toJSON&&1===arguments.length)return n(t.toJSON(),!0);for(var c in t)if(Object.prototype.hasOwnProperty.call(t,c)&&n(t[c]))return!0;return!1}var i=r(289),o=Object.prototype.toString,a="function"==typeof e.Blob||"[object BlobConstructor]"===o.call(e.Blob),s="function"==typeof e.File||"[object FileConstructor]"===o.call(e.File);t.exports=n}).call(e,r(30))},288:function(t,e){var r=[].indexOf;t.exports=function(t,e){if(r)return t.indexOf(e);for(var n=0;n<t.length;++n)if(t[n]===e)return n;return-1}},289:function(t,e){var r={}.toString;t.exports=Array.isArray||function(t){return"[object Array]"==r.call(t)}},290:function(t,e){var r=/^(?:(?![^:@]+:[^:@\/]*@)(http|https|ws|wss):\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?((?:[a-f0-9]{0,4}:){2,7}[a-f0-9]{0,4}|[^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/,n=["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"];t.exports=function(t){var e=t,i=t.indexOf("["),o=t.indexOf("]");-1!=i&&-1!=o&&(t=t.substring(0,i)+t.substring(i,o).replace(/:/g,";")+t.substring(o,t.length));for(var a=r.exec(t||""),s={},c=14;c--;)s[n[c]]=a[c]||"";return-1!=i&&-1!=o&&(s.source=e,s.host=s.host.substring(1,s.host.length-1).replace(/;/g,":"),s.authority=s.authority.replace("[","").replace("]","").replace(/;/g,":"),s.ipv6uri=!0),s}},32:function(t,e,r){var n;void 0!==(n=function(t){function e(t){if(null==t||"object"!=typeof t)return t;var r=t,n=j.call(t);if("[object Array]"===n){r=[];for(var i=0,o=t.length;i<o;i++)r[i]=e(t[i])}else if(z[n])r=t.constructor.from(t);else if(!R[n]&&!E(t)&&!T(t)){r={};for(var a in t)t.hasOwnProperty(a)&&(r[a]=e(t[a]))}return r}function r(t,n,i){if(!x(n)||!x(t))return i?e(n):t;for(var o in n)if(n.hasOwnProperty(o)){var a=t[o],s=n[o];!x(s)||!x(a)||_(s)||_(a)||T(s)||T(a)||k(s)||k(a)||E(s)||E(a)?!i&&o in t||(t[o]=e(n[o],!0)):r(a,s,i)}return t}function n(t,e){for(var n=t[0],i=1,o=t.length;i<o;i++)n=r(n,t[i],e);return n}function i(t,e){for(var r in e)e.hasOwnProperty(r)&&(t[r]=e[r]);return t}function o(t,e,r){for(var n in e)e.hasOwnProperty(n)&&(r?null!=e[n]:null==t[n])&&(t[n]=e[n]);return t}function a(){return document.createElement("canvas")}function s(){return L||(L=W.createCanvas().getContext("2d")),L}function c(t,e){if(t){if(t.indexOf)return t.indexOf(e);for(var r=0,n=t.length;r<n;r++)if(t[r]===e)return r}return-1}function u(t,e){function r(){}var n=t.prototype;r.prototype=e.prototype,t.prototype=new r;for(var i in n)t.prototype[i]=n[i];t.prototype.constructor=t,t.superClass=e}function h(t,e,r){t="prototype"in t?t.prototype:t,e="prototype"in e?e.prototype:e,o(t,e,r)}function l(t){if(t)return"string"!=typeof t&&"number"==typeof t.length}function f(t,e,r){if(t&&e)if(t.forEach&&t.forEach===I)t.forEach(e,r);else if(t.length===+t.length)for(var n=0,i=t.length;n<i;n++)e.call(r,t[n],n,t);else for(var o in t)t.hasOwnProperty(o)&&e.call(r,t[o],o,t)}function p(t,e,r){if(t&&e){if(t.map&&t.map===H)return t.map(e,r);for(var n=[],i=0,o=t.length;i<o;i++)n.push(e.call(r,t[i],i,t));return n}}function d(t,e,r,n){if(t&&e){if(t.reduce&&t.reduce===F)return t.reduce(e,r,n);for(var i=0,o=t.length;i<o;i++)r=e.call(n,r,t[i],i,t);return r}}function v(t,e,r){if(t&&e){if(t.filter&&t.filter===N)return t.filter(e,r);for(var n=[],i=0,o=t.length;i<o;i++)e.call(r,t[i],i,t)&&n.push(t[i]);return n}}function g(t,e,r){if(t&&e)for(var n=0,i=t.length;n<i;n++)if(e.call(r,t[n],n,t))return t[n]}function y(t,e){var r=q.call(arguments,2);return function(){return t.apply(e,r.concat(q.call(arguments)))}}function m(t){var e=q.call(arguments,1);return function(){return t.apply(this,e.concat(q.call(arguments)))}}function _(t){return"[object Array]"===j.call(t)}function b(t){return"function"==typeof t}function w(t){return"[object String]"===j.call(t)}function x(t){var e=typeof t;return"function"===e||!!t&&"object"==e}function k(t){return!!R[j.call(t)]}function T(t){return"object"==typeof t&&"number"==typeof t.nodeType&&"object"==typeof t.ownerDocument}function C(t){return t!==t}function S(t){for(var e=0,r=arguments.length;e<r;e++)if(null!=arguments[e])return arguments[e]}function A(){return Function.call.apply(q,arguments)}function P(t,e){if(!t)throw new Error(e)}function M(t){t[U]=!0}function E(t){return t[U]}function O(t){t&&f(t,function(t,e){this.set(e,t)},this)}function B(t){return new O(t)}var L,R={"[object Function]":1,"[object RegExp]":1,"[object Date]":1,"[object Error]":1,"[object CanvasGradient]":1,"[object CanvasPattern]":1,"[object Image]":1,"[object Canvas]":1},z={"[object Int8Array]":1,"[object Uint8Array]":1,"[object Uint8ClampedArray]":1,"[object Int16Array]":1,"[object Uint16Array]":1,"[object Int32Array]":1,"[object Uint32Array]":1,"[object Float32Array]":1,"[object Float64Array]":1},j=Object.prototype.toString,D=Array.prototype,I=D.forEach,N=D.filter,q=D.slice,H=D.map,F=D.reduce,U="__ec_primitive__";O.prototype={constructor:O,get:function(t){return this["_ec_"+t]},set:function(t,e){return this["_ec_"+t]=e,e},each:function(t,e){void 0!==e&&(t=y(t,e));for(var r in this)this.hasOwnProperty(r)&&t(this[r],r.slice(4))},removeKey:function(t){delete this[t]}};var W={inherits:u,mixin:h,clone:e,merge:r,mergeAll:n,extend:i,defaults:o,getContext:s,createCanvas:a,indexOf:c,slice:A,find:g,isArrayLike:l,each:f,map:p,reduce:d,filter:v,bind:y,curry:m,isArray:_,isString:w,isObject:x,isFunction:b,isBuiltInObject:k,isDom:T,eqNaN:C,retrieve:S,assert:P,setAsPrimitive:M,createHashMap:B,noop:function(){}};return W}.call(e,r,e,t))&&(t.exports=n)},334:function(t,e,r){function n(t,e){if(!(this instanceof n))return new n(t,e);t&&"object"==typeof t&&(e=t,t=void 0),e=e||{},e.path=e.path||"/socket.io",this.nsps={},this.subs=[],this.opts=e,this.reconnection(!1!==e.reconnection),this.reconnectionAttempts(e.reconnectionAttempts||1/0),this.reconnectionDelay(e.reconnectionDelay||1e3),this.reconnectionDelayMax(e.reconnectionDelayMax||5e3),this.randomizationFactor(e.randomizationFactor||.5),this.backoff=new f({min:this.reconnectionDelay(),max:this.reconnectionDelayMax(),jitter:this.randomizationFactor()}),this.timeout(null==e.timeout?2e4:e.timeout),this.readyState="closed",this.uri=t,this.connecting=[],this.lastPing=null,this.encoding=!1,this.packetBuffer=[];var r=e.parser||s;this.encoder=new r.Encoder,this.decoder=new r.Decoder,this.autoConnect=!1!==e.autoConnect,this.autoConnect&&this.open()}var i=r(725),o=r(336),a=r(76),s=r(208),c=r(335),u=r(224),h=r(48)("socket.io-client:manager"),l=r(288),f=r(381),p=Object.prototype.hasOwnProperty;t.exports=n,n.prototype.emitAll=function(){this.emit.apply(this,arguments);for(var t in this.nsps)p.call(this.nsps,t)&&this.nsps[t].emit.apply(this.nsps[t],arguments)},n.prototype.updateSocketIds=function(){for(var t in this.nsps)p.call(this.nsps,t)&&(this.nsps[t].id=this.generateId(t))},n.prototype.generateId=function(t){return("/"===t?"":t+"#")+this.engine.id},a(n.prototype),n.prototype.reconnection=function(t){return arguments.length?(this._reconnection=!!t,this):this._reconnection},n.prototype.reconnectionAttempts=function(t){return arguments.length?(this._reconnectionAttempts=t,this):this._reconnectionAttempts},n.prototype.reconnectionDelay=function(t){return arguments.length?(this._reconnectionDelay=t,this.backoff&&this.backoff.setMin(t),this):this._reconnectionDelay},n.prototype.randomizationFactor=function(t){return arguments.length?(this._randomizationFactor=t,this.backoff&&this.backoff.setJitter(t),this):this._randomizationFactor},n.prototype.reconnectionDelayMax=function(t){return arguments.length?(this._reconnectionDelayMax=t,this.backoff&&this.backoff.setMax(t),this):this._reconnectionDelayMax},n.prototype.timeout=function(t){return arguments.length?(this._timeout=t,this):this._timeout},n.prototype.maybeReconnectOnOpen=function(){!this.reconnecting&&this._reconnection&&0===this.backoff.attempts&&this.reconnect()},n.prototype.open=n.prototype.connect=function(t,e){if(h("readyState %s",this.readyState),~this.readyState.indexOf("open"))return this;h("opening %s",this.uri),this.engine=i(this.uri,this.opts);var r=this.engine,n=this;this.readyState="opening",this.skipReconnect=!1;var o=c(r,"open",function(){n.onopen(),t&&t()}),a=c(r,"error",function(e){if(h("connect_error"),n.cleanup(),n.readyState="closed",n.emitAll("connect_error",e),t){var r=new Error("Connection error");r.data=e,t(r)}else n.maybeReconnectOnOpen()});if(!1!==this._timeout){var s=this._timeout;h("connect attempt will timeout after %d",s);var u=setTimeout(function(){h("connect attempt timed out after %d",s),o.destroy(),r.close(),r.emit("error","timeout"),n.emitAll("connect_timeout",s)},s);this.subs.push({destroy:function(){clearTimeout(u)}})}return this.subs.push(o),this.subs.push(a),this},n.prototype.onopen=function(){h("open"),this.cleanup(),this.readyState="open",this.emit("open");var t=this.engine;this.subs.push(c(t,"data",u(this,"ondata"))),this.subs.push(c(t,"ping",u(this,"onping"))),this.subs.push(c(t,"pong",u(this,"onpong"))),this.subs.push(c(t,"error",u(this,"onerror"))),this.subs.push(c(t,"close",u(this,"onclose"))),this.subs.push(c(this.decoder,"decoded",u(this,"ondecoded")))},n.prototype.onping=function(){this.lastPing=new Date,this.emitAll("ping")},n.prototype.onpong=function(){this.emitAll("pong",new Date-this.lastPing)},n.prototype.ondata=function(t){this.decoder.add(t)},n.prototype.ondecoded=function(t){this.emit("packet",t)},n.prototype.onerror=function(t){h("error",t),this.emitAll("error",t)},n.prototype.socket=function(t,e){function r(){~l(i.connecting,n)||i.connecting.push(n)}var n=this.nsps[t];if(!n){n=new o(this,t,e),this.nsps[t]=n;var i=this;n.on("connecting",r),n.on("connect",function(){n.id=i.generateId(t)}),this.autoConnect&&r()}return n},n.prototype.destroy=function(t){var e=l(this.connecting,t);~e&&this.connecting.splice(e,1),this.connecting.length||this.close()},n.prototype.packet=function(t){h("writing packet %j",t);var e=this;t.query&&0===t.type&&(t.nsp+="?"+t.query),e.encoding?e.packetBuffer.push(t):(e.encoding=!0,this.encoder.encode(t,function(r){for(var n=0;n<r.length;n++)e.engine.write(r[n],t.options);e.encoding=!1,e.processPacketQueue()}))},n.prototype.processPacketQueue=function(){if(this.packetBuffer.length>0&&!this.encoding){var t=this.packetBuffer.shift();this.packet(t)}},n.prototype.cleanup=function(){h("cleanup");for(var t=this.subs.length,e=0;e<t;e++){this.subs.shift().destroy()}this.packetBuffer=[],this.encoding=!1,this.lastPing=null,this.decoder.destroy()},n.prototype.close=n.prototype.disconnect=function(){h("disconnect"),this.skipReconnect=!0,this.reconnecting=!1,"opening"===this.readyState&&this.cleanup(),this.backoff.reset(),this.readyState="closed",this.engine&&this.engine.close()},n.prototype.onclose=function(t){h("onclose"),this.cleanup(),this.backoff.reset(),this.readyState="closed",this.emit("close",t),this._reconnection&&!this.skipReconnect&&this.reconnect()},n.prototype.reconnect=function(){if(this.reconnecting||this.skipReconnect)return this;var t=this;if(this.backoff.attempts>=this._reconnectionAttempts)h("reconnect failed"),this.backoff.reset(),this.emitAll("reconnect_failed"),this.reconnecting=!1;else{var e=this.backoff.duration();h("will wait %dms before reconnect attempt",e),this.reconnecting=!0;var r=setTimeout(function(){t.skipReconnect||(h("attempting reconnect"),t.emitAll("reconnect_attempt",t.backoff.attempts),t.emitAll("reconnecting",t.backoff.attempts),t.skipReconnect||t.open(function(e){e?(h("reconnect attempt error"),t.reconnecting=!1,t.reconnect(),t.emitAll("reconnect_error",e.data)):(h("reconnect success"),t.onreconnect())}))},e);this.subs.push({destroy:function(){clearTimeout(r)}})}},n.prototype.onreconnect=function(){var t=this.backoff.attempts;this.reconnecting=!1,this.backoff.reset(),this.updateSocketIds(),this.emitAll("reconnect",t)}},335:function(t,e){function r(t,e,r){return t.on(e,r),{destroy:function(){t.removeListener(e,r)}}}t.exports=r},336:function(t,e,r){function n(t,e,r){this.io=t,this.nsp=e,this.json=this,this.ids=0,this.acks={},this.receiveBuffer=[],this.sendBuffer=[],this.connected=!1,this.disconnected=!0,r&&r.query&&(this.query=r.query),this.io.autoConnect&&this.open()}var i=r(208),o=r(76),a=r(888),s=r(335),c=r(224),u=r(48)("socket.io-client:socket"),h=r(132);t.exports=n;var l={connect:1,connect_error:1,connect_timeout:1,connecting:1,disconnect:1,error:1,reconnect:1,reconnect_attempt:1,reconnect_failed:1,reconnect_error:1,reconnecting:1,ping:1,pong:1},f=o.prototype.emit;o(n.prototype),n.prototype.subEvents=function(){if(!this.subs){var t=this.io;this.subs=[s(t,"open",c(this,"onopen")),s(t,"packet",c(this,"onpacket")),s(t,"close",c(this,"onclose"))]}},n.prototype.open=n.prototype.connect=function(){return this.connected?this:(this.subEvents(),this.io.open(),"open"===this.io.readyState&&this.onopen(),this.emit("connecting"),this)},n.prototype.send=function(){var t=a(arguments);return t.unshift("message"),this.emit.apply(this,t),this},n.prototype.emit=function(t){if(l.hasOwnProperty(t))return f.apply(this,arguments),this;var e=a(arguments),r={type:i.EVENT,data:e};return r.options={},r.options.compress=!this.flags||!1!==this.flags.compress,"function"==typeof e[e.length-1]&&(u("emitting packet with ack id %d",this.ids),this.acks[this.ids]=e.pop(),r.id=this.ids++),this.connected?this.packet(r):this.sendBuffer.push(r),delete this.flags,this},n.prototype.packet=function(t){t.nsp=this.nsp,this.io.packet(t)},n.prototype.onopen=function(){if(u("transport is open - connecting"),"/"!==this.nsp)if(this.query){var t="object"==typeof this.query?h.encode(this.query):this.query;u("sending connect packet with query %s",t),this.packet({type:i.CONNECT,query:t})}else this.packet({type:i.CONNECT})},n.prototype.onclose=function(t){u("close (%s)",t),this.connected=!1,this.disconnected=!0,delete this.id,this.emit("disconnect",t)},n.prototype.onpacket=function(t){if(t.nsp===this.nsp)switch(t.type){case i.CONNECT:this.onconnect();break;case i.EVENT:case i.BINARY_EVENT:this.onevent(t);break;case i.ACK:case i.BINARY_ACK:this.onack(t);break;case i.DISCONNECT:this.ondisconnect();break;case i.ERROR:this.emit("error",t.data)}},n.prototype.onevent=function(t){var e=t.data||[];u("emitting event %j",e),null!=t.id&&(u("attaching ack callback to event"),e.push(this.ack(t.id))),this.connected?f.apply(this,e):this.receiveBuffer.push(e)},n.prototype.ack=function(t){var e=this,r=!1;return function(){if(!r){r=!0;var n=a(arguments);u("sending ack %j",n),e.packet({type:i.ACK,id:t,data:n})}}},n.prototype.onack=function(t){var e=this.acks[t.id];"function"==typeof e?(u("calling ack %s with %j",t.id,t.data),e.apply(this,t.data),delete this.acks[t.id]):u("bad ack %s",t.id)},n.prototype.onconnect=function(){this.connected=!0,this.disconnected=!1,this.emit("connect"),this.emitBuffered()},n.prototype.emitBuffered=function(){var t;for(t=0;t<this.receiveBuffer.length;t++)f.apply(this,this.receiveBuffer[t]);for(this.receiveBuffer=[],t=0;t<this.sendBuffer.length;t++)this.packet(this.sendBuffer[t]);this.sendBuffer=[]},n.prototype.ondisconnect=function(){u("server disconnect (%s)",this.nsp),this.destroy(),this.onclose("io server disconnect")},n.prototype.destroy=function(){if(this.subs){for(var t=0;t<this.subs.length;t++)this.subs[t].destroy();this.subs=null}this.io.destroy(this)},n.prototype.close=n.prototype.disconnect=function(){return this.connected&&(u("performing disconnect (%s)",this.nsp),this.packet({type:i.DISCONNECT})),this.destroy(),this.connected&&this.onclose("io client disconnect"),this},n.prototype.compress=function(t){return this.flags=this.flags||{},this.flags.compress=t,this}},337:function(t,e,r){(function(e){function r(t){return e.Buffer&&e.Buffer.isBuffer(t)||e.ArrayBuffer&&t instanceof ArrayBuffer}t.exports=r}).call(e,r(30))},338:function(t,e){t.exports=function(t){return t.webpackPolyfill||(t.deprecate=function(){},t.paths=[],t.children||(t.children=[]),Object.defineProperty(t,"loaded",{enumerable:!0,get:function(){return t.l}}),Object.defineProperty(t,"id",{enumerable:!0,get:function(){return t.i}}),t.webpackPolyfill=1),t}},339:function(t,e,r){"use strict";function n(t){var e="";do{e=s[t%c]+e,t=Math.floor(t/c)}while(t>0);return e}function i(t){var e=0;for(l=0;l<t.length;l++)e=e*c+u[t.charAt(l)];return e}function o(){var t=n(+new Date);return t!==a?(h=0,a=t):t+"."+n(h++)}for(var a,s="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_".split(""),c=64,u={},h=0,l=0;l<c;l++)u[s[l]]=l;o.encode=n,o.decode=i,t.exports=o},353:function(t,e,r){var n;void 0!==(n=function(t){"use strict";var e=r(358),n=r(152),i=r(945),o=r(943),a=r(32),s=function(t){i.call(this,t),n.call(this,t),o.call(this,t),this.id=t.id||e()};return s.prototype={type:"element",name:"",__zr:null,ignore:!1,clipPath:null,drift:function(t,e){switch(this.draggable){case"horizontal":e=0;break;case"vertical":t=0}var r=this.transform;r||(r=this.transform=[1,0,0,1,0,0]),r[4]+=t,r[5]+=e,this.decomposeTransform(),this.dirty(!1)},beforeUpdate:function(){},afterUpdate:function(){},update:function(){this.updateTransform()},traverse:function(t,e){},attrKV:function(t,e){if("position"===t||"scale"===t||"origin"===t){if(e){var r=this[t];r||(r=this[t]=[]),r[0]=e[0],r[1]=e[1]}}else this[t]=e},hide:function(){this.ignore=!0,this.__zr&&this.__zr.refresh()},show:function(){this.ignore=!1,this.__zr&&this.__zr.refresh()},attr:function(t,e){if("string"==typeof t)this.attrKV(t,e);else if(a.isObject(t))for(var r in t)t.hasOwnProperty(r)&&this.attrKV(r,t[r]);return this.dirty(!1),this},setClipPath:function(t){var e=this.__zr;e&&t.addSelfToZr(e),this.clipPath&&this.clipPath!==t&&this.removeClipPath(),this.clipPath=t,t.__zr=e,t.__clipTarget=this,this.dirty(!1)},removeClipPath:function(){var t=this.clipPath;t&&(t.__zr&&t.removeSelfFromZr(t.__zr),t.__zr=null,t.__clipTarget=null,this.clipPath=null,this.dirty(!1))},addSelfToZr:function(t){this.__zr=t;var e=this.animators;if(e)for(var r=0;r<e.length;r++)t.animation.addAnimator(e[r]);this.clipPath&&this.clipPath.addSelfToZr(t)},removeSelfFromZr:function(t){this.__zr=null;var e=this.animators;if(e)for(var r=0;r<e.length;r++)t.animation.removeAnimator(e[r]);this.clipPath&&this.clipPath.removeSelfFromZr(t)}},a.mixin(s,o),a.mixin(s,i),a.mixin(s,n),s}.call(e,r,e,t))&&(t.exports=n)},354:function(t,e,r){var n;void 0!==(n=function(t){function e(t,e){return t[e]}function n(t,e,r){t[e]=r}function i(t,e,r){return(e-t)*r+t}function o(t,e,r){return r>.5?e:t}function a(t,e,r,n,o){var a=t.length;if(1==o)for(var s=0;s<a;s++)n[s]=i(t[s],e[s],r);else for(var c=a&&t[0].length,s=0;s<a;s++)for(var u=0;u<c;u++)n[s][u]=i(t[s][u],e[s][u],r)}function s(t,e,r){var n=t.length,i=e.length;if(n!==i){if(n>i)t.length=i;else for(var o=n;o<i;o++)t.push(1===r?e[o]:_.call(e[o]))}for(var a=t[0]&&t[0].length,o=0;o<t.length;o++)if(1===r)isNaN(t[o])&&(t[o]=e[o]);else for(var s=0;s<a;s++)isNaN(t[o][s])&&(t[o][s]=e[o][s])}function c(t,e,r){if(t===e)return!0;var n=t.length;if(n!==e.length)return!1;if(1===r){for(var i=0;i<n;i++)if(t[i]!==e[i])return!1}else for(var o=t[0].length,i=0;i<n;i++)for(var a=0;a<o;a++)if(t[i][a]!==e[i][a])return!1;return!0}function u(t,e,r,n,i,o,a,s,c){var u=t.length;if(1==c)for(var l=0;l<u;l++)s[l]=h(t[l],e[l],r[l],n[l],i,o,a);else for(var f=t[0].length,l=0;l<u;l++)for(var p=0;p<f;p++)s[l][p]=h(t[l][p],e[l][p],r[l][p],n[l][p],i,o,a)}function h(t,e,r,n,i,o,a){var s=.5*(r-t),c=.5*(n-e);return(2*(e-r)+s+c)*a+(-3*(e-r)-2*s-c)*o+s*i+e}function l(t){if(m(t)){var e=t.length;if(m(t[0])){for(var r=[],n=0;n<e;n++)r.push(_.call(t[n]));return r}return _.call(t)}return t}function f(t){return t[0]=Math.floor(t[0]),t[1]=Math.floor(t[1]),t[2]=Math.floor(t[2]),"rgba("+t.join(",")+")"}function p(t){var e=t[t.length-1].value;return m(e&&e[0])?2:1}function d(t,e,r,n,l){var d=t._getter,y=t._setter,_="spline"===e,b=n.length;if(b){var w,x=n[0].value,k=m(x),T=!1,C=!1,S=k?p(n):0;n.sort(function(t,e){return t.time-e.time}),w=n[b-1].time;for(var A=[],P=[],M=n[0].value,E=!0,O=0;O<b;O++){A.push(n[O].time/w);var B=n[O].value;if(k&&c(B,M,S)||!k&&B===M||(E=!1),M=B,"string"==typeof B){var L=g.parse(B);L?(B=L,T=!0):C=!0}P.push(B)}if(!E){for(var R=P[b-1],O=0;O<b-1;O++)k?s(P[O],R,S):!isNaN(P[O])||isNaN(R)||C||T||(P[O]=R);k&&s(d(t._target,l),R,S);var z,j,D,I,N,q,H=0,F=0;if(T)var U=[0,0,0,0];var W=function(t,e){var r;if(e<0)r=0;else if(e<F){for(z=Math.min(H+1,b-1),r=z;r>=0&&!(A[r]<=e);r--);r=Math.min(r,b-2)}else{for(r=H;r<b&&!(A[r]>e);r++);r=Math.min(r-1,b-2)}H=r,F=e;var n=A[r+1]-A[r];if(0!==n)if(j=(e-A[r])/n,_)if(I=P[r],D=P[0===r?r:r-1],N=P[r>b-2?b-1:r+1],q=P[r>b-3?b-1:r+2],k)u(D,I,N,q,j,j*j,j*j*j,d(t,l),S);else{var s;if(T)s=u(D,I,N,q,j,j*j,j*j*j,U,1),s=f(U);else{if(C)return o(I,N,j);s=h(D,I,N,q,j,j*j,j*j*j)}y(t,l,s)}else if(k)a(P[r],P[r+1],j,d(t,l),S);else{var s;if(T)a(P[r],P[r+1],j,U,1),s=f(U);else{if(C)return o(P[r],P[r+1],j);s=i(P[r],P[r+1],j)}y(t,l,s)}},X=new v({target:t._target,life:w,loop:t._loop,delay:t._delay,onframe:W,ondestroy:r});return e&&"spline"!==e&&(X.easing=e),X}}}var v=r(927),g=r(946),y=r(32),m=y.isArrayLike,_=Array.prototype.slice,b=function(t,r,i,o){this._tracks={},this._target=t,this._loop=r||!1,this._getter=i||e,this._setter=o||n,this._clipCount=0,this._delay=0,this._doneList=[],this._onframeList=[],this._clipList=[]};return b.prototype={when:function(t,e){var r=this._tracks;for(var n in e)if(e.hasOwnProperty(n)){if(!r[n]){r[n]=[];var i=this._getter(this._target,n);if(null==i)continue;0!==t&&r[n].push({time:0,value:l(i)})}r[n].push({time:t,value:e[n]})}return this},during:function(t){return this._onframeList.push(t),this},pause:function(){for(var t=0;t<this._clipList.length;t++)this._clipList[t].pause();this._paused=!0},resume:function(){for(var t=0;t<this._clipList.length;t++)this._clipList[t].resume();this._paused=!1},isPaused:function(){return!!this._paused},_doneCallback:function(){this._tracks={},this._clipList.length=0;for(var t=this._doneList,e=t.length,r=0;r<e;r++)t[r].call(this)},start:function(t){var e,r=this,n=0,i=function(){--n||r._doneCallback()};for(var o in this._tracks)if(this._tracks.hasOwnProperty(o)){var a=d(this,t,i,this._tracks[o],o);a&&(this._clipList.push(a),n++,this.animation&&this.animation.addClip(a),e=a)}if(e){var s=e.onframe;e.onframe=function(t,e){s(t,e);for(var n=0;n<r._onframeList.length;n++)r._onframeList[n](t,e)}}return n||this._doneCallback(),this},stop:function(t){for(var e=this._clipList,r=this.animation,n=0;n<e.length;n++){var i=e[n];t&&i.onframe(this._target,1),r&&r.removeClip(i)}e.length=0},delay:function(t){return this._delay=t,this},done:function(t){return t&&this._doneList.push(t),this},getClips:function(){return this._clipList}},b}.call(e,r,e,t))&&(t.exports=n)},355:function(t,e,r){var n;void 0!==(n=function(t){return"undefined"!=typeof window&&(window.requestAnimationFrame&&window.requestAnimationFrame.bind(window)||window.msRequestAnimationFrame&&window.msRequestAnimationFrame.bind(window)||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame)||function(t){setTimeout(t,16)}}.call(e,r,e,t))&&(t.exports=n)},356:function(t,e,r){var n;void 0!==(n=function(t){var e=2*Math.PI;return{normalizeRadian:function(t){return t%=e,t<0&&(t+=e),t}}}.call(e,r,e,t))&&(t.exports=n)},357:function(t,e,r){var n;void 0!==(n=function(t){var e=function(){this.head=null,this.tail=null,this._len=0},r=e.prototype;r.insert=function(t){var e=new n(t);return this.insertEntry(e),e},r.insertEntry=function(t){this.head?(this.tail.next=t,t.prev=this.tail,t.next=null,this.tail=t):this.head=this.tail=t,this._len++},r.remove=function(t){var e=t.prev,r=t.next;e?e.next=r:this.head=r,r?r.prev=e:this.tail=e,t.next=t.prev=null,this._len--},r.len=function(){return this._len},r.clear=function(){this.head=this.tail=null,this._len=0};var n=function(t){this.value=t,this.next,this.prev},i=function(t){this._list=new e,this._map={},this._maxSize=t||10,this._lastRemovedEntry=null},o=i.prototype;return o.put=function(t,e){var r=this._list,i=this._map,o=null;if(null==i[t]){var a=r.len(),s=this._lastRemovedEntry;if(a>=this._maxSize&&a>0){var c=r.head;r.remove(c),delete i[c.key],o=c.value,this._lastRemovedEntry=c}s?s.value=e:s=new n(e),s.key=t,r.insertEntry(s),i[t]=s}return o},o.get=function(t){var e=this._map[t],r=this._list;if(null!=e)return e!==r.tail&&(r.remove(e),r.insertEntry(e)),e.value},o.clear=function(){this._list.clear(),this._map={}},i}.call(e,r,e,t))&&(t.exports=n)},358:function(t,e,r){var n;void 0!==(n=function(){var t=2311;return function(){return t++}}.call(e,r,e,t))&&(t.exports=n)},359:function(t,e,r){var n;void 0!==(n=function(t){var e=r(149);return function(){if(0!==e.debugMode)if(1==e.debugMode)for(var t in arguments)throw new Error(arguments[t]);else if(e.debugMode>1)for(var t in arguments)console.log(arguments[t])}}.call(e,r,e,t))&&(t.exports=n)},360:function(t,e,r){var n;void 0!==(n=function(){var t="undefined"==typeof Float32Array?Array:Float32Array,e={create:function(){var r=new t(6);return e.identity(r),r},identity:function(t){return t[0]=1,t[1]=0,t[2]=0,t[3]=1,t[4]=0,t[5]=0,t},copy:function(t,e){return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t[4]=e[4],t[5]=e[5],t},mul:function(t,e,r){var n=e[0]*r[0]+e[2]*r[1],i=e[1]*r[0]+e[3]*r[1],o=e[0]*r[2]+e[2]*r[3],a=e[1]*r[2]+e[3]*r[3],s=e[0]*r[4]+e[2]*r[5]+e[4],c=e[1]*r[4]+e[3]*r[5]+e[5];return t[0]=n,t[1]=i,t[2]=o,t[3]=a,t[4]=s,t[5]=c,t},translate:function(t,e,r){return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t[4]=e[4]+r[0],t[5]=e[5]+r[1],t},rotate:function(t,e,r){var n=e[0],i=e[2],o=e[4],a=e[1],s=e[3],c=e[5],u=Math.sin(r),h=Math.cos(r);return t[0]=n*h+a*u,t[1]=-n*u+a*h,t[2]=i*h+s*u,t[3]=-i*u+h*s,t[4]=h*o+u*c,t[5]=h*c-u*o,t},scale:function(t,e,r){var n=r[0],i=r[1];return t[0]=e[0]*n,t[1]=e[1]*i,t[2]=e[2]*n,t[3]=e[3]*i,t[4]=e[4]*n,t[5]=e[5]*i,t},invert:function(t,e){var r=e[0],n=e[2],i=e[4],o=e[1],a=e[3],s=e[5],c=r*a-o*n;return c?(c=1/c,t[0]=a*c,t[1]=-o*c,t[2]=-n*c,t[3]=r*c,t[4]=(n*s-a*i)*c,t[5]=(o*i-r*s)*c,t):null}};return e}.call(e,r,e,t))&&(t.exports=n)},361:function(t,e,r){var n;void 0!==(n=function(){function t(t){for(var e=0;t>=c;)e|=1&t,t>>=1;return t+e}function e(t,e,n,i){var o=e+1;if(o===n)return 1;if(i(t[o++],t[e])<0){for(;o<n&&i(t[o],t[o-1])<0;)o++;r(t,e,o)}else for(;o<n&&i(t[o],t[o-1])>=0;)o++;return o-e}function r(t,e,r){for(r--;e<r;){var n=t[e];t[e++]=t[r],t[r--]=n}}function n(t,e,r,n,i){for(n===e&&n++;n<r;n++){for(var o,a=t[n],s=e,c=n;s<c;)o=s+c>>>1,i(a,t[o])<0?c=o:s=o+1;var u=n-s;switch(u){case 3:t[s+3]=t[s+2];case 2:t[s+2]=t[s+1];case 1:t[s+1]=t[s];break;default:for(;u>0;)t[s+u]=t[s+u-1],u--}t[s]=a}}function i(t,e,r,n,i,o){var a=0,s=0,c=1;if(o(t,e[r+i])>0){for(s=n-i;c<s&&o(t,e[r+i+c])>0;)a=c,(c=1+(c<<1))<=0&&(c=s);c>s&&(c=s),a+=i,c+=i}else{for(s=i+1;c<s&&o(t,e[r+i-c])<=0;)a=c,(c=1+(c<<1))<=0&&(c=s);c>s&&(c=s);var u=a;a=i-c,c=i-u}for(a++;a<c;){var h=a+(c-a>>>1);o(t,e[r+h])>0?a=h+1:c=h}return c}function o(t,e,r,n,i,o){var a=0,s=0,c=1;if(o(t,e[r+i])<0){for(s=i+1;c<s&&o(t,e[r+i-c])<0;)a=c,(c=1+(c<<1))<=0&&(c=s);c>s&&(c=s);var u=a;a=i-c,c=i-u}else{for(s=n-i;c<s&&o(t,e[r+i+c])>=0;)a=c,(c=1+(c<<1))<=0&&(c=s);c>s&&(c=s),a+=i,c+=i}for(a++;a<c;){var h=a+(c-a>>>1);o(t,e[r+h])<0?c=h:a=h+1}return c}function a(t,e){function r(t,e){l[v]=t,f[v]=e,v+=1}function n(){for(;v>1;){var t=v-2;if(t>=1&&f[t-1]<=f[t]+f[t+1]||t>=2&&f[t-2]<=f[t]+f[t-1])f[t-1]<f[t+1]&&t--;else if(f[t]>f[t+1])break;s(t)}}function a(){for(;v>1;){var t=v-2;t>0&&f[t-1]<f[t+1]&&t--,s(t)}}function s(r){var n=l[r],a=f[r],s=l[r+1],u=f[r+1];f[r]=a+u,r===v-3&&(l[r+1]=l[r+2],f[r+1]=f[r+2]),v--;var p=o(t[s],t,n,a,0,e);n+=p,0!==(a-=p)&&0!==(u=i(t[n+a-1],t,s,u,u-1,e))&&(a<=u?c(n,a,s,u):h(n,a,s,u))}function c(r,n,a,s){var c=0;for(c=0;c<n;c++)g[c]=t[r+c];var h=0,l=a,f=r;if(t[f++]=t[l++],0!=--s){if(1===n){for(c=0;c<s;c++)t[f+c]=t[l+c];return void(t[f+s]=g[h])}for(var d,v,y,m=p;;){d=0,v=0,y=!1;do{if(e(t[l],g[h])<0){if(t[f++]=t[l++],v++,d=0,0==--s){y=!0;break}}else if(t[f++]=g[h++],d++,v=0,1==--n){y=!0;break}}while((d|v)<m);if(y)break;do{if(0!==(d=o(t[l],g,h,n,0,e))){for(c=0;c<d;c++)t[f+c]=g[h+c];if(f+=d,h+=d,(n-=d)<=1){y=!0;break}}if(t[f++]=t[l++],0==--s){y=!0;break}if(0!==(v=i(g[h],t,l,s,0,e))){for(c=0;c<v;c++)t[f+c]=t[l+c];if(f+=v,l+=v,0===(s-=v)){y=!0;break}}if(t[f++]=g[h++],1==--n){y=!0;break}m--}while(d>=u||v>=u);if(y)break;m<0&&(m=0),m+=2}if(p=m,p<1&&(p=1),1===n){for(c=0;c<s;c++)t[f+c]=t[l+c];t[f+s]=g[h]}else{if(0===n)throw new Error;for(c=0;c<n;c++)t[f+c]=g[h+c]}}else for(c=0;c<n;c++)t[f+c]=g[h+c]}function h(r,n,a,s){var c=0;for(c=0;c<s;c++)g[c]=t[a+c];var h=r+n-1,l=s-1,f=a+s-1,d=0,v=0;if(t[f--]=t[h--],0!=--n){if(1===s){for(f-=n,h-=n,v=f+1,d=h+1,c=n-1;c>=0;c--)t[v+c]=t[d+c];return void(t[f]=g[l])}for(var y=p;;){var m=0,_=0,b=!1;do{if(e(g[l],t[h])<0){if(t[f--]=t[h--],m++,_=0,0==--n){b=!0;break}}else if(t[f--]=g[l--],_++,m=0,1==--s){b=!0;break}}while((m|_)<y);if(b)break;do{if(0!==(m=n-o(g[l],t,r,n,n-1,e))){for(f-=m,h-=m,n-=m,v=f+1,d=h+1,c=m-1;c>=0;c--)t[v+c]=t[d+c];if(0===n){b=!0;break}}if(t[f--]=g[l--],1==--s){b=!0;break}if(0!==(_=s-i(t[h],g,0,s,s-1,e))){for(f-=_,l-=_,s-=_,v=f+1,d=l+1,c=0;c<_;c++)t[v+c]=g[d+c];if(s<=1){b=!0;break}}if(t[f--]=t[h--],0==--n){b=!0;break}y--}while(m>=u||_>=u);if(b)break;y<0&&(y=0),y+=2}if(p=y,p<1&&(p=1),1===s){for(f-=n,h-=n,v=f+1,d=h+1,c=n-1;c>=0;c--)t[v+c]=t[d+c];t[f]=g[l]}else{if(0===s)throw new Error;for(d=f-(s-1),c=0;c<s;c++)t[d+c]=g[c]}}else for(d=f-(s-1),c=0;c<s;c++)t[d+c]=g[c]}var l,f,p=u,d=0,v=0;d=t.length;var g=[];l=[],f=[],this.mergeRuns=n,this.forceMergeRuns=a,this.pushRun=r}function s(r,i,o,s){o||(o=0),s||(s=r.length);var u=s-o;if(!(u<2)){var h=0;if(u<c)return h=e(r,o,s,i),void n(r,o,s,o+h,i);var l=new a(r,i),f=t(u);do{if((h=e(r,o,s,i))<f){var p=u;p>f&&(p=f),n(r,o,o+p,o+h,i),h=p}l.pushRun(o,h),l.mergeRuns(),u-=h,o+=h}while(0!==u);l.forceMergeRuns()}}var c=32,u=7;return s}.call(e,r,e,t))&&(t.exports=n)},362:function(t,e,r){var n;void 0!==(n=function(t){function e(t){t=t||{},o.call(this,t);for(var e in t)t.hasOwnProperty(e)&&"style"!==e&&(this[e]=t[e]);this.style=new i(t.style),this._rect=null,this.__clipPaths=[]}var n=r(32),i=r(365),o=r(353),a=r(941);return e.prototype={constructor:e,type:"displayable",__dirty:!0,invisible:!1,z:0,z2:0,zlevel:0,draggable:!1,dragging:!1,silent:!1,culling:!1,cursor:"pointer",rectHover:!1,progressive:-1,beforeBrush:function(t){},afterBrush:function(t){},brush:function(t,e){},getBoundingRect:function(){},contain:function(t,e){return this.rectContain(t,e)},traverse:function(t,e){t.call(e,this)},rectContain:function(t,e){var r=this.transformCoordToLocal(t,e);return this.getBoundingRect().contain(r[0],r[1])},dirty:function(){this.__dirty=!0,this._rect=null,this.__zr&&this.__zr.refresh()},animateStyle:function(t){return this.animate("style",t)},attrKV:function(t,e){"style"!==t?o.prototype.attrKV.call(this,t,e):this.style.set(e)},setStyle:function(t,e){return this.style.set(t,e),this.dirty(!1),this},useStyle:function(t){return this.style=new i(t),this.dirty(!1),this}},n.inherits(e,o),n.mixin(e,a),e}.call(e,r,e,t))&&(t.exports=n)},363:function(t,e,r){var n;void 0!==(n=function(t){var e=function(t,e){this.image=t,this.repeat=e,this.type="pattern"};return e.prototype.getCanvasPattern=function(t){return t.createPattern(this.image,this.repeat||"repeat")},e}.call(e,r,e,t))&&(t.exports=n)},364:function(t,e,r){var n;void 0!==(n=function(t){"use strict";var e=r(32),n=r(939),i=function(t,e,r,i,o){this.x=null==t?.5:t,this.y=null==e?.5:e,this.r=null==r?.5:r,this.type="radial",this.global=o||!1,n.call(this,i)};return i.prototype={constructor:i},e.inherits(i,n),i}.call(e,r,e,t))&&(t.exports=n)},365:function(t,e,r){var n;void 0!==(n=function(t){function e(t,e,r){var n=null==e.x?0:e.x,i=null==e.x2?1:e.x2,o=null==e.y?0:e.y,a=null==e.y2?0:e.y2;return e.global||(n=n*r.width+r.x,i=i*r.width+r.x,o=o*r.height+r.y,a=a*r.height+r.y),t.createLinearGradient(n,o,i,a)}function r(t,e,r){var n=r.width,i=r.height,o=Math.min(n,i),a=null==e.x?.5:e.x,s=null==e.y?.5:e.y,c=null==e.r?.5:e.r;return e.global||(a=a*n+r.x,s=s*i+r.y,c*=o),t.createRadialGradient(a,s,0,a,s,c)}var n=[["shadowBlur",0],["shadowOffsetX",0],["shadowOffsetY",0],["shadowColor","#000"],["lineCap","butt"],["lineJoin","miter"],["miterLimit",10]],i=function(t){this.extendFrom(t)};i.prototype={constructor:i,fill:"#000000",stroke:null,opacity:1,lineDash:null,lineDashOffset:0,shadowBlur:0,shadowOffsetX:0,shadowOffsetY:0,lineWidth:1,strokeNoScale:!1,text:null,textFill:"#000",textStroke:null,textPosition:"inside",textPositionRect:null,textOffset:null,textBaseline:null,textAlign:null,textVerticalAlign:null,textDistance:5,textShadowBlur:0,textShadowOffsetX:0,textShadowOffsetY:0,textTransform:!1,textRotation:0,blend:null,bind:function(t,e,r){for(var i=this,o=r&&r.style,a=!o,s=0;s<n.length;s++){var c=n[s],u=c[0];(a||i[u]!==o[u])&&(t[u]=i[u]||c[1])}if((a||i.fill!==o.fill)&&(t.fillStyle=i.fill),(a||i.stroke!==o.stroke)&&(t.strokeStyle=i.stroke),(a||i.opacity!==o.opacity)&&(t.globalAlpha=null==i.opacity?1:i.opacity),(a||i.blend!==o.blend)&&(t.globalCompositeOperation=i.blend||"source-over"),this.hasStroke()){var h=i.lineWidth;t.lineWidth=h/(this.strokeNoScale&&e&&e.getLineScale?e.getLineScale():1)}},hasFill:function(){var t=this.fill;return null!=t&&"none"!==t},hasStroke:function(){var t=this.stroke;return null!=t&&"none"!==t&&this.lineWidth>0},extendFrom:function(t,e){if(t){var r=this;for(var n in t)!t.hasOwnProperty(n)||!e&&r.hasOwnProperty(n)||(r[n]=t[n])}},set:function(t,e){"string"==typeof t?this[t]=e:this.extendFrom(t,!0)},clone:function(){var t=new this.constructor;return t.extendFrom(this,!0),t},getGradient:function(t,n,i){for(var o="radial"===n.type?r:e,a=o(t,n,i),s=n.colorStops,c=0;c<s.length;c++)a.addColorStop(s[c].offset,s[c].color);return a}};for(var o=i.prototype,a=0;a<n.length;a++){var s=n[a];s[0]in o||(o[s[0]]=s[1])}return i.getGradient=o.getGradient,i}.call(e,r,e,t))&&(t.exports=n)},366:function(t,e,r){var n;void 0!==(n=function(t){"use strict";return r(218).extend({type:"circle",shape:{cx:0,cy:0,r:0},buildPath:function(t,e,r){r&&t.moveTo(e.cx+e.r,e.cy),t.arc(e.cx,e.cy,e.r,0,2*Math.PI,!0)}})}.call(e,r,e,t))&&(t.exports=n)},367:function(t,e,r){"use strict";function n(t){return t&&t.__esModule?t:{default:t}}function i(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function o(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function a(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}Object.defineProperty(e,"__esModule",{value:!0});var s=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),c=r(373),u=n(c),h=r(379),l=(n(h),r(374)),f=(n(l),r(371)),p=n(f),d=r(372),v=n(d),g=r(885),y=n(g),m=r(55),_=n(m);r(734),r(737);var b=function(t){function e(t){i(this,e);var r=o(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t));return r.state={nodes:{},edges:[],flight:[],origins:[],types:[],targets:[],attacks:[],data:{info:{origin:{},target:{},type:{},live:{}}}},r}return a(e,t),s(e,[{key:"componentWillMount",value:function(){var t=(0,y.default)("http://localhost:4000");window.webSocket=t,t.on("connect",function(e){console.log("连接成功..."+(new Date).getTime()),t.emit("hello","hello world!")}),t.on("disconnect",function(){console.log("you have been disconnected.")}),t.on("reconnect",function(){console.log("you have been reconnected")}),t.on("reconnect_error",function(){console.log("attempt to reconnect has failed")})}},{key:"componentDidMount",value:function(){var t=this;window.webSocket.on("link",function(e){var r=JSON.parse(e.info),n=r.origin,i=r.target,o=r.type,a=r.live,s=t.state,c=s.origins,u=s.targets,h=s.types,l=s.attacks;c.push(n),u.push(i),h.push(o),l.push(a),[c,u,h,l].forEach(function(t){t.length>=8&&t.shift()}),t.setState({origins:c,targets:u,types:h,attacks:l})})}},{key:"componentWillUnMount",value:function(){window.webSocket&&delete window.webSocket}},{key:"render",value:function(){return _.default.createElement("div",{className:"app"},_.default.createElement(u.default,null),_.default.createElement(p.default,null,_.default.createElement(v.default,{items:this.state.origins,title:"ATTACK ORIGINS"}),_.default.createElement(v.default,{items:this.state.types,title:"ATTACK TYPES"}),_.default.createElement(v.default,{items:this.state.targets,title:"ATTACK TARGETS"}),_.default.createElement(v.default,{items:this.state.attacks,title:"LIVE ATTACKS"})))}}]),e}(m.Component);e.default=b},368:function(t,e){function r(t,e,r){function i(t,n){if(i.count<=0)throw new Error("after called too many times");--i.count,t?(o=!0,e(t),e=r):0!==i.count||o||e(null,n)}var o=!1;return r=r||n,i.count=t,0===t?e():i}function n(){}t.exports=r},369:function(t,e){t.exports=function(t,e,r){var n=t.byteLength;if(e=e||0,r=r||n,t.slice)return t.slice(e,r);if(e<0&&(e+=n),r<0&&(r+=n),r>n&&(r=n),e>=n||e>=r||0===n)return new ArrayBuffer(0);for(var i=new Uint8Array(t),o=new Uint8Array(r-e),a=e,s=0;a<r;a++,s++)o[s]=i[a];return o.buffer}},370:function(t,e,r){"use strict";function n(t){return t&&t.__esModule?t:{default:t}}var i=r(367),o=n(i),a=r(155),s=n(a),c=r(55),u=n(c);s.default.render(u.default.createElement(o.default,null),document.getElementById("app"))},371:function(t,e,r){"use strict";function n(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}Object.defineProperty(e,"__esModule",{value:!0});var a=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),s=r(55),c=function(t){return t&&t.__esModule?t:{default:t}}(s);r(735);var u=function(t){function e(t){return n(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t))}return o(e,t),a(e,[{key:"render",value:function(){return c.default.createElement("div",{className:"container"},this.props.children)}}]),e}(s.PureComponent);e.default=u},372:function(t,e,r){"use strict";function n(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}Object.defineProperty(e,"__esModule",{value:!0});var a=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),s=r(55),c=function(t){return t&&t.__esModule?t:{default:t}}(s);r(736);var u=function(t){function e(t){return n(this,e),i(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t))}return o(e,t),a(e,[{key:"render",value:function(){var t=this;return c.default.createElement("div",{className:"infoPanel",style:{width:this.props.width,height:this.props.height}},c.default.createElement("div",{className:"title"},this.props.title),c.default.createElement("div",{className:"items"},this.props.items.map(function(e,r){return c.default.createElement("div",{key:""+r,className:"row"},Object.keys(t.props.items[0]).map(function(t,r){return c.default.createElement("div",{key:""+r,className:"item"},e[t])}))})))}}]),e}(s.Component);e.default=u},373:function(t,e,r){"use strict";function n(t){return t&&t.__esModule?t:{default:t}}function i(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function o(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function a(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}Object.defineProperty(e,"__esModule",{value:!0});var s=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),c=r(153),u=(n(c),r(375)),h=n(u),l=r(376),f=n(l),p=r(91),d=n(p),v=r(222),g=n(v),y=r(378),m=n(y),_=r(377),b=(n(_),r(223)),w=(n(b),r(801)),x=(n(w),r(949)),k=n(x),T=r(364),C=(n(T),r(55)),S=n(C);r(738);var A=function(t){function e(t){i(this,e);var r=o(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t));return r.zr=null,r.map=null,r._drawMap=r._drawMap.bind(r),r._drawAttack=r._drawAttack.bind(r),r._receiveData=r._receiveData.bind(r),r._windowResize=r._windowResize.bind(r),r}return a(e,t),s(e,[{key:"componentDidMount",value:function(){this._drawMap();var t=getComputedStyle(this.refs.attack);this.zr=k.default.init(this.refs.attack,{width:t.width,height:t.height}),this._receiveData(),window.addEventListener("resize",this._windowResize)}},{key:"componentDidUpdate",value:function(t,e){}},{key:"componentWillUnmount",value:function(){window.removeEventListener("resize",this._windowResize)}},{key:"render",value:function(){return S.default.createElement("div",{ref:"map",className:"map"},S.default.createElement("div",{ref:"attack",className:"attack"}))}},{key:"_drawMap",value:function(){var t=this,e={"Google Satellite":"http://mt2.google.cn/vt/lyrs=y@258000000&hl=zh-CN&gl=CN&src=app&x={x}&y={y}&z={z}&s=Ga","Mapbox Dark":"https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2luZHloIiwiYSI6ImNpbHdiazZyazAxcTV2Z2tzbnNwcG1xbTMifQ.jz162pjSUZ957Vv_wP6i1A","Mapbox Traffic Day":"https://api.mapbox.com/styles/v1/mapbox/traffic-day-v2/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2luZHloIiwiYSI6ImNpbHdiazZyazAxcTV2Z2tzbnNwcG1xbTMifQ.jz162pjSUZ957Vv_wP6i1A","Mapbox Light":"https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2luZHloIiwiYSI6ImNpbHdiazZyazAxcTV2Z2tzbnNwcG1xbTMifQ.jz162pjSUZ957Vv_wP6i1A","Mapbox Traffic Night":"https://api.mapbox.com/styles/v1/mapbox/traffic-night-v2/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2luZHloIiwiYSI6ImNpbHdiazZyazAxcTV2Z2tzbnNwcG1xbTMifQ.jz162pjSUZ957Vv_wP6i1A","Mapbox Outdoors":"https://api.mapbox.com/styles/v1/mapbox/outdoors-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2luZHloIiwiYSI6ImNpbHdiazZyazAxcTV2Z2tzbnNwcG1xbTMifQ.jz162pjSUZ957Vv_wP6i1A"};this.map=new m.default({dom:this.refs.map,tileLayer:e["Mapbox Traffic Night"]}).render(),this.map.on("move",function(e){t.zr&&t.zr.clear()})}},{key:"_drawAttack",value:function(){var t=[0,0],e=[],r=!0,n=!1,i=void 0;try{for(var o,a=Object.keys(this.props.nodes)[Symbol.iterator]();!(r=(o=a.next()).done);r=!0){var s=o.value;t=this.map.latLngToContainerPoint([this.props.nodes[s].lat,this.props.nodes[s].lng]),e.push({x:t.x,y:t.y,r:this.props.nodes[s].count/5})}}catch(t){n=!0,i=t}finally{try{!r&&a.return&&a.return()}finally{if(n)throw i}}for(var c=0;c<e.length;c++){var u=new h.default({r:e[c].r,x:e[c].x,y:e[c].y,lineWidth:1,fill:d.default.gradient,loop:!0}).render();this.zr.add(u)}for(var l=[],p=0;p<this.props.edges.length;p++){var v=this.map.latLngToContainerPoint([this.props.edges[p].from.lat,this.props.edges[p].from.lng]),y=this.map.latLngToContainerPoint([this.props.edges[p].to.lat,this.props.edges[p].to.lng]),m=new g.default({from:{x:v.x,y:v.y},to:{x:y.x,y:y.y},stroke:"rgba(0, 0, 0, 0)"}).render();m.shape.x1==m.shape.x2&&m.shape.y1==m.shape.y2||(l.push(m),this.zr.add(m))}for(var _=0;_<l.length;_++){var b=l[_],w=new f.default({link:b,size:3,loop:!0}),x=w.render();this.zr.add(x)}}},{key:"_receiveData",value:function(){var t=this;window.webSocket&&window.webSocket.on("link",function(e){if(e){var r=JSON.parse(e.info),n=r.from,i=r.to,o=(r.origin,r.target,r.type,r.live,t.map.latLngToContainerPoint([n.lat,n.lng])),a=t.map.latLngToContainerPoint([i.lat,i.lng]),s=new h.default({r:10*Math.random()+10,x:o.x,y:o.y,lineWidth:1,fill:d.default.gradient,loop:!1,callback:function(){t.zr.remove(s)}}).render(),c=new h.default({r:10*Math.random()+10,x:a.x,y:a.y,lineWidth:1,fill:d.default.gradient,loop:!1,callback:function(){t.zr.remove(c)}}).render(),u=new g.default({from:{x:o.x,y:o.y},to:{x:a.x,y:a.y},stroke:"rgba(0, 0, 0, 0)"}).render(),l=null,p=new f.default({link:u,size:3,loop:!1,callback:function(){t.zr.remove(u),t.zr.remove(l)}});l=p.render(),t.zr.add(l),t.zr.add(s),t.zr.add(c)}})}},{key:"_windowResize",value:function(){var t=window,e=t.innerHeight,r=t.innerWidth;this.zr&&this.zr.resize({width:r,height:e})}}]),e}(C.PureComponent);e.default=A},374:function(t,e,r){"use strict";function n(t){return t&&t.__esModule?t:{default:t}}function i(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function o(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function a(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}Object.defineProperty(e,"__esModule",{value:!0});var s=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),c=r(153),u=(n(c),r(220)),h=n(u),l=r(219),f=n(l),p=r(55),d=n(p);r(739);var v=function(t){function e(t){return i(this,e),o(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t))}return a(e,t),s(e,[{key:"componentDidMount",value:function(){h.default,f.default;var t={type:"lines3D",name:"airlineName",effect:{show:!0,trailWidth:5,trailLength:.4,trailOpacity:.6,trailColor:"rgb(30, 30, 60)"},lineStyle:{width:3,color:"rgb(50, 50, 150)",opacity:.1},blendMode:"lighter",distanceToGlobe:4,data:[[[117,39],[117,10]]]},e=h.default.init(this.refs.globe);e.setOption({backgroundColor:"#000",globe:{baseTexture:"../../../data/world.topo.bathy.200401.jpg",displacementScale:.04,shading:"realistic",realisticMaterial:{roughness:.9},postEffect:{enable:!0},light:{main:{intensity:5,shadow:!0},ambientCubemap:{diffuseIntensity:.2}}},series:t}),window.onresize=e.resize,window.addEventListener("keydown",function(){e.dispatchAction({type:"lines3DToggleEffect",seriesIndex:0})})}},{key:"render",value:function(){return d.default.createElement("div",null,d.default.createElement("div",{ref:"globe",className:"globe"}))}}]),e}(p.PureComponent);e.default=v},375:function(t,e,r){"use strict";function n(t){return t&&t.__esModule?t:{default:t}}function i(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var o=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),a=r(91),s=n(a),c=r(366),u=n(c),h=r(115),l=n(h),f=function(){function t(e){i(this,t),this.r=e.r||0,this.x=e.x||0,this.y=e.y||0,this.fill=e.fill||"rgba(255, 255, 0, 1)",this.lineWidth=e.lineWidth||2,this.during=e.during||s.default.pointAnimateDuring,this.loop=e.loop,this.callback=e.callback||function(){}}return o(t,[{key:"render",value:function(){for(var t=3*this.r,e=new l.default,r=0;r<3;r++){var n=new u.default({shape:{cx:this.x,cy:this.y,r:this.r},style:{fill:"none",stroke:this.fill,lineWidth:this.lineWidth},hoverable:!1});n.animateShape(this.loop).when(this.during,{r:t}).delay(this.during/3*r).start(s.default.animationEasing).done(this.callback),n.animateStyle(this.loop).when(this.during,{opacity:0,lineWidth:3}).delay(this.during/3*r).start(s.default.animationEasing).done(this.callback),e.add(n)}return e}}]),t}();e.default=f},376:function(t,e,r){"use strict";function n(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function o(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}Object.defineProperty(e,"__esModule",{value:!0});var a=r(223),s=function(t){return t&&t.__esModule?t:{default:t}}(a),c=function(t){function e(t){n(this,e);var r=i(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t));return r.displayName="AttackLine",r}return o(e,t),e}(s.default);e.default=c},377:function(t,e,r){"use strict";function n(t){return t&&t.__esModule?t:{default:t}}function i(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var o=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),a=r(91),s=n(a),c=r(115),u=n(c),h=r(947),l=n(h),f=function(){function t(e){i(this,t),this.path=e.path||"",this.scale=e.scale||[1,1],this.lineWidth=e.lineWidth||1,this.stroke=e.stroke||"rgba(255, 255, 0, 1)",this.fill=e.fill||"rgba(255, 255, 0, 0.3)",this.link=e.link||null,this.during=e.during||s.default.animationDefaultDuring,this.loop=e.loop,this.callback=e.callback}return o(t,[{key:"render",value:function(){var t=this,e=l.default.createFromString(this.path,{style:{lineWidth:this.lineWidth,stroke:this.stroke,fill:this.fill},scale:this.scale}),r=e.getBoundingRect(),n=r.x,i=r.y,o=r.width,a=r.height;e.position=[-n*this.scale[0]-o*this.scale[0]/2,-i*this.scale[1]-a*this.scale[1]/2];var c=new u.default;return c.add(e),this.link&&c.animate("",this.loop).when(this.during,{position:[1,0]}).during(function(e,r){var n=t.link.pointAt(r),i=t.link.tangentAt(r);c.position=n,c.rotation=-Math.PI/2-Math.atan2(i[1],i[0])}).start(s.default.animationEasing).done(this.callback),c}}]),t}();e.default=f},378:function(t,e,r){"use strict";function n(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var i=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),o=r(221),a=function(t){return t&&t.__esModule?t:{default:t}}(o);r(733);var s=function(){function t(e){n(this,t),this.dom=e.dom,this.tileLayer=e.tileLayer||"http://mt2.google.cn/vt/lyrs=y@258000000&hl=zh-CN&gl=CN&src=app&x={x}&y={y}&z={z}&s=Ga"}return i(t,[{key:"render",value:function(){var t=getComputedStyle(this.dom),e=(t.width,t.height,a.default.map(this.dom,{renderer:"canvas",minZoom:2}).setView([15,15],2));return a.default.tileLayer(this.tileLayer).addTo(e),e.invalidateSize(!0),e}}]),t}();e.default=s},379:function(t,e,r){"use strict";(function(t){var e="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},r={canvas:!!window.CanvasRenderingContext2D,webgl:function(){try{var t=document.createElement("canvas");return!(!window.WebGLRenderingContext||!t.getContext("webgl")&&!t.getContext("experimental-webgl"))}catch(t){return!1}}(),workers:!!window.Worker,fileapi:window.File&&window.FileReader&&window.FileList&&window.Blob,getWebGLErrorMessage:function(){var t=document.createElement("div");return t.id="webgl-error-message",t.style.fontFamily="monospace",t.style.fontSize="13px",t.style.fontWeight="normal",t.style.textAlign="center",t.style.background="#fff",t.style.color="#000",t.style.padding="1.5em",t.style.width="400px",t.style.margin="5em auto 0",this.webgl||(t.innerHTML=window.WebGLRenderingContext?['Your graphics card does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br />','Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.'].join("\n"):['Your browser does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br/>','Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.'].join("\n")),t},addGetWebGLMessage:function(t){var e,n,i;t=t||{},e=void 0!==t.parent?t.parent:document.body,n=void 0!==t.id?t.id:"oldie",i=r.getWebGLErrorMessage(),i.id=n,e.appendChild(i)}};"object"===e(t)&&(t.exports=r)}).call(e,r(338)(t))},380:function(t,e,r){"use strict";function n(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var i=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),o=function(){function t(){n(this,t)}return i(t,null,[{key:"getCurvenessPoint",value:function(t,e){var r={x:(t.x+e.x)/2,y:(t.y+e.y)/2},n=Math.sqrt(Math.pow(t.x-e.x,2)+Math.pow(t.y-e.y,2));n=t.y>e.y?-n:n;var i=-(t.x-e.x)/(t.y-e.y);return{x:r.x+n/4*Math.cos(Math.atan(i)),y:r.y+n/4*Math.sin(Math.atan(i))}}}]),t}();e.default=o},381:function(t,e){function r(t){t=t||{},this.ms=t.min||100,this.max=t.max||1e4,this.factor=t.factor||2,this.jitter=t.jitter>0&&t.jitter<=1?t.jitter:0,this.attempts=0}t.exports=r,r.prototype.duration=function(){var t=this.ms*Math.pow(this.factor,this.attempts++);if(this.jitter){var e=Math.random(),r=Math.floor(e*this.jitter*t);t=0==(1&Math.floor(10*e))?t-r:t+r}return 0|Math.min(t,this.max)},r.prototype.reset=function(){this.attempts=0},r.prototype.setMin=function(t){this.ms=t},r.prototype.setMax=function(t){this.max=t},r.prototype.setJitter=function(t){this.jitter=t}},382:function(t,e){!function(){"use strict";for(var t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",r=new Uint8Array(256),n=0;n<t.length;n++)r[t.charCodeAt(n)]=n;e.encode=function(e){var r,n=new Uint8Array(e),i=n.length,o="";for(r=0;r<i;r+=3)o+=t[n[r]>>2],o+=t[(3&n[r])<<4|n[r+1]>>4],o+=t[(15&n[r+1])<<2|n[r+2]>>6],o+=t[63&n[r+2]];return i%3==2?o=o.substring(0,o.length-1)+"=":i%3==1&&(o=o.substring(0,o.length-2)+"=="),o},e.decode=function(t){var e,n,i,o,a,s=.75*t.length,c=t.length,u=0;"="===t[t.length-1]&&(s--,"="===t[t.length-2]&&s--);var h=new ArrayBuffer(s),l=new Uint8Array(h);for(e=0;e<c;e+=4)n=r[t.charCodeAt(e)],i=r[t.charCodeAt(e+1)],o=r[t.charCodeAt(e+2)],a=r[t.charCodeAt(e+3)],l[u++]=n<<2|i>>4,l[u++]=(15&i)<<4|o>>2,l[u++]=(3&o)<<6|63&a;return h}}()},383:function(t,e,r){(function(e){function r(t){for(var e=0;e<t.length;e++){var r=t[e];if(r.buffer instanceof ArrayBuffer){var n=r.buffer;if(r.byteLength!==n.byteLength){var i=new Uint8Array(r.byteLength);i.set(new Uint8Array(n,r.byteOffset,r.byteLength)),n=i.buffer}t[e]=n}}}function n(t,e){e=e||{};var n=new o;r(t);for(var i=0;i<t.length;i++)n.append(t[i]);return e.type?n.getBlob(e.type):n.getBlob()}function i(t,e){return r(t),new Blob(t,e||{})}var o=e.BlobBuilder||e.WebKitBlobBuilder||e.MSBlobBuilder||e.MozBlobBuilder,a=function(){try{return 2===new Blob(["hi"]).size}catch(t){return!1}}(),s=a&&function(){try{return 2===new Blob([new Uint8Array([1,2])]).size}catch(t){return!1}}(),c=o&&o.prototype.append&&o.prototype.getBlob;t.exports=function(){return a?s?e.Blob:i:c?n:void 0}()}).call(e,r(30))},385:function(t,e,r){function n(t){var r,n=0;for(r in t)n=(n<<5)-n+t.charCodeAt(r),n|=0;return e.colors[Math.abs(n)%e.colors.length]}function i(t){function r(){if(r.enabled){var t=r,n=+new Date,i=n-(u||n);t.diff=i,t.prev=u,t.curr=n,u=n;for(var o=new Array(arguments.length),a=0;a<o.length;a++)o[a]=arguments[a];o[0]=e.coerce(o[0]),"string"!=typeof o[0]&&o.unshift("%O");var s=0;o[0]=o[0].replace(/%([a-zA-Z%])/g,function(r,n){if("%%"===r)return r;s++;var i=e.formatters[n];if("function"==typeof i){var a=o[s];r=i.call(t,a),o.splice(s,1),s--}return r}),e.formatArgs.call(t,o);(r.log||e.log||console.log.bind(console)).apply(t,o)}}return r.namespace=t,r.enabled=e.enabled(t),r.useColors=e.useColors(),r.color=n(t),"function"==typeof e.init&&e.init(r),r}function o(t){e.save(t),e.names=[],e.skips=[];for(var r=("string"==typeof t?t:"").split(/[\s,]+/),n=r.length,i=0;i<n;i++)r[i]&&(t=r[i].replace(/\*/g,".*?"),"-"===t[0]?e.skips.push(new RegExp("^"+t.substr(1)+"$")):e.names.push(new RegExp("^"+t+"$")))}function a(){e.enable("")}function s(t){var r,n;for(r=0,n=e.skips.length;r<n;r++)if(e.skips[r].test(t))return!1;for(r=0,n=e.names.length;r<n;r++)if(e.names[r].test(t))return!0;return!1}function c(t){return t instanceof Error?t.stack||t.message:t}e=t.exports=i.debug=i.default=i,e.coerce=c,e.disable=a,e.enable=o,e.enabled=s,e.humanize=r(755),e.names=[],e.skips=[],e.formatters={};var u},48:function(t,e,r){(function(n){function i(){return!("undefined"==typeof window||!window.process||"renderer"!==window.process.type)||("undefined"!=typeof document&&document.documentElement&&document.documentElement.style&&document.documentElement.style.WebkitAppearance||"undefined"!=typeof window&&window.console&&(window.console.firebug||window.console.exception&&window.console.table)||"undefined"!=typeof navigator&&navigator.userAgent&&navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/)&&parseInt(RegExp.$1,10)>=31||"undefined"!=typeof navigator&&navigator.userAgent&&navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/))}function o(t){var r=this.useColors;if(t[0]=(r?"%c":"")+this.namespace+(r?" %c":" ")+t[0]+(r?"%c ":" ")+"+"+e.humanize(this.diff),r){var n="color: "+this.color;t.splice(1,0,n,"color: inherit");var i=0,o=0;t[0].replace(/%[a-zA-Z%]/g,function(t){"%%"!==t&&(i++,"%c"===t&&(o=i))}),t.splice(o,0,n)}}function a(){return"object"==typeof console&&console.log&&Function.prototype.apply.call(console.log,console,arguments)}function s(t){try{null==t?e.storage.removeItem("debug"):e.storage.debug=t}catch(t){}}function c(){var t;try{t=e.storage.debug}catch(t){}return!t&&void 0!==n&&"env"in n&&(t=n.env.DEBUG),t}e=t.exports=r(385),e.log=a,e.formatArgs=o,e.save=s,e.load=c,e.useColors=i,e.storage="undefined"!=typeof chrome&&void 0!==chrome.storage?chrome.storage.local:function(){try{return window.localStorage}catch(t){}}(),e.colors=["lightseagreen","forestgreen","goldenrod","dodgerblue","darkorchid","crimson"],e.formatters.j=function(t){try{return JSON.stringify(t)}catch(t){return"[UnexpectedJSONParseError]: "+t.message}},e.enable(c())}).call(e,r(2))},725:function(t,e,r){t.exports=r(726)},726:function(t,e,r){t.exports=r(727),t.exports.parser=r(81)},727:function(t,e,r){(function(e){function n(t,r){if(!(this instanceof n))return new n(t,r);r=r||{},t&&"object"==typeof t&&(r=t,t=null),t?(t=h(t),r.hostname=t.host,r.secure="https"===t.protocol||"wss"===t.protocol,r.port=t.port,t.query&&(r.query=t.query)):r.host&&(r.hostname=h(r.host).host),this.secure=null!=r.secure?r.secure:e.location&&"https:"===location.protocol,r.hostname&&!r.port&&(r.port=this.secure?"443":"80"),this.agent=r.agent||!1,this.hostname=r.hostname||(e.location?location.hostname:"localhost"),this.port=r.port||(e.location&&location.port?location.port:this.secure?443:80),this.query=r.query||{},"string"==typeof this.query&&(this.query=f.decode(this.query)),this.upgrade=!1!==r.upgrade,this.path=(r.path||"/engine.io").replace(/\/$/,"")+"/",this.forceJSONP=!!r.forceJSONP,this.jsonp=!1!==r.jsonp,this.forceBase64=!!r.forceBase64,this.enablesXDR=!!r.enablesXDR,this.timestampParam=r.timestampParam||"t",this.timestampRequests=r.timestampRequests,this.transports=r.transports||["polling","websocket"],this.transportOptions=r.transportOptions||{},this.readyState="",this.writeBuffer=[],this.prevBufferLen=0,this.policyPort=r.policyPort||843,this.rememberUpgrade=r.rememberUpgrade||!1,this.binaryType=null,this.onlyBinaryUpgrades=r.onlyBinaryUpgrades,this.perMessageDeflate=!1!==r.perMessageDeflate&&(r.perMessageDeflate||{}),!0===this.perMessageDeflate&&(this.perMessageDeflate={}),this.perMessageDeflate&&null==this.perMessageDeflate.threshold&&(this.perMessageDeflate.threshold=1024),this.pfx=r.pfx||null,this.key=r.key||null,this.passphrase=r.passphrase||null,this.cert=r.cert||null,this.ca=r.ca||null,this.ciphers=r.ciphers||null,this.rejectUnauthorized=void 0===r.rejectUnauthorized||r.rejectUnauthorized,this.forceNode=!!r.forceNode;var i="object"==typeof e&&e;i.global===i&&(r.extraHeaders&&Object.keys(r.extraHeaders).length>0&&(this.extraHeaders=r.extraHeaders),r.localAddress&&(this.localAddress=r.localAddress)),this.id=null,this.upgrades=null,this.pingInterval=null,this.pingTimeout=null,this.pingIntervalTimer=null,this.pingTimeoutTimer=null,this.open()}function i(t){var e={};for(var r in t)t.hasOwnProperty(r)&&(e[r]=t[r]);return e}var o=r(282),a=r(76),s=r(48)("engine.io-client:socket"),c=r(288),u=r(81),h=r(290),l=r(756),f=r(132);t.exports=n,n.priorWebsocketSuccess=!1,a(n.prototype),n.protocol=u.protocol,n.Socket=n,n.Transport=r(180),n.transports=r(282),n.parser=r(81),n.prototype.createTransport=function(t){s('creating transport "%s"',t);var e=i(this.query);e.EIO=u.protocol,e.transport=t;var r=this.transportOptions[t]||{};return this.id&&(e.sid=this.id),new o[t]({query:e,socket:this,agent:r.agent||this.agent,hostname:r.hostname||this.hostname,port:r.port||this.port,secure:r.secure||this.secure,path:r.path||this.path,forceJSONP:r.forceJSONP||this.forceJSONP,jsonp:r.jsonp||this.jsonp,forceBase64:r.forceBase64||this.forceBase64,enablesXDR:r.enablesXDR||this.enablesXDR,timestampRequests:r.timestampRequests||this.timestampRequests,timestampParam:r.timestampParam||this.timestampParam,policyPort:r.policyPort||this.policyPort,pfx:r.pfx||this.pfx,key:r.key||this.key,passphrase:r.passphrase||this.passphrase,cert:r.cert||this.cert,ca:r.ca||this.ca,ciphers:r.ciphers||this.ciphers,rejectUnauthorized:r.rejectUnauthorized||this.rejectUnauthorized,perMessageDeflate:r.perMessageDeflate||this.perMessageDeflate,extraHeaders:r.extraHeaders||this.extraHeaders,forceNode:r.forceNode||this.forceNode,localAddress:r.localAddress||this.localAddress,requestTimeout:r.requestTimeout||this.requestTimeout,protocols:r.protocols||void 0})},n.prototype.open=function(){var t;if(this.rememberUpgrade&&n.priorWebsocketSuccess&&-1!==this.transports.indexOf("websocket"))t="websocket";else{if(0===this.transports.length){var e=this;return void setTimeout(function(){e.emit("error","No transports available")},0)}t=this.transports[0]}this.readyState="opening";try{t=this.createTransport(t)}catch(t){return this.transports.shift(),void this.open()}t.open(),this.setTransport(t)},n.prototype.setTransport=function(t){s("setting transport %s",t.name);var e=this;this.transport&&(s("clearing existing transport %s",this.transport.name),this.transport.removeAllListeners()),this.transport=t,t.on("drain",function(){e.onDrain()}).on("packet",function(t){e.onPacket(t)}).on("error",function(t){e.onError(t)}).on("close",function(){e.onClose("transport close")})},n.prototype.probe=function(t){function e(){if(f.onlyBinaryUpgrades){var e=!this.supportsBinary&&f.transport.supportsBinary;l=l||e}l||(s('probe transport "%s" opened',t),h.send([{type:"ping",data:"probe"}]),h.once("packet",function(e){if(!l)if("pong"===e.type&&"probe"===e.data){if(s('probe transport "%s" pong',t),f.upgrading=!0,f.emit("upgrading",h),!h)return;n.priorWebsocketSuccess="websocket"===h.name,s('pausing current transport "%s"',f.transport.name),f.transport.pause(function(){l||"closed"!==f.readyState&&(s("changing transport and sending upgrade packet"),u(),f.setTransport(h),h.send([{type:"upgrade"}]),f.emit("upgrade",h),h=null,f.upgrading=!1,f.flush())})}else{s('probe transport "%s" failed',t);var r=new Error("probe error");r.transport=h.name,f.emit("upgradeError",r)}}))}function r(){l||(l=!0,u(),h.close(),h=null)}function i(e){var n=new Error("probe error: "+e);n.transport=h.name,r(),s('probe transport "%s" failed because of error: %s',t,e),f.emit("upgradeError",n)}function o(){i("transport closed")}function a(){i("socket closed")}function c(t){h&&t.name!==h.name&&(s('"%s" works - aborting "%s"',t.name,h.name),r())}function u(){h.removeListener("open",e),h.removeListener("error",i),h.removeListener("close",o),f.removeListener("close",a),f.removeListener("upgrading",c)}s('probing transport "%s"',t);var h=this.createTransport(t,{probe:1}),l=!1,f=this;n.priorWebsocketSuccess=!1,h.once("open",e),h.once("error",i),h.once("close",o),this.once("close",a),this.once("upgrading",c),h.open()},n.prototype.onOpen=function(){if(s("socket open"),this.readyState="open",n.priorWebsocketSuccess="websocket"===this.transport.name,this.emit("open"),this.flush(),"open"===this.readyState&&this.upgrade&&this.transport.pause){s("starting upgrade probes");for(var t=0,e=this.upgrades.length;t<e;t++)this.probe(this.upgrades[t])}},n.prototype.onPacket=function(t){if("opening"===this.readyState||"open"===this.readyState||"closing"===this.readyState)switch(s('socket receive: type "%s", data "%s"',t.type,t.data),this.emit("packet",t),this.emit("heartbeat"),t.type){case"open":this.onHandshake(l(t.data));break;case"pong":this.setPing(),this.emit("pong");break;case"error":var e=new Error("server error");e.code=t.data,this.onError(e);break;case"message":this.emit("data",t.data),this.emit("message",t.data)}else s('packet received with socket readyState "%s"',this.readyState)},n.prototype.onHandshake=function(t){this.emit("handshake",t),this.id=t.sid,this.transport.query.sid=t.sid,this.upgrades=this.filterUpgrades(t.upgrades),this.pingInterval=t.pingInterval,this.pingTimeout=t.pingTimeout,this.onOpen(),"closed"!==this.readyState&&(this.setPing(),this.removeListener("heartbeat",this.onHeartbeat),this.on("heartbeat",this.onHeartbeat))},n.prototype.onHeartbeat=function(t){clearTimeout(this.pingTimeoutTimer);var e=this;e.pingTimeoutTimer=setTimeout(function(){"closed"!==e.readyState&&e.onClose("ping timeout")},t||e.pingInterval+e.pingTimeout)},n.prototype.setPing=function(){var t=this;clearTimeout(t.pingIntervalTimer),t.pingIntervalTimer=setTimeout(function(){s("writing ping packet - expecting pong within %sms",t.pingTimeout),t.ping(),t.onHeartbeat(t.pingTimeout)},t.pingInterval)},n.prototype.ping=function(){var t=this;this.sendPacket("ping",function(){t.emit("ping")})},n.prototype.onDrain=function(){this.writeBuffer.splice(0,this.prevBufferLen),this.prevBufferLen=0,0===this.writeBuffer.length?this.emit("drain"):this.flush()},n.prototype.flush=function(){"closed"!==this.readyState&&this.transport.writable&&!this.upgrading&&this.writeBuffer.length&&(s("flushing %d packets in socket",this.writeBuffer.length),this.transport.send(this.writeBuffer),this.prevBufferLen=this.writeBuffer.length,this.emit("flush"))},n.prototype.write=n.prototype.send=function(t,e,r){return this.sendPacket("message",t,e,r),this},n.prototype.sendPacket=function(t,e,r,n){if("function"==typeof e&&(n=e,e=void 0),"function"==typeof r&&(n=r,r=null),"closing"!==this.readyState&&"closed"!==this.readyState){r=r||{},r.compress=!1!==r.compress;var i={type:t,data:e,options:r};this.emit("packetCreate",i),this.writeBuffer.push(i),n&&this.once("flush",n),this.flush()}},n.prototype.close=function(){function t(){n.onClose("forced close"),s("socket closing - telling transport to close"),n.transport.close()}function e(){n.removeListener("upgrade",e),n.removeListener("upgradeError",e),t()}function r(){n.once("upgrade",e),n.once("upgradeError",e)}if("opening"===this.readyState||"open"===this.readyState){this.readyState="closing";var n=this;this.writeBuffer.length?this.once("drain",function(){this.upgrading?r():t()}):this.upgrading?r():t()}return this},n.prototype.onError=function(t){s("socket error %j",t),n.priorWebsocketSuccess=!1,this.emit("error",t),this.onClose("transport error",t)},n.prototype.onClose=function(t,e){if("opening"===this.readyState||"open"===this.readyState||"closing"===this.readyState){s('socket close with reason: "%s"',t);var r=this;clearTimeout(this.pingIntervalTimer),clearTimeout(this.pingTimeoutTimer),this.transport.removeAllListeners("close"),this.transport.close(),this.transport.removeAllListeners(),this.readyState="closed",this.id=null,this.emit("close",t,e),r.writeBuffer=[],r.prevBufferLen=0}},n.prototype.filterUpgrades=function(t){for(var e=[],r=0,n=t.length;r<n;r++)~c(this.transports,t[r])&&e.push(t[r]);return e}}).call(e,r(30))},728:function(t,e,r){(function(e){function n(){}function i(t){o.call(this,t),this.query=this.query||{},s||(e.___eio||(e.___eio=[]),s=e.___eio),this.index=s.length;var r=this;s.push(function(t){r.onData(t)}),this.query.j=this.index,e.document&&e.addEventListener&&e.addEventListener("beforeunload",function(){r.script&&(r.script.onerror=n)},!1)}var o=r(283),a=r(116);t.exports=i;var s,c=/\n/g,u=/\\n/g;a(i,o),i.prototype.supportsBinary=!1,i.prototype.doClose=function(){this.script&&(this.script.parentNode.removeChild(this.script),this.script=null),this.form&&(this.form.parentNode.removeChild(this.form),this.form=null,this.iframe=null),o.prototype.doClose.call(this)},i.prototype.doPoll=function(){var t=this,e=document.createElement("script");this.script&&(this.script.parentNode.removeChild(this.script),this.script=null),e.async=!0,e.src=this.uri(),e.onerror=function(e){t.onError("jsonp poll error",e)};var r=document.getElementsByTagName("script")[0];r?r.parentNode.insertBefore(e,r):(document.head||document.body).appendChild(e),this.script=e,"undefined"!=typeof navigator&&/gecko/i.test(navigator.userAgent)&&setTimeout(function(){var t=document.createElement("iframe");document.body.appendChild(t),document.body.removeChild(t)},100)},i.prototype.doWrite=function(t,e){function r(){n(),e()}function n(){if(i.iframe)try{i.form.removeChild(i.iframe)}catch(t){i.onError("jsonp polling iframe removal error",t)}try{var t='<iframe src="javascript:0" name="'+i.iframeId+'">';o=document.createElement(t)}catch(t){o=document.createElement("iframe"),o.name=i.iframeId,o.src="javascript:0"}o.id=i.iframeId,i.form.appendChild(o),i.iframe=o}var i=this;if(!this.form){var o,a=document.createElement("form"),s=document.createElement("textarea"),h=this.iframeId="eio_iframe_"+this.index;a.className="socketio",a.style.position="absolute",a.style.top="-1000px",a.style.left="-1000px",a.target=h,a.method="POST",a.setAttribute("accept-charset","utf-8"),s.name="d",a.appendChild(s),document.body.appendChild(a),this.form=a,this.area=s}this.form.action=this.uri(),n(),t=t.replace(u,"\\\n"),this.area.value=t.replace(c,"\\n");try{this.form.submit()}catch(t){}this.iframe.attachEvent?this.iframe.onreadystatechange=function(){"complete"===i.iframe.readyState&&r()}:this.iframe.onload=r}}).call(e,r(30))},729:function(t,e,r){(function(e){function n(){}function i(t){if(c.call(this,t),this.requestTimeout=t.requestTimeout,this.extraHeaders=t.extraHeaders,e.location){var r="https:"===location.protocol,n=location.port;n||(n=r?443:80),this.xd=t.hostname!==e.location.hostname||n!==t.port,this.xs=t.secure!==r}}function o(t){this.method=t.method||"GET",this.uri=t.uri,this.xd=!!t.xd,this.xs=!!t.xs,this.async=!1!==t.async,this.data=void 0!==t.data?t.data:null,this.agent=t.agent,this.isBinary=t.isBinary,this.supportsBinary=t.supportsBinary,this.enablesXDR=t.enablesXDR,this.requestTimeout=t.requestTimeout,this.pfx=t.pfx,this.key=t.key,this.passphrase=t.passphrase,this.cert=t.cert,this.ca=t.ca,this.ciphers=t.ciphers,this.rejectUnauthorized=t.rejectUnauthorized,this.extraHeaders=t.extraHeaders,this.create()}function a(){for(var t in o.requests)o.requests.hasOwnProperty(t)&&o.requests[t].abort()}var s=r(181),c=r(283),u=r(76),h=r(116),l=r(48)("engine.io-client:polling-xhr");t.exports=i,t.exports.Request=o,h(i,c),i.prototype.supportsBinary=!0,i.prototype.request=function(t){return t=t||{},t.uri=this.uri(),t.xd=this.xd,t.xs=this.xs,t.agent=this.agent||!1,t.supportsBinary=this.supportsBinary,t.enablesXDR=this.enablesXDR,t.pfx=this.pfx,t.key=this.key,t.passphrase=this.passphrase,t.cert=this.cert,t.ca=this.ca,t.ciphers=this.ciphers,t.rejectUnauthorized=this.rejectUnauthorized,t.requestTimeout=this.requestTimeout,t.extraHeaders=this.extraHeaders,new o(t)},i.prototype.doWrite=function(t,e){var r="string"!=typeof t&&void 0!==t,n=this.request({method:"POST",data:t,isBinary:r}),i=this;n.on("success",e),n.on("error",function(t){i.onError("xhr post error",t)}),this.sendXhr=n},i.prototype.doPoll=function(){l("xhr poll");var t=this.request(),e=this;t.on("data",function(t){e.onData(t)}),t.on("error",function(t){e.onError("xhr poll error",t)}),this.pollXhr=t},u(o.prototype),o.prototype.create=function(){var t={agent:this.agent,xdomain:this.xd,xscheme:this.xs,enablesXDR:this.enablesXDR};t.pfx=this.pfx,t.key=this.key,t.passphrase=this.passphrase,t.cert=this.cert,t.ca=this.ca,t.ciphers=this.ciphers,t.rejectUnauthorized=this.rejectUnauthorized;var r=this.xhr=new s(t),n=this;try{l("xhr open %s: %s",this.method,this.uri),r.open(this.method,this.uri,this.async);try{if(this.extraHeaders){r.setDisableHeaderCheck&&r.setDisableHeaderCheck(!0);for(var i in this.extraHeaders)this.extraHeaders.hasOwnProperty(i)&&r.setRequestHeader(i,this.extraHeaders[i])}}catch(t){}if("POST"===this.method)try{this.isBinary?r.setRequestHeader("Content-type","application/octet-stream"):r.setRequestHeader("Content-type","text/plain;charset=UTF-8")}catch(t){}try{r.setRequestHeader("Accept","*/*")}catch(t){}"withCredentials"in r&&(r.withCredentials=!0),this.requestTimeout&&(r.timeout=this.requestTimeout),this.hasXDR()?(r.onload=function(){n.onLoad()},r.onerror=function(){n.onError(r.responseText)}):r.onreadystatechange=function(){if(2===r.readyState){var t;try{t=r.getResponseHeader("Content-Type")}catch(t){}"application/octet-stream"===t&&(r.responseType="arraybuffer")}4===r.readyState&&(200===r.status||1223===r.status?n.onLoad():setTimeout(function(){n.onError(r.status)},0))},l("xhr data %s",this.data),r.send(this.data)}catch(t){return void setTimeout(function(){n.onError(t)},0)}e.document&&(this.index=o.requestsCount++,o.requests[this.index]=this)},o.prototype.onSuccess=function(){this.emit("success"),this.cleanup()},o.prototype.onData=function(t){this.emit("data",t),this.onSuccess()},o.prototype.onError=function(t){this.emit("error",t),this.cleanup(!0)},o.prototype.cleanup=function(t){if(void 0!==this.xhr&&null!==this.xhr){if(this.hasXDR()?this.xhr.onload=this.xhr.onerror=n:this.xhr.onreadystatechange=n,t)try{this.xhr.abort()}catch(t){}e.document&&delete o.requests[this.index],this.xhr=null}},o.prototype.onLoad=function(){var t;try{var e;try{e=this.xhr.getResponseHeader("Content-Type")}catch(t){}t="application/octet-stream"===e?this.xhr.response||this.xhr.responseText:this.xhr.responseText}catch(t){this.onError(t)}null!=t&&this.onData(t)},o.prototype.hasXDR=function(){return void 0!==e.XDomainRequest&&!this.xs&&this.enablesXDR},o.prototype.abort=function(){this.cleanup()},o.requestsCount=0,o.requests={},e.document&&(e.attachEvent?e.attachEvent("onunload",a):e.addEventListener&&e.addEventListener("beforeunload",a,!1))}).call(e,r(30))},730:function(t,e,r){(function(e){function n(t){t&&t.forceBase64&&(this.supportsBinary=!1),this.perMessageDeflate=t.perMessageDeflate,this.usingBrowserWebSocket=l&&!t.forceNode,this.protocols=t.protocols,this.usingBrowserWebSocket||(f=i),o.call(this,t)}var i,o=r(180),a=r(81),s=r(132),c=r(116),u=r(339),h=r(48)("engine.io-client:websocket"),l=e.WebSocket||e.MozWebSocket;if("undefined"==typeof window)try{i=r(950)}catch(t){}var f=l;f||"undefined"!=typeof window||(f=i),t.exports=n,c(n,o),n.prototype.name="websocket",n.prototype.supportsBinary=!0,n.prototype.doOpen=function(){if(this.check()){var t=this.uri(),e=this.protocols,r={agent:this.agent,perMessageDeflate:this.perMessageDeflate};r.pfx=this.pfx,r.key=this.key,r.passphrase=this.passphrase,r.cert=this.cert,r.ca=this.ca,r.ciphers=this.ciphers,r.rejectUnauthorized=this.rejectUnauthorized,this.extraHeaders&&(r.headers=this.extraHeaders),this.localAddress&&(r.localAddress=this.localAddress);try{this.ws=this.usingBrowserWebSocket?e?new f(t,e):new f(t):new f(t,e,r)}catch(t){return this.emit("error",t)}void 0===this.ws.binaryType&&(this.supportsBinary=!1),this.ws.supports&&this.ws.supports.binary?(this.supportsBinary=!0,this.ws.binaryType="nodebuffer"):this.ws.binaryType="arraybuffer",this.addEventListeners()}},n.prototype.addEventListeners=function(){var t=this;this.ws.onopen=function(){t.onOpen()},this.ws.onclose=function(){t.onClose()},this.ws.onmessage=function(e){t.onData(e.data)},this.ws.onerror=function(e){t.onError("websocket error",e)}},n.prototype.write=function(t){function r(){n.emit("flush"),setTimeout(function(){n.writable=!0,n.emit("drain")},0)}var n=this;this.writable=!1;for(var i=t.length,o=0,s=i;o<s;o++)!function(t){a.encodePacket(t,n.supportsBinary,function(o){if(!n.usingBrowserWebSocket){var a={};if(t.options&&(a.compress=t.options.compress),n.perMessageDeflate){("string"==typeof o?e.Buffer.byteLength(o):o.length)<n.perMessageDeflate.threshold&&(a.compress=!1)}}try{n.usingBrowserWebSocket?n.ws.send(o):n.ws.send(o,a)}catch(t){h("websocket closed before onclose event")}--i||r()})}(t[o])},n.prototype.onClose=function(){o.prototype.onClose.call(this)},n.prototype.doClose=function(){void 0!==this.ws&&this.ws.close()},n.prototype.uri=function(){var t=this.query||{},e=this.secure?"wss":"ws",r="";return this.port&&("wss"===e&&443!==Number(this.port)||"ws"===e&&80!==Number(this.port))&&(r=":"+this.port),this.timestampRequests&&(t[this.timestampParam]=u()),this.supportsBinary||(t.b64=1),t=s.encode(t),t.length&&(t="?"+t),e+"://"+(-1!==this.hostname.indexOf(":")?"["+this.hostname+"]":this.hostname)+r+this.path+t},n.prototype.check=function(){return!(!f||"__initialize"in f&&this.name===n.prototype.name)}}).call(e,r(30))},731:function(t,e){t.exports=Object.keys||function(t){var e=[],r=Object.prototype.hasOwnProperty;for(var n in t)r.call(t,n)&&e.push(n);return e}},732:function(t,e,r){(function(t,n){var i;!function(o){function a(t){for(var e,r,n=[],i=0,o=t.length;i<o;)e=t.charCodeAt(i++),e>=55296&&e<=56319&&i<o?(r=t.charCodeAt(i++),56320==(64512&r)?n.push(((1023&e)<<10)+(1023&r)+65536):(n.push(e),i--)):n.push(e);return n}function s(t){for(var e,r=t.length,n=-1,i="";++n<r;)e=t[n],e>65535&&(e-=65536,i+=b(e>>>10&1023|55296),e=56320|1023&e),i+=b(e);return i}function c(t,e){if(t>=55296&&t<=57343){if(e)throw Error("Lone surrogate U+"+t.toString(16).toUpperCase()+" is not a scalar value");return!1}return!0}function u(t,e){return b(t>>e&63|128)}function h(t,e){if(0==(4294967168&t))return b(t);var r="";return 0==(4294965248&t)?r=b(t>>6&31|192):0==(4294901760&t)?(c(t,e)||(t=65533),r=b(t>>12&15|224),r+=u(t,6)):0==(4292870144&t)&&(r=b(t>>18&7|240),r+=u(t,12),r+=u(t,6)),r+=b(63&t|128)}function l(t,e){e=e||{};for(var r,n=!1!==e.strict,i=a(t),o=i.length,s=-1,c="";++s<o;)r=i[s],c+=h(r,n);return c}function f(){if(_>=m)throw Error("Invalid byte index");var t=255&y[_];if(_++,128==(192&t))return 63&t;throw Error("Invalid continuation byte")}function p(t){var e,r,n,i,o;if(_>m)throw Error("Invalid byte index");if(_==m)return!1;if(e=255&y[_],_++,0==(128&e))return e;if(192==(224&e)){if(r=f(),(o=(31&e)<<6|r)>=128)return o;throw Error("Invalid continuation byte")}if(224==(240&e)){if(r=f(),n=f(),(o=(15&e)<<12|r<<6|n)>=2048)return c(o,t)?o:65533;throw Error("Invalid continuation byte")}if(240==(248&e)&&(r=f(),n=f(),i=f(),(o=(7&e)<<18|r<<12|n<<6|i)>=65536&&o<=1114111))return o;throw Error("Invalid UTF-8 detected")}function d(t,e){e=e||{};var r=!1!==e.strict;y=a(t),m=y.length,_=0;for(var n,i=[];!1!==(n=p(r));)i.push(n);return s(i)}var v="object"==typeof e&&e,g=("object"==typeof t&&t&&t.exports,"object"==typeof n&&n);var y,m,_,b=String.fromCharCode,w={version:"2.1.2",encode:l,decode:d};void 0!==(i=function(){return w}.call(e,r,e,t))&&(t.exports=i)}()}).call(e,r(338)(t),r(30))},733:function(t,e){},734:function(t,e){},735:function(t,e){},736:function(t,e){},737:function(t,e){},738:function(t,e){},739:function(t,e){},75:function(t,e,r){var n;void 0!==(n=function(){var t="undefined"==typeof Float32Array?Array:Float32Array,e={create:function(e,r){var n=new t(2);return null==e&&(e=0),null==r&&(r=0),n[0]=e,n[1]=r,n},copy:function(t,e){return t[0]=e[0],t[1]=e[1],t},clone:function(e){var r=new t(2);return r[0]=e[0],r[1]=e[1],r},set:function(t,e,r){return t[0]=e,t[1]=r,t},add:function(t,e,r){return t[0]=e[0]+r[0],t[1]=e[1]+r[1],t},scaleAndAdd:function(t,e,r,n){return t[0]=e[0]+r[0]*n,t[1]=e[1]+r[1]*n,t},sub:function(t,e,r){return t[0]=e[0]-r[0],t[1]=e[1]-r[1],t},len:function(t){return Math.sqrt(this.lenSquare(t))},lenSquare:function(t){return t[0]*t[0]+t[1]*t[1]},mul:function(t,e,r){return t[0]=e[0]*r[0],t[1]=e[1]*r[1],t},div:function(t,e,r){return t[0]=e[0]/r[0],t[1]=e[1]/r[1],t},dot:function(t,e){return t[0]*e[0]+t[1]*e[1]},scale:function(t,e,r){return t[0]=e[0]*r,t[1]=e[1]*r,t},normalize:function(t,r){var n=e.len(r);return 0===n?(t[0]=0,t[1]=0):(t[0]=r[0]/n,t[1]=r[1]/n),t},distance:function(t,e){return Math.sqrt((t[0]-e[0])*(t[0]-e[0])+(t[1]-e[1])*(t[1]-e[1]))},distanceSquare:function(t,e){return(t[0]-e[0])*(t[0]-e[0])+(t[1]-e[1])*(t[1]-e[1])},negate:function(t,e){return t[0]=-e[0],t[1]=-e[1],t},lerp:function(t,e,r,n){return t[0]=e[0]+n*(r[0]-e[0]),t[1]=e[1]+n*(r[1]-e[1]),t},applyTransform:function(t,e,r){var n=e[0],i=e[1];return t[0]=r[0]*n+r[2]*i+r[4],t[1]=r[1]*n+r[3]*i+r[5],t},min:function(t,e,r){return t[0]=Math.min(e[0],r[0]),t[1]=Math.min(e[1],r[1]),t},max:function(t,e,r){return t[0]=Math.max(e[0],r[0]),t[1]=Math.max(e[1],r[1]),t}};return e.length=e.len,e.lengthSquare=e.lenSquare,e.dist=e.distance,e.distSquare=e.distanceSquare,e}.call(e,r,e,t))&&(t.exports=n)},754:function(t,e){try{t.exports="undefined"!=typeof XMLHttpRequest&&"withCredentials"in new XMLHttpRequest}catch(e){t.exports=!1}},755:function(t,e){function r(t){if(t=String(t),!(t.length>100)){var e=/^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(t);if(e){var r=parseFloat(e[1]);switch((e[2]||"ms").toLowerCase()){case"years":case"year":case"yrs":case"yr":case"y":return r*h;case"days":case"day":case"d":return r*u;case"hours":case"hour":case"hrs":case"hr":case"h":return r*c;case"minutes":case"minute":case"mins":case"min":case"m":return r*s;case"seconds":case"second":case"secs":case"sec":case"s":return r*a;case"milliseconds":case"millisecond":case"msecs":case"msec":case"ms":return r;default:return}}}}function n(t){return t>=u?Math.round(t/u)+"d":t>=c?Math.round(t/c)+"h":t>=s?Math.round(t/s)+"m":t>=a?Math.round(t/a)+"s":t+"ms"}function i(t){return o(t,u,"day")||o(t,c,"hour")||o(t,s,"minute")||o(t,a,"second")||t+" ms"}function o(t,e,r){if(!(t<e))return t<1.5*e?Math.floor(t/e)+" "+r:Math.ceil(t/e)+" "+r+"s"}var a=1e3,s=60*a,c=60*s,u=24*c,h=365.25*u;t.exports=function(t,e){e=e||{};var o=typeof t;if("string"===o&&t.length>0)return r(t);if("number"===o&&!1===isNaN(t))return e.long?i(t):n(t);throw new Error("val is not a non-empty string or a valid number. val="+JSON.stringify(t))}},756:function(t,e,r){(function(e){var r=/^[\],:{}\s]*$/,n=/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,i=/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,o=/(?:^|:|,)(?:\s*\[)+/g,a=/^\s+/,s=/\s+$/;t.exports=function(t){return"string"==typeof t&&t?(t=t.replace(a,"").replace(s,""),e.JSON&&JSON.parse?JSON.parse(t):r.test(t.replace(n,"@").replace(i,"]").replace(o,""))?new Function("return "+t)():void 0):null}}).call(e,r(30))},76:function(t,e,r){function n(t){if(t)return i(t)}function i(t){for(var e in n.prototype)t[e]=n.prototype[e];return t}t.exports=n,n.prototype.on=n.prototype.addEventListener=function(t,e){return this._callbacks=this._callbacks||{},(this._callbacks["$"+t]=this._callbacks["$"+t]||[]).push(e),this},n.prototype.once=function(t,e){function r(){this.off(t,r),e.apply(this,arguments)}return r.fn=e,this.on(t,r),this},n.prototype.off=n.prototype.removeListener=n.prototype.removeAllListeners=n.prototype.removeEventListener=function(t,e){if(this._callbacks=this._callbacks||{},0==arguments.length)return this._callbacks={},this;var r=this._callbacks["$"+t];if(!r)return this;if(1==arguments.length)return delete this._callbacks["$"+t],this;for(var n,i=0;i<r.length;i++)if((n=r[i])===e||n.fn===e){r.splice(i,1);break}return this},n.prototype.emit=function(t){this._callbacks=this._callbacks||{};var e=[].slice.call(arguments,1),r=this._callbacks["$"+t];if(r){r=r.slice(0);for(var n=0,i=r.length;n<i;++n)r[n].apply(this,e)}return this},n.prototype.listeners=function(t){return this._callbacks=this._callbacks||{},this._callbacks["$"+t]||[]},n.prototype.hasListeners=function(t){return!!this.listeners(t).length}},799:function(t,e,r){"use strict";function n(t,e){return Object.prototype.hasOwnProperty.call(t,e)}t.exports=function(t,e,r,o){e=e||"&",r=r||"=";var a={};if("string"!=typeof t||0===t.length)return a;var s=/\+/g;t=t.split(e);var c=1e3;o&&"number"==typeof o.maxKeys&&(c=o.maxKeys);var u=t.length;c>0&&u>c&&(u=c);for(var h=0;h<u;++h){var l,f,p,d,v=t[h].replace(s,"%20"),g=v.indexOf(r);g>=0?(l=v.substr(0,g),f=v.substr(g+1)):(l=v,f=""),p=decodeURIComponent(l),d=decodeURIComponent(f),n(a,p)?i(a[p])?a[p].push(d):a[p]=[a[p],d]:a[p]=d}return a};var i=Array.isArray||function(t){return"[object Array]"===Object.prototype.toString.call(t)}},800:function(t,e,r){"use strict";function n(t,e){if(t.map)return t.map(e);for(var r=[],n=0;n<t.length;n++)r.push(e(t[n],n));return r}var i=function(t){switch(typeof t){case"string":return t;case"boolean":return t?"true":"false";case"number":return isFinite(t)?t:"";default:return""}};t.exports=function(t,e,r,s){return e=e||"&",r=r||"=",null===t&&(t=void 0),"object"==typeof t?n(a(t),function(a){var s=encodeURIComponent(i(a))+r;return o(t[a])?n(t[a],function(t){return s+encodeURIComponent(i(t))}).join(e):s+encodeURIComponent(i(t[a]))}).join(e):s?encodeURIComponent(i(s))+r+encodeURIComponent(i(t)):""};var o=Array.isArray||function(t){return"[object Array]"===Object.prototype.toString.call(t)},a=Object.keys||function(t){var e=[];for(var r in t)Object.prototype.hasOwnProperty.call(t,r)&&e.push(r);return e}},801:function(t,e,r){"use strict";e.decode=e.parse=r(799),e.encode=e.stringify=r(800)},81:function(t,e,r){(function(t){function n(t,r){return r("b"+e.packets[t.type]+t.data.data)}function i(t,r,n){if(!r)return e.encodeBase64Packet(t,n);var i=t.data,o=new Uint8Array(i),a=new Uint8Array(1+i.byteLength);a[0]=m[t.type];for(var s=0;s<o.length;s++)a[s+1]=o[s];return n(a.buffer)}function o(t,r,n){if(!r)return e.encodeBase64Packet(t,n);var i=new FileReader;return i.onload=function(){t.data=i.result,e.encodePacket(t,r,!0,n)},i.readAsArrayBuffer(t.data)}function a(t,r,n){if(!r)return e.encodeBase64Packet(t,n);if(y)return o(t,r,n);var i=new Uint8Array(1);return i[0]=m[t.type],n(new w([i.buffer,t.data]))}function s(t){try{t=d.decode(t,{strict:!1})}catch(t){return!1}return t}function c(t,e,r){for(var n=new Array(t.length),i=p(t.length,r),o=0;o<t.length;o++)!function(t,r,i){e(r,function(e,r){n[t]=r,i(e,n)})}(o,t[o],i)}var u,h=r(731),l=r(287),f=r(369),p=r(368),d=r(732);t&&t.ArrayBuffer&&(u=r(382));var v="undefined"!=typeof navigator&&/Android/i.test(navigator.userAgent),g="undefined"!=typeof navigator&&/PhantomJS/i.test(navigator.userAgent),y=v||g;e.protocol=3;var m=e.packets={open:0,close:1,ping:2,pong:3,message:4,upgrade:5,noop:6},_=h(m),b={type:"error",data:"parser error"},w=r(383);e.encodePacket=function(e,r,o,s){"function"==typeof r&&(s=r,r=!1),"function"==typeof o&&(s=o,o=null);var c=void 0===e.data?void 0:e.data.buffer||e.data;if(t.ArrayBuffer&&c instanceof ArrayBuffer)return i(e,r,s);if(w&&c instanceof t.Blob)return a(e,r,s);if(c&&c.base64)return n(e,s);var u=m[e.type];return void 0!==e.data&&(u+=o?d.encode(String(e.data),{strict:!1}):String(e.data)),s(""+u)},e.encodeBase64Packet=function(r,n){var i="b"+e.packets[r.type];if(w&&r.data instanceof t.Blob){var o=new FileReader;return o.onload=function(){var t=o.result.split(",")[1];n(i+t)},o.readAsDataURL(r.data)}var a;try{a=String.fromCharCode.apply(null,new Uint8Array(r.data))}catch(t){for(var s=new Uint8Array(r.data),c=new Array(s.length),u=0;u<s.length;u++)c[u]=s[u];a=String.fromCharCode.apply(null,c)}return i+=t.btoa(a),n(i)},e.decodePacket=function(t,r,n){if(void 0===t)return b;if("string"==typeof t){if("b"===t.charAt(0))return e.decodeBase64Packet(t.substr(1),r);if(n&&!1===(t=s(t)))return b;var i=t.charAt(0);return Number(i)==i&&_[i]?t.length>1?{type:_[i],data:t.substring(1)}:{type:_[i]}:b}var o=new Uint8Array(t),i=o[0],a=f(t,1);return w&&"blob"===r&&(a=new w([a])),{type:_[i],data:a}},e.decodeBase64Packet=function(t,e){var r=_[t.charAt(0)];if(!u)return{type:r,data:{base64:!0,data:t.substr(1)}};var n=u.decode(t.substr(1));return"blob"===e&&w&&(n=new w([n])),{type:r,data:n}},e.encodePayload=function(t,r,n){function i(t){return t.length+":"+t}function o(t,n){e.encodePacket(t,!!a&&r,!1,function(t){n(null,i(t))})}"function"==typeof r&&(n=r,r=null);var a=l(t);return r&&a?w&&!y?e.encodePayloadAsBlob(t,n):e.encodePayloadAsArrayBuffer(t,n):t.length?void c(t,o,function(t,e){return n(e.join(""))}):n("0:")},e.decodePayload=function(t,r,n){if("string"!=typeof t)return e.decodePayloadAsBinary(t,r,n);"function"==typeof r&&(n=r,r=null);var i;if(""===t)return n(b,0,1);for(var o,a,s="",c=0,u=t.length;c<u;c++){var h=t.charAt(c);if(":"===h){if(""===s||s!=(o=Number(s)))return n(b,0,1);if(a=t.substr(c+1,o),s!=a.length)return n(b,0,1);if(a.length){if(i=e.decodePacket(a,r,!1),b.type===i.type&&b.data===i.data)return n(b,0,1);if(!1===n(i,c+o,u))return}c+=o,s=""}else s+=h}return""!==s?n(b,0,1):void 0},e.encodePayloadAsArrayBuffer=function(t,r){function n(t,r){e.encodePacket(t,!0,!0,function(t){return r(null,t)})}if(!t.length)return r(new ArrayBuffer(0));c(t,n,function(t,e){var n=e.reduce(function(t,e){var r;return r="string"==typeof e?e.length:e.byteLength,t+r.toString().length+r+2},0),i=new Uint8Array(n),o=0;return e.forEach(function(t){var e="string"==typeof t,r=t;if(e){for(var n=new Uint8Array(t.length),a=0;a<t.length;a++)n[a]=t.charCodeAt(a);r=n.buffer}i[o++]=e?0:1;for(var s=r.byteLength.toString(),a=0;a<s.length;a++)i[o++]=parseInt(s[a]);i[o++]=255;for(var n=new Uint8Array(r),a=0;a<n.length;a++)i[o++]=n[a]}),r(i.buffer)})},e.encodePayloadAsBlob=function(t,r){function n(t,r){e.encodePacket(t,!0,!0,function(t){var e=new Uint8Array(1);if(e[0]=1,"string"==typeof t){for(var n=new Uint8Array(t.length),i=0;i<t.length;i++)n[i]=t.charCodeAt(i);t=n.buffer,e[0]=0}for(var o=t instanceof ArrayBuffer?t.byteLength:t.size,a=o.toString(),s=new Uint8Array(a.length+1),i=0;i<a.length;i++)s[i]=parseInt(a[i]);if(s[a.length]=255,w){var c=new w([e.buffer,s.buffer,t]);r(null,c)}})}c(t,n,function(t,e){return r(new w(e))})},e.decodePayloadAsBinary=function(t,r,n){"function"==typeof r&&(n=r,r=null);for(var i=t,o=[];i.byteLength>0;){for(var a=new Uint8Array(i),s=0===a[0],c="",u=1;255!==a[u];u++){if(c.length>310)return n(b,0,1);c+=a[u]}i=f(i,2+c.length),c=parseInt(c);var h=f(i,0,c);if(s)try{h=String.fromCharCode.apply(null,new Uint8Array(h))}catch(t){var l=new Uint8Array(h);h="";for(var u=0;u<l.length;u++)h+=String.fromCharCode(l[u])}o.push(h),i=f(i,c)}var p=o.length;o.forEach(function(t,i){n(e.decodePacket(t,r,!0),i,p)})}}).call(e,r(30))},885:function(t,e,r){function n(t,e){"object"==typeof t&&(e=t,t=void 0),e=e||{};var r,n=i(t),o=n.source,u=n.id,h=n.path,l=c[u]&&h in c[u].nsps,f=e.forceNew||e["force new connection"]||!1===e.multiplex||l;return f?(s("ignoring socket cache for %s",o),r=a(o,e)):(c[u]||(s("new io instance for %s",o),c[u]=a(o,e)),r=c[u]),n.query&&!e.query&&(e.query=n.query),r.socket(n.path,e)}var i=r(886),o=r(208),a=r(334),s=r(48)("socket.io-client");t.exports=e=n;var c=e.managers={};e.protocol=o.protocol,e.connect=n,e.Manager=r(334),e.Socket=r(336)},886:function(t,e,r){(function(e){function n(t,r){var n=t;r=r||e.location,null==t&&(t=r.protocol+"//"+r.host),"string"==typeof t&&("/"===t.charAt(0)&&(t="/"===t.charAt(1)?r.protocol+t:r.host+t),/^(https?|wss?):\/\//.test(t)||(o("protocol-less url %s",t),t=void 0!==r?r.protocol+"//"+t:"https://"+t),o("parse %s",t),n=i(t)),n.port||(/^(http|ws)$/.test(n.protocol)?n.port="80":/^(http|ws)s$/.test(n.protocol)&&(n.port="443")),n.path=n.path||"/";var a=-1!==n.host.indexOf(":"),s=a?"["+n.host+"]":n.host;return n.id=n.protocol+"://"+s+":"+n.port,n.href=n.protocol+"://"+s+(r&&r.port===n.port?"":":"+n.port),n}var i=r(290),o=r(48)("socket.io-client:url");t.exports=n}).call(e,r(30))},887:function(t,e,r){(function(t){function n(t,e){if(!t)return t;if(a(t)){var r={_placeholder:!0,num:e.length};return e.push(t),r}if(o(t)){for(var i=new Array(t.length),s=0;s<t.length;s++)i[s]=n(t[s],e);return i}if("object"==typeof t&&!(t instanceof Date)){var i={};for(var c in t)i[c]=n(t[c],e);return i}return t}function i(t,e){if(!t)return t;if(t&&t._placeholder)return e[t.num];if(o(t))for(var r=0;r<t.length;r++)t[r]=i(t[r],e);else if("object"==typeof t)for(var n in t)t[n]=i(t[n],e);return t}var o=r(289),a=r(337),s=Object.prototype.toString,c="function"==typeof t.Blob||"[object BlobConstructor]"===s.call(t.Blob),u="function"==typeof t.File||"[object FileConstructor]"===s.call(t.File);e.deconstructPacket=function(t){var e=[],r=t.data,i=t;return i.data=n(r,e),i.attachments=e.length,{packet:i,buffers:e}},e.reconstructPacket=function(t,e){return t.data=i(t.data,e),t.attachments=void 0,t},e.removeBlobs=function(t,e){function r(t,s,h){if(!t)return t;if(c&&t instanceof Blob||u&&t instanceof File){n++;var l=new FileReader;l.onload=function(){h?h[s]=this.result:i=this.result,--n||e(i)},l.readAsArrayBuffer(t)}else if(o(t))for(var f=0;f<t.length;f++)r(t[f],f,t);else if("object"==typeof t&&!a(t))for(var p in t)r(t[p],p,t)}var n=0,i=t;r(i),n||e(i)}}).call(e,r(30))},888:function(t,e){function r(t,e){var r=[];e=e||0;for(var n=e||0;n<t.length;n++)r[n-e]=t[n];return r}t.exports=r},89:function(t,e,r){var n;void 0!==(n=function(t){"use strict";function e(t,e,r,n){r<0&&(t+=r,r=-r),n<0&&(e+=n,n=-n),this.x=t,this.y=e,this.width=r,this.height=n}var n=r(75),i=r(360),o=n.applyTransform,a=Math.min,s=Math.max;return e.prototype={constructor:e,union:function(t){var e=a(t.x,this.x),r=a(t.y,this.y);this.width=s(t.x+t.width,this.x+this.width)-e,this.height=s(t.y+t.height,this.y+this.height)-r,this.x=e,this.y=r},applyTransform:function(){var t=[],e=[],r=[],n=[];return function(i){if(i){t[0]=r[0]=this.x,t[1]=n[1]=this.y,e[0]=n[0]=this.x+this.width,e[1]=r[1]=this.y+this.height,o(t,t,i),o(e,e,i),o(r,r,i),o(n,n,i),this.x=a(t[0],e[0],r[0],n[0]),this.y=a(t[1],e[1],r[1],n[1]);var c=s(t[0],e[0],r[0],n[0]),u=s(t[1],e[1],r[1],n[1]);this.width=c-this.x,this.height=u-this.y}}}(),calculateTransform:function(t){var e=this,r=t.width/e.width,n=t.height/e.height,o=i.create();return i.translate(o,o,[-e.x,-e.y]),i.scale(o,o,[r,n]),i.translate(o,o,[t.x,t.y]),o},intersect:function(t){if(!t)return!1;t instanceof e||(t=e.create(t));var r=this,n=r.x,i=r.x+r.width,o=r.y,a=r.y+r.height,s=t.x,c=t.x+t.width,u=t.y,h=t.y+t.height;return!(i<s||c<n||a<u||h<o)},contain:function(t,e){var r=this;return t>=r.x&&t<=r.x+r.width&&e>=r.y&&e<=r.y+r.height},clone:function(){return new e(this.x,this.y,this.width,this.height)},copy:function(t){this.x=t.x,this.y=t.y,this.width=t.width,this.height=t.height},plain:function(){return{x:this.x,y:this.y,width:this.width,height:this.height}}},e.create=function(t){return new e(t.x,t.y,t.width,t.height)},e}.call(e,r,e,t))&&(t.exports=n)},90:function(t,e,r){var n;void 0!==(n=function(t){"use strict";function e(t){return t>-w&&t<w}function n(t){return t>w||t<-w}function i(t,e,r,n,i){var o=1-i;return o*o*(o*t+3*i*e)+i*i*(i*n+3*o*r)}function o(t,e,r,n,i){var o=1-i;return 3*(((e-t)*o+2*(r-e)*i)*o+(n-r)*i*i)}function a(t,r,n,i,o,a){var s=i+3*(r-n)-t,c=3*(n-2*r+t),u=3*(r-t),h=t-o,l=c*c-3*s*u,f=c*u-9*s*h,p=u*u-3*c*h,d=0;if(e(l)&&e(f))if(e(c))a[0]=0;else{var v=-u/c;v>=0&&v<=1&&(a[d++]=v)}else{var g=f*f-4*l*p;if(e(g)){var y=f/l,v=-c/s+y,m=-y/2;v>=0&&v<=1&&(a[d++]=v),m>=0&&m<=1&&(a[d++]=m)}else if(g>0){var w=b(g),x=l*c+1.5*s*(-f+w),C=l*c+1.5*s*(-f-w);x=x<0?-_(-x,T):_(x,T),C=C<0?-_(-C,T):_(C,T);var v=(-c-(x+C))/(3*s);v>=0&&v<=1&&(a[d++]=v)}else{var S=(2*l*c-3*s*f)/(2*b(l*l*l)),A=Math.acos(S)/3,P=b(l),M=Math.cos(A),v=(-c-2*P*M)/(3*s),m=(-c+P*(M+k*Math.sin(A)))/(3*s),E=(-c+P*(M-k*Math.sin(A)))/(3*s);v>=0&&v<=1&&(a[d++]=v),m>=0&&m<=1&&(a[d++]=m),E>=0&&E<=1&&(a[d++]=E)}}return d}function s(t,r,i,o,a){var s=6*i-12*r+6*t,c=9*r+3*o-3*t-9*i,u=3*r-3*t,h=0;if(e(c)){if(n(s)){var l=-u/s;l>=0&&l<=1&&(a[h++]=l)}}else{var f=s*s-4*c*u;if(e(f))a[0]=-s/(2*c);else if(f>0){var p=b(f),l=(-s+p)/(2*c),d=(-s-p)/(2*c);l>=0&&l<=1&&(a[h++]=l),d>=0&&d<=1&&(a[h++]=d)}}return h}function c(t,e,r,n,i,o){var a=(e-t)*i+t,s=(r-e)*i+e,c=(n-r)*i+r,u=(s-a)*i+a,h=(c-s)*i+s,l=(h-u)*i+u;o[0]=t,o[1]=a,o[2]=u,o[3]=l,o[4]=l,o[5]=h,o[6]=c,o[7]=n}function u(t,e,r,n,o,a,s,c,u,h,l){var f,p,d,v,g,y=.005,_=1/0;C[0]=u,C[1]=h;for(var w=0;w<1;w+=.05)S[0]=i(t,r,o,s,w),S[1]=i(e,n,a,c,w),(v=m(C,S))<_&&(f=w,_=v);_=1/0;for(var k=0;k<32&&!(y<x);k++)p=f-y,d=f+y,S[0]=i(t,r,o,s,p),S[1]=i(e,n,a,c,p),v=m(S,C),p>=0&&v<_?(f=p,_=v):(A[0]=i(t,r,o,s,d),A[1]=i(e,n,a,c,d),g=m(A,C),d<=1&&g<_?(f=d,_=g):y*=.5);return l&&(l[0]=i(t,r,o,s,f),l[1]=i(e,n,a,c,f)),b(_)}function h(t,e,r,n){var i=1-n;return i*(i*t+2*n*e)+n*n*r}function l(t,e,r,n){return 2*((1-n)*(e-t)+n*(r-e))}function f(t,r,i,o,a){var s=t-2*r+i,c=2*(r-t),u=t-o,h=0;if(e(s)){if(n(c)){var l=-u/c;l>=0&&l<=1&&(a[h++]=l)}}else{var f=c*c-4*s*u;if(e(f)){var l=-c/(2*s);l>=0&&l<=1&&(a[h++]=l)}else if(f>0){var p=b(f),l=(-c+p)/(2*s),d=(-c-p)/(2*s);l>=0&&l<=1&&(a[h++]=l),d>=0&&d<=1&&(a[h++]=d)}}return h}function p(t,e,r){var n=t+r-2*e;return 0===n?.5:(t-e)/n}function d(t,e,r,n,i){var o=(e-t)*n+t,a=(r-e)*n+e,s=(a-o)*n+o;i[0]=t,i[1]=o,i[2]=s,i[3]=s,i[4]=a,i[5]=r}function v(t,e,r,n,i,o,a,s,c){var u,l=.005,f=1/0;C[0]=a,C[1]=s;for(var p=0;p<1;p+=.05){S[0]=h(t,r,i,p),S[1]=h(e,n,o,p);var d=m(C,S);d<f&&(u=p,f=d)}f=1/0;for(var v=0;v<32&&!(l<x);v++){var g=u-l,y=u+l;S[0]=h(t,r,i,g),S[1]=h(e,n,o,g);var d=m(S,C);if(g>=0&&d<f)u=g,f=d;else{A[0]=h(t,r,i,y),A[1]=h(e,n,o,y);var _=m(A,C);y<=1&&_<f?(u=y,f=_):l*=.5}}return c&&(c[0]=h(t,r,i,u),c[1]=h(e,n,o,u)),b(f)}var g=r(75),y=g.create,m=g.distSquare,_=Math.pow,b=Math.sqrt,w=1e-8,x=1e-4,k=b(3),T=1/3,C=y(),S=y(),A=y();return{cubicAt:i,cubicDerivativeAt:o,cubicRootAt:a,cubicExtrema:s,cubicSubdivide:c,cubicProjectPoint:u,quadraticAt:h,quadraticDerivativeAt:l,quadraticRootAt:f,quadraticExtremum:p,quadraticSubdivide:d,quadraticProjectPoint:v}}.call(e,r,e,t))&&(t.exports=n)},91:function(t,e,r){"use strict";function n(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var i=r(364),o=function(t){return t&&t.__esModule?t:{default:t}}(i),a=function t(){n(this,t)};a.animationDefaultDuring=3e3,a.animationEasing="linear",a.pointAnimateDuring=3e3,a.wsServer="ws://localhost:9000",a.gradient=new o.default(.5,.5,.5,[{offset:0,color:"rgba(255, 255, 0, 0)"},{offset:.65,color:"rgba(255, 255, 0, 0)"},{offset:.65,color:"rgba(255, 255, 0, 0)"},{offset:1,color:"rgba(255, 255, 0, 1)"}]),e.default=a},922:function(t,e,r){var n;void 0!==(n=function(t){"use strict";function e(t,e,r){return{type:t,event:r,target:e.target,topTarget:e.topTarget,cancelBubble:!1,offsetX:r.zrX,offsetY:r.zrY,gestureEvent:r.gestureEvent,pinchX:r.pinchX,pinchY:r.pinchY,pinchScale:r.pinchScale,wheelDelta:r.zrDelta,zrByTouch:r.zrByTouch}}function n(){}function i(t,e,r){if(t[t.rectHover?"rectContain":"contain"](e,r)){for(var n,i=t;i;){if(i.clipPath&&!i.clipPath.contain(e,r))return!1;i.silent&&(n=!0),i=i.parent}return!n||c}return!1}var o=r(32),a=r(944),s=r(152),c="silent";n.prototype.dispose=function(){};var u=["click","dblclick","mousewheel","mouseout","mouseup","mousedown","mousemove","contextmenu"],h=function(t,e,r,i){s.call(this),this.storage=t,this.painter=e,this.painterRoot=i,r=r||new n,this.proxy=r,r.handler=this,this._hovered={},this._lastTouchMoment,this._lastX,this._lastY,a.call(this),o.each(u,function(t){r.on&&r.on(t,this[t],this)},this)};return h.prototype={constructor:h,mousemove:function(t){var e=t.zrX,r=t.zrY,n=this._hovered,i=this._hovered=this.findHover(e,r),o=i.target,a=n.target,s=this.proxy;s.setCursor&&s.setCursor(o?o.cursor:"default"),a&&o!==a&&a.__zr&&this.dispatchToElement(n,"mouseout",t),this.dispatchToElement(i,"mousemove",t),o&&o!==a&&this.dispatchToElement(i,"mouseover",t)},mouseout:function(t){this.dispatchToElement(this._hovered,"mouseout",t);var e,r=t.toElement||t.relatedTarget;do{r=r&&r.parentNode}while(r&&9!=r.nodeType&&!(e=r===this.painterRoot));!e&&this.trigger("globalout",{event:t})},resize:function(t){this._hovered={}},dispatch:function(t,e){var r=this[t];r&&r.call(this,e)},dispose:function(){this.proxy.dispose(),this.storage=this.proxy=this.painter=null},setCursorStyle:function(t){var e=this.proxy;e.setCursor&&e.setCursor(t)},dispatchToElement:function(t,r,n){t=t||{};for(var i="on"+r,o=e(r,t,n),a=t.target;a&&(a[i]&&(o.cancelBubble=a[i].call(a,o)),a.trigger(r,o),a=a.parent,!o.cancelBubble););o.cancelBubble||(this.trigger(r,o),this.painter&&this.painter.eachOtherLayer(function(t){"function"==typeof t[i]&&t[i].call(t,o),t.trigger&&t.trigger(r,o)}))},findHover:function(t,e,r){for(var n=this.storage.getDisplayList(),o={},a=n.length-1;a>=0;a--){var s;if(n[a]!==r&&!n[a].ignore&&(s=i(n[a],t,e))&&(!o.topTarget&&(o.topTarget=n[a]),s!==c)){o.target=n[a];break}}return o}},o.each(["click","mousedown","mouseup","mousewheel","dblclick","contextmenu"],function(t){h.prototype[t]=function(e){var r=this.findHover(e.zrX,e.zrY),n=r.target;if("mousedown"===t)this._downel=n,this._upel=n;else if("mosueup"===t)this._upel=n;else if("click"===t&&this._downel!==this._upel)return;this.dispatchToElement(r,t,e)}}),o.mixin(h,s),o.mixin(h,a),h}.call(e,r,e,t))&&(t.exports=n)},923:function(t,e,r){var n;void 0!==(n=function(t){function e(){return!1}function n(t,e,r,n){var i=document.createElement(e),o=r.getWidth(),a=r.getHeight(),s=i.style;return s.position="absolute",s.left=0,s.top=0,s.width=o+"px",s.height=a+"px",i.width=o*n,i.height=a*n,i.setAttribute("data-zr-dom-id",t),i}var i=r(32),o=r(149),a=r(365),s=r(363),c=function(t,r,a){var s;a=a||o.devicePixelRatio,"string"==typeof t?s=n(t,"canvas",r,a):i.isObject(t)&&(s=t,t=s.id),this.id=t,this.dom=s;var c=s.style;c&&(s.onselectstart=e,c["-webkit-user-select"]="none",c["user-select"]="none",c["-webkit-touch-callout"]="none",c["-webkit-tap-highlight-color"]="rgba(0,0,0,0)",c.padding=0,c.margin=0,c["border-width"]=0),this.domBack=null,this.ctxBack=null,this.painter=r,this.config=null,this.clearColor=0,this.motionBlur=!1,this.lastFrameAlpha=.7,this.dpr=a};return c.prototype={constructor:c,elCount:0,__dirty:!0,initContext:function(){this.ctx=this.dom.getContext("2d"),this.ctx.dpr=this.dpr},createBackBuffer:function(){var t=this.dpr;this.domBack=n("back-"+this.id,"canvas",this.painter,t),this.ctxBack=this.domBack.getContext("2d"),1!=t&&this.ctxBack.scale(t,t)},resize:function(t,e){var r=this.dpr,n=this.dom,i=n.style,o=this.domBack;i.width=t+"px",i.height=e+"px",n.width=t*r,n.height=e*r,o&&(o.width=t*r,o.height=e*r,1!=r&&this.ctxBack.scale(r,r))},clear:function(t){var e=this.dom,r=this.ctx,n=e.width,i=e.height,o=this.clearColor,c=this.motionBlur&&!t,u=this.lastFrameAlpha,h=this.dpr;if(c&&(this.domBack||this.createBackBuffer(),this.ctxBack.globalCompositeOperation="copy",this.ctxBack.drawImage(e,0,0,n/h,i/h)),r.clearRect(0,0,n,i),o){var l;o.colorStops?(l=o.__canvasGradient||a.getGradient(r,o,{x:0,y:0,width:n,height:i}),o.__canvasGradient=l):o.image&&(l=s.prototype.getCanvasPattern.call(o,r)),r.save(),r.fillStyle=l||o,r.fillRect(0,0,n,i),r.restore()}if(c){var f=this.domBack;r.save(),r.globalAlpha=u,r.drawImage(f,0,0,n,i),r.restore()}}},c}.call(e,r,e,t))&&(t.exports=n)},924:function(t,e,r){var n;void 0!==(n=function(t){"use strict";function e(t){return parseInt(t,10)}function n(t){return!!t&&(!!t.__builtin__||"function"==typeof t.resize&&"function"==typeof t.refresh)}function i(t){t.__unusedCount++}function o(t){1==t.__unusedCount&&t.clear()}function a(t,e,r){return y.copy(t.getBoundingRect()),t.transform&&y.applyTransform(t.transform),m.width=e,m.height=r,!y.intersect(m)}function s(t,e){if(t==e)return!1;if(!t||!e||t.length!==e.length)return!0;for(var r=0;r<t.length;r++)if(t[r]!==e[r])return!0}function c(t,e){for(var r=0;r<t.length;r++){var n=t[r];n.setTransform(e),e.beginPath(),n.buildPath(e,n.shape),e.clip(),n.restoreTransform(e)}}function u(t,e){var r=document.createElement("div");return r.style.cssText=["position:relative","overflow:hidden","width:"+t+"px","height:"+e+"px","padding:0","margin:0","border-width:0"].join(";")+";",r}var h=r(149),l=r(32),f=r(359),p=r(89),d=r(361),v=r(923),g=r(355),y=new p(0,0,0,0),m=new p(0,0,0,0),_=function(t,e,r){var n=!t.nodeName||"CANVAS"===t.nodeName.toUpperCase();this._opts=r=l.extend({},r||{}),this.dpr=r.devicePixelRatio||h.devicePixelRatio,this._singleCanvas=n,this.root=t;var i=t.style;i&&(i["-webkit-tap-highlight-color"]="transparent",i["-webkit-user-select"]=i["user-select"]=i["-webkit-touch-callout"]="none",t.innerHTML=""),this.storage=e;var o=this._zlevelList=[],a=this._layers={};if(this._layerConfig={},n){null!=r.width&&(t.width=r.width),null!=r.height&&(t.height=r.height);var s=t.width,c=t.height;this._width=s,this._height=c;var f=new v(t,this,1);f.initContext(),a[0]=f,o.push(0),this._domRoot=t}else{this._width=this._getSize(0),this._height=this._getSize(1);var p=this._domRoot=u(this._width,this._height);t.appendChild(p)}this._progressiveLayers=[],this._hoverlayer,this._hoverElements=[]};return _.prototype={constructor:_,isSingleCanvas:function(){return this._singleCanvas},getViewportRoot:function(){return this._domRoot},refresh:function(t){var e=this.storage.getDisplayList(!0),r=this._zlevelList;this._paintList(e,t);for(var n=0;n<r.length;n++){var i=r[n],o=this._layers[i];!o.__builtin__&&o.refresh&&o.refresh()}return this.refreshHover(),this._progressiveLayers.length&&this._startProgessive(),this},addHover:function(t,e){if(!t.__hoverMir){var r=new t.constructor({style:t.style,shape:t.shape});r.__from=t,t.__hoverMir=r,r.setStyle(e),this._hoverElements.push(r)}},removeHover:function(t){var e=t.__hoverMir,r=this._hoverElements,n=l.indexOf(r,e);n>=0&&r.splice(n,1),t.__hoverMir=null},clearHover:function(t){for(var e=this._hoverElements,r=0;r<e.length;r++){var n=e[r].__from;n&&(n.__hoverMir=null)}e.length=0},refreshHover:function(){var t=this._hoverElements,e=t.length,r=this._hoverlayer;if(r&&r.clear(),e){d(t,this.storage.displayableSortFunc),r||(r=this._hoverlayer=this.getLayer(1e5));var n={};r.ctx.save();for(var i=0;i<e;){var o=t[i],a=o.__from;a&&a.__zr?(i++,a.invisible||(o.transform=a.transform,o.invTransform=a.invTransform,o.__clipPaths=a.__clipPaths,this._doPaintEl(o,r,!0,n))):(t.splice(i,1),a.__hoverMir=null,e--)}r.ctx.restore()}},_startProgessive:function(){function t(){r===e._progressiveToken&&e.storage&&(e._doPaintList(e.storage.getDisplayList()),e._furtherProgressive?(e._progress++,g(t)):e._progressiveToken=-1)}var e=this;if(e._furtherProgressive){var r=e._progressiveToken=+new Date;e._progress++,g(t)}},_clearProgressive:function(){this._progressiveToken=-1,this._progress=0,l.each(this._progressiveLayers,function(t){t.__dirty&&t.clear()})},_paintList:function(t,e){null==e&&(e=!1),this._updateLayerStatus(t),this._clearProgressive(),this.eachBuiltinLayer(i),this._doPaintList(t,e),this.eachBuiltinLayer(o)},_doPaintList:function(t,e){function r(t){var e=o.dpr||1;o.save(),o.globalAlpha=1,o.shadowBlur=0,n.__dirty=!0,o.setTransform(1,0,0,1,0,0),o.drawImage(t.dom,0,0,h*e,p*e),o.restore()}for(var n,i,o,a,s,c,u=0,h=this._width,p=this._height,d=this._progress,v=0,g=t.length;v<g;v++){var y=t[v],m=this._singleCanvas?0:y.zlevel,_=y.__frame;if(_<0&&s&&(r(s),s=null),i!==m&&(o&&o.restore(),a={},i=m,n=this.getLayer(i),n.__builtin__||f("ZLevel "+i+" has been used by unkown layer "+n.id),o=n.ctx,o.save(),n.__unusedCount=0,(n.__dirty||e)&&n.clear()),n.__dirty||e){if(_>=0){if(!s){if(s=this._progressiveLayers[Math.min(u++,4)],s.ctx.save(),s.renderScope={},s&&s.__progress>s.__maxProgress){v=s.__nextIdxNotProg-1;continue}c=s.__progress,s.__dirty||(d=c),s.__progress=d+1}_===d&&this._doPaintEl(y,s,!0,s.renderScope)}else this._doPaintEl(y,n,e,a);y.__dirty=!1}}s&&r(s),o&&o.restore(),this._furtherProgressive=!1,l.each(this._progressiveLayers,function(t){t.__maxProgress>=t.__progress&&(this._furtherProgressive=!0)},this)},_doPaintEl:function(t,e,r,n){var i=e.ctx,o=t.transform;if((e.__dirty||r)&&!t.invisible&&0!==t.style.opacity&&(!o||o[0]||o[3])&&(!t.culling||!a(t,this._width,this._height))){var u=t.__clipPaths;(n.prevClipLayer!==e||s(u,n.prevElClipPaths))&&(n.prevElClipPaths&&(n.prevClipLayer.ctx.restore(),n.prevClipLayer=n.prevElClipPaths=null,n.prevEl=null),u&&(i.save(),c(u,i),n.prevClipLayer=e,n.prevElClipPaths=u)),t.beforeBrush&&t.beforeBrush(i),t.brush(i,n.prevEl||null),n.prevEl=t,t.afterBrush&&t.afterBrush(i)}},getLayer:function(t){if(this._singleCanvas)return this._layers[0];var e=this._layers[t];return e||(e=new v("zr_"+t,this,this.dpr),e.__builtin__=!0,this._layerConfig[t]&&l.merge(e,this._layerConfig[t],!0),this.insertLayer(t,e),e.initContext()),e},insertLayer:function(t,e){var r=this._layers,i=this._zlevelList,o=i.length,a=null,s=-1,c=this._domRoot;if(r[t])return void f("ZLevel "+t+" has been used already");if(!n(e))return void f("Layer of zlevel "+t+" is not valid");if(o>0&&t>i[0]){for(s=0;s<o-1&&!(i[s]<t&&i[s+1]>t);s++);a=r[i[s]]}if(i.splice(s+1,0,t),r[t]=e,!e.virtual)if(a){var u=a.dom;u.nextSibling?c.insertBefore(e.dom,u.nextSibling):c.appendChild(e.dom)}else c.firstChild?c.insertBefore(e.dom,c.firstChild):c.appendChild(e.dom)},eachLayer:function(t,e){var r,n,i=this._zlevelList;for(n=0;n<i.length;n++)r=i[n],t.call(e,this._layers[r],r)},eachBuiltinLayer:function(t,e){var r,n,i,o=this._zlevelList;for(i=0;i<o.length;i++)n=o[i],r=this._layers[n],r.__builtin__&&t.call(e,r,n)},eachOtherLayer:function(t,e){var r,n,i,o=this._zlevelList;for(i=0;i<o.length;i++)n=o[i],r=this._layers[n],r.__builtin__||t.call(e,r,n)},getLayers:function(){return this._layers},_updateLayerStatus:function(t){var e=this._layers,r=this._progressiveLayers,n={},i={};this.eachBuiltinLayer(function(t,e){n[e]=t.elCount,t.elCount=0,t.__dirty=!1}),l.each(r,function(t,e){i[e]=t.elCount,t.elCount=0,t.__dirty=!1});for(var o,a,s=0,c=0,u=0,h=t.length;u<h;u++){var f=t[u],p=this._singleCanvas?0:f.zlevel,d=e[p],g=f.progressive;if(d&&(d.elCount++,d.__dirty=d.__dirty||f.__dirty),g>=0){a!==g&&(a=g,c++);var y=f.__frame=c-1;if(!o){var m=Math.min(s,4);o=r[m],o||(o=r[m]=new v("progressive",this,this.dpr),o.initContext()),o.__maxProgress=0}o.__dirty=o.__dirty||f.__dirty,o.elCount++,o.__maxProgress=Math.max(o.__maxProgress,y),o.__maxProgress>=o.__progress&&(d.__dirty=!0)}else f.__frame=-1,o&&(o.__nextIdxNotProg=u,s++,o=null)}o&&(s++,o.__nextIdxNotProg=u),this.eachBuiltinLayer(function(t,e){n[e]!==t.elCount&&(t.__dirty=!0)}),r.length=Math.min(s,5),l.each(r,function(t,e){i[e]!==t.elCount&&(f.__dirty=!0),t.__dirty&&(t.__progress=0)})},clear:function(){return this.eachBuiltinLayer(this._clearLayer),this},_clearLayer:function(t){t.clear()},configLayer:function(t,e){if(e){var r=this._layerConfig;r[t]?l.merge(r[t],e,!0):r[t]=e;var n=this._layers[t];n&&l.merge(n,r[t],!0)}},delLayer:function(t){var e=this._layers,r=this._zlevelList,n=e[t];n&&(n.dom.parentNode.removeChild(n.dom),delete e[t],r.splice(l.indexOf(r,t),1))},resize:function(t,e){var r=this._domRoot;r.style.display="none";var n=this._opts;if(null!=t&&(n.width=t),null!=e&&(n.height=e),t=this._getSize(0),e=this._getSize(1),r.style.display="",this._width!=t||e!=this._height){r.style.width=t+"px",r.style.height=e+"px";for(var i in this._layers)this._layers.hasOwnProperty(i)&&this._layers[i].resize(t,e);l.each(this._progressiveLayers,function(r){r.resize(t,e)}),this.refresh(!0)}return this._width=t,this._height=e,this},clearLayer:function(t){var e=this._layers[t];e&&e.clear()},dispose:function(){this.root.innerHTML="",this.root=this.storage=this._domRoot=this._layers=null},getRenderedCanvas:function(t){function e(t,e){var n=a._zlevelList;null==t&&(t=-1/0);for(var i,o=0;o<n.length;o++){var s=n[o],c=a._layers[s];if(!c.__builtin__&&s>t&&s<e){i=c;break}}i&&i.renderToCanvas&&(r.ctx.save(),i.renderToCanvas(r.ctx),r.ctx.restore())}if(t=t||{},this._singleCanvas)return this._layers[0].dom;var r=new v("image",this,t.pixelRatio||this.dpr);r.initContext(),r.clearColor=t.backgroundColor,r.clear();for(var n,i=this.storage.getDisplayList(!0),o={},a=this,s=0;s<i.length;s++){var c=i[s];c.zlevel!==n&&(e(n,c.zlevel),n=c.zlevel),this._doPaintEl(c,r,!0,o)}return e(n,1/0),r.dom},getWidth:function(){return this._width},getHeight:function(){return this._height},_getSize:function(t){var r=this._opts,n=["width","height"][t],i=["clientWidth","clientHeight"][t],o=["paddingLeft","paddingTop"][t],a=["paddingRight","paddingBottom"][t];if(null!=r[n]&&"auto"!==r[n])return parseFloat(r[n]);var s=this.root,c=document.defaultView.getComputedStyle(s);return(s[i]||e(c[n])||e(s.style[n]))-(e(c[o])||0)-(e(c[a])||0)|0},pathToImage:function(t,e){e=e||this.dpr;var n=document.createElement("canvas"),i=n.getContext("2d"),o=t.getBoundingRect(),a=t.style,s=a.shadowBlur,c=a.shadowOffsetX,u=a.shadowOffsetY,h=a.hasStroke()?a.lineWidth:0,l=Math.max(h/2,-c+s),f=Math.max(h/2,c+s),p=Math.max(h/2,-u+s),d=Math.max(h/2,u+s),v=o.width+l+f,g=o.height+p+d;n.width=v*e,n.height=g*e,i.scale(e,e),i.clearRect(0,0,v,g),i.dpr=e;var y={position:t.position,rotation:t.rotation,scale:t.scale};t.position=[l-o.x,p-o.y],t.rotation=0,t.scale=[1,1],t.updateTransform(),t&&t.brush(i);var m=r(940),_=new m({style:{x:0,y:0,image:n}});return null!=y.position&&(_.position=t.position=y.position),null!=y.rotation&&(_.rotation=t.rotation=y.rotation),null!=y.scale&&(_.scale=t.scale=y.scale),_}},_}.call(e,r,e,t))&&(t.exports=n)},925:function(t,e,r){var n;void 0!==(n=function(t){"use strict";function e(t,e){return t.zlevel===e.zlevel?t.z===e.z?t.z2-e.z2:t.z-e.z:t.zlevel-e.zlevel}var n=r(32),i=r(151),o=r(115),a=r(361),s=function(){this._roots=[],this._displayList=[],this._displayListLen=0};return s.prototype={constructor:s,traverse:function(t,e){for(var r=0;r<this._roots.length;r++)this._roots[r].traverse(t,e)},getDisplayList:function(t,e){return e=e||!1,t&&this.updateDisplayList(e),this._displayList},updateDisplayList:function(t){this._displayListLen=0;for(var r=this._roots,n=this._displayList,o=0,s=r.length;o<s;o++)this._updateAndAddDisplayable(r[o],null,t);n.length=this._displayListLen,i.canvasSupported&&a(n,e)},_updateAndAddDisplayable:function(t,e,r){if(!t.ignore||r){t.beforeUpdate(),t.__dirty&&t.update(),t.afterUpdate();var n=t.clipPath;if(n){e=e?e.slice():[];for(var i=n,o=t;i;)i.parent=o,i.updateTransform(),e.push(i),o=i,i=i.clipPath}if(t.isGroup){for(var a=t._children,s=0;s<a.length;s++){var c=a[s];t.__dirty&&(c.__dirty=!0),this._updateAndAddDisplayable(c,e,r)}t.__dirty=!1}else t.__clipPaths=e,this._displayList[this._displayListLen++]=t}},addRoot:function(t){t.__storage!==this&&(t instanceof o&&t.addChildrenToStorage(this),this.addToStorage(t),this._roots.push(t))},delRoot:function(t){if(null==t){for(var e=0;e<this._roots.length;e++){var r=this._roots[e];r instanceof o&&r.delChildrenFromStorage(this)}return this._roots=[],this._displayList=[],void(this._displayListLen=0)}if(t instanceof Array)for(var e=0,i=t.length;e<i;e++)this.delRoot(t[e]);else{var a=n.indexOf(this._roots,t);a>=0&&(this.delFromStorage(t),this._roots.splice(a,1),t instanceof o&&t.delChildrenFromStorage(this))}},addToStorage:function(t){return t.__storage=this,t.dirty(!1),this},delFromStorage:function(t){return t&&(t.__storage=null),this},dispose:function(){this._renderList=this._roots=null},displayableSortFunc:e},s}.call(e,r,e,t))&&(t.exports=n)},926:function(t,e,r){var n;void 0!==(n=function(t){"use strict";var e=r(32),n=r(217).Dispatcher,i=r(355),o=r(354),a=function(t){t=t||{},this.stage=t.stage||{},this.onframe=t.onframe||function(){},this._clips=[],this._running=!1,this._time,this._pausedTime,this._pauseStart,this._paused=!1,n.call(this)};return a.prototype={constructor:a,addClip:function(t){this._clips.push(t)},addAnimator:function(t){t.animation=this;for(var e=t.getClips(),r=0;r<e.length;r++)this.addClip(e[r])},removeClip:function(t){var r=e.indexOf(this._clips,t);r>=0&&this._clips.splice(r,1)},removeAnimator:function(t){for(var e=t.getClips(),r=0;r<e.length;r++)this.removeClip(e[r]);t.animation=null},_update:function(){for(var t=(new Date).getTime()-this._pausedTime,e=t-this._time,r=this._clips,n=r.length,i=[],o=[],a=0;a<n;a++){var s=r[a],c=s.step(t,e);c&&(i.push(c),o.push(s))}for(var a=0;a<n;)r[a]._needsRemove?(r[a]=r[n-1],r.pop(),n--):a++;n=i.length;for(var a=0;a<n;a++)o[a].fire(i[a]);this._time=t,this.onframe(e),this.trigger("frame",e),this.stage.update&&this.stage.update()},_startLoop:function(){function t(){e._running&&(i(t),!e._paused&&e._update())}var e=this;this._running=!0,i(t)},start:function(){this._time=(new Date).getTime(),this._pausedTime=0,this._startLoop()},stop:function(){this._running=!1},pause:function(){this._paused||(this._pauseStart=(new Date).getTime(),this._paused=!0)},resume:function(){this._paused&&(this._pausedTime+=(new Date).getTime()-this._pauseStart,this._paused=!1)},clear:function(){this._clips=[]},animate:function(t,e){e=e||{};var r=new o(t,e.loop,e.getter,e.setter);return this.addAnimator(r),r}},e.mixin(a,n),a}.call(e,r,e,t))&&(t.exports=n)},927:function(t,e,r){var n;void 0!==(n=function(t){function e(t){this._target=t.target,this._life=t.life||1e3,this._delay=t.delay||0,this._initialized=!1,this.loop=null!=t.loop&&t.loop,this.gap=t.gap||0,this.easing=t.easing||"Linear",this.onframe=t.onframe,this.ondestroy=t.ondestroy,this.onrestart=t.onrestart,this._pausedTime=0,this._paused=!1}var n=r(928);return e.prototype={constructor:e,step:function(t,e){if(this._initialized||(this._startTime=t+this._delay,this._initialized=!0),this._paused)return void(this._pausedTime+=e);var r=(t-this._startTime-this._pausedTime)/this._life;if(!(r<0)){r=Math.min(r,1);var i=this.easing,o="string"==typeof i?n[i]:i,a="function"==typeof o?o(r):r;return this.fire("frame",a),1==r?this.loop?(this.restart(t),"restart"):(this._needsRemove=!0,"destroy"):null}},restart:function(t){var e=(t-this._startTime-this._pausedTime)%this._life;this._startTime=t-e+this.gap,this._pausedTime=0,this._needsRemove=!1},fire:function(t,e){t="on"+t,this[t]&&this[t](this._target,e)},pause:function(){this._paused=!0},resume:function(){this._paused=!1}},e}.call(e,r,e,t))&&(t.exports=n)},928:function(t,e,r){var n;void 0!==(n=function(){var t={linear:function(t){return t},quadraticIn:function(t){return t*t},quadraticOut:function(t){return t*(2-t)},quadraticInOut:function(t){return(t*=2)<1?.5*t*t:-.5*(--t*(t-2)-1)},cubicIn:function(t){return t*t*t},cubicOut:function(t){return--t*t*t+1},cubicInOut:function(t){return(t*=2)<1?.5*t*t*t:.5*((t-=2)*t*t+2)},quarticIn:function(t){return t*t*t*t},quarticOut:function(t){return 1- --t*t*t*t},quarticInOut:function(t){return(t*=2)<1?.5*t*t*t*t:-.5*((t-=2)*t*t*t-2)},quinticIn:function(t){return t*t*t*t*t},quinticOut:function(t){return--t*t*t*t*t+1},quinticInOut:function(t){return(t*=2)<1?.5*t*t*t*t*t:.5*((t-=2)*t*t*t*t+2)},sinusoidalIn:function(t){return 1-Math.cos(t*Math.PI/2)},sinusoidalOut:function(t){return Math.sin(t*Math.PI/2)},sinusoidalInOut:function(t){return.5*(1-Math.cos(Math.PI*t))},exponentialIn:function(t){return 0===t?0:Math.pow(1024,t-1)},exponentialOut:function(t){return 1===t?1:1-Math.pow(2,-10*t)},exponentialInOut:function(t){return 0===t?0:1===t?1:(t*=2)<1?.5*Math.pow(1024,t-1):.5*(2-Math.pow(2,-10*(t-1)))},circularIn:function(t){return 1-Math.sqrt(1-t*t)},circularOut:function(t){return Math.sqrt(1- --t*t)},circularInOut:function(t){return(t*=2)<1?-.5*(Math.sqrt(1-t*t)-1):.5*(Math.sqrt(1-(t-=2)*t)+1)},elasticIn:function(t){var e,r=.1;return 0===t?0:1===t?1:(!r||r<1?(r=1,e=.1):e=.4*Math.asin(1/r)/(2*Math.PI),-r*Math.pow(2,10*(t-=1))*Math.sin((t-e)*(2*Math.PI)/.4))},elasticOut:function(t){var e,r=.1;return 0===t?0:1===t?1:(!r||r<1?(r=1,e=.1):e=.4*Math.asin(1/r)/(2*Math.PI),r*Math.pow(2,-10*t)*Math.sin((t-e)*(2*Math.PI)/.4)+1)},elasticInOut:function(t){var e,r=.1;return 0===t?0:1===t?1:(!r||r<1?(r=1,e=.1):e=.4*Math.asin(1/r)/(2*Math.PI),(t*=2)<1?r*Math.pow(2,10*(t-=1))*Math.sin((t-e)*(2*Math.PI)/.4)*-.5:r*Math.pow(2,-10*(t-=1))*Math.sin((t-e)*(2*Math.PI)/.4)*.5+1)},backIn:function(t){var e=1.70158;return t*t*((e+1)*t-e)},backOut:function(t){var e=1.70158;return--t*t*((e+1)*t+e)+1},backInOut:function(t){var e=2.5949095;return(t*=2)<1?t*t*((e+1)*t-e)*.5:.5*((t-=2)*t*((e+1)*t+e)+2)},bounceIn:function(e){return 1-t.bounceOut(1-e)},bounceOut:function(t){return t<1/2.75?7.5625*t*t:t<2/2.75?7.5625*(t-=1.5/2.75)*t+.75:t<2.5/2.75?7.5625*(t-=2.25/2.75)*t+.9375:7.5625*(t-=2.625/2.75)*t+.984375},bounceInOut:function(e){return e<.5?.5*t.bounceIn(2*e):.5*t.bounceOut(2*e-1)+.5}};return t}.call(e,r,e,t))&&(t.exports=n)},929:function(t,e,r){var n;void 0!==(n=function(t){var e=r(356).normalizeRadian,n=2*Math.PI;return{containStroke:function(t,r,i,o,a,s,c,u,h){if(0===c)return!1;var l=c;u-=t,h-=r;var f=Math.sqrt(u*u+h*h);if(f-l>i||f+l<i)return!1;if(Math.abs(o-a)%n<1e-4)return!0;if(s){var p=o;o=e(a),a=e(p)}else o=e(o),a=e(a);o>a&&(a+=n);var d=Math.atan2(h,u);return d<0&&(d+=n),d>=o&&d<=a||d+n>=o&&d+n<=a}}}.call(e,r,e,t))&&(t.exports=n)},930:function(t,e,r){var n;void 0!==(n=function(t){var e=r(90);return{containStroke:function(t,r,n,i,o,a,s,c,u,h,l){if(0===u)return!1;var f=u;return!(l>r+f&&l>i+f&&l>a+f&&l>c+f||l<r-f&&l<i-f&&l<a-f&&l<c-f||h>t+f&&h>n+f&&h>o+f&&h>s+f||h<t-f&&h<n-f&&h<o-f&&h<s-f)&&e.cubicProjectPoint(t,r,n,i,o,a,s,c,h,l,null)<=f/2}}}.call(e,r,e,t))&&(t.exports=n)},931:function(t,e,r){var n;void 0!==(n=function(){return{containStroke:function(t,e,r,n,i,o,a){if(0===i)return!1;var s=i,c=0,u=t;if(a>e+s&&a>n+s||a<e-s&&a<n-s||o>t+s&&o>r+s||o<t-s&&o<r-s)return!1;if(t===r)return Math.abs(o-t)<=s/2;c=(e-n)/(t-r),u=(t*n-r*e)/(t-r);var h=c*o-a+u;return h*h/(c*c+1)<=s/2*s/2}}}.call(e,r,e,t))&&(t.exports=n)},932:function(t,e,r){var n;void 0!==(n=function(t){"use strict";function e(t,e){return Math.abs(t-e)<m}function n(){var t=b[0];b[0]=b[1],b[1]=t}function i(t,e,r,i,o,a,s,c,u,h){if(h>e&&h>i&&h>a&&h>c||h<e&&h<i&&h<a&&h<c)return 0;var l=d.cubicRootAt(e,i,a,c,h,_);if(0===l)return 0;for(var f,p,v=0,g=-1,y=0;y<l;y++){var m=_[y],w=0===m||1===m?.5:1;d.cubicAt(t,r,o,s,m)<u||(g<0&&(g=d.cubicExtrema(e,i,a,c,b),b[1]<b[0]&&g>1&&n(),f=d.cubicAt(e,i,a,c,b[0]),g>1&&(p=d.cubicAt(e,i,a,c,b[1]))),2==g?m<b[0]?v+=f<e?w:-w:m<b[1]?v+=p<f?w:-w:v+=c<p?w:-w:m<b[0]?v+=f<e?w:-w:v+=c<f?w:-w)}return v}function o(t,e,r,n,i,o,a,s){if(s>e&&s>n&&s>o||s<e&&s<n&&s<o)return 0;var c=d.quadraticRootAt(e,n,o,s,_);if(0===c)return 0;var u=d.quadraticExtremum(e,n,o);if(u>=0&&u<=1){for(var h=0,l=d.quadraticAt(e,n,o,u),f=0;f<c;f++){var p=0===_[f]||1===_[f]?.5:1,v=d.quadraticAt(t,r,i,_[f]);v<a||(_[f]<u?h+=l<e?p:-p:h+=o<l?p:-p)}return h}var p=0===_[0]||1===_[0]?.5:1,v=d.quadraticAt(t,r,i,_[0]);return v<a?0:o<e?p:-p}function a(t,e,r,n,i,o,a,s){if((s-=e)>r||s<-r)return 0;var c=Math.sqrt(r*r-s*s);_[0]=-c,_[1]=c;var u=Math.abs(n-i);if(u<1e-4)return 0;if(u%y<1e-4){n=0,i=y;var h=o?1:-1;return a>=_[0]+t&&a<=_[1]+t?h:0}if(o){var c=n;n=p(i),i=p(c)}else n=p(n),i=p(i);n>i&&(i+=y);for(var l=0,f=0;f<2;f++){var d=_[f];if(d+t>a){var v=Math.atan2(s,d),h=o?1:-1;v<0&&(v=y+v),(v>=n&&v<=i||v+y>=n&&v+y<=i)&&(v>Math.PI/2&&v<1.5*Math.PI&&(h=-h),l+=h)}}return l}function s(t,r,n,s,u){for(var p=0,d=0,y=0,m=0,_=0,b=0;b<t.length;){var w=t[b++];switch(w===c.M&&b>1&&(n||(p+=v(d,y,m,_,s,u))),1==b&&(d=t[b],y=t[b+1],m=d,_=y),w){case c.M:m=t[b++],_=t[b++],d=m,y=_;break;case c.L:if(n){if(g(d,y,t[b],t[b+1],r,s,u))return!0}else p+=v(d,y,t[b],t[b+1],s,u)||0;d=t[b++],y=t[b++];break;case c.C:if(n){if(h.containStroke(d,y,t[b++],t[b++],t[b++],t[b++],t[b],t[b+1],r,s,u))return!0}else p+=i(d,y,t[b++],t[b++],t[b++],t[b++],t[b],t[b+1],s,u)||0;d=t[b++],y=t[b++];break;case c.Q:if(n){if(l.containStroke(d,y,t[b++],t[b++],t[b],t[b+1],r,s,u))return!0}else p+=o(d,y,t[b++],t[b++],t[b],t[b+1],s,u)||0;d=t[b++],y=t[b++];break;case c.A:var x=t[b++],k=t[b++],T=t[b++],C=t[b++],S=t[b++],A=t[b++],P=(t[b++],1-t[b++]),M=Math.cos(S)*T+x,E=Math.sin(S)*C+k;b>1?p+=v(d,y,M,E,s,u):(m=M,_=E);var O=(s-x)*C/T+x;if(n){if(f.containStroke(x,k,C,S,S+A,P,r,O,u))return!0}else p+=a(x,k,C,S,S+A,P,O,u);d=Math.cos(S+A)*T+x,y=Math.sin(S+A)*C+k;break;case c.R:m=d=t[b++],_=y=t[b++];var B=t[b++],L=t[b++],M=m+B,E=_+L;if(n){if(g(m,_,M,_,r,s,u)||g(M,_,M,E,r,s,u)||g(M,E,m,E,r,s,u)||g(m,E,m,_,r,s,u))return!0}else p+=v(M,_,M,E,s,u),p+=v(m,E,m,_,s,u);break;case c.Z:if(n){if(g(d,y,m,_,r,s,u))return!0}else p+=v(d,y,m,_,s,u);d=m,y=_}}return n||e(y,_)||(p+=v(d,y,m,_,s,u)||0),0!==p}var c=r(150).CMD,u=r(931),h=r(930),l=r(933),f=r(929),p=r(356).normalizeRadian,d=r(90),v=r(935),g=u.containStroke,y=2*Math.PI,m=1e-4,_=[-1,-1,-1],b=[-1,-1];return{contain:function(t,e,r){return s(t,0,!1,e,r)},containStroke:function(t,e,r,n){return s(t,e,!0,r,n)}}}.call(e,r,e,t))&&(t.exports=n)},933:function(t,e,r){var n;void 0!==(n=function(t){var e=r(90);return{containStroke:function(t,r,n,i,o,a,s,c,u){if(0===s)return!1;var h=s;return!(u>r+h&&u>i+h&&u>a+h||u<r-h&&u<i-h&&u<a-h||c>t+h&&c>n+h&&c>o+h||c<t-h&&c<n-h&&c<o-h)&&e.quadraticProjectPoint(t,r,n,i,o,a,c,u,null)<=h/2}}}.call(e,r,e,t))&&(t.exports=n)},934:function(t,e,r){var n;void 0!==(n=function(t){function e(t,e){var r=t+":"+e;if(s[r])return s[r];for(var n=(t+"").split("\n"),i=0,o=0,a=n.length;o<a;o++)i=Math.max(p.measureText(n[o],e).width,i);return c>u&&(c=0,s={}),c++,s[r]=i,i}function n(t,r,n,i){var o=((t||"")+"").split("\n").length,a=e(t,r),s=e("国",r),c=o*s,u=new l(0,0,a,c);switch(u.lineHeight=s,i){case"bottom":case"alphabetic":u.y-=s;break;case"middle":u.y-=s/2}switch(n){case"end":case"right":u.x-=u.width;break;case"center":u.x-=u.width/2}return u}function i(t,e,r,n){var i=e.x,o=e.y,a=e.height,s=e.width,c=r.height,u=r.lineHeight,h=a/2-c/2+u,l="left";switch(t){case"left":i-=n,o+=h,l="right";break;case"right":i+=n+s,o+=h,l="left";break;case"top":i+=s/2,o-=n+c-u,l="center";break;case"bottom":i+=s/2,o+=a+n+u,l="center";break;case"inside":i+=s/2,o+=h,l="center";break;case"insideLeft":i+=n,o+=h,l="left";break;case"insideRight":i+=s-n,o+=h,l="right";break;case"insideTop":i+=s/2,o+=n+u,l="center";break;case"insideBottom":i+=s/2,o+=a-c-n+u,l="center";break;case"insideTopLeft":i+=n,o+=n+u,l="left";break;case"insideTopRight":i+=s-n,o+=n+u,l="right";break;case"insideBottomLeft":i+=n,o+=a-c-n+u;break;case"insideBottomRight":i+=s-n,o+=a-c-n+u,l="right"}return{x:i,y:o,textAlign:l,textBaseline:"alphabetic"}}function o(t,r,n,i,o){if(!r)return"";o=o||{},i=f(i,"...");for(var s=f(o.maxIterations,2),c=f(o.minChar,0),u=e("国",n),h=e("a",n),l=f(o.placeholder,""),p=r=Math.max(0,r-1),d=0;d<c&&p>=h;d++)p-=h;var v=e(i);v>p&&(i="",v=0),p=r-v;for(var g=(t+"").split("\n"),d=0,y=g.length;d<y;d++){var m=g[d],_=e(m,n);if(!(_<=r)){for(var b=0;;b++){if(_<=p||b>=s){m+=i;break}var w=0===b?a(m,p,h,u):_>0?Math.floor(m.length*p/_):0;m=m.substr(0,w),_=e(m,n)}""===m&&(m=l),g[d]=m}}return g.join("\n")}function a(t,e,r,n){for(var i=0,o=0,a=t.length;o<a&&i<e;o++){var s=t.charCodeAt(o);i+=0<=s&&s<=127?r:n}return o}var s={},c=0,u=5e3,h=r(32),l=r(89),f=h.retrieve,p={getWidth:e,getBoundingRect:n,adjustTextPositionOnRect:i,truncateText:o,measureText:function(t,e){var r=h.getContext();return r.font=e||"12px sans-serif",r.measureText(t)}};return p}.call(e,r,e,t))&&(t.exports=n)},935:function(t,e,r){var n;void 0!==(n=function(){return function(t,e,r,n,i,o){if(o>e&&o>n||o<e&&o<n)return 0;if(n===e)return 0;var a=n<e?1:-1,s=(o-e)/(n-e);return 1!==s&&0!==s||(a=n<e?.5:-.5),s*(r-t)+t>i?a:0}}.call(e,r,e,t))&&(t.exports=n)},936:function(t,e,r){var n;void 0!==(n=function(t){"use strict";function e(t){var e=t[1][0]-t[0][0],r=t[1][1]-t[0][1];return Math.sqrt(e*e+r*r)}function n(t){return[(t[0][0]+t[1][0])/2,(t[0][1]+t[1][1])/2]}var i=r(217),o=function(){this._track=[]};o.prototype={constructor:o,recognize:function(t,e,r){return this._doTrack(t,e,r),this._recognize(t)},clear:function(){return this._track.length=0,this},_doTrack:function(t,e,r){var n=t.touches;if(n){for(var o={points:[],touches:[],target:e,event:t},a=0,s=n.length;a<s;a++){var c=n[a],u=i.clientToLocal(r,c,{});o.points.push([u.zrX,u.zrY]),o.touches.push(c)}this._track.push(o)}},_recognize:function(t){for(var e in a)if(a.hasOwnProperty(e)){var r=a[e](this._track,t);if(r)return r}}};var a={pinch:function(t,r){var i=t.length;if(i){var o=(t[i-1]||{}).points,a=(t[i-2]||{}).points||o;if(a&&a.length>1&&o&&o.length>1){var s=e(o)/e(a);!isFinite(s)&&(s=1),r.pinchScale=s;var c=n(o);return r.pinchX=c[0],r.pinchY=c[1],{type:"pinch",target:t[0].target,event:r}}}}};return o}.call(e,r,e,t))&&(t.exports=n)},937:function(t,e,r){var n;void 0!==(n=function(t){var e=r(75),n=r(90),i={},o=Math.min,a=Math.max,s=Math.sin,c=Math.cos,u=e.create(),h=e.create(),l=e.create(),f=2*Math.PI;i.fromPoints=function(t,e,r){if(0!==t.length){var n,i=t[0],s=i[0],c=i[0],u=i[1],h=i[1];for(n=1;n<t.length;n++)i=t[n],s=o(s,i[0]),c=a(c,i[0]),u=o(u,i[1]),h=a(h,i[1]);e[0]=s,e[1]=u,r[0]=c,r[1]=h}},i.fromLine=function(t,e,r,n,i,s){i[0]=o(t,r),i[1]=o(e,n),s[0]=a(t,r),s[1]=a(e,n)};var p=[],d=[];return i.fromCubic=function(t,e,r,i,s,c,u,h,l,f){var v,g=n.cubicExtrema,y=n.cubicAt,m=g(t,r,s,u,p);for(l[0]=1/0,l[1]=1/0,f[0]=-1/0,f[1]=-1/0,v=0;v<m;v++){var _=y(t,r,s,u,p[v]);l[0]=o(_,l[0]),f[0]=a(_,f[0])}for(m=g(e,i,c,h,d),v=0;v<m;v++){var b=y(e,i,c,h,d[v]);l[1]=o(b,l[1]),f[1]=a(b,f[1])}l[0]=o(t,l[0]),f[0]=a(t,f[0]),l[0]=o(u,l[0]),f[0]=a(u,f[0]),l[1]=o(e,l[1]),f[1]=a(e,f[1]),l[1]=o(h,l[1]),f[1]=a(h,f[1])},i.fromQuadratic=function(t,e,r,i,s,c,u,h){var l=n.quadraticExtremum,f=n.quadraticAt,p=a(o(l(t,r,s),1),0),d=a(o(l(e,i,c),1),0),v=f(t,r,s,p),g=f(e,i,c,d);u[0]=o(t,s,v),u[1]=o(e,c,g),h[0]=a(t,s,v),h[1]=a(e,c,g)},i.fromArc=function(t,r,n,i,o,a,p,d,v){var g=e.min,y=e.max,m=Math.abs(o-a);if(m%f<1e-4&&m>1e-4)return d[0]=t-n,d[1]=r-i,v[0]=t+n,void(v[1]=r+i);if(u[0]=c(o)*n+t,u[1]=s(o)*i+r,h[0]=c(a)*n+t,h[1]=s(a)*i+r,g(d,u,h),y(v,u,h),o%=f,o<0&&(o+=f),a%=f,a<0&&(a+=f),o>a&&!p?a+=f:o<a&&p&&(o+=f),p){var _=a;a=o,o=_}for(var b=0;b<a;b+=Math.PI/2)b>o&&(l[0]=c(b)*n+t,l[1]=s(b)*i+r,g(d,l,d),y(v,l,v))},i}.call(e,r,e,t))&&(t.exports=n)},938:function(t,e,r){var n;void 0!==(n=function(t){function e(t){return"mousewheel"===t&&l.browser.firefox?"DOMMouseScroll":t}function n(t,e,r){var n=t._gestureMgr;"start"===r&&n.clear();var i=n.recognize(e,t.handler.findHover(e.zrX,e.zrY,null).target,t.dom);if("end"===r&&n.clear(),i){var o=i.type;e.gestureEvent=o,t.handler.dispatchToElement({target:i.target},o,i.event)}}function i(t){t._touching=!0,clearTimeout(t._touchTimer),t._touchTimer=setTimeout(function(){t._touching=!1},700)}function o(t){var e=t.pointerType;return"pen"===e||"touch"===e}function a(t){function e(t,e){return function(){if(!e._touching)return t.apply(e,arguments)}}u.each(y,function(e){t._handlers[e]=u.bind(b[e],t)}),u.each(_,function(e){t._handlers[e]=u.bind(b[e],t)}),u.each(g,function(r){t._handlers[r]=e(b[r],t)})}function s(t){function r(r,n){u.each(r,function(r){p(t,e(r),n._handlers[r])},n)}h.call(this),this.dom=t,this._touching=!1,this._touchTimer,this._gestureMgr=new f,this._handlers={},a(this),l.pointerEventsSupported?r(_,this):(l.touchEventsSupported&&r(y,this),r(g,this))}var c=r(217),u=r(32),h=r(152),l=r(151),f=r(936),p=c.addEventListener,d=c.removeEventListener,v=c.normalizeEvent,g=["click","dblclick","mousewheel","mouseout","mouseup","mousedown","mousemove","contextmenu"],y=["touchstart","touchend","touchmove"],m={pointerdown:1,pointerup:1,pointermove:1,pointerout:1},_=u.map(g,function(t){var e=t.replace("mouse","pointer");return m[e]?e:t}),b={mousemove:function(t){t=v(this.dom,t),this.trigger("mousemove",t)},mouseout:function(t){t=v(this.dom,t);var e=t.toElement||t.relatedTarget;if(e!=this.dom)for(;e&&9!=e.nodeType;){if(e===this.dom)return;e=e.parentNode}this.trigger("mouseout",t)},touchstart:function(t){t=v(this.dom,t),t.zrByTouch=!0,this._lastTouchMoment=new Date,n(this,t,"start"),b.mousemove.call(this,t),b.mousedown.call(this,t),i(this)},touchmove:function(t){t=v(this.dom,t),t.zrByTouch=!0,n(this,t,"change"),b.mousemove.call(this,t),i(this)},touchend:function(t){t=v(this.dom,t),t.zrByTouch=!0,n(this,t,"end"),b.mouseup.call(this,t),+new Date-this._lastTouchMoment<300&&b.click.call(this,t),i(this)},pointerdown:function(t){b.mousedown.call(this,t)},pointermove:function(t){o(t)||b.mousemove.call(this,t)},pointerup:function(t){b.mouseup.call(this,t)},pointerout:function(t){o(t)||b.mouseout.call(this,t)}};u.each(["click","mousedown","mouseup","mousewheel","dblclick","contextmenu"],function(t){b[t]=function(e){e=v(this.dom,e),this.trigger(t,e)}});var w=s.prototype;return w.dispose=function(){for(var t=g.concat(y),r=0;r<t.length;r++){var n=t[r];d(this.dom,e(n),this._handlers[n])}},w.setCursor=function(t){this.dom.style.cursor=t||"default"},u.mixin(s,h),s}.call(e,r,e,t))&&(t.exports=n)},939:function(t,e,r){var n;void 0!==(n=function(t){var e=function(t){this.colorStops=t||[]};return e.prototype={constructor:e,addColorStop:function(t,e){this.colorStops.push({offset:t,color:e})}},e}.call(e,r,e,t))&&(t.exports=n)},940:function(t,e,r){var n;void 0!==(n=function(t){function e(t){n.call(this,t)}var n=r(362),i=r(89),o=r(32),a=r(357),s=new a(50);return e.prototype={constructor:e,type:"image",brush:function(t,e){var r,n=this.style,i=n.image;if(n.bind(t,this,e),!(r="string"==typeof i?this._image:i)&&i){var o=s.get(i);if(!o)return r=new Image,r.onload=function(){r.onload=null;for(var t=0;t<o.pending.length;t++)o.pending[t].dirty()},o={image:r,pending:[this]},r.src=i,s.put(i,o),void(this._image=r);if(r=o.image,this._image=r,!r.width||!r.height)return void o.pending.push(this)}if(r){var a=n.x||0,c=n.y||0;if(!r.width||!r.height)return;var u=n.width,h=n.height,l=r.width/r.height;if(null==u&&null!=h?u=h*l:null==h&&null!=u?h=u/l:null==u&&null==h&&(u=r.width,h=r.height),this.setTransform(t),n.sWidth&&n.sHeight){var f=n.sx||0,p=n.sy||0;t.drawImage(r,f,p,n.sWidth,n.sHeight,a,c,u,h)}else if(n.sx&&n.sy){var f=n.sx,p=n.sy,d=u-f,v=h-p;t.drawImage(r,f,p,d,v,a,c,u,h)}else t.drawImage(r,a,c,u,h);this.restoreTransform(t),null!=n.text&&this.drawRectText(t,this.getBoundingRect())}},getBoundingRect:function(){var t=this.style;return this._rect||(this._rect=new i(t.x||0,t.y||0,t.width||0,t.height||0)),this._rect}},o.inherits(e,n),e}.call(e,r,e,t))&&(t.exports=n)},941:function(t,e,r){var n;void 0!==(n=function(t){function e(t,e){return"string"==typeof t?t.lastIndexOf("%")>=0?parseFloat(t)/100*e:parseFloat(t):t}var n=r(934),i=r(89),o=new i,a=function(){};return a.prototype={constructor:a,drawRectText:function(t,r,i){var a=this.style,s=a.text;if(null!=s&&(s+=""),s){t.save();var c,u,h=a.textPosition,l=a.textOffset,f=a.textDistance,p=a.textAlign,d=a.textFont||a.font,v=a.textBaseline,g=a.textVerticalAlign;r=a.textPositionRect||r,i=i||n.getBoundingRect(s,d,p,v);var y=this.transform;if(a.textTransform?this.setTransform(t):y&&(o.copy(r),o.applyTransform(y),r=o),h instanceof Array){if(c=r.x+e(h[0],r.width),u=r.y+e(h[1],r.height),p=p||"left",v=v||"top",g){switch(g){case"middle":u-=i.height/2-i.lineHeight/2;break;case"bottom":u-=i.height-i.lineHeight/2;break;default:u+=i.lineHeight/2}v="middle"}}else{var m=n.adjustTextPositionOnRect(h,r,i,f);c=m.x,u=m.y,p=p||m.textAlign,v=v||m.textBaseline}l&&(c+=l[0],u+=l[1]),t.textAlign=p||"left",t.textBaseline=v||"alphabetic";var _=a.textFill,b=a.textStroke;_&&(t.fillStyle=_),b&&(t.strokeStyle=b),t.font=d||"12px sans-serif",t.shadowBlur=a.textShadowBlur,t.shadowColor=a.textShadowColor||"transparent",t.shadowOffsetX=a.textShadowOffsetX,t.shadowOffsetY=a.textShadowOffsetY;var w=s.split("\n");a.textRotation&&(y&&t.translate(y[4],y[5]),t.rotate(a.textRotation),y&&t.translate(-y[4],-y[5]));for(var x=0;x<w.length;x++)b&&t.strokeText(w[x],c,u),_&&t.fillText(w[x],c,u),u+=i.lineHeight;t.restore()}}},a}.call(e,r,e,t))&&(t.exports=n)},942:function(t,e,r){var n;void 0!==(n=function(t){"use strict";function e(t,e,r){var n=t.cpx2,i=t.cpy2;return null===n||null===i?[(r?h:c)(t.x1,t.cpx1,t.cpx2,t.x2,e),(r?h:c)(t.y1,t.cpy1,t.cpy2,t.y2,e)]:[(r?u:s)(t.x1,t.cpx1,t.x2,e),(r?u:s)(t.y1,t.cpy1,t.y2,e)]}var n=r(90),i=r(75),o=n.quadraticSubdivide,a=n.cubicSubdivide,s=n.quadraticAt,c=n.cubicAt,u=n.quadraticDerivativeAt,h=n.cubicDerivativeAt,l=[];return r(218).extend({type:"bezier-curve",shape:{x1:0,y1:0,x2:0,y2:0,cpx1:0,cpy1:0,percent:1},style:{stroke:"#000",fill:null},buildPath:function(t,e){var r=e.x1,n=e.y1,i=e.x2,s=e.y2,c=e.cpx1,u=e.cpy1,h=e.cpx2,f=e.cpy2,p=e.percent;0!==p&&(t.moveTo(r,n),null==h||null==f?(p<1&&(o(r,c,i,p,l),c=l[1],i=l[2],o(n,u,s,p,l),u=l[1],s=l[2]),t.quadraticCurveTo(c,u,i,s)):(p<1&&(a(r,c,h,i,p,l),c=l[1],h=l[2],i=l[3],a(n,u,f,s,p,l),u=l[1],f=l[2],s=l[3]),t.bezierCurveTo(c,u,h,f,i,s)))},pointAt:function(t){return e(this.shape,t,!1)},tangentAt:function(t){var r=e(this.shape,t,!0);return i.normalize(r,r)}})}.call(e,r,e,t))&&(t.exports=n)},943:function(t,e,r){var n;void 0!==(n=function(t){"use strict";var e=r(354),n=r(32),i=n.isString,o=n.isFunction,a=n.isObject,s=r(359),c=function(){this.animators=[]};return c.prototype={constructor:c,animate:function(t,r){var i,o=!1,a=this,c=this.__zr;if(t){var u=t.split("."),h=a;o="shape"===u[0];for(var l=0,f=u.length;l<f;l++)h&&(h=h[u[l]]);h&&(i=h)}else i=a;if(!i)return void s('Property "'+t+'" is not existed in element '+a.id);var p=a.animators,d=new e(i,r);return d.during(function(t){a.dirty(o)}).done(function(){p.splice(n.indexOf(p,d),1)}),p.push(d),c&&c.animation.addAnimator(d),d},stopAnimation:function(t){for(var e=this.animators,r=e.length,n=0;n<r;n++)e[n].stop(t);return e.length=0,this},animateTo:function(t,e,r,n,a){function s(){--u||a&&a()}i(r)?(a=n,n=r,r=0):o(n)?(a=n,n="linear",r=0):o(r)?(a=r,r=0):o(e)?(a=e,e=500):e||(e=500),this.stopAnimation(),this._animateToShallow("",this,t,e,r,n,a);var c=this.animators.slice(),u=c.length;u||a&&a();for(var h=0;h<c.length;h++)c[h].done(s).start(n)},_animateToShallow:function(t,e,r,i,o){var s={},c=0;for(var u in r)if(r.hasOwnProperty(u))if(null!=e[u])a(r[u])&&!n.isArrayLike(r[u])?this._animateToShallow(t?t+"."+u:u,e[u],r[u],i,o):(s[u]=r[u],c++);else if(null!=r[u])if(t){var h={};h[t]={},h[t][u]=r[u],this.attr(h)}else this.attr(u,r[u]);return c>0&&this.animate(t,!1).when(null==i?500:i,s).delay(o||0),this}},c}.call(e,r,e,t))&&(t.exports=n)},944:function(t,e,r){var n;void 0!==(n=function(t){function e(){this.on("mousedown",this._dragStart,this),this.on("mousemove",this._drag,this),this.on("mouseup",this._dragEnd,this),this.on("globalout",this._dragEnd,this)}function r(t,e){return{target:t,topTarget:e&&e.topTarget}}return e.prototype={constructor:e,_dragStart:function(t){var e=t.target;e&&e.draggable&&(this._draggingTarget=e,e.dragging=!0,this._x=t.offsetX,this._y=t.offsetY,this.dispatchToElement(r(e,t),"dragstart",t.event))},_drag:function(t){var e=this._draggingTarget;if(e){var n=t.offsetX,i=t.offsetY,o=n-this._x,a=i-this._y;this._x=n,this._y=i,e.drift(o,a,t),this.dispatchToElement(r(e,t),"drag",t.event);var s=this.findHover(n,i,e).target,c=this._dropTarget;this._dropTarget=s,e!==s&&(c&&s!==c&&this.dispatchToElement(r(c,t),"dragleave",t.event),s&&s!==c&&this.dispatchToElement(r(s,t),"dragenter",t.event))}},_dragEnd:function(t){var e=this._draggingTarget;e&&(e.dragging=!1),this.dispatchToElement(r(e,t),"dragend",t.event),this._dropTarget&&this.dispatchToElement(r(this._dropTarget,t),"drop",t.event),this._draggingTarget=null,this._dropTarget=null}},e}.call(e,r,e,t))&&(t.exports=n)},945:function(t,e,r){var n;void 0!==(n=function(t){"use strict";function e(t){return t>a||t<-a}var n=r(360),i=r(75),o=n.identity,a=5e-5,s=function(t){t=t||{},t.position||(this.position=[0,0]),null==t.rotation&&(this.rotation=0),t.scale||(this.scale=[1,1]),this.origin=this.origin||null},c=s.prototype;c.transform=null,c.needLocalTransform=function(){return e(this.rotation)||e(this.position[0])||e(this.position[1])||e(this.scale[0]-1)||e(this.scale[1]-1)},c.updateTransform=function(){var t=this.parent,e=t&&t.transform,r=this.needLocalTransform(),i=this.transform;if(!r&&!e)return void(i&&o(i));i=i||n.create(),r?this.getLocalTransform(i):o(i),e&&(r?n.mul(i,t.transform,i):n.copy(i,t.transform)),this.transform=i,this.invTransform=this.invTransform||n.create(),n.invert(this.invTransform,i)},c.getLocalTransform=function(t){return s.getLocalTransform(this,t)},c.setTransform=function(t){var e=this.transform,r=t.dpr||1;e?t.setTransform(r*e[0],r*e[1],r*e[2],r*e[3],r*e[4],r*e[5]):t.setTransform(r,0,0,r,0,0)},c.restoreTransform=function(t){var e=t.dpr||1;t.setTransform(e,0,0,e,0,0)};var u=[];return c.decomposeTransform=function(){if(this.transform){var t=this.parent,r=this.transform;t&&t.transform&&(n.mul(u,t.invTransform,r),r=u);var i=r[0]*r[0]+r[1]*r[1],o=r[2]*r[2]+r[3]*r[3],a=this.position,s=this.scale;e(i-1)&&(i=Math.sqrt(i)),e(o-1)&&(o=Math.sqrt(o)),r[0]<0&&(i=-i),r[3]<0&&(o=-o),a[0]=r[4],a[1]=r[5],s[0]=i,s[1]=o,this.rotation=Math.atan2(-r[1]/o,r[0]/i)}},c.getGlobalScale=function(){var t=this.transform;if(!t)return[1,1];var e=Math.sqrt(t[0]*t[0]+t[1]*t[1]),r=Math.sqrt(t[2]*t[2]+t[3]*t[3]);return t[0]<0&&(e=-e),t[3]<0&&(r=-r),[e,r]},c.transformCoordToLocal=function(t,e){var r=[t,e],n=this.invTransform;return n&&i.applyTransform(r,r,n),r},c.transformCoordToGlobal=function(t,e){var r=[t,e],n=this.transform;return n&&i.applyTransform(r,r,n),r},s.getLocalTransform=function(t,e){e=e||[],o(e);var r=t.origin,i=t.scale||[1,1],a=t.rotation||0,s=t.position||[0,0];return r&&(e[4]-=r[0],e[5]-=r[1]),n.scale(e,e,i),a&&n.rotate(e,e,a),r&&(e[4]+=r[0],e[5]+=r[1]),e[4]+=s[0],e[5]+=s[1],e},s}.call(e,r,e,t))&&(t.exports=n)},946:function(t,e,r){var n;void 0!==(n=function(t){function e(t){return t=Math.round(t),t<0?0:t>255?255:t}function n(t){return t=Math.round(t),t<0?0:t>360?360:t}function i(t){return t<0?0:t>1?1:t}function o(t){return e(t.length&&"%"===t.charAt(t.length-1)?parseFloat(t)/100*255:parseInt(t,10))}function a(t){return i(t.length&&"%"===t.charAt(t.length-1)?parseFloat(t)/100:parseFloat(t))}function s(t,e,r){return r<0?r+=1:r>1&&(r-=1),6*r<1?t+(e-t)*r*6:2*r<1?e:3*r<2?t+(e-t)*(2/3-r)*6:t}function c(t,e,r){return t+(e-t)*r}function u(t,e,r,n,i){return t[0]=e,t[1]=r,t[2]=n,t[3]=i,t}function h(t,e){return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t}function l(t,e){C&&h(C,e),C=T.put(t,C||e.slice())}function f(t,e){if(t){e=e||[];var r=T.get(t);if(r)return h(e,r);t+="";var n=t.replace(/ /g,"").toLowerCase();if(n in k)return h(e,k[n]),l(t,e),e;if("#"!==n.charAt(0)){var i=n.indexOf("("),s=n.indexOf(")");if(-1!==i&&s+1===n.length){var c=n.substr(0,i),f=n.substr(i+1,s-(i+1)).split(","),d=1;switch(c){case"rgba":if(4!==f.length)return void u(e,0,0,0,1);d=a(f.pop());case"rgb":return 3!==f.length?void u(e,0,0,0,1):(u(e,o(f[0]),o(f[1]),o(f[2]),d),l(t,e),e);case"hsla":return 4!==f.length?void u(e,0,0,0,1):(f[3]=a(f[3]),p(f,e),l(t,e),e);case"hsl":return 3!==f.length?void u(e,0,0,0,1):(p(f,e),l(t,e),e);default:return}}u(e,0,0,0,1)}else{if(4===n.length){var v=parseInt(n.substr(1),16);return v>=0&&v<=4095?(u(e,(3840&v)>>4|(3840&v)>>8,240&v|(240&v)>>4,15&v|(15&v)<<4,1),l(t,e),e):void u(e,0,0,0,1)}if(7===n.length){var v=parseInt(n.substr(1),16);return v>=0&&v<=16777215?(u(e,(16711680&v)>>16,(65280&v)>>8,255&v,1),l(t,e),e):void u(e,0,0,0,1)}}}}function p(t,r){var n=(parseFloat(t[0])%360+360)%360/360,i=a(t[1]),o=a(t[2]),c=o<=.5?o*(i+1):o+i-o*i,h=2*o-c;return r=r||[],u(r,e(255*s(h,c,n+1/3)),e(255*s(h,c,n)),e(255*s(h,c,n-1/3)),1),4===t.length&&(r[3]=t[3]),r}function d(t){if(t){var e,r,n=t[0]/255,i=t[1]/255,o=t[2]/255,a=Math.min(n,i,o),s=Math.max(n,i,o),c=s-a,u=(s+a)/2;if(0===c)e=0,r=0;else{r=u<.5?c/(s+a):c/(2-s-a);var h=((s-n)/6+c/2)/c,l=((s-i)/6+c/2)/c,f=((s-o)/6+c/2)/c;n===s?e=f-l:i===s?e=1/3+h-f:o===s&&(e=2/3+l-h),e<0&&(e+=1),e>1&&(e-=1)}var p=[360*e,r,u];return null!=t[3]&&p.push(t[3]),p}}function v(t,e){var r=f(t);if(r){for(var n=0;n<3;n++)r[n]=e<0?r[n]*(1-e)|0:(255-r[n])*e+r[n]|0;return w(r,4===r.length?"rgba":"rgb")}}function g(t,e){var r=f(t);if(r)return((1<<24)+(r[0]<<16)+(r[1]<<8)+ +r[2]).toString(16).slice(1)}function y(t,r,n){if(r&&r.length&&t>=0&&t<=1){n=n||[];var o=t*(r.length-1),a=Math.floor(o),s=Math.ceil(o),u=r[a],h=r[s],l=o-a;return n[0]=e(c(u[0],h[0],l)),n[1]=e(c(u[1],h[1],l)),n[2]=e(c(u[2],h[2],l)),n[3]=i(c(u[3],h[3],l)),n}}function m(t,r,n){if(r&&r.length&&t>=0&&t<=1){var o=t*(r.length-1),a=Math.floor(o),s=Math.ceil(o),u=f(r[a]),h=f(r[s]),l=o-a,p=w([e(c(u[0],h[0],l)),e(c(u[1],h[1],l)),e(c(u[2],h[2],l)),i(c(u[3],h[3],l))],"rgba");return n?{color:p,leftIndex:a,rightIndex:s,value:o}:p}}function _(t,e,r,i){if(t=f(t))return t=d(t),null!=e&&(t[0]=n(e)),null!=r&&(t[1]=a(r)),null!=i&&(t[2]=a(i)),w(p(t),"rgba")}function b(t,e){if((t=f(t))&&null!=e)return t[3]=i(e),w(t,"rgba")}function w(t,e){if(t&&t.length){var r=t[0]+","+t[1]+","+t[2];return"rgba"!==e&&"hsva"!==e&&"hsla"!==e||(r+=","+t[3]),e+"("+r+")"}}var x=r(357),k={transparent:[0,0,0,0],aliceblue:[240,248,255,1],antiquewhite:[250,235,215,1],aqua:[0,255,255,1],aquamarine:[127,255,212,1],azure:[240,255,255,1],beige:[245,245,220,1],bisque:[255,228,196,1],black:[0,0,0,1],blanchedalmond:[255,235,205,1],blue:[0,0,255,1],blueviolet:[138,43,226,1],brown:[165,42,42,1],burlywood:[222,184,135,1],cadetblue:[95,158,160,1],chartreuse:[127,255,0,1],chocolate:[210,105,30,1],coral:[255,127,80,1],cornflowerblue:[100,149,237,1],cornsilk:[255,248,220,1],crimson:[220,20,60,1],cyan:[0,255,255,1],darkblue:[0,0,139,1],darkcyan:[0,139,139,1],darkgoldenrod:[184,134,11,1],darkgray:[169,169,169,1],darkgreen:[0,100,0,1],darkgrey:[169,169,169,1],darkkhaki:[189,183,107,1],darkmagenta:[139,0,139,1],darkolivegreen:[85,107,47,1],darkorange:[255,140,0,1],darkorchid:[153,50,204,1],darkred:[139,0,0,1],darksalmon:[233,150,122,1],darkseagreen:[143,188,143,1],darkslateblue:[72,61,139,1],darkslategray:[47,79,79,1],darkslategrey:[47,79,79,1],darkturquoise:[0,206,209,1],darkviolet:[148,0,211,1],deeppink:[255,20,147,1],deepskyblue:[0,191,255,1],dimgray:[105,105,105,1],dimgrey:[105,105,105,1],dodgerblue:[30,144,255,1],firebrick:[178,34,34,1],floralwhite:[255,250,240,1],forestgreen:[34,139,34,1],fuchsia:[255,0,255,1],gainsboro:[220,220,220,1],ghostwhite:[248,248,255,1],gold:[255,215,0,1],goldenrod:[218,165,32,1],gray:[128,128,128,1],green:[0,128,0,1],greenyellow:[173,255,47,1],grey:[128,128,128,1],honeydew:[240,255,240,1],hotpink:[255,105,180,1],indianred:[205,92,92,1],indigo:[75,0,130,1],ivory:[255,255,240,1],khaki:[240,230,140,1],lavender:[230,230,250,1],lavenderblush:[255,240,245,1],lawngreen:[124,252,0,1],lemonchiffon:[255,250,205,1],lightblue:[173,216,230,1],lightcoral:[240,128,128,1],lightcyan:[224,255,255,1],lightgoldenrodyellow:[250,250,210,1],lightgray:[211,211,211,1],lightgreen:[144,238,144,1],lightgrey:[211,211,211,1],lightpink:[255,182,193,1],lightsalmon:[255,160,122,1],lightseagreen:[32,178,170,1],lightskyblue:[135,206,250,1],lightslategray:[119,136,153,1],lightslategrey:[119,136,153,1],lightsteelblue:[176,196,222,1],lightyellow:[255,255,224,1],lime:[0,255,0,1],limegreen:[50,205,50,1],linen:[250,240,230,1],magenta:[255,0,255,1],maroon:[128,0,0,1],mediumaquamarine:[102,205,170,1],mediumblue:[0,0,205,1],mediumorchid:[186,85,211,1],mediumpurple:[147,112,219,1],mediumseagreen:[60,179,113,1],mediumslateblue:[123,104,238,1],mediumspringgreen:[0,250,154,1],mediumturquoise:[72,209,204,1],mediumvioletred:[199,21,133,1],midnightblue:[25,25,112,1],mintcream:[245,255,250,1],mistyrose:[255,228,225,1],moccasin:[255,228,181,1],navajowhite:[255,222,173,1],navy:[0,0,128,1],oldlace:[253,245,230,1],olive:[128,128,0,1],olivedrab:[107,142,35,1],orange:[255,165,0,1],orangered:[255,69,0,1],orchid:[218,112,214,1],palegoldenrod:[238,232,170,1],palegreen:[152,251,152,1],paleturquoise:[175,238,238,1],palevioletred:[219,112,147,1],papayawhip:[255,239,213,1],peachpuff:[255,218,185,1],peru:[205,133,63,1],pink:[255,192,203,1],plum:[221,160,221,1],powderblue:[176,224,230,1],purple:[128,0,128,1],red:[255,0,0,1],rosybrown:[188,143,143,1],royalblue:[65,105,225,1],saddlebrown:[139,69,19,1],salmon:[250,128,114,1],sandybrown:[244,164,96,1],seagreen:[46,139,87,1],seashell:[255,245,238,1],sienna:[160,82,45,1],silver:[192,192,192,1],skyblue:[135,206,235,1],slateblue:[106,90,205,1],slategray:[112,128,144,1],slategrey:[112,128,144,1],snow:[255,250,250,1],springgreen:[0,255,127,1],steelblue:[70,130,180,1],tan:[210,180,140,1],teal:[0,128,128,1],thistle:[216,191,216,1],tomato:[255,99,71,1],turquoise:[64,224,208,1],violet:[238,130,238,1],wheat:[245,222,179,1],white:[255,255,255,1],whitesmoke:[245,245,245,1],yellow:[255,255,0,1],yellowgreen:[154,205,50,1]},T=new x(20),C=null;return{parse:f,lift:v,toHex:g,fastMapToColor:y,mapToColor:m,modifyHSL:_,modifyAlpha:b,stringify:w}}.call(e,r,e,t))&&(t.exports=n)},947:function(t,e,r){var n;void 0!==(n=function(t){function e(t,e,r,n,i,o,a,s,c,p,g){var y=c*(f/180),m=l(y)*(t-r)/2+h(y)*(e-n)/2,_=-1*h(y)*(t-r)/2+l(y)*(e-n)/2,b=m*m/(a*a)+_*_/(s*s);b>1&&(a*=u(b),s*=u(b));var w=(i===o?-1:1)*u((a*a*(s*s)-a*a*(_*_)-s*s*(m*m))/(a*a*(_*_)+s*s*(m*m)))||0,x=w*a*_/s,k=w*-s*m/a,T=(t+r)/2+l(y)*x-h(y)*k,C=(e+n)/2+h(y)*x+l(y)*k,S=v([1,0],[(m-x)/a,(_-k)/s]),A=[(m-x)/a,(_-k)/s],P=[(-1*m-x)/a,(-1*_-k)/s],M=v(A,P);d(A,P)<=-1&&(M=f),d(A,P)>=1&&(M=0),0===o&&M>0&&(M-=2*f),1===o&&M<0&&(M+=2*f),g.addData(p,T,C,a,s,S,M,y,o)}function n(t){if(!t)return[];var r,n=t.replace(/-/g," -").replace(/  /g," ").replace(/ /g,",").replace(/,,/g,",");for(r=0;r<c.length;r++)n=n.replace(new RegExp(c[r],"g"),"|"+c[r]);var i,o=n.split("|"),s=0,u=0,h=new a,l=a.CMD;for(r=1;r<o.length;r++){var f,p=o[r],d=p.charAt(0),v=0,g=p.slice(1).replace(/e,-/g,"e-").split(",");g.length>0&&""===g[0]&&g.shift();for(var y=0;y<g.length;y++)g[y]=parseFloat(g[y]);for(;v<g.length&&!isNaN(g[v])&&!isNaN(g[0]);){var m,_,b,w,x,k,T,C=s,S=u;switch(d){case"l":s+=g[v++],u+=g[v++],f=l.L,h.addData(f,s,u);break;case"L":s=g[v++],u=g[v++],f=l.L,h.addData(f,s,u);break;case"m":s+=g[v++],u+=g[v++],f=l.M,h.addData(f,s,u),d="l";break;case"M":s=g[v++],u=g[v++],f=l.M,h.addData(f,s,u),d="L";break;case"h":s+=g[v++],f=l.L,h.addData(f,s,u);break;case"H":s=g[v++],f=l.L,h.addData(f,s,u);break;case"v":u+=g[v++],f=l.L,h.addData(f,s,u);break;case"V":u=g[v++],f=l.L,h.addData(f,s,u);break;case"C":f=l.C,h.addData(f,g[v++],g[v++],g[v++],g[v++],g[v++],g[v++]),s=g[v-2],u=g[v-1];break;case"c":f=l.C,h.addData(f,g[v++]+s,g[v++]+u,g[v++]+s,g[v++]+u,g[v++]+s,g[v++]+u),s+=g[v-2],u+=g[v-1];break;case"S":m=s,_=u;var A=h.len(),P=h.data;i===l.C&&(m+=s-P[A-4],_+=u-P[A-3]),f=l.C,C=g[v++],S=g[v++],s=g[v++],u=g[v++],h.addData(f,m,_,C,S,s,u);break;case"s":m=s,_=u;var A=h.len(),P=h.data;i===l.C&&(m+=s-P[A-4],_+=u-P[A-3]),f=l.C,C=s+g[v++],S=u+g[v++],s+=g[v++],u+=g[v++],h.addData(f,m,_,C,S,s,u);break;case"Q":C=g[v++],S=g[v++],s=g[v++],u=g[v++],f=l.Q,h.addData(f,C,S,s,u);break;case"q":C=g[v++]+s,S=g[v++]+u,s+=g[v++],u+=g[v++],f=l.Q,h.addData(f,C,S,s,u);break;case"T":m=s,_=u;var A=h.len(),P=h.data;i===l.Q&&(m+=s-P[A-4],_+=u-P[A-3]),s=g[v++],u=g[v++],f=l.Q,h.addData(f,m,_,s,u);break;case"t":m=s,_=u;var A=h.len(),P=h.data;i===l.Q&&(m+=s-P[A-4],_+=u-P[A-3]),s+=g[v++],u+=g[v++],f=l.Q,h.addData(f,m,_,s,u);break;case"A":b=g[v++],w=g[v++],x=g[v++],k=g[v++],T=g[v++],C=s,S=u,s=g[v++],u=g[v++],f=l.A,e(C,S,s,u,k,T,b,w,x,f,h);break;case"a":b=g[v++],w=g[v++],x=g[v++],k=g[v++],T=g[v++],C=s,S=u,s+=g[v++],u+=g[v++],f=l.A,e(C,S,s,u,k,T,b,w,x,f,h)}}"z"!==d&&"Z"!==d||(f=l.Z,h.addData(f)),i=f}return h.toStatic(),h}function i(t,e){var r=n(t);return e=e||{},e.buildPath=function(t){if(t.setData){t.setData(r.data);var e=t.getContext();e&&t.rebuildPath(e)}else{var e=t;r.rebuildPath(e)}},e.applyTransform=function(t){s(r,t),this.dirty(!0)},e}var o=r(218),a=r(150),s=r(948),c=["m","M","l","L","v","V","h","H","z","Z","c","C","q","Q","t","T","s","S","a","A"],u=Math.sqrt,h=Math.sin,l=Math.cos,f=Math.PI,p=function(t){return Math.sqrt(t[0]*t[0]+t[1]*t[1])},d=function(t,e){return(t[0]*e[0]+t[1]*e[1])/(p(t)*p(e))},v=function(t,e){return(t[0]*e[1]<t[1]*e[0]?-1:1)*Math.acos(d(t,e))};return{createFromString:function(t,e){return new o(i(t,e))},extendFromString:function(t,e){return o.extend(i(t,e))},mergePath:function(t,e){for(var r=[],n=t.length,i=0;i<n;i++){var a=t[i];a.path||a.createPathProxy(),a.__dirtyPath&&a.buildPath(a.path,a.shape,!0),r.push(a.path)}var s=new o(e);return s.createPathProxy(),s.buildPath=function(t){t.appendPath(r);var e=t.getContext();e&&t.rebuildPath(e)},s}}}.call(e,r,e,t))&&(t.exports=n)},948:function(t,e,r){var n;void 0!==(n=function(t){function e(t,e){var r,i,u,h,l,f,p=t.data,d=n.M,v=n.C,g=n.L,y=n.R,m=n.A,_=n.Q;for(u=0,h=0;u<p.length;){switch(r=p[u++],h=u,i=0,r){case d:case g:i=1;break;case v:i=3;break;case _:i=2;break;case m:var b=e[4],w=e[5],x=s(e[0]*e[0]+e[1]*e[1]),k=s(e[2]*e[2]+e[3]*e[3]),T=c(-e[1]/k,e[0]/x);p[u]*=x,p[u++]+=b,p[u]*=k,p[u++]+=w,p[u++]*=x,p[u++]*=k,p[u++]+=T,p[u++]+=T,u+=2,h=u;break;case y:f[0]=p[u++],f[1]=p[u++],o(f,f,e),p[h++]=f[0],p[h++]=f[1],f[0]+=p[u++],f[1]+=p[u++],o(f,f,e),p[h++]=f[0],p[h++]=f[1]}for(l=0;l<i;l++){var f=a[l];f[0]=p[u++],f[1]=p[u++],o(f,f,e),p[h++]=f[0],p[h++]=f[1]}}}var n=r(150).CMD,i=r(75),o=i.applyTransform,a=[[],[],[]],s=Math.sqrt,c=Math.atan2;return e}.call(e,r,e,t))&&(t.exports=n)},949:function(t,e,r){var n;void 0!==(n=function(t){function e(t){delete f[t]}var n=r(358),i=r(151),o=r(32),a=r(922),s=r(925),c=r(926),u=r(938),h=!i.canvasSupported,l={canvas:r(924)},f={},p={};p.version="3.5.2",p.init=function(t,e){var r=new d(n(),t,e);return f[r.id]=r,r},p.dispose=function(t){if(t)t.dispose();else{for(var e in f)f.hasOwnProperty(e)&&f[e].dispose();f={}}return p},p.getInstance=function(t){return f[t]},p.registerPainter=function(t,e){l[t]=e};var d=function(t,e,r){r=r||{},this.dom=e,this.id=t;var n=this,f=new s,p=r.renderer;if(h){if(!l.vml)throw new Error("You need to require 'zrender/vml/vml' to support IE8");p="vml"}else p&&l[p]||(p="canvas");var d=new l[p](e,f,r);this.storage=f,this.painter=d;var v=i.node?null:new u(d.getViewportRoot());this.handler=new a(f,d,v,d.root),this.animation=new c({stage:{update:o.bind(this.flush,this)}}),this.animation.start(),this._needsRefresh;var g=f.delFromStorage,y=f.addToStorage;f.delFromStorage=function(t){g.call(f,t),t&&t.removeSelfFromZr(n)},f.addToStorage=function(t){y.call(f,t),t.addSelfToZr(n)}};return d.prototype={constructor:d,getId:function(){return this.id},add:function(t){this.storage.addRoot(t),this._needsRefresh=!0},remove:function(t){this.storage.delRoot(t),this._needsRefresh=!0},configLayer:function(t,e){this.painter.configLayer(t,e),this._needsRefresh=!0},refreshImmediately:function(){this._needsRefresh=!1,this.painter.refresh(),this._needsRefresh=!1},refresh:function(){this._needsRefresh=!0},flush:function(){this._needsRefresh&&this.refreshImmediately(),this._needsRefreshHover&&this.refreshHoverImmediately()},addHover:function(t,e){this.painter.addHover&&(this.painter.addHover(t,e),this.refreshHover())},removeHover:function(t){this.painter.removeHover&&(this.painter.removeHover(t),this.refreshHover())},clearHover:function(){this.painter.clearHover&&(this.painter.clearHover(),this.refreshHover())},refreshHover:function(){this._needsRefreshHover=!0},refreshHoverImmediately:function(){this._needsRefreshHover=!1,this.painter.refreshHover&&this.painter.refreshHover()},resize:function(t){t=t||{},this.painter.resize(t.width,t.height),this.handler.resize()},clearAnimation:function(){this.animation.clear()},getWidth:function(){return this.painter.getWidth()},getHeight:function(){return this.painter.getHeight()},pathToImage:function(t,e){return this.painter.pathToImage(t,e)},setCursorStyle:function(t){this.handler.setCursorStyle(t)},findHover:function(t,e){return this.handler.findHover(t,e)},on:function(t,e,r){this.handler.on(t,e,r)},off:function(t,e){this.handler.off(t,e)},trigger:function(t,e){this.handler.trigger(t,e)},clear:function(){this.storage.delRoot(),this.painter.clear()},dispose:function(){this.animation.stop(),this.clear(),this.storage.dispose(),this.painter.dispose(),this.handler.dispose(),this.animation=this.storage=this.painter=this.handler=null,e(this.id)}},p}.call(e,r,e,t))&&(t.exports=n)},950:function(t,e){}},[370]);
+webpackJsonp([0],{
+
+/***/ 1026:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _app = __webpack_require__(397);
+
+var _app2 = _interopRequireDefault(_app);
+
+var _reactDom = __webpack_require__(169);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _react = __webpack_require__(57);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_reactDom2.default.render(_react2.default.createElement(_app2.default, null), document.getElementById('app'));
+
+/***/ }),
+
+/***/ 1027:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(57);
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(659);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var InfoContainer = function (_PureComponent) {
+    _inherits(InfoContainer, _PureComponent);
+
+    function InfoContainer(props) {
+        _classCallCheck(this, InfoContainer);
+
+        return _possibleConstructorReturn(this, (InfoContainer.__proto__ || Object.getPrototypeOf(InfoContainer)).call(this, props));
+    }
+
+    _createClass(InfoContainer, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'container' },
+                this.props.children
+            );
+        }
+    }]);
+
+    return InfoContainer;
+}(_react.PureComponent);
+
+exports.default = InfoContainer;
+
+/***/ }),
+
+/***/ 1028:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(57);
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(660);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var InfoPanel = function (_Component) {
+    _inherits(InfoPanel, _Component);
+
+    function InfoPanel(props) {
+        _classCallCheck(this, InfoPanel);
+
+        return _possibleConstructorReturn(this, (InfoPanel.__proto__ || Object.getPrototypeOf(InfoPanel)).call(this, props));
+    }
+
+    _createClass(InfoPanel, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            // let cols = (this.props.items && this.props.items.length > 0)
+            //     ? Object.keys(this.props.items[0]).length : 0;
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'infoPanel', style: { width: this.props.width, height: this.props.height } },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'title' },
+                    this.props.title
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'items' },
+                    this.props.items.map(function (d, i) {
+                        return _react2.default.createElement(
+                            'div',
+                            { key: '' + i, className: 'row' },
+                            Object.keys(_this2.props.items[0]).map(function (k, i) {
+                                return _react2.default.createElement(
+                                    'div',
+                                    { key: '' + i, className: 'item' },
+                                    d[k]
+                                );
+                            })
+                        );
+                    })
+                )
+            );
+        }
+    }]);
+
+    return InfoPanel;
+}(_react.Component);
+
+exports.default = InfoPanel;
+
+/***/ }),
+
+/***/ 1029:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jquery = __webpack_require__(167);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _AnimatePoint = __webpack_require__(1031);
+
+var _AnimatePoint2 = _interopRequireDefault(_AnimatePoint);
+
+var _AttackLine = __webpack_require__(1032);
+
+var _AttackLine2 = _interopRequireDefault(_AttackLine);
+
+var _Config = __webpack_require__(121);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+var _Link = __webpack_require__(395);
+
+var _Link2 = _interopRequireDefault(_Link);
+
+var _map = __webpack_require__(1034);
+
+var _map2 = _interopRequireDefault(_map);
+
+var _Symbol2 = __webpack_require__(1033);
+
+var _Symbol3 = _interopRequireDefault(_Symbol2);
+
+var _Tail = __webpack_require__(396);
+
+var _Tail2 = _interopRequireDefault(_Tail);
+
+var _querystring = __webpack_require__(405);
+
+var _querystring2 = _interopRequireDefault(_querystring);
+
+var _zrender = __webpack_require__(785);
+
+var _zrender2 = _interopRequireDefault(_zrender);
+
+var _RadialGradient = __webpack_require__(342);
+
+var _RadialGradient2 = _interopRequireDefault(_RadialGradient);
+
+var _react = __webpack_require__(57);
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(662);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_PureComponent) {
+    _inherits(App, _PureComponent);
+
+    function App(props) {
+        _classCallCheck(this, App);
+
+        var _this2 = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+        _this2.zr = null;
+        _this2.map = null;
+
+        _this2._drawMap = _this2._drawMap.bind(_this2);
+        _this2._drawAttack = _this2._drawAttack.bind(_this2);
+        _this2._receiveData = _this2._receiveData.bind(_this2);
+        _this2._windowResize = _this2._windowResize.bind(_this2);
+        return _this2;
+    }
+
+    _createClass(App, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this._drawMap();
+
+            var attack = getComputedStyle(this.refs.attack);
+
+            this.zr = _zrender2.default.init(this.refs.attack, {
+                width: attack['width'],
+                height: attack['height']
+            });
+
+            // this._drawAttack();
+            this._receiveData();
+
+            window.addEventListener('resize', this._windowResize);
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {}
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            window.removeEventListener('resize', this._windowResize);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { ref: 'map', className: 'map' },
+                _react2.default.createElement('div', { ref: 'attack', className: 'attack' })
+            );
+        }
+
+        /**
+         * 绘制地图.
+         */
+
+    }, {
+        key: '_drawMap',
+        value: function _drawMap() {
+            var _this3 = this;
+
+            // 地图瓦片风格
+            var tileLayer = {
+                'baidu': 'http://online{s}.map.bdimg.com/tile/?qt=tile&x={x}&y={y}&z={z}&styles=pl&udt=20170624&scaler=2',
+                'Google Satellite': 'http://mt2.google.cn/vt/lyrs=y@258000000&hl=zh-CN&gl=CN&src=app&x={x}&y={y}&z={z}&s=Ga',
+                'Mapbox Dark': 'https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2luZHloIiwiYSI6ImNpbHdiazZyazAxcTV2Z2tzbnNwcG1xbTMifQ.jz162pjSUZ957Vv_wP6i1A',
+                'Mapbox Traffic Day': 'https://api.mapbox.com/styles/v1/mapbox/traffic-day-v2/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2luZHloIiwiYSI6ImNpbHdiazZyazAxcTV2Z2tzbnNwcG1xbTMifQ.jz162pjSUZ957Vv_wP6i1A',
+                'Mapbox Light': 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2luZHloIiwiYSI6ImNpbHdiazZyazAxcTV2Z2tzbnNwcG1xbTMifQ.jz162pjSUZ957Vv_wP6i1A',
+                'Mapbox Traffic Night': 'https://api.mapbox.com/styles/v1/mapbox/traffic-night-v2/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2luZHloIiwiYSI6ImNpbHdiazZyazAxcTV2Z2tzbnNwcG1xbTMifQ.jz162pjSUZ957Vv_wP6i1A',
+                'Mapbox Outdoors': 'https://api.mapbox.com/styles/v1/mapbox/outdoors-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2luZHloIiwiYSI6ImNpbHdiazZyazAxcTV2Z2tzbnNwcG1xbTMifQ.jz162pjSUZ957Vv_wP6i1A'
+            };
+
+            this.map = new _map2.default({
+                dom: this.refs.map,
+                // tileLayer: tileLayer['Google Satellite']
+                tileLayer: tileLayer['baidu']
+            }).render();
+
+            this.map.setView([39.91349, 116.407945], 3);
+
+            this.map.on('move', function (event) {
+                if (_this3.zr) {
+                    //每次重绘  清空界面.
+                    _this3.zr.clear();
+                }
+
+                // this._drawAttack();
+            });
+
+            this.map.on('click', function (e) {
+                console.log(e);
+            });
+        }
+
+        /**
+         * 绘制attack
+         */
+
+    }, {
+        key: '_drawAttack',
+        value: function _drawAttack() {
+            var pixel = [0, 0];
+            var node = [];
+
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = Object.keys(this.props.nodes)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var k = _step.value;
+
+                    pixel = this.map.latLngToContainerPoint([this.props.nodes[k]['lat'], this.props.nodes[k]['lng']]);
+                    node.push({
+                        x: pixel.x,
+                        y: pixel.y,
+                        r: this.props.nodes[k]['count'] / 5
+                    });
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            for (var i = 0; i < node.length; i++) {
+                var points = new _AnimatePoint2.default({
+                    r: node[i].r,
+                    x: node[i].x,
+                    y: node[i].y,
+                    lineWidth: 1,
+                    fill: _Config2.default.gradient,
+                    loop: true
+                }).render();
+
+                this.zr.add(points);
+            }
+
+            var links = [];
+
+            // 生成连接，目的是为飞线生成飞行路径.
+            for (var _i = 0; _i < this.props.edges.length; _i++) {
+                var fromPixel = this.map.latLngToContainerPoint([this.props.edges[_i]['from'].lat, this.props.edges[_i]['from'].lng]);
+                var toPixel = this.map.latLngToContainerPoint([this.props.edges[_i]['to'].lat, this.props.edges[_i]['to'].lng]);
+
+                var link = new _Link2.default({
+                    from: {
+                        x: fromPixel.x,
+                        y: fromPixel.y
+                    },
+                    to: {
+                        x: toPixel.x,
+                        y: toPixel.y
+                    },
+                    stroke: 'rgba(0, 0, 0, 0)'
+                }).render();
+
+                // 若是闭环的点, 那么就不加上去.
+                if (link.shape.x1 == link.shape.x2 && link.shape.y1 == link.shape.y2) {
+                    continue;
+                }
+
+                links.push(link);
+                this.zr.add(link);
+            }
+
+            // 生成尾焰
+            for (var index = 0; index < links.length; index++) {
+                var _link = links[index];
+                // let tail = new Tail({
+                //     link: link,
+                //     size: 3,
+                // }).render();
+
+                var attackLine = new _AttackLine2.default({
+                    link: _link,
+                    size: 3,
+                    loop: true
+                });
+
+                var line = attackLine.render();
+                this.zr.add(line);
+            }
+
+            // 生成symbol.
+            // for (let index = 0; index < links.length; index++) {
+            //     let link = links[index];
+            //     let path = 'M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
+
+            //     let symbol = new Symbol({
+            //         path: path,
+            //         scale: [0.02, 0.02],
+            //         link: link,
+            //         fill: 'rgba(255, 255, 0, 1)',
+            //         loop: true
+            //     }).render();
+
+            //     this.zr.add(symbol);
+            // }
+        }
+
+        /**
+         * websocket.
+         */
+
+    }, {
+        key: '_receiveData',
+        value: function _receiveData() {
+            var _this = this;
+
+            if (window.webSocket) {
+                //后台触发link事件,传送关联信息.
+                window.webSocket.on('link', function (data) {
+                    if (!data) {
+                        return;
+                    }
+
+                    var _JSON$parse = JSON.parse(data.info),
+                        from = _JSON$parse.from,
+                        to = _JSON$parse.to,
+                        origin = _JSON$parse.origin,
+                        target = _JSON$parse.target,
+                        type = _JSON$parse.type,
+                        live = _JSON$parse.live;
+
+                    var fpoint = _this.map.latLngToContainerPoint([from.lat, from.lng]);
+                    var tpoint = _this.map.latLngToContainerPoint([to.lat, to.lng]);
+
+                    var fp = new _AnimatePoint2.default({
+                        r: Math.random() * 10 + 10,
+                        x: fpoint.x,
+                        y: fpoint.y,
+                        lineWidth: 1,
+                        fill: _Config2.default.gradient,
+                        loop: false,
+                        callback: function callback() {
+                            _this.zr.remove(fp);
+                        }
+                    }).render();
+
+                    var tp = new _AnimatePoint2.default({
+                        r: Math.random() * 10 + 10,
+                        x: tpoint.x,
+                        y: tpoint.y,
+                        lineWidth: 1,
+                        fill: _Config2.default.gradient,
+                        loop: false,
+                        callback: function callback() {
+                            _this.zr.remove(tp);
+                        }
+                    }).render();
+
+                    var link = new _Link2.default({
+                        from: {
+                            x: fpoint.x,
+                            y: fpoint.y
+                        },
+                        to: {
+                            x: tpoint.x,
+                            y: tpoint.y
+                        },
+                        stroke: 'rgba(0, 0, 0, 0)'
+                    }).render();
+
+                    var flightLine = null;
+                    var attackLine = new _AttackLine2.default({
+                        link: link,
+                        size: 3,
+                        loop: false,
+                        callback: function callback() {
+                            _this.zr.remove(link);
+                            _this.zr.remove(flightLine);
+                        }
+                    });
+
+                    flightLine = attackLine.render();
+                    _this.zr.add(flightLine);
+                    _this.zr.add(fp);
+                    _this.zr.add(tp);
+                });
+            }
+        }
+
+        /**
+         * 窗口大小改变, 重置zr大小.
+         */
+
+    }, {
+        key: '_windowResize',
+        value: function _windowResize() {
+            var _window = window,
+                innerHeight = _window.innerHeight,
+                innerWidth = _window.innerWidth;
+
+
+            if (this.zr) {
+                this.zr.resize({
+                    width: innerWidth,
+                    height: innerHeight
+                });
+            }
+        }
+    }]);
+
+    return App;
+}(_react.PureComponent);
+
+exports.default = App;
+
+/***/ }),
+
+/***/ 1030:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jquery = __webpack_require__(167);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _echarts = __webpack_require__(240);
+
+var _echarts2 = _interopRequireDefault(_echarts);
+
+var _echartsGl = __webpack_require__(239);
+
+var _echartsGl2 = _interopRequireDefault(_echartsGl);
+
+var _react = __webpack_require__(57);
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(663);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Globe = function (_PureComponent) {
+    _inherits(Globe, _PureComponent);
+
+    function Globe(props) {
+        _classCallCheck(this, Globe);
+
+        return _possibleConstructorReturn(this, (Globe.__proto__ || Object.getPrototypeOf(Globe)).call(this, props));
+
+        // this.state={
+        //     width: null,
+        //     height: null
+        // };
+
+        // this._fullScreenClick = this._fullScreenClick.bind(this);
+    }
+
+    _createClass(Globe, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            _echarts2.default - _echartsGl2.default;
+            var series = {
+                type: 'lines3D',
+                name: 'airlineName',
+
+                effect: {
+                    show: true,
+                    trailWidth: 5,
+                    trailLength: 0.4,
+                    trailOpacity: 0.6,
+                    trailColor: 'rgb(30, 30, 60)'
+                },
+
+                lineStyle: {
+                    width: 3,
+                    color: 'rgb(50, 50, 150)',
+                    // color: 'rgb(118, 233, 241)',
+                    opacity: 0.1
+                },
+                blendMode: 'lighter',
+
+                distanceToGlobe: 4,
+
+                data: [[[117, 39], // 起点的经纬度坐标
+                [117, 10]] // 终点的经纬度坐标
+                ]
+            };
+
+            var chart = _echarts2.default.init(this.refs.globe);
+
+            chart.setOption({
+                backgroundColor: '#000',
+                globe: {
+                    baseTexture: "../../../data/world.topo.bathy.200401.jpg",
+                    displacementScale: 0.04,
+                    shading: 'realistic',
+                    realisticMaterial: {
+                        roughness: 0.9
+                    },
+                    postEffect: {
+                        enable: true
+                    },
+                    light: {
+                        main: {
+                            intensity: 5,
+                            shadow: true
+                        },
+                        ambientCubemap: {
+                            diffuseIntensity: 0.2
+                        }
+                    }
+                },
+                series: series
+            });
+
+            window.onresize = chart.resize;
+
+            window.addEventListener('keydown', function () {
+                chart.dispatchAction({
+                    type: 'lines3DToggleEffect',
+                    seriesIndex: 0
+                });
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement('div', { ref: 'globe', className: 'globe' })
+            );
+        }
+
+        // _fullScreenClick(){
+        //     // console.log("=============")
+        //     let {innerWidth, innerHeight}= window
+        //     console.log(innerHeight, innerWidth)
+        //     this.setState({
+        //         width: innerWidth,
+        //         height: innerHeight
+        //     });
+        // }
+
+    }]);
+
+    return Globe;
+}(_react.PureComponent);
+
+exports.default = Globe;
+
+/***/ }),
+
+/***/ 1031:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Config = __webpack_require__(121);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+var _Circle = __webpack_require__(344);
+
+var _Circle2 = _interopRequireDefault(_Circle);
+
+var _Group = __webpack_require__(112);
+
+var _Group2 = _interopRequireDefault(_Group);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var AnimatePoint = function () {
+   function AnimatePoint(opts) {
+      _classCallCheck(this, AnimatePoint);
+
+      this.r = opts['r'] || 0;
+      this.x = opts['x'] || 0;
+      this.y = opts['y'] || 0;
+      this.fill = opts['fill'] || 'rgba(255, 255, 0, 1)';
+      this.lineWidth = opts['lineWidth'] || 2;
+      this.during = opts['during'] || _Config2.default.pointAnimateDuring;
+      this.loop = opts['loop'];
+      this.callback = opts['callback'] || function () {};
+   }
+
+   _createClass(AnimatePoint, [{
+      key: 'render',
+      value: function render() {
+         var outterCircleNum = 3; // 动态环的个数
+         var maxRaduis = this.r * 3; //外环最大半径
+         var g = new _Group2.default();
+
+         // for(let index = 0; index < outterCircleNum; index++) {
+         // let centerPoint = new Circle({
+         //     shape: {
+         //         cx: this.x,
+         //         cy: this.y,
+         //         // r: this.r
+         //         r: 0
+         //     },
+         //     style: {
+         //         fill: this.fill,
+         //         stroke: 'none'
+         //     }
+         // });
+
+         // centerPoint.animateShape(this.loop)
+         //     .delay(index / outterCircleNum * this.during)
+         //     .when(this.during, {
+         //         r: this.r
+         //     })
+         //     .start(Config.animationEasing)
+         //     .done(this.callback);
+
+         // centerPoint.animateStyle(this.loop)
+         //     .delay(index / outterCircleNum * this.during)
+         //     .when(this.during - 200, {
+         //         opacity: 1
+         //     })
+         //     .when(this.during, {
+         //         opacity: 0
+         //     })
+         //     .start(Config.animationEasing)
+         //     .done(this.callback);
+
+         // g.add(centerPoint);
+         // }
+
+         // 生成环
+         for (var index = 0; index < outterCircleNum; index++) {
+            var circleShape = new _Circle2.default({
+               shape: {
+                  cx: this.x,
+                  cy: this.y,
+                  r: this.r
+               },
+               style: {
+                  fill: 'none',
+                  stroke: this.fill,
+                  lineWidth: this.lineWidth
+               },
+               hoverable: false
+            });
+
+            circleShape.animateShape(this.loop).when(this.during, {
+               r: maxRaduis
+            }).delay(this.during / outterCircleNum * index).start(_Config2.default.animationEasing).done(this.callback);
+
+            circleShape.animateStyle(this.loop).when(this.during, {
+               opacity: 0,
+               lineWidth: 3
+            }).delay(this.during / outterCircleNum * index).start(_Config2.default.animationEasing).done(this.callback);
+
+            g.add(circleShape);
+         }
+
+         return g;
+      }
+   }]);
+
+   return AnimatePoint;
+}();
+
+exports.default = AnimatePoint;
+
+/***/ }),
+
+/***/ 1032:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Tail2 = __webpack_require__(396);
+
+var _Tail3 = _interopRequireDefault(_Tail2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AttackLine = function (_Tail) {
+    _inherits(AttackLine, _Tail);
+
+    function AttackLine(opts) {
+        _classCallCheck(this, AttackLine);
+
+        var _this = _possibleConstructorReturn(this, (AttackLine.__proto__ || Object.getPrototypeOf(AttackLine)).call(this, opts));
+
+        _this.displayName = 'AttackLine';
+        return _this;
+    }
+
+    return AttackLine;
+}(_Tail3.default);
+
+exports.default = AttackLine;
+
+/***/ }),
+
+/***/ 1033:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Config = __webpack_require__(121);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+var _Group = __webpack_require__(112);
+
+var _Group2 = _interopRequireDefault(_Group);
+
+var _path = __webpack_require__(783);
+
+var _path2 = _interopRequireDefault(_path);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var _Symbol = function () {
+   function _Symbol(opts) {
+      _classCallCheck(this, _Symbol);
+
+      this.path = opts['path'] || '';
+      this.scale = opts['scale'] || [1, 1];
+      this.lineWidth = opts['lineWidth'] || 1;
+      this.stroke = opts['stroke'] || 'rgba(255, 255, 0, 1)';
+      this.fill = opts['fill'] || 'rgba(255, 255, 0, 0.3)';
+      this.link = opts['link'] || null; // null的时候仅生成symbol.
+      this.during = opts['during'] || _Config2.default.animationDefaultDuring;
+      this.loop = opts['loop'];
+      this.callback = opts['callback'];
+   }
+
+   _createClass(_Symbol, [{
+      key: 'render',
+      value: function render() {
+         var _this = this;
+
+         var symbol = _path2.default.createFromString(this.path, {
+            style: {
+               lineWidth: this.lineWidth,
+               stroke: this.stroke,
+               fill: this.fill
+            },
+            scale: this.scale
+         });
+
+         var _symbol$getBoundingRe = symbol.getBoundingRect(),
+             x = _symbol$getBoundingRe.x,
+             y = _symbol$getBoundingRe.y,
+             width = _symbol$getBoundingRe.width,
+             height = _symbol$getBoundingRe.height;
+
+         symbol.position = [-x * this.scale[0] - width * this.scale[0] / 2, -y * this.scale[1] - height * this.scale[1] / 2];
+         var g = new _Group2.default();
+         g.add(symbol);
+
+         if (this.link) {
+            g.animate('', this.loop).when(this.during, {
+               position: [1, 0]
+            }).during(function (i, t) {
+               var pos = _this.link.pointAt(t);
+               var tangent = _this.link.tangentAt(t);
+
+               g.position = pos;
+               g.rotation = -Math.PI / 2 - Math.atan2(tangent[1], tangent[0]);
+            }).start(_Config2.default.animationEasing).done(this.callback);
+         }
+
+         return g;
+      }
+   }]);
+
+   return _Symbol;
+}();
+
+exports.default = _Symbol;
+
+/***/ }),
+
+/***/ 1034:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+// import Proj4Leaflet from 'proj4leaflet';
+
+
+var _leaflet = __webpack_require__(166);
+
+var _leaflet2 = _interopRequireDefault(_leaflet);
+
+__webpack_require__(657);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Map = function () {
+    function Map(opts) {
+        _classCallCheck(this, Map);
+
+        this.dom = opts.dom;
+        this.tileLayer = opts.tileLayer || 'http://mt2.google.cn/vt/lyrs=y@258000000&hl=zh-CN&gl=CN&src=app&x={x}&y={y}&z={z}&s=Ga'; //默认google卫星地图
+    }
+
+    _createClass(Map, [{
+        key: 'render',
+        value: function render() {
+            var _getComputedStyle = getComputedStyle(this.dom),
+                width = _getComputedStyle.width,
+                height = _getComputedStyle.height;
+
+            var crs = new _leaflet2.default.Proj.CRS('EPSG:3395', '+proj=merc +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs', {
+                resolutions: function () {
+                    var level = 19;
+                    var res = [];
+                    res[0] = Math.pow(2, 18);
+                    for (var i = 1; i < level; i++) {
+                        res[i] = Math.pow(2, 18 - i);
+                    }
+                    return res;
+                }(),
+                origin: [0, 0],
+                bounds: _leaflet2.default.bounds([20037508.342789244, 0], [0, 20037508.342789244])
+            });
+
+            var map = _leaflet2.default.map(this.dom, {
+                renderer: 'canvas',
+                minZoom: 2,
+                crs: crs
+            }).setView([15, 15], 2);
+
+            _leaflet2.default.tileLayer(this.tileLayer, {
+                maxZoom: 18,
+                minZoom: 3,
+                subdomains: [0, 1, 2],
+                tms: true
+            }).addTo(map);
+
+            map.invalidateSize(true);
+
+            return map;
+        }
+    }]);
+
+    return Map;
+}();
+
+exports.default = Map;
+
+/***/ }),
+
+/***/ 1035:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/**
+ * if or not web browser support webgl. Code from Three.js.
+ */
+
+var Detector = {
+
+    canvas: !!window.CanvasRenderingContext2D,
+    webgl: function () {
+
+        try {
+
+            var canvas = document.createElement('canvas');return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+        } catch (e) {
+
+            return false;
+        }
+    }(),
+    workers: !!window.Worker,
+    fileapi: window.File && window.FileReader && window.FileList && window.Blob,
+
+    getWebGLErrorMessage: function getWebGLErrorMessage() {
+
+        var element = document.createElement('div');
+        element.id = 'webgl-error-message';
+        element.style.fontFamily = 'monospace';
+        element.style.fontSize = '13px';
+        element.style.fontWeight = 'normal';
+        element.style.textAlign = 'center';
+        element.style.background = '#fff';
+        element.style.color = '#000';
+        element.style.padding = '1.5em';
+        element.style.width = '400px';
+        element.style.margin = '5em auto 0';
+
+        if (!this.webgl) {
+
+            element.innerHTML = window.WebGLRenderingContext ? ['Your graphics card does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br />', 'Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.'].join('\n') : ['Your browser does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br/>', 'Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.'].join('\n');
+        }
+
+        return element;
+    },
+
+    addGetWebGLMessage: function addGetWebGLMessage(parameters) {
+
+        var parent, id, element;
+
+        parameters = parameters || {};
+
+        parent = parameters.parent !== undefined ? parameters.parent : document.body;
+        id = parameters.id !== undefined ? parameters.id : 'oldie';
+
+        element = Detector.getWebGLErrorMessage();
+        element.id = id;
+
+        parent.appendChild(element);
+    }
+
+};
+
+// browserify support
+if (( false ? 'undefined' : _typeof(module)) === 'object') {
+
+    module.exports = Detector;
+}
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(314)(module)))
+
+/***/ }),
+
+/***/ 1036:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var MathUtil = function () {
+   function MathUtil() {
+      _classCallCheck(this, MathUtil);
+   }
+
+   /**
+    * @param curveness > 0 and < 1;
+    */
+
+
+   _createClass(MathUtil, null, [{
+      key: "getCurvenessPoint",
+      value: function getCurvenessPoint(from, to) {
+         var median = {
+            x: (from.x + to.x) / 2,
+            y: (from.y + to.y) / 2
+         };
+
+         var d = Math.sqrt(Math.pow(from.x - to.x, 2) + Math.pow(from.y - to.y, 2));
+         d = from.y > to.y ? -d : d;
+         var k = -(from.x - to.x) / (from.y - to.y); // slope.
+
+         // Calculate control point.
+         var x = median.x + d / 4 * Math.cos(Math.atan(k));
+         var y = median.y + d / 4 * Math.sin(Math.atan(k));
+
+         return {
+            x: x,
+            y: y
+         };
+      }
+   }]);
+
+   return MathUtil;
+}();
+
+exports.default = MathUtil;
+
+/***/ }),
+
+/***/ 1037:
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 112:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * Group是一个容器，可以插入子节点，Group的变换也会被应用到子节点上
+ * @module zrender/graphic/Group
+ * @example
+ *     var Group = require('zrender/container/Group');
+ *     var Circle = require('zrender/graphic/shape/Circle');
+ *     var g = new Group();
+ *     g.position[0] = 100;
+ *     g.position[1] = 100;
+ *     g.add(new Circle({
+ *         style: {
+ *             x: 100,
+ *             y: 100,
+ *             r: 20,
+ *         }
+ *     }));
+ *     zr.add(g);
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var zrUtil = __webpack_require__(33);
+    var Element = __webpack_require__(331);
+    var BoundingRect = __webpack_require__(90);
+
+    /**
+     * @alias module:zrender/graphic/Group
+     * @constructor
+     * @extends module:zrender/mixin/Transformable
+     * @extends module:zrender/mixin/Eventful
+     */
+    var Group = function (opts) {
+
+        opts = opts || {};
+
+        Element.call(this, opts);
+
+        for (var key in opts) {
+            if (opts.hasOwnProperty(key)) {
+                this[key] = opts[key];
+            }
+        }
+
+        this._children = [];
+
+        this.__storage = null;
+
+        this.__dirty = true;
+    };
+
+    Group.prototype = {
+
+        constructor: Group,
+
+        isGroup: true,
+
+        /**
+         * @type {string}
+         */
+        type: 'group',
+
+        /**
+         * 所有子孙元素是否响应鼠标事件
+         * @name module:/zrender/container/Group#silent
+         * @type {boolean}
+         * @default false
+         */
+        silent: false,
+
+        /**
+         * @return {Array.<module:zrender/Element>}
+         */
+        children: function () {
+            return this._children.slice();
+        },
+
+        /**
+         * 获取指定 index 的儿子节点
+         * @param  {number} idx
+         * @return {module:zrender/Element}
+         */
+        childAt: function (idx) {
+            return this._children[idx];
+        },
+
+        /**
+         * 获取指定名字的儿子节点
+         * @param  {string} name
+         * @return {module:zrender/Element}
+         */
+        childOfName: function (name) {
+            var children = this._children;
+            for (var i = 0; i < children.length; i++) {
+                if (children[i].name === name) {
+                    return children[i];
+                }
+             }
+        },
+
+        /**
+         * @return {number}
+         */
+        childCount: function () {
+            return this._children.length;
+        },
+
+        /**
+         * 添加子节点到最后
+         * @param {module:zrender/Element} child
+         */
+        add: function (child) {
+            if (child && child !== this && child.parent !== this) {
+
+                this._children.push(child);
+
+                this._doAdd(child);
+            }
+
+            return this;
+        },
+
+        /**
+         * 添加子节点在 nextSibling 之前
+         * @param {module:zrender/Element} child
+         * @param {module:zrender/Element} nextSibling
+         */
+        addBefore: function (child, nextSibling) {
+            if (child && child !== this && child.parent !== this
+                && nextSibling && nextSibling.parent === this) {
+
+                var children = this._children;
+                var idx = children.indexOf(nextSibling);
+
+                if (idx >= 0) {
+                    children.splice(idx, 0, child);
+                    this._doAdd(child);
+                }
+            }
+
+            return this;
+        },
+
+        _doAdd: function (child) {
+            if (child.parent) {
+                child.parent.remove(child);
+            }
+
+            child.parent = this;
+
+            var storage = this.__storage;
+            var zr = this.__zr;
+            if (storage && storage !== child.__storage) {
+
+                storage.addToStorage(child);
+
+                if (child instanceof Group) {
+                    child.addChildrenToStorage(storage);
+                }
+            }
+
+            zr && zr.refresh();
+        },
+
+        /**
+         * 移除子节点
+         * @param {module:zrender/Element} child
+         */
+        remove: function (child) {
+            var zr = this.__zr;
+            var storage = this.__storage;
+            var children = this._children;
+
+            var idx = zrUtil.indexOf(children, child);
+            if (idx < 0) {
+                return this;
+            }
+            children.splice(idx, 1);
+
+            child.parent = null;
+
+            if (storage) {
+
+                storage.delFromStorage(child);
+
+                if (child instanceof Group) {
+                    child.delChildrenFromStorage(storage);
+                }
+            }
+
+            zr && zr.refresh();
+
+            return this;
+        },
+
+        /**
+         * 移除所有子节点
+         */
+        removeAll: function () {
+            var children = this._children;
+            var storage = this.__storage;
+            var child;
+            var i;
+            for (i = 0; i < children.length; i++) {
+                child = children[i];
+                if (storage) {
+                    storage.delFromStorage(child);
+                    if (child instanceof Group) {
+                        child.delChildrenFromStorage(storage);
+                    }
+                }
+                child.parent = null;
+            }
+            children.length = 0;
+
+            return this;
+        },
+
+        /**
+         * 遍历所有子节点
+         * @param  {Function} cb
+         * @param  {}   context
+         */
+        eachChild: function (cb, context) {
+            var children = this._children;
+            for (var i = 0; i < children.length; i++) {
+                var child = children[i];
+                cb.call(context, child, i);
+            }
+            return this;
+        },
+
+        /**
+         * 深度优先遍历所有子孙节点
+         * @param  {Function} cb
+         * @param  {}   context
+         */
+        traverse: function (cb, context) {
+            for (var i = 0; i < this._children.length; i++) {
+                var child = this._children[i];
+                cb.call(context, child);
+
+                if (child.type === 'group') {
+                    child.traverse(cb, context);
+                }
+            }
+            return this;
+        },
+
+        addChildrenToStorage: function (storage) {
+            for (var i = 0; i < this._children.length; i++) {
+                var child = this._children[i];
+                storage.addToStorage(child);
+                if (child instanceof Group) {
+                    child.addChildrenToStorage(storage);
+                }
+            }
+        },
+
+        delChildrenFromStorage: function (storage) {
+            for (var i = 0; i < this._children.length; i++) {
+                var child = this._children[i];
+                storage.delFromStorage(child);
+                if (child instanceof Group) {
+                    child.delChildrenFromStorage(storage);
+                }
+            }
+        },
+
+        dirty: function () {
+            this.__dirty = true;
+            this.__zr && this.__zr.refresh();
+            return this;
+        },
+
+        /**
+         * @return {module:zrender/core/BoundingRect}
+         */
+        getBoundingRect: function (includeChildren) {
+            // TODO Caching
+            var rect = null;
+            var tmpRect = new BoundingRect(0, 0, 0, 0);
+            var children = includeChildren || this._children;
+            var tmpMat = [];
+
+            for (var i = 0; i < children.length; i++) {
+                var child = children[i];
+                if (child.ignore || child.invisible) {
+                    continue;
+                }
+
+                var childRect = child.getBoundingRect();
+                var transform = child.getLocalTransform(tmpMat);
+                // TODO
+                // The boundingRect cacluated by transforming original
+                // rect may be bigger than the actual bundingRect when rotation
+                // is used. (Consider a circle rotated aginst its center, where
+                // the actual boundingRect should be the same as that not be
+                // rotated.) But we can not find better approach to calculate
+                // actual boundingRect yet, considering performance.
+                if (transform) {
+                    tmpRect.copy(childRect);
+                    tmpRect.applyTransform(transform);
+                    rect = rect || tmpRect.clone();
+                    rect.union(tmpRect);
+                }
+                else {
+                    rect = rect || childRect.clone();
+                    rect.union(childRect);
+                }
+            }
+            return rect || tmpRect;
+        }
+    };
+
+    zrUtil.inherits(Group, Element);
+
+    return Group;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 121:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _RadialGradient = __webpack_require__(342);
+
+var _RadialGradient2 = _interopRequireDefault(_RadialGradient);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Config = function Config() {
+    _classCallCheck(this, Config);
+};
+
+Config.animationDefaultDuring = 3000;
+Config.animationEasing = 'linear';
+Config.pointAnimateDuring = 3000;
+Config.wsServer = 'ws://localhost:9000';
+Config.gradient = new _RadialGradient2.default(0.5, 0.5, 0.5, [{
+    offset: 0,
+    color: 'rgba(255, 255, 0, 0)'
+}, {
+    offset: 0.65,
+    color: 'rgba(255, 255, 0, 0)'
+}, {
+    offset: 0.65,
+    color: 'rgba(255, 255, 0, 0)'
+}, {
+    offset: 1,
+    color: 'rgba(255, 255, 0, 1)'
+}]);
+exports.default = Config;
+
+/***/ }),
+
+/***/ 122:
+/***/ (function(module, exports) {
+
+
+module.exports = function(a, b){
+  var fn = function(){};
+  fn.prototype = b.prototype;
+  a.prototype = new fn;
+  a.prototype.constructor = a;
+};
+
+/***/ }),
+
+/***/ 123:
+/***/ (function(module, exports) {
+
+/**
+ * Compiles a querystring
+ * Returns string representation of the object
+ *
+ * @param {Object}
+ * @api private
+ */
+
+exports.encode = function (obj) {
+  var str = '';
+
+  for (var i in obj) {
+    if (obj.hasOwnProperty(i)) {
+      if (str.length) str += '&';
+      str += encodeURIComponent(i) + '=' + encodeURIComponent(obj[i]);
+    }
+  }
+
+  return str;
+};
+
+/**
+ * Parses a simple querystring into an object
+ *
+ * @param {String} qs
+ * @api private
+ */
+
+exports.decode = function(qs){
+  var qry = {};
+  var pairs = qs.split('&');
+  for (var i = 0, l = pairs.length; i < l; i++) {
+    var pair = pairs[i].split('=');
+    qry[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+  }
+  return qry;
+};
+
+
+/***/ }),
+
+/***/ 152:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    var dpr = 1;
+    // If in browser environment
+    if (typeof window !== 'undefined') {
+        dpr = Math.max(window.devicePixelRatio || 1, 1);
+    }
+    /**
+     * config默认配置项
+     * @exports zrender/config
+     * @author Kener (@Kener-林峰, kener.linfeng@gmail.com)
+     */
+    var config = {
+        /**
+         * debug日志选项：catchBrushException为true下有效
+         * 0 : 不生成debug数据，发布用
+         * 1 : 异常抛出，调试用
+         * 2 : 控制台输出，调试用
+         */
+        debugMode: 0,
+
+        // retina 屏幕优化
+        devicePixelRatio: dpr
+    };
+    return config;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+
+/***/ }),
+
+/***/ 153:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * Path 代理，可以在`buildPath`中用于替代`ctx`, 会保存每个path操作的命令到pathCommands属性中
+ * 可以用于 isInsidePath 判断以及获取boundingRect
+ *
+ * @module zrender/core/PathProxy
+ * @author Yi Shen (http://www.github.com/pissang)
+ */
+
+ // TODO getTotalLength, getPointAtLength
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+    'use strict';
+
+    var curve = __webpack_require__(91);
+    var vec2 = __webpack_require__(74);
+    var bbox = __webpack_require__(773);
+    var BoundingRect = __webpack_require__(90);
+    var dpr = __webpack_require__(152).devicePixelRatio;
+
+    var CMD = {
+        M: 1,
+        L: 2,
+        C: 3,
+        Q: 4,
+        A: 5,
+        Z: 6,
+        // Rect
+        R: 7
+    };
+
+    // var CMD_MEM_SIZE = {
+    //     M: 3,
+    //     L: 3,
+    //     C: 7,
+    //     Q: 5,
+    //     A: 9,
+    //     R: 5,
+    //     Z: 1
+    // };
+
+    var min = [];
+    var max = [];
+    var min2 = [];
+    var max2 = [];
+    var mathMin = Math.min;
+    var mathMax = Math.max;
+    var mathCos = Math.cos;
+    var mathSin = Math.sin;
+    var mathSqrt = Math.sqrt;
+    var mathAbs = Math.abs;
+
+    var hasTypedArray = typeof Float32Array != 'undefined';
+
+    /**
+     * @alias module:zrender/core/PathProxy
+     * @constructor
+     */
+    var PathProxy = function (notSaveData) {
+
+        this._saveData = !(notSaveData || false);
+
+        if (this._saveData) {
+            /**
+             * Path data. Stored as flat array
+             * @type {Array.<Object>}
+             */
+            this.data = [];
+        }
+
+        this._ctx = null;
+    };
+
+    /**
+     * 快速计算Path包围盒（并不是最小包围盒）
+     * @return {Object}
+     */
+    PathProxy.prototype = {
+
+        constructor: PathProxy,
+
+        _xi: 0,
+        _yi: 0,
+
+        _x0: 0,
+        _y0: 0,
+        // Unit x, Unit y. Provide for avoiding drawing that too short line segment
+        _ux: 0,
+        _uy: 0,
+
+        _len: 0,
+
+        _lineDash: null,
+
+        _dashOffset: 0,
+
+        _dashIdx: 0,
+
+        _dashSum: 0,
+
+        /**
+         * @readOnly
+         */
+        setScale: function (sx, sy) {
+            this._ux = mathAbs(1 / dpr / sx) || 0;
+            this._uy = mathAbs(1 / dpr / sy) || 0;
+        },
+
+        getContext: function () {
+            return this._ctx;
+        },
+
+        /**
+         * @param  {CanvasRenderingContext2D} ctx
+         * @return {module:zrender/core/PathProxy}
+         */
+        beginPath: function (ctx) {
+
+            this._ctx = ctx;
+
+            ctx && ctx.beginPath();
+
+            ctx && (this.dpr = ctx.dpr);
+
+            // Reset
+            if (this._saveData) {
+                this._len = 0;
+            }
+
+            if (this._lineDash) {
+                this._lineDash = null;
+
+                this._dashOffset = 0;
+            }
+
+            return this;
+        },
+
+        /**
+         * @param  {number} x
+         * @param  {number} y
+         * @return {module:zrender/core/PathProxy}
+         */
+        moveTo: function (x, y) {
+            this.addData(CMD.M, x, y);
+            this._ctx && this._ctx.moveTo(x, y);
+
+            // x0, y0, xi, yi 是记录在 _dashedXXXXTo 方法中使用
+            // xi, yi 记录当前点, x0, y0 在 closePath 的时候回到起始点。
+            // 有可能在 beginPath 之后直接调用 lineTo，这时候 x0, y0 需要
+            // 在 lineTo 方法中记录，这里先不考虑这种情况，dashed line 也只在 IE10- 中不支持
+            this._x0 = x;
+            this._y0 = y;
+
+            this._xi = x;
+            this._yi = y;
+
+            return this;
+        },
+
+        /**
+         * @param  {number} x
+         * @param  {number} y
+         * @return {module:zrender/core/PathProxy}
+         */
+        lineTo: function (x, y) {
+            var exceedUnit = mathAbs(x - this._xi) > this._ux
+                || mathAbs(y - this._yi) > this._uy
+                // Force draw the first segment
+                || this._len < 5;
+
+            this.addData(CMD.L, x, y);
+
+            if (this._ctx && exceedUnit) {
+                this._needsDash() ? this._dashedLineTo(x, y)
+                    : this._ctx.lineTo(x, y);
+            }
+            if (exceedUnit) {
+                this._xi = x;
+                this._yi = y;
+            }
+
+            return this;
+        },
+
+        /**
+         * @param  {number} x1
+         * @param  {number} y1
+         * @param  {number} x2
+         * @param  {number} y2
+         * @param  {number} x3
+         * @param  {number} y3
+         * @return {module:zrender/core/PathProxy}
+         */
+        bezierCurveTo: function (x1, y1, x2, y2, x3, y3) {
+            this.addData(CMD.C, x1, y1, x2, y2, x3, y3);
+            if (this._ctx) {
+                this._needsDash() ? this._dashedBezierTo(x1, y1, x2, y2, x3, y3)
+                    : this._ctx.bezierCurveTo(x1, y1, x2, y2, x3, y3);
+            }
+            this._xi = x3;
+            this._yi = y3;
+            return this;
+        },
+
+        /**
+         * @param  {number} x1
+         * @param  {number} y1
+         * @param  {number} x2
+         * @param  {number} y2
+         * @return {module:zrender/core/PathProxy}
+         */
+        quadraticCurveTo: function (x1, y1, x2, y2) {
+            this.addData(CMD.Q, x1, y1, x2, y2);
+            if (this._ctx) {
+                this._needsDash() ? this._dashedQuadraticTo(x1, y1, x2, y2)
+                    : this._ctx.quadraticCurveTo(x1, y1, x2, y2);
+            }
+            this._xi = x2;
+            this._yi = y2;
+            return this;
+        },
+
+        /**
+         * @param  {number} cx
+         * @param  {number} cy
+         * @param  {number} r
+         * @param  {number} startAngle
+         * @param  {number} endAngle
+         * @param  {boolean} anticlockwise
+         * @return {module:zrender/core/PathProxy}
+         */
+        arc: function (cx, cy, r, startAngle, endAngle, anticlockwise) {
+            this.addData(
+                CMD.A, cx, cy, r, r, startAngle, endAngle - startAngle, 0, anticlockwise ? 0 : 1
+            );
+            this._ctx && this._ctx.arc(cx, cy, r, startAngle, endAngle, anticlockwise);
+
+            this._xi = mathCos(endAngle) * r + cx;
+            this._yi = mathSin(endAngle) * r + cx;
+            return this;
+        },
+
+        // TODO
+        arcTo: function (x1, y1, x2, y2, radius) {
+            if (this._ctx) {
+                this._ctx.arcTo(x1, y1, x2, y2, radius);
+            }
+            return this;
+        },
+
+        // TODO
+        rect: function (x, y, w, h) {
+            this._ctx && this._ctx.rect(x, y, w, h);
+            this.addData(CMD.R, x, y, w, h);
+            return this;
+        },
+
+        /**
+         * @return {module:zrender/core/PathProxy}
+         */
+        closePath: function () {
+            this.addData(CMD.Z);
+
+            var ctx = this._ctx;
+            var x0 = this._x0;
+            var y0 = this._y0;
+            if (ctx) {
+                this._needsDash() && this._dashedLineTo(x0, y0);
+                ctx.closePath();
+            }
+
+            this._xi = x0;
+            this._yi = y0;
+            return this;
+        },
+
+        /**
+         * Context 从外部传入，因为有可能是 rebuildPath 完之后再 fill。
+         * stroke 同样
+         * @param {CanvasRenderingContext2D} ctx
+         * @return {module:zrender/core/PathProxy}
+         */
+        fill: function (ctx) {
+            ctx && ctx.fill();
+            this.toStatic();
+        },
+
+        /**
+         * @param {CanvasRenderingContext2D} ctx
+         * @return {module:zrender/core/PathProxy}
+         */
+        stroke: function (ctx) {
+            ctx && ctx.stroke();
+            this.toStatic();
+        },
+
+        /**
+         * 必须在其它绘制命令前调用
+         * Must be invoked before all other path drawing methods
+         * @return {module:zrender/core/PathProxy}
+         */
+        setLineDash: function (lineDash) {
+            if (lineDash instanceof Array) {
+                this._lineDash = lineDash;
+
+                this._dashIdx = 0;
+
+                var lineDashSum = 0;
+                for (var i = 0; i < lineDash.length; i++) {
+                    lineDashSum += lineDash[i];
+                }
+                this._dashSum = lineDashSum;
+            }
+            return this;
+        },
+
+        /**
+         * 必须在其它绘制命令前调用
+         * Must be invoked before all other path drawing methods
+         * @return {module:zrender/core/PathProxy}
+         */
+        setLineDashOffset: function (offset) {
+            this._dashOffset = offset;
+            return this;
+        },
+
+        /**
+         *
+         * @return {boolean}
+         */
+        len: function () {
+            return this._len;
+        },
+
+        /**
+         * 直接设置 Path 数据
+         */
+        setData: function (data) {
+
+            var len = data.length;
+
+            if (! (this.data && this.data.length == len) && hasTypedArray) {
+                this.data = new Float32Array(len);
+            }
+
+            for (var i = 0; i < len; i++) {
+                this.data[i] = data[i];
+            }
+
+            this._len = len;
+        },
+
+        /**
+         * 添加子路径
+         * @param {module:zrender/core/PathProxy|Array.<module:zrender/core/PathProxy>} path
+         */
+        appendPath: function (path) {
+            if (!(path instanceof Array)) {
+                path = [path];
+            }
+            var len = path.length;
+            var appendSize = 0;
+            var offset = this._len;
+            for (var i = 0; i < len; i++) {
+                appendSize += path[i].len();
+            }
+            if (hasTypedArray && (this.data instanceof Float32Array)) {
+                this.data = new Float32Array(offset + appendSize);
+            }
+            for (var i = 0; i < len; i++) {
+                var appendPathData = path[i].data;
+                for (var k = 0; k < appendPathData.length; k++) {
+                    this.data[offset++] = appendPathData[k];
+                }
+            }
+            this._len = offset;
+        },
+
+        /**
+         * 填充 Path 数据。
+         * 尽量复用而不申明新的数组。大部分图形重绘的指令数据长度都是不变的。
+         */
+        addData: function (cmd) {
+            if (!this._saveData) {
+                return;
+            }
+
+            var data = this.data;
+            if (this._len + arguments.length > data.length) {
+                // 因为之前的数组已经转换成静态的 Float32Array
+                // 所以不够用时需要扩展一个新的动态数组
+                this._expandData();
+                data = this.data;
+            }
+            for (var i = 0; i < arguments.length; i++) {
+                data[this._len++] = arguments[i];
+            }
+
+            this._prevCmd = cmd;
+        },
+
+        _expandData: function () {
+            // Only if data is Float32Array
+            if (!(this.data instanceof Array)) {
+                var newData = [];
+                for (var i = 0; i < this._len; i++) {
+                    newData[i] = this.data[i];
+                }
+                this.data = newData;
+            }
+        },
+
+        /**
+         * If needs js implemented dashed line
+         * @return {boolean}
+         * @private
+         */
+        _needsDash: function () {
+            return this._lineDash;
+        },
+
+        _dashedLineTo: function (x1, y1) {
+            var dashSum = this._dashSum;
+            var offset = this._dashOffset;
+            var lineDash = this._lineDash;
+            var ctx = this._ctx;
+
+            var x0 = this._xi;
+            var y0 = this._yi;
+            var dx = x1 - x0;
+            var dy = y1 - y0;
+            var dist = mathSqrt(dx * dx + dy * dy);
+            var x = x0;
+            var y = y0;
+            var dash;
+            var nDash = lineDash.length;
+            var idx;
+            dx /= dist;
+            dy /= dist;
+
+            if (offset < 0) {
+                // Convert to positive offset
+                offset = dashSum + offset;
+            }
+            offset %= dashSum;
+            x -= offset * dx;
+            y -= offset * dy;
+
+            while ((dx > 0 && x <= x1) || (dx < 0 && x >= x1)
+            || (dx == 0 && ((dy > 0 && y <= y1) || (dy < 0 && y >= y1)))) {
+                idx = this._dashIdx;
+                dash = lineDash[idx];
+                x += dx * dash;
+                y += dy * dash;
+                this._dashIdx = (idx + 1) % nDash;
+                // Skip positive offset
+                if ((dx > 0 && x < x0) || (dx < 0 && x > x0) || (dy > 0 && y < y0) || (dy < 0 && y > y0)) {
+                    continue;
+                }
+                ctx[idx % 2 ? 'moveTo' : 'lineTo'](
+                    dx >= 0 ? mathMin(x, x1) : mathMax(x, x1),
+                    dy >= 0 ? mathMin(y, y1) : mathMax(y, y1)
+                );
+            }
+            // Offset for next lineTo
+            dx = x - x1;
+            dy = y - y1;
+            this._dashOffset = -mathSqrt(dx * dx + dy * dy);
+        },
+
+        // Not accurate dashed line to
+        _dashedBezierTo: function (x1, y1, x2, y2, x3, y3) {
+            var dashSum = this._dashSum;
+            var offset = this._dashOffset;
+            var lineDash = this._lineDash;
+            var ctx = this._ctx;
+
+            var x0 = this._xi;
+            var y0 = this._yi;
+            var t;
+            var dx;
+            var dy;
+            var cubicAt = curve.cubicAt;
+            var bezierLen = 0;
+            var idx = this._dashIdx;
+            var nDash = lineDash.length;
+
+            var x;
+            var y;
+
+            var tmpLen = 0;
+
+            if (offset < 0) {
+                // Convert to positive offset
+                offset = dashSum + offset;
+            }
+            offset %= dashSum;
+            // Bezier approx length
+            for (t = 0; t < 1; t += 0.1) {
+                dx = cubicAt(x0, x1, x2, x3, t + 0.1)
+                    - cubicAt(x0, x1, x2, x3, t);
+                dy = cubicAt(y0, y1, y2, y3, t + 0.1)
+                    - cubicAt(y0, y1, y2, y3, t);
+                bezierLen += mathSqrt(dx * dx + dy * dy);
+            }
+
+            // Find idx after add offset
+            for (; idx < nDash; idx++) {
+                tmpLen += lineDash[idx];
+                if (tmpLen > offset) {
+                    break;
+                }
+            }
+            t = (tmpLen - offset) / bezierLen;
+
+            while (t <= 1) {
+
+                x = cubicAt(x0, x1, x2, x3, t);
+                y = cubicAt(y0, y1, y2, y3, t);
+
+                // Use line to approximate dashed bezier
+                // Bad result if dash is long
+                idx % 2 ? ctx.moveTo(x, y)
+                    : ctx.lineTo(x, y);
+
+                t += lineDash[idx] / bezierLen;
+
+                idx = (idx + 1) % nDash;
+            }
+
+            // Finish the last segment and calculate the new offset
+            (idx % 2 !== 0) && ctx.lineTo(x3, y3);
+            dx = x3 - x;
+            dy = y3 - y;
+            this._dashOffset = -mathSqrt(dx * dx + dy * dy);
+        },
+
+        _dashedQuadraticTo: function (x1, y1, x2, y2) {
+            // Convert quadratic to cubic using degree elevation
+            var x3 = x2;
+            var y3 = y2;
+            x2 = (x2 + 2 * x1) / 3;
+            y2 = (y2 + 2 * y1) / 3;
+            x1 = (this._xi + 2 * x1) / 3;
+            y1 = (this._yi + 2 * y1) / 3;
+
+            this._dashedBezierTo(x1, y1, x2, y2, x3, y3);
+        },
+
+        /**
+         * 转成静态的 Float32Array 减少堆内存占用
+         * Convert dynamic array to static Float32Array
+         */
+        toStatic: function () {
+            var data = this.data;
+            if (data instanceof Array) {
+                data.length = this._len;
+                if (hasTypedArray) {
+                    this.data = new Float32Array(data);
+                }
+            }
+        },
+
+        /**
+         * @return {module:zrender/core/BoundingRect}
+         */
+        getBoundingRect: function () {
+            min[0] = min[1] = min2[0] = min2[1] = Number.MAX_VALUE;
+            max[0] = max[1] = max2[0] = max2[1] = -Number.MAX_VALUE;
+
+            var data = this.data;
+            var xi = 0;
+            var yi = 0;
+            var x0 = 0;
+            var y0 = 0;
+
+            for (var i = 0; i < data.length;) {
+                var cmd = data[i++];
+
+                if (i == 1) {
+                    // 如果第一个命令是 L, C, Q
+                    // 则 previous point 同绘制命令的第一个 point
+                    //
+                    // 第一个命令为 Arc 的情况下会在后面特殊处理
+                    xi = data[i];
+                    yi = data[i + 1];
+
+                    x0 = xi;
+                    y0 = yi;
+                }
+
+                switch (cmd) {
+                    case CMD.M:
+                        // moveTo 命令重新创建一个新的 subpath, 并且更新新的起点
+                        // 在 closePath 的时候使用
+                        x0 = data[i++];
+                        y0 = data[i++];
+                        xi = x0;
+                        yi = y0;
+                        min2[0] = x0;
+                        min2[1] = y0;
+                        max2[0] = x0;
+                        max2[1] = y0;
+                        break;
+                    case CMD.L:
+                        bbox.fromLine(xi, yi, data[i], data[i + 1], min2, max2);
+                        xi = data[i++];
+                        yi = data[i++];
+                        break;
+                    case CMD.C:
+                        bbox.fromCubic(
+                            xi, yi, data[i++], data[i++], data[i++], data[i++], data[i], data[i + 1],
+                            min2, max2
+                        );
+                        xi = data[i++];
+                        yi = data[i++];
+                        break;
+                    case CMD.Q:
+                        bbox.fromQuadratic(
+                            xi, yi, data[i++], data[i++], data[i], data[i + 1],
+                            min2, max2
+                        );
+                        xi = data[i++];
+                        yi = data[i++];
+                        break;
+                    case CMD.A:
+                        // TODO Arc 判断的开销比较大
+                        var cx = data[i++];
+                        var cy = data[i++];
+                        var rx = data[i++];
+                        var ry = data[i++];
+                        var startAngle = data[i++];
+                        var endAngle = data[i++] + startAngle;
+                        // TODO Arc 旋转
+                        var psi = data[i++];
+                        var anticlockwise = 1 - data[i++];
+
+                        if (i == 1) {
+                            // 直接使用 arc 命令
+                            // 第一个命令起点还未定义
+                            x0 = mathCos(startAngle) * rx + cx;
+                            y0 = mathSin(startAngle) * ry + cy;
+                        }
+
+                        bbox.fromArc(
+                            cx, cy, rx, ry, startAngle, endAngle,
+                            anticlockwise, min2, max2
+                        );
+
+                        xi = mathCos(endAngle) * rx + cx;
+                        yi = mathSin(endAngle) * ry + cy;
+                        break;
+                    case CMD.R:
+                        x0 = xi = data[i++];
+                        y0 = yi = data[i++];
+                        var width = data[i++];
+                        var height = data[i++];
+                        // Use fromLine
+                        bbox.fromLine(x0, y0, x0 + width, y0 + height, min2, max2);
+                        break;
+                    case CMD.Z:
+                        xi = x0;
+                        yi = y0;
+                        break;
+                }
+
+                // Union
+                vec2.min(min, min, min2);
+                vec2.max(max, max, max2);
+            }
+
+            // No data
+            if (i === 0) {
+                min[0] = min[1] = max[0] = max[1] = 0;
+            }
+
+            return new BoundingRect(
+                min[0], min[1], max[0] - min[0], max[1] - min[1]
+            );
+        },
+
+        /**
+         * Rebuild path from current data
+         * Rebuild path will not consider javascript implemented line dash.
+         * @param {CanvasRenderingContext} ctx
+         */
+        rebuildPath: function (ctx) {
+            var d = this.data;
+            var x0, y0;
+            var xi, yi;
+            var x, y;
+            var ux = this._ux;
+            var uy = this._uy;
+            var len = this._len;
+            for (var i = 0; i < len;) {
+                var cmd = d[i++];
+
+                if (i == 1) {
+                    // 如果第一个命令是 L, C, Q
+                    // 则 previous point 同绘制命令的第一个 point
+                    //
+                    // 第一个命令为 Arc 的情况下会在后面特殊处理
+                    xi = d[i];
+                    yi = d[i + 1];
+
+                    x0 = xi;
+                    y0 = yi;
+                }
+                switch (cmd) {
+                    case CMD.M:
+                        x0 = xi = d[i++];
+                        y0 = yi = d[i++];
+                        ctx.moveTo(xi, yi);
+                        break;
+                    case CMD.L:
+                        x = d[i++];
+                        y = d[i++];
+                        // Not draw too small seg between
+                        if (mathAbs(x - xi) > ux || mathAbs(y - yi) > uy || i === len - 1) {
+                            ctx.lineTo(x, y);
+                            xi = x;
+                            yi = y;
+                        }
+                        break;
+                    case CMD.C:
+                        ctx.bezierCurveTo(
+                            d[i++], d[i++], d[i++], d[i++], d[i++], d[i++]
+                        );
+                        xi = d[i - 2];
+                        yi = d[i - 1];
+                        break;
+                    case CMD.Q:
+                        ctx.quadraticCurveTo(d[i++], d[i++], d[i++], d[i++]);
+                        xi = d[i - 2];
+                        yi = d[i - 1];
+                        break;
+                    case CMD.A:
+                        var cx = d[i++];
+                        var cy = d[i++];
+                        var rx = d[i++];
+                        var ry = d[i++];
+                        var theta = d[i++];
+                        var dTheta = d[i++];
+                        var psi = d[i++];
+                        var fs = d[i++];
+                        var r = (rx > ry) ? rx : ry;
+                        var scaleX = (rx > ry) ? 1 : rx / ry;
+                        var scaleY = (rx > ry) ? ry / rx : 1;
+                        var isEllipse = Math.abs(rx - ry) > 1e-3;
+                        var endAngle = theta + dTheta;
+                        if (isEllipse) {
+                            ctx.translate(cx, cy);
+                            ctx.rotate(psi);
+                            ctx.scale(scaleX, scaleY);
+                            ctx.arc(0, 0, r, theta, endAngle, 1 - fs);
+                            ctx.scale(1 / scaleX, 1 / scaleY);
+                            ctx.rotate(-psi);
+                            ctx.translate(-cx, -cy);
+                        }
+                        else {
+                            ctx.arc(cx, cy, r, theta, endAngle, 1 - fs);
+                        }
+
+                        if (i == 1) {
+                            // 直接使用 arc 命令
+                            // 第一个命令起点还未定义
+                            x0 = mathCos(theta) * rx + cx;
+                            y0 = mathSin(theta) * ry + cy;
+                        }
+                        xi = mathCos(endAngle) * rx + cx;
+                        yi = mathSin(endAngle) * ry + cy;
+                        break;
+                    case CMD.R:
+                        x0 = xi = d[i];
+                        y0 = yi = d[i + 1];
+                        ctx.rect(d[i++], d[i++], d[i++], d[i++]);
+                        break;
+                    case CMD.Z:
+                        ctx.closePath();
+                        xi = x0;
+                        yi = y0;
+                }
+            }
+        }
+    };
+
+    PathProxy.CMD = CMD;
+
+    return PathProxy;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 154:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * echarts设备环境识别
+ *
+ * @desc echarts基于Canvas，纯Javascript图表库，提供直观，生动，可交互，可个性化定制的数据统计图表。
+ * @author firede[firede@firede.us]
+ * @desc thanks zepto.
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    var env = {};
+    if (typeof navigator === 'undefined') {
+        // In node
+        env = {
+            browser: {},
+            os: {},
+            node: true,
+            // Assume canvas is supported
+            canvasSupported: true
+        };
+    }
+    else {
+        env = detect(navigator.userAgent);
+    }
+
+    return env;
+
+    // Zepto.js
+    // (c) 2010-2013 Thomas Fuchs
+    // Zepto.js may be freely distributed under the MIT license.
+
+    function detect(ua) {
+        var os = {};
+        var browser = {};
+        // var webkit = ua.match(/Web[kK]it[\/]{0,1}([\d.]+)/);
+        // var android = ua.match(/(Android);?[\s\/]+([\d.]+)?/);
+        // var ipad = ua.match(/(iPad).*OS\s([\d_]+)/);
+        // var ipod = ua.match(/(iPod)(.*OS\s([\d_]+))?/);
+        // var iphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/);
+        // var webos = ua.match(/(webOS|hpwOS)[\s\/]([\d.]+)/);
+        // var touchpad = webos && ua.match(/TouchPad/);
+        // var kindle = ua.match(/Kindle\/([\d.]+)/);
+        // var silk = ua.match(/Silk\/([\d._]+)/);
+        // var blackberry = ua.match(/(BlackBerry).*Version\/([\d.]+)/);
+        // var bb10 = ua.match(/(BB10).*Version\/([\d.]+)/);
+        // var rimtabletos = ua.match(/(RIM\sTablet\sOS)\s([\d.]+)/);
+        // var playbook = ua.match(/PlayBook/);
+        // var chrome = ua.match(/Chrome\/([\d.]+)/) || ua.match(/CriOS\/([\d.]+)/);
+        var firefox = ua.match(/Firefox\/([\d.]+)/);
+        // var safari = webkit && ua.match(/Mobile\//) && !chrome;
+        // var webview = ua.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/) && !chrome;
+        var ie = ua.match(/MSIE\s([\d.]+)/)
+            // IE 11 Trident/7.0; rv:11.0
+            || ua.match(/Trident\/.+?rv:(([\d.]+))/);
+        var edge = ua.match(/Edge\/([\d.]+)/); // IE 12 and 12+
+
+        var weChat = (/micromessenger/i).test(ua);
+
+        // Todo: clean this up with a better OS/browser seperation:
+        // - discern (more) between multiple browsers on android
+        // - decide if kindle fire in silk mode is android or not
+        // - Firefox on Android doesn't specify the Android version
+        // - possibly devide in os, device and browser hashes
+
+        // if (browser.webkit = !!webkit) browser.version = webkit[1];
+
+        // if (android) os.android = true, os.version = android[2];
+        // if (iphone && !ipod) os.ios = os.iphone = true, os.version = iphone[2].replace(/_/g, '.');
+        // if (ipad) os.ios = os.ipad = true, os.version = ipad[2].replace(/_/g, '.');
+        // if (ipod) os.ios = os.ipod = true, os.version = ipod[3] ? ipod[3].replace(/_/g, '.') : null;
+        // if (webos) os.webos = true, os.version = webos[2];
+        // if (touchpad) os.touchpad = true;
+        // if (blackberry) os.blackberry = true, os.version = blackberry[2];
+        // if (bb10) os.bb10 = true, os.version = bb10[2];
+        // if (rimtabletos) os.rimtabletos = true, os.version = rimtabletos[2];
+        // if (playbook) browser.playbook = true;
+        // if (kindle) os.kindle = true, os.version = kindle[1];
+        // if (silk) browser.silk = true, browser.version = silk[1];
+        // if (!silk && os.android && ua.match(/Kindle Fire/)) browser.silk = true;
+        // if (chrome) browser.chrome = true, browser.version = chrome[1];
+        if (firefox) {
+            browser.firefox = true;
+            browser.version = firefox[1];
+        }
+        // if (safari && (ua.match(/Safari/) || !!os.ios)) browser.safari = true;
+        // if (webview) browser.webview = true;
+
+        if (ie) {
+            browser.ie = true;
+            browser.version = ie[1];
+        }
+
+        if (edge) {
+            browser.edge = true;
+            browser.version = edge[1];
+        }
+
+        // It is difficult to detect WeChat in Win Phone precisely, because ua can
+        // not be set on win phone. So we do not consider Win Phone.
+        if (weChat) {
+            browser.weChat = true;
+        }
+
+        // os.tablet = !!(ipad || playbook || (android && !ua.match(/Mobile/)) ||
+        //     (firefox && ua.match(/Tablet/)) || (ie && !ua.match(/Phone/) && ua.match(/Touch/)));
+        // os.phone  = !!(!os.tablet && !os.ipod && (android || iphone || webos ||
+        //     (chrome && ua.match(/Android/)) || (chrome && ua.match(/CriOS\/([\d.]+)/)) ||
+        //     (firefox && ua.match(/Mobile/)) || (ie && ua.match(/Touch/))));
+
+        return {
+            browser: browser,
+            os: os,
+            node: false,
+            // 原生canvas支持，改极端点了
+            // canvasSupported : !(browser.ie && parseFloat(browser.version) < 9)
+            canvasSupported : document.createElement('canvas').getContext ? true : false,
+            // @see <http://stackoverflow.com/questions/4817029/whats-the-best-way-to-detect-a-touch-screen-device-using-javascript>
+            // works on most browsers
+            // IE10/11 does not support touch event, and MS Edge supports them but not by
+            // default, so we dont check navigator.maxTouchPoints for them here.
+            touchEventsSupported: 'ontouchstart' in window && !browser.ie && !browser.edge,
+            // <http://caniuse.com/#search=pointer%20event>.
+            pointerEventsSupported: 'onpointerdown' in window
+                // Firefox supports pointer but not by default, only MS browsers are reliable on pointer
+                // events currently. So we dont use that on other browsers unless tested sufficiently.
+                // Although IE 10 supports pointer event, it use old style and is different from the
+                // standard. So we exclude that. (IE 10 is hardly used on touch device)
+                && (browser.edge || (browser.ie && browser.version >= 11))
+        };
+    }
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 155:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * 事件扩展
+ * @module zrender/mixin/Eventful
+ * @author Kener (@Kener-林峰, kener.linfeng@gmail.com)
+ *         pissang (https://www.github.com/pissang)
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var arrySlice = Array.prototype.slice;
+
+    /**
+     * 事件分发器
+     * @alias module:zrender/mixin/Eventful
+     * @constructor
+     */
+    var Eventful = function () {
+        this._$handlers = {};
+    };
+
+    Eventful.prototype = {
+
+        constructor: Eventful,
+
+        /**
+         * 单次触发绑定，trigger后销毁
+         *
+         * @param {string} event 事件名
+         * @param {Function} handler 响应函数
+         * @param {Object} context
+         */
+        one: function (event, handler, context) {
+            var _h = this._$handlers;
+
+            if (!handler || !event) {
+                return this;
+            }
+
+            if (!_h[event]) {
+                _h[event] = [];
+            }
+
+            for (var i = 0; i < _h[event].length; i++) {
+                if (_h[event][i].h === handler) {
+                    return this;
+                }
+            }
+
+            _h[event].push({
+                h: handler,
+                one: true,
+                ctx: context || this
+            });
+
+            return this;
+        },
+
+        /**
+         * 绑定事件
+         * @param {string} event 事件名
+         * @param {Function} handler 事件处理函数
+         * @param {Object} [context]
+         */
+        on: function (event, handler, context) {
+            var _h = this._$handlers;
+
+            if (!handler || !event) {
+                return this;
+            }
+
+            if (!_h[event]) {
+                _h[event] = [];
+            }
+
+            for (var i = 0; i < _h[event].length; i++) {
+                if (_h[event][i].h === handler) {
+                    return this;
+                }
+            }
+
+            _h[event].push({
+                h: handler,
+                one: false,
+                ctx: context || this
+            });
+
+            return this;
+        },
+
+        /**
+         * 是否绑定了事件
+         * @param  {string}  event
+         * @return {boolean}
+         */
+        isSilent: function (event) {
+            var _h = this._$handlers;
+            return _h[event] && _h[event].length;
+        },
+
+        /**
+         * 解绑事件
+         * @param {string} event 事件名
+         * @param {Function} [handler] 事件处理函数
+         */
+        off: function (event, handler) {
+            var _h = this._$handlers;
+
+            if (!event) {
+                this._$handlers = {};
+                return this;
+            }
+
+            if (handler) {
+                if (_h[event]) {
+                    var newList = [];
+                    for (var i = 0, l = _h[event].length; i < l; i++) {
+                        if (_h[event][i]['h'] != handler) {
+                            newList.push(_h[event][i]);
+                        }
+                    }
+                    _h[event] = newList;
+                }
+
+                if (_h[event] && _h[event].length === 0) {
+                    delete _h[event];
+                }
+            }
+            else {
+                delete _h[event];
+            }
+
+            return this;
+        },
+
+        /**
+         * 事件分发
+         *
+         * @param {string} type 事件类型
+         */
+        trigger: function (type) {
+            if (this._$handlers[type]) {
+                var args = arguments;
+                var argLen = args.length;
+
+                if (argLen > 3) {
+                    args = arrySlice.call(args, 1);
+                }
+
+                var _h = this._$handlers[type];
+                var len = _h.length;
+                for (var i = 0; i < len;) {
+                    // Optimize advise from backbone
+                    switch (argLen) {
+                        case 1:
+                            _h[i]['h'].call(_h[i]['ctx']);
+                            break;
+                        case 2:
+                            _h[i]['h'].call(_h[i]['ctx'], args[1]);
+                            break;
+                        case 3:
+                            _h[i]['h'].call(_h[i]['ctx'], args[1], args[2]);
+                            break;
+                        default:
+                            // have more than 2 given arguments
+                            _h[i]['h'].apply(_h[i]['ctx'], args);
+                            break;
+                    }
+
+                    if (_h[i]['one']) {
+                        _h.splice(i, 1);
+                        len--;
+                    }
+                    else {
+                        i++;
+                    }
+                }
+            }
+
+            return this;
+        },
+
+        /**
+         * 带有context的事件分发, 最后一个参数是事件回调的context
+         * @param {string} type 事件类型
+         */
+        triggerWithContext: function (type) {
+            if (this._$handlers[type]) {
+                var args = arguments;
+                var argLen = args.length;
+
+                if (argLen > 4) {
+                    args = arrySlice.call(args, 1, args.length - 1);
+                }
+                var ctx = args[args.length - 1];
+
+                var _h = this._$handlers[type];
+                var len = _h.length;
+                for (var i = 0; i < len;) {
+                    // Optimize advise from backbone
+                    switch (argLen) {
+                        case 1:
+                            _h[i]['h'].call(ctx);
+                            break;
+                        case 2:
+                            _h[i]['h'].call(ctx, args[1]);
+                            break;
+                        case 3:
+                            _h[i]['h'].call(ctx, args[1], args[2]);
+                            break;
+                        default:
+                            // have more than 2 given arguments
+                            _h[i]['h'].apply(ctx, args);
+                            break;
+                    }
+
+                    if (_h[i]['one']) {
+                        _h.splice(i, 1);
+                        len--;
+                    }
+                    else {
+                        i++;
+                    }
+                }
+            }
+
+            return this;
+        }
+    };
+
+    // 对象可以通过 onxxxx 绑定事件
+    /**
+     * @event module:zrender/mixin/Eventful#onclick
+     * @type {Function}
+     * @default null
+     */
+    /**
+     * @event module:zrender/mixin/Eventful#onmouseover
+     * @type {Function}
+     * @default null
+     */
+    /**
+     * @event module:zrender/mixin/Eventful#onmouseout
+     * @type {Function}
+     * @default null
+     */
+    /**
+     * @event module:zrender/mixin/Eventful#onmousemove
+     * @type {Function}
+     * @default null
+     */
+    /**
+     * @event module:zrender/mixin/Eventful#onmousewheel
+     * @type {Function}
+     * @default null
+     */
+    /**
+     * @event module:zrender/mixin/Eventful#onmousedown
+     * @type {Function}
+     * @default null
+     */
+    /**
+     * @event module:zrender/mixin/Eventful#onmouseup
+     * @type {Function}
+     * @default null
+     */
+    /**
+     * @event module:zrender/mixin/Eventful#ondrag
+     * @type {Function}
+     * @default null
+     */
+    /**
+     * @event module:zrender/mixin/Eventful#ondragstart
+     * @type {Function}
+     * @default null
+     */
+    /**
+     * @event module:zrender/mixin/Eventful#ondragend
+     * @type {Function}
+     * @default null
+     */
+    /**
+     * @event module:zrender/mixin/Eventful#ondragenter
+     * @type {Function}
+     * @default null
+     */
+    /**
+     * @event module:zrender/mixin/Eventful#ondragleave
+     * @type {Function}
+     * @default null
+     */
+    /**
+     * @event module:zrender/mixin/Eventful#ondragover
+     * @type {Function}
+     * @default null
+     */
+    /**
+     * @event module:zrender/mixin/Eventful#ondrop
+     * @type {Function}
+     * @default null
+     */
+
+    return Eventful;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 206:
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Module dependencies.
+ */
+
+var parser = __webpack_require__(86);
+var Emitter = __webpack_require__(81);
+
+/**
+ * Module exports.
+ */
+
+module.exports = Transport;
+
+/**
+ * Transport abstract constructor.
+ *
+ * @param {Object} options.
+ * @api private
+ */
+
+function Transport (opts) {
+  this.path = opts.path;
+  this.hostname = opts.hostname;
+  this.port = opts.port;
+  this.secure = opts.secure;
+  this.query = opts.query;
+  this.timestampParam = opts.timestampParam;
+  this.timestampRequests = opts.timestampRequests;
+  this.readyState = '';
+  this.agent = opts.agent || false;
+  this.socket = opts.socket;
+  this.enablesXDR = opts.enablesXDR;
+
+  // SSL options for Node.js client
+  this.pfx = opts.pfx;
+  this.key = opts.key;
+  this.passphrase = opts.passphrase;
+  this.cert = opts.cert;
+  this.ca = opts.ca;
+  this.ciphers = opts.ciphers;
+  this.rejectUnauthorized = opts.rejectUnauthorized;
+  this.forceNode = opts.forceNode;
+
+  // other options for Node.js client
+  this.extraHeaders = opts.extraHeaders;
+  this.localAddress = opts.localAddress;
+}
+
+/**
+ * Mix in `Emitter`.
+ */
+
+Emitter(Transport.prototype);
+
+/**
+ * Emits an error.
+ *
+ * @param {String} str
+ * @return {Transport} for chaining
+ * @api public
+ */
+
+Transport.prototype.onError = function (msg, desc) {
+  var err = new Error(msg);
+  err.type = 'TransportError';
+  err.description = desc;
+  this.emit('error', err);
+  return this;
+};
+
+/**
+ * Opens the transport.
+ *
+ * @api public
+ */
+
+Transport.prototype.open = function () {
+  if ('closed' === this.readyState || '' === this.readyState) {
+    this.readyState = 'opening';
+    this.doOpen();
+  }
+
+  return this;
+};
+
+/**
+ * Closes the transport.
+ *
+ * @api private
+ */
+
+Transport.prototype.close = function () {
+  if ('opening' === this.readyState || 'open' === this.readyState) {
+    this.doClose();
+    this.onClose();
+  }
+
+  return this;
+};
+
+/**
+ * Sends multiple packets.
+ *
+ * @param {Array} packets
+ * @api private
+ */
+
+Transport.prototype.send = function (packets) {
+  if ('open' === this.readyState) {
+    this.write(packets);
+  } else {
+    throw new Error('Transport not open');
+  }
+};
+
+/**
+ * Called upon open
+ *
+ * @api private
+ */
+
+Transport.prototype.onOpen = function () {
+  this.readyState = 'open';
+  this.writable = true;
+  this.emit('open');
+};
+
+/**
+ * Called with data.
+ *
+ * @param {String} data
+ * @api private
+ */
+
+Transport.prototype.onData = function (data) {
+  var packet = parser.decodePacket(data, this.socket.binaryType);
+  this.onPacket(packet);
+};
+
+/**
+ * Called with a decoded packet.
+ */
+
+Transport.prototype.onPacket = function (packet) {
+  this.emit('packet', packet);
+};
+
+/**
+ * Called upon close.
+ *
+ * @api private
+ */
+
+Transport.prototype.onClose = function () {
+  this.readyState = 'closed';
+  this.emit('close');
+};
+
+
+/***/ }),
+
+/***/ 207:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {// browser shim for xmlhttprequest module
+
+var hasCORS = __webpack_require__(563);
+
+module.exports = function (opts) {
+  var xdomain = opts.xdomain;
+
+  // scheme must be same when usign XDomainRequest
+  // http://blogs.msdn.com/b/ieinternals/archive/2010/05/13/xdomainrequest-restrictions-limitations-and-workarounds.aspx
+  var xscheme = opts.xscheme;
+
+  // XDomainRequest has a flow of not sending cookie, therefore it should be disabled as a default.
+  // https://github.com/Automattic/engine.io-client/pull/217
+  var enablesXDR = opts.enablesXDR;
+
+  // XMLHttpRequest can be disabled on IE
+  try {
+    if ('undefined' !== typeof XMLHttpRequest && (!xdomain || hasCORS)) {
+      return new XMLHttpRequest();
+    }
+  } catch (e) { }
+
+  // Use XDomainRequest for IE8 if enablesXDR is true
+  // because loading bar keeps flashing when using jsonp-polling
+  // https://github.com/yujiosaka/socke.io-ie8-loading-example
+  try {
+    if ('undefined' !== typeof XDomainRequest && !xscheme && enablesXDR) {
+      return new XDomainRequest();
+    }
+  } catch (e) { }
+
+  if (!xdomain) {
+    try {
+      return new global[['Active'].concat('Object').join('X')]('Microsoft.XMLHTTP');
+    } catch (e) { }
+  }
+};
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+
+/***/ }),
+
+/***/ 208:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * Module dependencies.
+ */
+
+var debug = __webpack_require__(52)('socket.io-parser');
+var Emitter = __webpack_require__(81);
+var hasBin = __webpack_require__(270);
+var binary = __webpack_require__(724);
+var isBuf = __webpack_require__(317);
+
+/**
+ * Protocol version.
+ *
+ * @api public
+ */
+
+exports.protocol = 4;
+
+/**
+ * Packet types.
+ *
+ * @api public
+ */
+
+exports.types = [
+  'CONNECT',
+  'DISCONNECT',
+  'EVENT',
+  'ACK',
+  'ERROR',
+  'BINARY_EVENT',
+  'BINARY_ACK'
+];
+
+/**
+ * Packet type `connect`.
+ *
+ * @api public
+ */
+
+exports.CONNECT = 0;
+
+/**
+ * Packet type `disconnect`.
+ *
+ * @api public
+ */
+
+exports.DISCONNECT = 1;
+
+/**
+ * Packet type `event`.
+ *
+ * @api public
+ */
+
+exports.EVENT = 2;
+
+/**
+ * Packet type `ack`.
+ *
+ * @api public
+ */
+
+exports.ACK = 3;
+
+/**
+ * Packet type `error`.
+ *
+ * @api public
+ */
+
+exports.ERROR = 4;
+
+/**
+ * Packet type 'binary event'
+ *
+ * @api public
+ */
+
+exports.BINARY_EVENT = 5;
+
+/**
+ * Packet type `binary ack`. For acks with binary arguments.
+ *
+ * @api public
+ */
+
+exports.BINARY_ACK = 6;
+
+/**
+ * Encoder constructor.
+ *
+ * @api public
+ */
+
+exports.Encoder = Encoder;
+
+/**
+ * Decoder constructor.
+ *
+ * @api public
+ */
+
+exports.Decoder = Decoder;
+
+/**
+ * A socket.io Encoder instance
+ *
+ * @api public
+ */
+
+function Encoder() {}
+
+/**
+ * Encode a packet as a single string if non-binary, or as a
+ * buffer sequence, depending on packet type.
+ *
+ * @param {Object} obj - packet object
+ * @param {Function} callback - function to handle encodings (likely engine.write)
+ * @return Calls callback with Array of encodings
+ * @api public
+ */
+
+Encoder.prototype.encode = function(obj, callback){
+  if ((obj.type === exports.EVENT || obj.type === exports.ACK) && hasBin(obj.data)) {
+    obj.type = obj.type === exports.EVENT ? exports.BINARY_EVENT : exports.BINARY_ACK;
+  }
+
+  debug('encoding packet %j', obj);
+
+  if (exports.BINARY_EVENT === obj.type || exports.BINARY_ACK === obj.type) {
+    encodeAsBinary(obj, callback);
+  }
+  else {
+    var encoding = encodeAsString(obj);
+    callback([encoding]);
+  }
+};
+
+/**
+ * Encode packet as string.
+ *
+ * @param {Object} packet
+ * @return {String} encoded
+ * @api private
+ */
+
+function encodeAsString(obj) {
+
+  // first is type
+  var str = '' + obj.type;
+
+  // attachments if we have them
+  if (exports.BINARY_EVENT === obj.type || exports.BINARY_ACK === obj.type) {
+    str += obj.attachments + '-';
+  }
+
+  // if we have a namespace other than `/`
+  // we append it followed by a comma `,`
+  if (obj.nsp && '/' !== obj.nsp) {
+    str += obj.nsp + ',';
+  }
+
+  // immediately followed by the id
+  if (null != obj.id) {
+    str += obj.id;
+  }
+
+  // json data
+  if (null != obj.data) {
+    str += JSON.stringify(obj.data);
+  }
+
+  debug('encoded %j as %s', obj, str);
+  return str;
+}
+
+/**
+ * Encode packet as 'buffer sequence' by removing blobs, and
+ * deconstructing packet into object with placeholders and
+ * a list of buffers.
+ *
+ * @param {Object} packet
+ * @return {Buffer} encoded
+ * @api private
+ */
+
+function encodeAsBinary(obj, callback) {
+
+  function writeEncoding(bloblessData) {
+    var deconstruction = binary.deconstructPacket(bloblessData);
+    var pack = encodeAsString(deconstruction.packet);
+    var buffers = deconstruction.buffers;
+
+    buffers.unshift(pack); // add packet info to beginning of data list
+    callback(buffers); // write all the buffers
+  }
+
+  binary.removeBlobs(obj, writeEncoding);
+}
+
+/**
+ * A socket.io Decoder instance
+ *
+ * @return {Object} decoder
+ * @api public
+ */
+
+function Decoder() {
+  this.reconstructor = null;
+}
+
+/**
+ * Mix in `Emitter` with Decoder.
+ */
+
+Emitter(Decoder.prototype);
+
+/**
+ * Decodes an ecoded packet string into packet JSON.
+ *
+ * @param {String} obj - encoded packet
+ * @return {Object} packet
+ * @api public
+ */
+
+Decoder.prototype.add = function(obj) {
+  var packet;
+  if (typeof obj === 'string') {
+    packet = decodeString(obj);
+    if (exports.BINARY_EVENT === packet.type || exports.BINARY_ACK === packet.type) { // binary packet's json
+      this.reconstructor = new BinaryReconstructor(packet);
+
+      // no attachments, labeled binary but no binary data to follow
+      if (this.reconstructor.reconPack.attachments === 0) {
+        this.emit('decoded', packet);
+      }
+    } else { // non-binary full packet
+      this.emit('decoded', packet);
+    }
+  }
+  else if (isBuf(obj) || obj.base64) { // raw binary data
+    if (!this.reconstructor) {
+      throw new Error('got binary data when not reconstructing a packet');
+    } else {
+      packet = this.reconstructor.takeBinaryData(obj);
+      if (packet) { // received final buffer
+        this.reconstructor = null;
+        this.emit('decoded', packet);
+      }
+    }
+  }
+  else {
+    throw new Error('Unknown type: ' + obj);
+  }
+};
+
+/**
+ * Decode a packet String (JSON data)
+ *
+ * @param {String} str
+ * @return {Object} packet
+ * @api private
+ */
+
+function decodeString(str) {
+  var i = 0;
+  // look up type
+  var p = {
+    type: Number(str.charAt(0))
+  };
+
+  if (null == exports.types[p.type]) return error();
+
+  // look up attachments if type binary
+  if (exports.BINARY_EVENT === p.type || exports.BINARY_ACK === p.type) {
+    var buf = '';
+    while (str.charAt(++i) !== '-') {
+      buf += str.charAt(i);
+      if (i == str.length) break;
+    }
+    if (buf != Number(buf) || str.charAt(i) !== '-') {
+      throw new Error('Illegal attachments');
+    }
+    p.attachments = Number(buf);
+  }
+
+  // look up namespace (if any)
+  if ('/' === str.charAt(i + 1)) {
+    p.nsp = '';
+    while (++i) {
+      var c = str.charAt(i);
+      if (',' === c) break;
+      p.nsp += c;
+      if (i === str.length) break;
+    }
+  } else {
+    p.nsp = '/';
+  }
+
+  // look up id
+  var next = str.charAt(i + 1);
+  if ('' !== next && Number(next) == next) {
+    p.id = '';
+    while (++i) {
+      var c = str.charAt(i);
+      if (null == c || Number(c) != c) {
+        --i;
+        break;
+      }
+      p.id += str.charAt(i);
+      if (i === str.length) break;
+    }
+    p.id = Number(p.id);
+  }
+
+  // look up json data
+  if (str.charAt(++i)) {
+    p = tryParse(p, str.substr(i));
+  }
+
+  debug('decoded %s as %j', str, p);
+  return p;
+}
+
+function tryParse(p, str) {
+  try {
+    p.data = JSON.parse(str);
+  } catch(e){
+    return error();
+  }
+  return p; 
+}
+
+/**
+ * Deallocates a parser's resources
+ *
+ * @api public
+ */
+
+Decoder.prototype.destroy = function() {
+  if (this.reconstructor) {
+    this.reconstructor.finishedReconstruction();
+  }
+};
+
+/**
+ * A manager of a binary event's 'buffer sequence'. Should
+ * be constructed whenever a packet of type BINARY_EVENT is
+ * decoded.
+ *
+ * @param {Object} packet
+ * @return {BinaryReconstructor} initialized reconstructor
+ * @api private
+ */
+
+function BinaryReconstructor(packet) {
+  this.reconPack = packet;
+  this.buffers = [];
+}
+
+/**
+ * Method to be called when binary data received from connection
+ * after a BINARY_EVENT packet.
+ *
+ * @param {Buffer | ArrayBuffer} binData - the raw binary data received
+ * @return {null | Object} returns null if more binary data is expected or
+ *   a reconstructed packet object if all buffers have been received.
+ * @api private
+ */
+
+BinaryReconstructor.prototype.takeBinaryData = function(binData) {
+  this.buffers.push(binData);
+  if (this.buffers.length === this.reconPack.attachments) { // done with buffer list
+    var packet = binary.reconstructPacket(this.reconPack, this.buffers);
+    this.finishedReconstruction();
+    return packet;
+  }
+  return null;
+};
+
+/**
+ * Cleans up binary packet reconstruction variables.
+ *
+ * @api private
+ */
+
+BinaryReconstructor.prototype.finishedReconstruction = function() {
+  this.reconPack = null;
+  this.buffers = [];
+};
+
+function error() {
+  return {
+    type: exports.ERROR,
+    data: 'parser error'
+  };
+}
+
+
+/***/ }),
+
+/***/ 217:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * 事件辅助类
+ * @module zrender/core/event
+ * @author Kener (@Kener-林峰, kener.linfeng@gmail.com)
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
+
+    'use strict';
+
+    var Eventful = __webpack_require__(155);
+    var env = __webpack_require__(154);
+
+    var isDomLevel2 = (typeof window !== 'undefined') && !!window.addEventListener;
+
+    function getBoundingClientRect(el) {
+        // BlackBerry 5, iOS 3 (original iPhone) don't have getBoundingRect
+        return el.getBoundingClientRect ? el.getBoundingClientRect() : {left: 0, top: 0};
+    }
+
+    // `calculate` is optional, default false
+    function clientToLocal(el, e, out, calculate) {
+        out = out || {};
+
+        // According to the W3C Working Draft, offsetX and offsetY should be relative
+        // to the padding edge of the target element. The only browser using this convention
+        // is IE. Webkit uses the border edge, Opera uses the content edge, and FireFox does
+        // not support the properties.
+        // (see http://www.jacklmoore.com/notes/mouse-position/)
+        // In zr painter.dom, padding edge equals to border edge.
+
+        // FIXME
+        // When mousemove event triggered on ec tooltip, target is not zr painter.dom, and
+        // offsetX/Y is relative to e.target, where the calculation of zrX/Y via offsetX/Y
+        // is too complex. So css-transfrom dont support in this case temporarily.
+        if (calculate || !env.canvasSupported) {
+            defaultGetZrXY(el, e, out);
+        }
+        // Caution: In FireFox, layerX/layerY Mouse position relative to the closest positioned
+        // ancestor element, so we should make sure el is positioned (e.g., not position:static).
+        // BTW1, Webkit don't return the same results as FF in non-simple cases (like add
+        // zoom-factor, overflow / opacity layers, transforms ...)
+        // BTW2, (ev.offsetY || ev.pageY - $(ev.target).offset().top) is not correct in preserve-3d.
+        // <https://bugs.jquery.com/ticket/8523#comment:14>
+        // BTW3, In ff, offsetX/offsetY is always 0.
+        else if (env.browser.firefox && e.layerX != null && e.layerX !== e.offsetX) {
+            out.zrX = e.layerX;
+            out.zrY = e.layerY;
+        }
+        // For IE6+, chrome, safari, opera. (When will ff support offsetX?)
+        else if (e.offsetX != null) {
+            out.zrX = e.offsetX;
+            out.zrY = e.offsetY;
+        }
+        // For some other device, e.g., IOS safari.
+        else {
+            defaultGetZrXY(el, e, out);
+        }
+
+        return out;
+    }
+
+    function defaultGetZrXY(el, e, out) {
+        // This well-known method below does not support css transform.
+        var box = getBoundingClientRect(el);
+        out.zrX = e.clientX - box.left;
+        out.zrY = e.clientY - box.top;
+    }
+
+    /**
+     * 如果存在第三方嵌入的一些dom触发的事件，或touch事件，需要转换一下事件坐标.
+     * `calculate` is optional, default false.
+     */
+    function normalizeEvent(el, e, calculate) {
+
+        e = e || window.event;
+
+        if (e.zrX != null) {
+            return e;
+        }
+
+        var eventType = e.type;
+        var isTouch = eventType && eventType.indexOf('touch') >= 0;
+
+        if (!isTouch) {
+            clientToLocal(el, e, e, calculate);
+            e.zrDelta = (e.wheelDelta) ? e.wheelDelta / 120 : -(e.detail || 0) / 3;
+        }
+        else {
+            var touch = eventType != 'touchend'
+                ? e.targetTouches[0]
+                : e.changedTouches[0];
+            touch && clientToLocal(el, touch, e, calculate);
+        }
+
+        return e;
+    }
+
+    function addEventListener(el, name, handler) {
+        if (isDomLevel2) {
+            el.addEventListener(name, handler);
+        }
+        else {
+            el.attachEvent('on' + name, handler);
+        }
+    }
+
+    function removeEventListener(el, name, handler) {
+        if (isDomLevel2) {
+            el.removeEventListener(name, handler);
+        }
+        else {
+            el.detachEvent('on' + name, handler);
+        }
+    }
+
+    /**
+     * preventDefault and stopPropagation.
+     * Notice: do not do that in zrender. Upper application
+     * do that if necessary.
+     *
+     * @memberOf module:zrender/core/event
+     * @method
+     * @param {Event} e : event对象
+     */
+    var stop = isDomLevel2
+        ? function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.cancelBubble = true;
+        }
+        : function (e) {
+            e.returnValue = false;
+            e.cancelBubble = true;
+        };
+
+    return {
+        clientToLocal: clientToLocal,
+        normalizeEvent: normalizeEvent,
+        addEventListener: addEventListener,
+        removeEventListener: removeEventListener,
+
+        stop: stop,
+        // 做向上兼容
+        Dispatcher: Eventful
+    };
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 218:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * Path element
+ * @module zrender/graphic/Path
+ */
+
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var Displayable = __webpack_require__(340);
+    var zrUtil = __webpack_require__(33);
+    var PathProxy = __webpack_require__(153);
+    var pathContain = __webpack_require__(768);
+
+    var Pattern = __webpack_require__(341);
+    var getCanvasPattern = Pattern.prototype.getCanvasPattern;
+
+    var abs = Math.abs;
+
+    var pathProxyForDraw = new PathProxy(true);
+    /**
+     * @alias module:zrender/graphic/Path
+     * @extends module:zrender/graphic/Displayable
+     * @constructor
+     * @param {Object} opts
+     */
+    function Path(opts) {
+        Displayable.call(this, opts);
+
+        /**
+         * @type {module:zrender/core/PathProxy}
+         * @readOnly
+         */
+        this.path = null;
+    }
+
+    Path.prototype = {
+
+        constructor: Path,
+
+        type: 'path',
+
+        __dirtyPath: true,
+
+        strokeContainThreshold: 5,
+
+        brush: function (ctx, prevEl) {
+            var style = this.style;
+            var path = this.path || pathProxyForDraw;
+            var hasStroke = style.hasStroke();
+            var hasFill = style.hasFill();
+            var fill = style.fill;
+            var stroke = style.stroke;
+            var hasFillGradient = hasFill && !!(fill.colorStops);
+            var hasStrokeGradient = hasStroke && !!(stroke.colorStops);
+            var hasFillPattern = hasFill && !!(fill.image);
+            var hasStrokePattern = hasStroke && !!(stroke.image);
+
+            style.bind(ctx, this, prevEl);
+            this.setTransform(ctx);
+
+            if (this.__dirty) {
+                var rect;
+                // Update gradient because bounding rect may changed
+                if (hasFillGradient) {
+                    rect = rect || this.getBoundingRect();
+                    this._fillGradient = style.getGradient(ctx, fill, rect);
+                }
+                if (hasStrokeGradient) {
+                    rect = rect || this.getBoundingRect();
+                    this._strokeGradient = style.getGradient(ctx, stroke, rect);
+                }
+            }
+            // Use the gradient or pattern
+            if (hasFillGradient) {
+                // PENDING If may have affect the state
+                ctx.fillStyle = this._fillGradient;
+            }
+            else if (hasFillPattern) {
+                ctx.fillStyle = getCanvasPattern.call(fill, ctx);
+            }
+            if (hasStrokeGradient) {
+                ctx.strokeStyle = this._strokeGradient;
+            }
+            else if (hasStrokePattern) {
+                ctx.strokeStyle = getCanvasPattern.call(stroke, ctx);
+            }
+
+            var lineDash = style.lineDash;
+            var lineDashOffset = style.lineDashOffset;
+
+            var ctxLineDash = !!ctx.setLineDash;
+
+            // Update path sx, sy
+            var scale = this.getGlobalScale();
+            path.setScale(scale[0], scale[1]);
+
+            // Proxy context
+            // Rebuild path in following 2 cases
+            // 1. Path is dirty
+            // 2. Path needs javascript implemented lineDash stroking.
+            //    In this case, lineDash information will not be saved in PathProxy
+            if (this.__dirtyPath
+                || (lineDash && !ctxLineDash && hasStroke)
+            ) {
+                path.beginPath(ctx);
+
+                // Setting line dash before build path
+                if (lineDash && !ctxLineDash) {
+                    path.setLineDash(lineDash);
+                    path.setLineDashOffset(lineDashOffset);
+                }
+
+                this.buildPath(path, this.shape, false);
+
+                // Clear path dirty flag
+                if (this.path) {
+                    this.__dirtyPath = false;
+                }
+            }
+            else {
+                // Replay path building
+                ctx.beginPath();
+                this.path.rebuildPath(ctx);
+            }
+
+            hasFill && path.fill(ctx);
+
+            if (lineDash && ctxLineDash) {
+                ctx.setLineDash(lineDash);
+                ctx.lineDashOffset = lineDashOffset;
+            }
+
+            hasStroke && path.stroke(ctx);
+
+            if (lineDash && ctxLineDash) {
+                // PENDING
+                // Remove lineDash
+                ctx.setLineDash([]);
+            }
+
+
+            this.restoreTransform(ctx);
+
+            // Draw rect text
+            if (style.text != null) {
+                this.drawRectText(ctx, this.getBoundingRect());
+            }
+        },
+
+        // When bundling path, some shape may decide if use moveTo to begin a new subpath or closePath
+        // Like in circle
+        buildPath: function (ctx, shapeCfg, inBundle) {},
+
+        createPathProxy: function () {
+            this.path = new PathProxy();
+        },
+
+        getBoundingRect: function () {
+            var rect = this._rect;
+            var style = this.style;
+            var needsUpdateRect = !rect;
+            if (needsUpdateRect) {
+                var path = this.path;
+                if (!path) {
+                    // Create path on demand.
+                    path = this.path = new PathProxy();
+                }
+                if (this.__dirtyPath) {
+                    path.beginPath();
+                    this.buildPath(path, this.shape, false);
+                }
+                rect = path.getBoundingRect();
+            }
+            this._rect = rect;
+
+            if (style.hasStroke()) {
+                // Needs update rect with stroke lineWidth when
+                // 1. Element changes scale or lineWidth
+                // 2. Shape is changed
+                var rectWithStroke = this._rectWithStroke || (this._rectWithStroke = rect.clone());
+                if (this.__dirty || needsUpdateRect) {
+                    rectWithStroke.copy(rect);
+                    // FIXME Must after updateTransform
+                    var w = style.lineWidth;
+                    // PENDING, Min line width is needed when line is horizontal or vertical
+                    var lineScale = style.strokeNoScale ? this.getLineScale() : 1;
+
+                    // Only add extra hover lineWidth when there are no fill
+                    if (!style.hasFill()) {
+                        w = Math.max(w, this.strokeContainThreshold || 4);
+                    }
+                    // Consider line width
+                    // Line scale can't be 0;
+                    if (lineScale > 1e-10) {
+                        rectWithStroke.width += w / lineScale;
+                        rectWithStroke.height += w / lineScale;
+                        rectWithStroke.x -= w / lineScale / 2;
+                        rectWithStroke.y -= w / lineScale / 2;
+                    }
+                }
+
+                // Return rect with stroke
+                return rectWithStroke;
+            }
+
+            return rect;
+        },
+
+        contain: function (x, y) {
+            var localPos = this.transformCoordToLocal(x, y);
+            var rect = this.getBoundingRect();
+            var style = this.style;
+            x = localPos[0];
+            y = localPos[1];
+
+            if (rect.contain(x, y)) {
+                var pathData = this.path.data;
+                if (style.hasStroke()) {
+                    var lineWidth = style.lineWidth;
+                    var lineScale = style.strokeNoScale ? this.getLineScale() : 1;
+                    // Line scale can't be 0;
+                    if (lineScale > 1e-10) {
+                        // Only add extra hover lineWidth when there are no fill
+                        if (!style.hasFill()) {
+                            lineWidth = Math.max(lineWidth, this.strokeContainThreshold);
+                        }
+                        if (pathContain.containStroke(
+                            pathData, lineWidth / lineScale, x, y
+                        )) {
+                            return true;
+                        }
+                    }
+                }
+                if (style.hasFill()) {
+                    return pathContain.contain(pathData, x, y);
+                }
+            }
+            return false;
+        },
+
+        /**
+         * @param  {boolean} dirtyPath
+         */
+        dirty: function (dirtyPath) {
+            if (dirtyPath == null) {
+                dirtyPath = true;
+            }
+            // Only mark dirty, not mark clean
+            if (dirtyPath) {
+                this.__dirtyPath = dirtyPath;
+                this._rect = null;
+            }
+
+            this.__dirty = true;
+
+            this.__zr && this.__zr.refresh();
+
+            // Used as a clipping path
+            if (this.__clipTarget) {
+                this.__clipTarget.dirty();
+            }
+        },
+
+        /**
+         * Alias for animate('shape')
+         * @param {boolean} loop
+         */
+        animateShape: function (loop) {
+            return this.animate('shape', loop);
+        },
+
+        // Overwrite attrKV
+        attrKV: function (key, value) {
+            // FIXME
+            if (key === 'shape') {
+                this.setShape(value);
+                this.__dirtyPath = true;
+                this._rect = null;
+            }
+            else {
+                Displayable.prototype.attrKV.call(this, key, value);
+            }
+        },
+
+        /**
+         * @param {Object|string} key
+         * @param {*} value
+         */
+        setShape: function (key, value) {
+            var shape = this.shape;
+            // Path from string may not have shape
+            if (shape) {
+                if (zrUtil.isObject(key)) {
+                    for (var name in key) {
+                        if (key.hasOwnProperty(name)) {
+                            shape[name] = key[name];
+                        }
+                    }
+                }
+                else {
+                    shape[key] = value;
+                }
+                this.dirty(true);
+            }
+            return this;
+        },
+
+        getLineScale: function () {
+            var m = this.transform;
+            // Get the line scale.
+            // Determinant of `m` means how much the area is enlarged by the
+            // transformation. So its square root can be used as a scale factor
+            // for width.
+            return m && abs(m[0] - 1) > 1e-10 && abs(m[3] - 1) > 1e-10
+                ? Math.sqrt(abs(m[0] * m[3] - m[2] * m[1]))
+                : 1;
+        }
+    };
+
+    /**
+     * 扩展一个 Path element, 比如星形，圆等。
+     * Extend a path element
+     * @param {Object} props
+     * @param {string} props.type Path type
+     * @param {Function} props.init Initialize
+     * @param {Function} props.buildPath Overwrite buildPath method
+     * @param {Object} [props.style] Extended default style config
+     * @param {Object} [props.shape] Extended default shape config
+     */
+    Path.extend = function (defaults) {
+        var Sub = function (opts) {
+            Path.call(this, opts);
+
+            if (defaults.style) {
+                // Extend default style
+                this.style.extendFrom(defaults.style, false);
+            }
+
+            // Extend default shape
+            var defaultShape = defaults.shape;
+            if (defaultShape) {
+                this.shape = this.shape || {};
+                var thisShape = this.shape;
+                for (var name in defaultShape) {
+                    if (
+                        ! thisShape.hasOwnProperty(name)
+                        && defaultShape.hasOwnProperty(name)
+                    ) {
+                        thisShape[name] = defaultShape[name];
+                    }
+                }
+            }
+
+            defaults.init && defaults.init.call(this, opts);
+        };
+
+        zrUtil.inherits(Sub, Path);
+
+        // FIXME 不能 extend position, rotation 等引用对象
+        for (var name in defaults) {
+            // Extending prototype values and methods
+            if (name !== 'style' && name !== 'shape') {
+                Sub.prototype[name] = defaults[name];
+            }
+        }
+
+        return Sub;
+    };
+
+    zrUtil.inherits(Path, Displayable);
+
+    return Path;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 241:
+/***/ (function(module, exports) {
+
+
+var indexOf = [].indexOf;
+
+module.exports = function(arr, obj){
+  if (indexOf) return arr.indexOf(obj);
+  for (var i = 0; i < arr.length; ++i) {
+    if (arr[i] === obj) return i;
+  }
+  return -1;
+};
+
+/***/ }),
+
+/***/ 242:
+/***/ (function(module, exports) {
+
+/**
+ * Parses an URI
+ *
+ * @author Steven Levithan <stevenlevithan.com> (MIT license)
+ * @api private
+ */
+
+var re = /^(?:(?![^:@]+:[^:@\/]*@)(http|https|ws|wss):\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?((?:[a-f0-9]{0,4}:){2,7}[a-f0-9]{0,4}|[^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/;
+
+var parts = [
+    'source', 'protocol', 'authority', 'userInfo', 'user', 'password', 'host', 'port', 'relative', 'path', 'directory', 'file', 'query', 'anchor'
+];
+
+module.exports = function parseuri(str) {
+    var src = str,
+        b = str.indexOf('['),
+        e = str.indexOf(']');
+
+    if (b != -1 && e != -1) {
+        str = str.substring(0, b) + str.substring(b, e).replace(/:/g, ';') + str.substring(e, str.length);
+    }
+
+    var m = re.exec(str || ''),
+        uri = {},
+        i = 14;
+
+    while (i--) {
+        uri[parts[i]] = m[i] || '';
+    }
+
+    if (b != -1 && e != -1) {
+        uri.source = src;
+        uri.host = uri.host.substring(1, uri.host.length - 1).replace(/;/g, ':');
+        uri.authority = uri.authority.replace('[', '').replace(']', '').replace(/;/g, ':');
+        uri.ipv6uri = true;
+    }
+
+    return uri;
+};
+
+
+/***/ }),
+
+/***/ 243:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_'.split('')
+  , length = 64
+  , map = {}
+  , seed = 0
+  , i = 0
+  , prev;
+
+/**
+ * Return a string representing the specified number.
+ *
+ * @param {Number} num The number to convert.
+ * @returns {String} The string representation of the number.
+ * @api public
+ */
+function encode(num) {
+  var encoded = '';
+
+  do {
+    encoded = alphabet[num % length] + encoded;
+    num = Math.floor(num / length);
+  } while (num > 0);
+
+  return encoded;
+}
+
+/**
+ * Return the integer value specified by the given string.
+ *
+ * @param {String} str The string to convert.
+ * @returns {Number} The integer value represented by the string.
+ * @api public
+ */
+function decode(str) {
+  var decoded = 0;
+
+  for (i = 0; i < str.length; i++) {
+    decoded = decoded * length + map[str.charAt(i)];
+  }
+
+  return decoded;
+}
+
+/**
+ * Yeast: A tiny growing id generator.
+ *
+ * @returns {String} A unique id.
+ * @api public
+ */
+function yeast() {
+  var now = encode(+new Date());
+
+  if (now !== prev) return seed = 0, prev = now;
+  return now +'.'+ encode(seed++);
+}
+
+//
+// Map each character to its index.
+//
+for (; i < length; i++) map[alphabet[i]] = i;
+
+//
+// Expose the `yeast`, `encode` and `decode` functions.
+//
+yeast.encode = encode;
+yeast.decode = decode;
+module.exports = yeast;
+
+
+/***/ }),
+
+/***/ 268:
+/***/ (function(module, exports) {
+
+/**
+ * Slice reference.
+ */
+
+var slice = [].slice;
+
+/**
+ * Bind `obj` to `fn`.
+ *
+ * @param {Object} obj
+ * @param {Function|String} fn or string
+ * @return {Function}
+ * @api public
+ */
+
+module.exports = function(obj, fn){
+  if ('string' == typeof fn) fn = obj[fn];
+  if ('function' != typeof fn) throw new Error('bind() requires a function');
+  var args = slice.call(arguments, 2);
+  return function(){
+    return fn.apply(obj, args.concat(slice.call(arguments)));
+  }
+};
+
+
+/***/ }),
+
+/***/ 270:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/* global Blob File */
+
+/*
+ * Module requirements.
+ */
+
+var isArray = __webpack_require__(301);
+
+var toString = Object.prototype.toString;
+var withNativeBlob = typeof global.Blob === 'function' || toString.call(global.Blob) === '[object BlobConstructor]';
+var withNativeFile = typeof global.File === 'function' || toString.call(global.File) === '[object FileConstructor]';
+
+/**
+ * Module exports.
+ */
+
+module.exports = hasBinary;
+
+/**
+ * Checks for binary data.
+ *
+ * Supports Buffer, ArrayBuffer, Blob and File.
+ *
+ * @param {Object} anything
+ * @api public
+ */
+
+function hasBinary (obj) {
+  if (!obj || typeof obj !== 'object') {
+    return false;
+  }
+
+  if (isArray(obj)) {
+    for (var i = 0, l = obj.length; i < l; i++) {
+      if (hasBinary(obj[i])) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  if ((typeof global.Buffer === 'function' && global.Buffer.isBuffer && global.Buffer.isBuffer(obj)) ||
+     (typeof global.ArrayBuffer === 'function' && obj instanceof ArrayBuffer) ||
+     (withNativeBlob && obj instanceof Blob) ||
+     (withNativeFile && obj instanceof File)
+    ) {
+    return true;
+  }
+
+  // see: https://github.com/Automattic/has-binary/pull/4
+  if (obj.toJSON && typeof obj.toJSON === 'function' && arguments.length === 1) {
+    return hasBinary(obj.toJSON(), true);
+  }
+
+  for (var key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key) && hasBinary(obj[key])) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+
+/***/ }),
+
+/***/ 301:
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
+};
+
+
+/***/ }),
+
+/***/ 302:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * Module dependencies.
+ */
+
+var eio = __webpack_require__(718);
+var Socket = __webpack_require__(304);
+var Emitter = __webpack_require__(81);
+var parser = __webpack_require__(208);
+var on = __webpack_require__(303);
+var bind = __webpack_require__(268);
+var debug = __webpack_require__(52)('socket.io-client:manager');
+var indexOf = __webpack_require__(241);
+var Backoff = __webpack_require__(562);
+
+/**
+ * IE6+ hasOwnProperty
+ */
+
+var has = Object.prototype.hasOwnProperty;
+
+/**
+ * Module exports
+ */
+
+module.exports = Manager;
+
+/**
+ * `Manager` constructor.
+ *
+ * @param {String} engine instance or engine uri/opts
+ * @param {Object} options
+ * @api public
+ */
+
+function Manager (uri, opts) {
+  if (!(this instanceof Manager)) return new Manager(uri, opts);
+  if (uri && ('object' === typeof uri)) {
+    opts = uri;
+    uri = undefined;
+  }
+  opts = opts || {};
+
+  opts.path = opts.path || '/socket.io';
+  this.nsps = {};
+  this.subs = [];
+  this.opts = opts;
+  this.reconnection(opts.reconnection !== false);
+  this.reconnectionAttempts(opts.reconnectionAttempts || Infinity);
+  this.reconnectionDelay(opts.reconnectionDelay || 1000);
+  this.reconnectionDelayMax(opts.reconnectionDelayMax || 5000);
+  this.randomizationFactor(opts.randomizationFactor || 0.5);
+  this.backoff = new Backoff({
+    min: this.reconnectionDelay(),
+    max: this.reconnectionDelayMax(),
+    jitter: this.randomizationFactor()
+  });
+  this.timeout(null == opts.timeout ? 20000 : opts.timeout);
+  this.readyState = 'closed';
+  this.uri = uri;
+  this.connecting = [];
+  this.lastPing = null;
+  this.encoding = false;
+  this.packetBuffer = [];
+  var _parser = opts.parser || parser;
+  this.encoder = new _parser.Encoder();
+  this.decoder = new _parser.Decoder();
+  this.autoConnect = opts.autoConnect !== false;
+  if (this.autoConnect) this.open();
+}
+
+/**
+ * Propagate given event to sockets and emit on `this`
+ *
+ * @api private
+ */
+
+Manager.prototype.emitAll = function () {
+  this.emit.apply(this, arguments);
+  for (var nsp in this.nsps) {
+    if (has.call(this.nsps, nsp)) {
+      this.nsps[nsp].emit.apply(this.nsps[nsp], arguments);
+    }
+  }
+};
+
+/**
+ * Update `socket.id` of all sockets
+ *
+ * @api private
+ */
+
+Manager.prototype.updateSocketIds = function () {
+  for (var nsp in this.nsps) {
+    if (has.call(this.nsps, nsp)) {
+      this.nsps[nsp].id = this.generateId(nsp);
+    }
+  }
+};
+
+/**
+ * generate `socket.id` for the given `nsp`
+ *
+ * @param {String} nsp
+ * @return {String}
+ * @api private
+ */
+
+Manager.prototype.generateId = function (nsp) {
+  return (nsp === '/' ? '' : (nsp + '#')) + this.engine.id;
+};
+
+/**
+ * Mix in `Emitter`.
+ */
+
+Emitter(Manager.prototype);
+
+/**
+ * Sets the `reconnection` config.
+ *
+ * @param {Boolean} true/false if it should automatically reconnect
+ * @return {Manager} self or value
+ * @api public
+ */
+
+Manager.prototype.reconnection = function (v) {
+  if (!arguments.length) return this._reconnection;
+  this._reconnection = !!v;
+  return this;
+};
+
+/**
+ * Sets the reconnection attempts config.
+ *
+ * @param {Number} max reconnection attempts before giving up
+ * @return {Manager} self or value
+ * @api public
+ */
+
+Manager.prototype.reconnectionAttempts = function (v) {
+  if (!arguments.length) return this._reconnectionAttempts;
+  this._reconnectionAttempts = v;
+  return this;
+};
+
+/**
+ * Sets the delay between reconnections.
+ *
+ * @param {Number} delay
+ * @return {Manager} self or value
+ * @api public
+ */
+
+Manager.prototype.reconnectionDelay = function (v) {
+  if (!arguments.length) return this._reconnectionDelay;
+  this._reconnectionDelay = v;
+  this.backoff && this.backoff.setMin(v);
+  return this;
+};
+
+Manager.prototype.randomizationFactor = function (v) {
+  if (!arguments.length) return this._randomizationFactor;
+  this._randomizationFactor = v;
+  this.backoff && this.backoff.setJitter(v);
+  return this;
+};
+
+/**
+ * Sets the maximum delay between reconnections.
+ *
+ * @param {Number} delay
+ * @return {Manager} self or value
+ * @api public
+ */
+
+Manager.prototype.reconnectionDelayMax = function (v) {
+  if (!arguments.length) return this._reconnectionDelayMax;
+  this._reconnectionDelayMax = v;
+  this.backoff && this.backoff.setMax(v);
+  return this;
+};
+
+/**
+ * Sets the connection timeout. `false` to disable
+ *
+ * @return {Manager} self or value
+ * @api public
+ */
+
+Manager.prototype.timeout = function (v) {
+  if (!arguments.length) return this._timeout;
+  this._timeout = v;
+  return this;
+};
+
+/**
+ * Starts trying to reconnect if reconnection is enabled and we have not
+ * started reconnecting yet
+ *
+ * @api private
+ */
+
+Manager.prototype.maybeReconnectOnOpen = function () {
+  // Only try to reconnect if it's the first time we're connecting
+  if (!this.reconnecting && this._reconnection && this.backoff.attempts === 0) {
+    // keeps reconnection from firing twice for the same reconnection loop
+    this.reconnect();
+  }
+};
+
+/**
+ * Sets the current transport `socket`.
+ *
+ * @param {Function} optional, callback
+ * @return {Manager} self
+ * @api public
+ */
+
+Manager.prototype.open =
+Manager.prototype.connect = function (fn, opts) {
+  debug('readyState %s', this.readyState);
+  if (~this.readyState.indexOf('open')) return this;
+
+  debug('opening %s', this.uri);
+  this.engine = eio(this.uri, this.opts);
+  var socket = this.engine;
+  var self = this;
+  this.readyState = 'opening';
+  this.skipReconnect = false;
+
+  // emit `open`
+  var openSub = on(socket, 'open', function () {
+    self.onopen();
+    fn && fn();
+  });
+
+  // emit `connect_error`
+  var errorSub = on(socket, 'error', function (data) {
+    debug('connect_error');
+    self.cleanup();
+    self.readyState = 'closed';
+    self.emitAll('connect_error', data);
+    if (fn) {
+      var err = new Error('Connection error');
+      err.data = data;
+      fn(err);
+    } else {
+      // Only do this if there is no fn to handle the error
+      self.maybeReconnectOnOpen();
+    }
+  });
+
+  // emit `connect_timeout`
+  if (false !== this._timeout) {
+    var timeout = this._timeout;
+    debug('connect attempt will timeout after %d', timeout);
+
+    // set timer
+    var timer = setTimeout(function () {
+      debug('connect attempt timed out after %d', timeout);
+      openSub.destroy();
+      socket.close();
+      socket.emit('error', 'timeout');
+      self.emitAll('connect_timeout', timeout);
+    }, timeout);
+
+    this.subs.push({
+      destroy: function () {
+        clearTimeout(timer);
+      }
+    });
+  }
+
+  this.subs.push(openSub);
+  this.subs.push(errorSub);
+
+  return this;
+};
+
+/**
+ * Called upon transport open.
+ *
+ * @api private
+ */
+
+Manager.prototype.onopen = function () {
+  debug('open');
+
+  // clear old subs
+  this.cleanup();
+
+  // mark as open
+  this.readyState = 'open';
+  this.emit('open');
+
+  // add new subs
+  var socket = this.engine;
+  this.subs.push(on(socket, 'data', bind(this, 'ondata')));
+  this.subs.push(on(socket, 'ping', bind(this, 'onping')));
+  this.subs.push(on(socket, 'pong', bind(this, 'onpong')));
+  this.subs.push(on(socket, 'error', bind(this, 'onerror')));
+  this.subs.push(on(socket, 'close', bind(this, 'onclose')));
+  this.subs.push(on(this.decoder, 'decoded', bind(this, 'ondecoded')));
+};
+
+/**
+ * Called upon a ping.
+ *
+ * @api private
+ */
+
+Manager.prototype.onping = function () {
+  this.lastPing = new Date();
+  this.emitAll('ping');
+};
+
+/**
+ * Called upon a packet.
+ *
+ * @api private
+ */
+
+Manager.prototype.onpong = function () {
+  this.emitAll('pong', new Date() - this.lastPing);
+};
+
+/**
+ * Called with data.
+ *
+ * @api private
+ */
+
+Manager.prototype.ondata = function (data) {
+  this.decoder.add(data);
+};
+
+/**
+ * Called when parser fully decodes a packet.
+ *
+ * @api private
+ */
+
+Manager.prototype.ondecoded = function (packet) {
+  this.emit('packet', packet);
+};
+
+/**
+ * Called upon socket error.
+ *
+ * @api private
+ */
+
+Manager.prototype.onerror = function (err) {
+  debug('error', err);
+  this.emitAll('error', err);
+};
+
+/**
+ * Creates a new socket for the given `nsp`.
+ *
+ * @return {Socket}
+ * @api public
+ */
+
+Manager.prototype.socket = function (nsp, opts) {
+  var socket = this.nsps[nsp];
+  if (!socket) {
+    socket = new Socket(this, nsp, opts);
+    this.nsps[nsp] = socket;
+    var self = this;
+    socket.on('connecting', onConnecting);
+    socket.on('connect', function () {
+      socket.id = self.generateId(nsp);
+    });
+
+    if (this.autoConnect) {
+      // manually call here since connecting event is fired before listening
+      onConnecting();
+    }
+  }
+
+  function onConnecting () {
+    if (!~indexOf(self.connecting, socket)) {
+      self.connecting.push(socket);
+    }
+  }
+
+  return socket;
+};
+
+/**
+ * Called upon a socket close.
+ *
+ * @param {Socket} socket
+ */
+
+Manager.prototype.destroy = function (socket) {
+  var index = indexOf(this.connecting, socket);
+  if (~index) this.connecting.splice(index, 1);
+  if (this.connecting.length) return;
+
+  this.close();
+};
+
+/**
+ * Writes a packet.
+ *
+ * @param {Object} packet
+ * @api private
+ */
+
+Manager.prototype.packet = function (packet) {
+  debug('writing packet %j', packet);
+  var self = this;
+  if (packet.query && packet.type === 0) packet.nsp += '?' + packet.query;
+
+  if (!self.encoding) {
+    // encode, then write to engine with result
+    self.encoding = true;
+    this.encoder.encode(packet, function (encodedPackets) {
+      for (var i = 0; i < encodedPackets.length; i++) {
+        self.engine.write(encodedPackets[i], packet.options);
+      }
+      self.encoding = false;
+      self.processPacketQueue();
+    });
+  } else { // add packet to the queue
+    self.packetBuffer.push(packet);
+  }
+};
+
+/**
+ * If packet buffer is non-empty, begins encoding the
+ * next packet in line.
+ *
+ * @api private
+ */
+
+Manager.prototype.processPacketQueue = function () {
+  if (this.packetBuffer.length > 0 && !this.encoding) {
+    var pack = this.packetBuffer.shift();
+    this.packet(pack);
+  }
+};
+
+/**
+ * Clean up transport subscriptions and packet buffer.
+ *
+ * @api private
+ */
+
+Manager.prototype.cleanup = function () {
+  debug('cleanup');
+
+  var subsLength = this.subs.length;
+  for (var i = 0; i < subsLength; i++) {
+    var sub = this.subs.shift();
+    sub.destroy();
+  }
+
+  this.packetBuffer = [];
+  this.encoding = false;
+  this.lastPing = null;
+
+  this.decoder.destroy();
+};
+
+/**
+ * Close the current socket.
+ *
+ * @api private
+ */
+
+Manager.prototype.close =
+Manager.prototype.disconnect = function () {
+  debug('disconnect');
+  this.skipReconnect = true;
+  this.reconnecting = false;
+  if ('opening' === this.readyState) {
+    // `onclose` will not fire because
+    // an open event never happened
+    this.cleanup();
+  }
+  this.backoff.reset();
+  this.readyState = 'closed';
+  if (this.engine) this.engine.close();
+};
+
+/**
+ * Called upon engine close.
+ *
+ * @api private
+ */
+
+Manager.prototype.onclose = function (reason) {
+  debug('onclose');
+
+  this.cleanup();
+  this.backoff.reset();
+  this.readyState = 'closed';
+  this.emit('close', reason);
+
+  if (this._reconnection && !this.skipReconnect) {
+    this.reconnect();
+  }
+};
+
+/**
+ * Attempt a reconnection.
+ *
+ * @api private
+ */
+
+Manager.prototype.reconnect = function () {
+  if (this.reconnecting || this.skipReconnect) return this;
+
+  var self = this;
+
+  if (this.backoff.attempts >= this._reconnectionAttempts) {
+    debug('reconnect failed');
+    this.backoff.reset();
+    this.emitAll('reconnect_failed');
+    this.reconnecting = false;
+  } else {
+    var delay = this.backoff.duration();
+    debug('will wait %dms before reconnect attempt', delay);
+
+    this.reconnecting = true;
+    var timer = setTimeout(function () {
+      if (self.skipReconnect) return;
+
+      debug('attempting reconnect');
+      self.emitAll('reconnect_attempt', self.backoff.attempts);
+      self.emitAll('reconnecting', self.backoff.attempts);
+
+      // check again for the case socket closed in above events
+      if (self.skipReconnect) return;
+
+      self.open(function (err) {
+        if (err) {
+          debug('reconnect attempt error');
+          self.reconnecting = false;
+          self.reconnect();
+          self.emitAll('reconnect_error', err.data);
+        } else {
+          debug('reconnect success');
+          self.onreconnect();
+        }
+      });
+    }, delay);
+
+    this.subs.push({
+      destroy: function () {
+        clearTimeout(timer);
+      }
+    });
+  }
+};
+
+/**
+ * Called upon successful reconnect.
+ *
+ * @api private
+ */
+
+Manager.prototype.onreconnect = function () {
+  var attempt = this.backoff.attempts;
+  this.reconnecting = false;
+  this.backoff.reset();
+  this.updateSocketIds();
+  this.emitAll('reconnect', attempt);
+};
+
+
+/***/ }),
+
+/***/ 303:
+/***/ (function(module, exports) {
+
+
+/**
+ * Module exports.
+ */
+
+module.exports = on;
+
+/**
+ * Helper for subscriptions.
+ *
+ * @param {Object|EventEmitter} obj with `Emitter` mixin or `EventEmitter`
+ * @param {String} event name
+ * @param {Function} callback
+ * @api public
+ */
+
+function on (obj, ev, fn) {
+  obj.on(ev, fn);
+  return {
+    destroy: function () {
+      obj.removeListener(ev, fn);
+    }
+  };
+}
+
+
+/***/ }),
+
+/***/ 304:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * Module dependencies.
+ */
+
+var parser = __webpack_require__(208);
+var Emitter = __webpack_require__(81);
+var toArray = __webpack_require__(401);
+var on = __webpack_require__(303);
+var bind = __webpack_require__(268);
+var debug = __webpack_require__(52)('socket.io-client:socket');
+var parseqs = __webpack_require__(123);
+
+/**
+ * Module exports.
+ */
+
+module.exports = exports = Socket;
+
+/**
+ * Internal events (blacklisted).
+ * These events can't be emitted by the user.
+ *
+ * @api private
+ */
+
+var events = {
+  connect: 1,
+  connect_error: 1,
+  connect_timeout: 1,
+  connecting: 1,
+  disconnect: 1,
+  error: 1,
+  reconnect: 1,
+  reconnect_attempt: 1,
+  reconnect_failed: 1,
+  reconnect_error: 1,
+  reconnecting: 1,
+  ping: 1,
+  pong: 1
+};
+
+/**
+ * Shortcut to `Emitter#emit`.
+ */
+
+var emit = Emitter.prototype.emit;
+
+/**
+ * `Socket` constructor.
+ *
+ * @api public
+ */
+
+function Socket (io, nsp, opts) {
+  this.io = io;
+  this.nsp = nsp;
+  this.json = this; // compat
+  this.ids = 0;
+  this.acks = {};
+  this.receiveBuffer = [];
+  this.sendBuffer = [];
+  this.connected = false;
+  this.disconnected = true;
+  if (opts && opts.query) {
+    this.query = opts.query;
+  }
+  if (this.io.autoConnect) this.open();
+}
+
+/**
+ * Mix in `Emitter`.
+ */
+
+Emitter(Socket.prototype);
+
+/**
+ * Subscribe to open, close and packet events
+ *
+ * @api private
+ */
+
+Socket.prototype.subEvents = function () {
+  if (this.subs) return;
+
+  var io = this.io;
+  this.subs = [
+    on(io, 'open', bind(this, 'onopen')),
+    on(io, 'packet', bind(this, 'onpacket')),
+    on(io, 'close', bind(this, 'onclose'))
+  ];
+};
+
+/**
+ * "Opens" the socket.
+ *
+ * @api public
+ */
+
+Socket.prototype.open =
+Socket.prototype.connect = function () {
+  if (this.connected) return this;
+
+  this.subEvents();
+  this.io.open(); // ensure open
+  if ('open' === this.io.readyState) this.onopen();
+  this.emit('connecting');
+  return this;
+};
+
+/**
+ * Sends a `message` event.
+ *
+ * @return {Socket} self
+ * @api public
+ */
+
+Socket.prototype.send = function () {
+  var args = toArray(arguments);
+  args.unshift('message');
+  this.emit.apply(this, args);
+  return this;
+};
+
+/**
+ * Override `emit`.
+ * If the event is in `events`, it's emitted normally.
+ *
+ * @param {String} event name
+ * @return {Socket} self
+ * @api public
+ */
+
+Socket.prototype.emit = function (ev) {
+  if (events.hasOwnProperty(ev)) {
+    emit.apply(this, arguments);
+    return this;
+  }
+
+  var args = toArray(arguments);
+  var packet = { type: parser.EVENT, data: args };
+
+  packet.options = {};
+  packet.options.compress = !this.flags || false !== this.flags.compress;
+
+  // event ack callback
+  if ('function' === typeof args[args.length - 1]) {
+    debug('emitting packet with ack id %d', this.ids);
+    this.acks[this.ids] = args.pop();
+    packet.id = this.ids++;
+  }
+
+  if (this.connected) {
+    this.packet(packet);
+  } else {
+    this.sendBuffer.push(packet);
+  }
+
+  delete this.flags;
+
+  return this;
+};
+
+/**
+ * Sends a packet.
+ *
+ * @param {Object} packet
+ * @api private
+ */
+
+Socket.prototype.packet = function (packet) {
+  packet.nsp = this.nsp;
+  this.io.packet(packet);
+};
+
+/**
+ * Called upon engine `open`.
+ *
+ * @api private
+ */
+
+Socket.prototype.onopen = function () {
+  debug('transport is open - connecting');
+
+  // write connect packet if necessary
+  if ('/' !== this.nsp) {
+    if (this.query) {
+      var query = typeof this.query === 'object' ? parseqs.encode(this.query) : this.query;
+      debug('sending connect packet with query %s', query);
+      this.packet({type: parser.CONNECT, query: query});
+    } else {
+      this.packet({type: parser.CONNECT});
+    }
+  }
+};
+
+/**
+ * Called upon engine `close`.
+ *
+ * @param {String} reason
+ * @api private
+ */
+
+Socket.prototype.onclose = function (reason) {
+  debug('close (%s)', reason);
+  this.connected = false;
+  this.disconnected = true;
+  delete this.id;
+  this.emit('disconnect', reason);
+};
+
+/**
+ * Called with socket packet.
+ *
+ * @param {Object} packet
+ * @api private
+ */
+
+Socket.prototype.onpacket = function (packet) {
+  if (packet.nsp !== this.nsp) return;
+
+  switch (packet.type) {
+    case parser.CONNECT:
+      this.onconnect();
+      break;
+
+    case parser.EVENT:
+      this.onevent(packet);
+      break;
+
+    case parser.BINARY_EVENT:
+      this.onevent(packet);
+      break;
+
+    case parser.ACK:
+      this.onack(packet);
+      break;
+
+    case parser.BINARY_ACK:
+      this.onack(packet);
+      break;
+
+    case parser.DISCONNECT:
+      this.ondisconnect();
+      break;
+
+    case parser.ERROR:
+      this.emit('error', packet.data);
+      break;
+  }
+};
+
+/**
+ * Called upon a server event.
+ *
+ * @param {Object} packet
+ * @api private
+ */
+
+Socket.prototype.onevent = function (packet) {
+  var args = packet.data || [];
+  debug('emitting event %j', args);
+
+  if (null != packet.id) {
+    debug('attaching ack callback to event');
+    args.push(this.ack(packet.id));
+  }
+
+  if (this.connected) {
+    emit.apply(this, args);
+  } else {
+    this.receiveBuffer.push(args);
+  }
+};
+
+/**
+ * Produces an ack callback to emit with an event.
+ *
+ * @api private
+ */
+
+Socket.prototype.ack = function (id) {
+  var self = this;
+  var sent = false;
+  return function () {
+    // prevent double callbacks
+    if (sent) return;
+    sent = true;
+    var args = toArray(arguments);
+    debug('sending ack %j', args);
+
+    self.packet({
+      type: parser.ACK,
+      id: id,
+      data: args
+    });
+  };
+};
+
+/**
+ * Called upon a server acknowlegement.
+ *
+ * @param {Object} packet
+ * @api private
+ */
+
+Socket.prototype.onack = function (packet) {
+  var ack = this.acks[packet.id];
+  if ('function' === typeof ack) {
+    debug('calling ack %s with %j', packet.id, packet.data);
+    ack.apply(this, packet.data);
+    delete this.acks[packet.id];
+  } else {
+    debug('bad ack %s', packet.id);
+  }
+};
+
+/**
+ * Called upon server connect.
+ *
+ * @api private
+ */
+
+Socket.prototype.onconnect = function () {
+  this.connected = true;
+  this.disconnected = false;
+  this.emit('connect');
+  this.emitBuffered();
+};
+
+/**
+ * Emit buffered events (received and emitted).
+ *
+ * @api private
+ */
+
+Socket.prototype.emitBuffered = function () {
+  var i;
+  for (i = 0; i < this.receiveBuffer.length; i++) {
+    emit.apply(this, this.receiveBuffer[i]);
+  }
+  this.receiveBuffer = [];
+
+  for (i = 0; i < this.sendBuffer.length; i++) {
+    this.packet(this.sendBuffer[i]);
+  }
+  this.sendBuffer = [];
+};
+
+/**
+ * Called upon server disconnect.
+ *
+ * @api private
+ */
+
+Socket.prototype.ondisconnect = function () {
+  debug('server disconnect (%s)', this.nsp);
+  this.destroy();
+  this.onclose('io server disconnect');
+};
+
+/**
+ * Called upon forced client/server side disconnections,
+ * this method ensures the manager stops tracking us and
+ * that reconnections don't get triggered for this.
+ *
+ * @api private.
+ */
+
+Socket.prototype.destroy = function () {
+  if (this.subs) {
+    // clean subscriptions to avoid reconnections
+    for (var i = 0; i < this.subs.length; i++) {
+      this.subs[i].destroy();
+    }
+    this.subs = null;
+  }
+
+  this.io.destroy(this);
+};
+
+/**
+ * Disconnects the socket manually.
+ *
+ * @return {Socket} self
+ * @api public
+ */
+
+Socket.prototype.close =
+Socket.prototype.disconnect = function () {
+  if (this.connected) {
+    debug('performing disconnect (%s)', this.nsp);
+    this.packet({ type: parser.DISCONNECT });
+  }
+
+  // remove socket from pool
+  this.destroy();
+
+  if (this.connected) {
+    // fire events
+    this.onclose('io client disconnect');
+  }
+  return this;
+};
+
+/**
+ * Sets the compress flag.
+ *
+ * @param {Boolean} if `true`, compresses the sending data
+ * @return {Socket} self
+ * @api public
+ */
+
+Socket.prototype.compress = function (compress) {
+  this.flags = this.flags || {};
+  this.flags.compress = compress;
+  return this;
+};
+
+
+/***/ }),
+
+/***/ 314:
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+
+/***/ 315:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Module dependencies
+ */
+
+var XMLHttpRequest = __webpack_require__(207);
+var XHR = __webpack_require__(722);
+var JSONP = __webpack_require__(721);
+var websocket = __webpack_require__(723);
+
+/**
+ * Export transports.
+ */
+
+exports.polling = polling;
+exports.websocket = websocket;
+
+/**
+ * Polling transport polymorphic constructor.
+ * Decides on xhr vs jsonp based on feature detection.
+ *
+ * @api private
+ */
+
+function polling (opts) {
+  var xhr;
+  var xd = false;
+  var xs = false;
+  var jsonp = false !== opts.jsonp;
+
+  if (global.location) {
+    var isSSL = 'https:' === location.protocol;
+    var port = location.port;
+
+    // some user agents have empty `location.port`
+    if (!port) {
+      port = isSSL ? 443 : 80;
+    }
+
+    xd = opts.hostname !== location.hostname || port !== opts.port;
+    xs = opts.secure !== isSSL;
+  }
+
+  opts.xdomain = xd;
+  opts.xscheme = xs;
+  xhr = new XMLHttpRequest(opts);
+
+  if ('open' in xhr && !opts.forceJSONP) {
+    return new XHR(opts);
+  } else {
+    if (!jsonp) throw new Error('JSONP disabled');
+    return new JSONP(opts);
+  }
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+
+/***/ }),
+
+/***/ 316:
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Module dependencies.
+ */
+
+var Transport = __webpack_require__(206);
+var parseqs = __webpack_require__(123);
+var parser = __webpack_require__(86);
+var inherit = __webpack_require__(122);
+var yeast = __webpack_require__(243);
+var debug = __webpack_require__(52)('engine.io-client:polling');
+
+/**
+ * Module exports.
+ */
+
+module.exports = Polling;
+
+/**
+ * Is XHR2 supported?
+ */
+
+var hasXHR2 = (function () {
+  var XMLHttpRequest = __webpack_require__(207);
+  var xhr = new XMLHttpRequest({ xdomain: false });
+  return null != xhr.responseType;
+})();
+
+/**
+ * Polling interface.
+ *
+ * @param {Object} opts
+ * @api private
+ */
+
+function Polling (opts) {
+  var forceBase64 = (opts && opts.forceBase64);
+  if (!hasXHR2 || forceBase64) {
+    this.supportsBinary = false;
+  }
+  Transport.call(this, opts);
+}
+
+/**
+ * Inherits from Transport.
+ */
+
+inherit(Polling, Transport);
+
+/**
+ * Transport name.
+ */
+
+Polling.prototype.name = 'polling';
+
+/**
+ * Opens the socket (triggers polling). We write a PING message to determine
+ * when the transport is open.
+ *
+ * @api private
+ */
+
+Polling.prototype.doOpen = function () {
+  this.poll();
+};
+
+/**
+ * Pauses polling.
+ *
+ * @param {Function} callback upon buffers are flushed and transport is paused
+ * @api private
+ */
+
+Polling.prototype.pause = function (onPause) {
+  var self = this;
+
+  this.readyState = 'pausing';
+
+  function pause () {
+    debug('paused');
+    self.readyState = 'paused';
+    onPause();
+  }
+
+  if (this.polling || !this.writable) {
+    var total = 0;
+
+    if (this.polling) {
+      debug('we are currently polling - waiting to pause');
+      total++;
+      this.once('pollComplete', function () {
+        debug('pre-pause polling complete');
+        --total || pause();
+      });
+    }
+
+    if (!this.writable) {
+      debug('we are currently writing - waiting to pause');
+      total++;
+      this.once('drain', function () {
+        debug('pre-pause writing complete');
+        --total || pause();
+      });
+    }
+  } else {
+    pause();
+  }
+};
+
+/**
+ * Starts polling cycle.
+ *
+ * @api public
+ */
+
+Polling.prototype.poll = function () {
+  debug('polling');
+  this.polling = true;
+  this.doPoll();
+  this.emit('poll');
+};
+
+/**
+ * Overloads onData to detect payloads.
+ *
+ * @api private
+ */
+
+Polling.prototype.onData = function (data) {
+  var self = this;
+  debug('polling got data %s', data);
+  var callback = function (packet, index, total) {
+    // if its the first message we consider the transport open
+    if ('opening' === self.readyState) {
+      self.onOpen();
+    }
+
+    // if its a close packet, we close the ongoing requests
+    if ('close' === packet.type) {
+      self.onClose();
+      return false;
+    }
+
+    // otherwise bypass onData and handle the message
+    self.onPacket(packet);
+  };
+
+  // decode payload
+  parser.decodePayload(data, this.socket.binaryType, callback);
+
+  // if an event did not trigger closing
+  if ('closed' !== this.readyState) {
+    // if we got data we're not polling
+    this.polling = false;
+    this.emit('pollComplete');
+
+    if ('open' === this.readyState) {
+      this.poll();
+    } else {
+      debug('ignoring poll - transport state "%s"', this.readyState);
+    }
+  }
+};
+
+/**
+ * For polling, send a close packet.
+ *
+ * @api private
+ */
+
+Polling.prototype.doClose = function () {
+  var self = this;
+
+  function close () {
+    debug('writing close packet');
+    self.write([{ type: 'close' }]);
+  }
+
+  if ('open' === this.readyState) {
+    debug('transport open - closing');
+    close();
+  } else {
+    // in case we're trying to close while
+    // handshaking is in progress (GH-164)
+    debug('transport not open - deferring close');
+    this.once('open', close);
+  }
+};
+
+/**
+ * Writes a packets payload.
+ *
+ * @param {Array} data packets
+ * @param {Function} drain callback
+ * @api private
+ */
+
+Polling.prototype.write = function (packets) {
+  var self = this;
+  this.writable = false;
+  var callbackfn = function () {
+    self.writable = true;
+    self.emit('drain');
+  };
+
+  parser.encodePayload(packets, this.supportsBinary, function (data) {
+    self.doWrite(data, callbackfn);
+  });
+};
+
+/**
+ * Generates uri for connection.
+ *
+ * @api private
+ */
+
+Polling.prototype.uri = function () {
+  var query = this.query || {};
+  var schema = this.secure ? 'https' : 'http';
+  var port = '';
+
+  // cache busting is forced
+  if (false !== this.timestampRequests) {
+    query[this.timestampParam] = yeast();
+  }
+
+  if (!this.supportsBinary && !query.sid) {
+    query.b64 = 1;
+  }
+
+  query = parseqs.encode(query);
+
+  // avoid port if default for schema
+  if (this.port && (('https' === schema && Number(this.port) !== 443) ||
+     ('http' === schema && Number(this.port) !== 80))) {
+    port = ':' + this.port;
+  }
+
+  // prepend ? to query
+  if (query.length) {
+    query = '?' + query;
+  }
+
+  var ipv6 = this.hostname.indexOf(':') !== -1;
+  return schema + '://' + (ipv6 ? '[' + this.hostname + ']' : this.hostname) + port + this.path + query;
+};
+
+
+/***/ }),
+
+/***/ 317:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {
+module.exports = isBuf;
+
+/**
+ * Returns true if obj is a buffer or an arraybuffer.
+ *
+ * @api private
+ */
+
+function isBuf(obj) {
+  return (global.Buffer && global.Buffer.isBuffer(obj)) ||
+         (global.ArrayBuffer && obj instanceof ArrayBuffer);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+
+/***/ }),
+
+/***/ 33:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * @module zrender/core/util
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
+
+    // 用于处理merge时无法遍历Date等对象的问题
+    var BUILTIN_OBJECT = {
+        '[object Function]': 1,
+        '[object RegExp]': 1,
+        '[object Date]': 1,
+        '[object Error]': 1,
+        '[object CanvasGradient]': 1,
+        '[object CanvasPattern]': 1,
+        // For node-canvas
+        '[object Image]': 1,
+        '[object Canvas]': 1
+    };
+
+    var TYPED_ARRAY = {
+        '[object Int8Array]': 1,
+        '[object Uint8Array]': 1,
+        '[object Uint8ClampedArray]': 1,
+        '[object Int16Array]': 1,
+        '[object Uint16Array]': 1,
+        '[object Int32Array]': 1,
+        '[object Uint32Array]': 1,
+        '[object Float32Array]': 1,
+        '[object Float64Array]': 1
+    };
+
+    var objToString = Object.prototype.toString;
+
+    var arrayProto = Array.prototype;
+    var nativeForEach = arrayProto.forEach;
+    var nativeFilter = arrayProto.filter;
+    var nativeSlice = arrayProto.slice;
+    var nativeMap = arrayProto.map;
+    var nativeReduce = arrayProto.reduce;
+
+    /**
+     * Those data types can be cloned:
+     *     Plain object, Array, TypedArray, number, string, null, undefined.
+     * Those data types will be assgined using the orginal data:
+     *     BUILTIN_OBJECT
+     * Instance of user defined class will be cloned to a plain object, without
+     * properties in prototype.
+     * Other data types is not supported (not sure what will happen).
+     *
+     * Caution: do not support clone Date, for performance consideration.
+     * (There might be a large number of date in `series.data`).
+     * So date should not be modified in and out of echarts.
+     *
+     * @param {*} source
+     * @return {*} new
+     */
+    function clone(source) {
+        if (source == null || typeof source != 'object') {
+            return source;
+        }
+
+        var result = source;
+        var typeStr = objToString.call(source);
+
+        if (typeStr === '[object Array]') {
+            result = [];
+            for (var i = 0, len = source.length; i < len; i++) {
+                result[i] = clone(source[i]);
+            }
+        }
+        else if (TYPED_ARRAY[typeStr]) {
+            result = source.constructor.from(source);
+        }
+        else if (!BUILTIN_OBJECT[typeStr] && !isPrimitive(source) && !isDom(source)) {
+            result = {};
+            for (var key in source) {
+                if (source.hasOwnProperty(key)) {
+                    result[key] = clone(source[key]);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * @memberOf module:zrender/core/util
+     * @param {*} target
+     * @param {*} source
+     * @param {boolean} [overwrite=false]
+     */
+    function merge(target, source, overwrite) {
+        // We should escapse that source is string
+        // and enter for ... in ...
+        if (!isObject(source) || !isObject(target)) {
+            return overwrite ? clone(source) : target;
+        }
+
+        for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+                var targetProp = target[key];
+                var sourceProp = source[key];
+
+                if (isObject(sourceProp)
+                    && isObject(targetProp)
+                    && !isArray(sourceProp)
+                    && !isArray(targetProp)
+                    && !isDom(sourceProp)
+                    && !isDom(targetProp)
+                    && !isBuiltInObject(sourceProp)
+                    && !isBuiltInObject(targetProp)
+                    && !isPrimitive(sourceProp)
+                    && !isPrimitive(targetProp)
+                ) {
+                    // 如果需要递归覆盖，就递归调用merge
+                    merge(targetProp, sourceProp, overwrite);
+                }
+                else if (overwrite || !(key in target)) {
+                    // 否则只处理overwrite为true，或者在目标对象中没有此属性的情况
+                    // NOTE，在 target[key] 不存在的时候也是直接覆盖
+                    target[key] = clone(source[key], true);
+                }
+            }
+        }
+
+        return target;
+    }
+
+    /**
+     * @param {Array} targetAndSources The first item is target, and the rests are source.
+     * @param {boolean} [overwrite=false]
+     * @return {*} target
+     */
+    function mergeAll(targetAndSources, overwrite) {
+        var result = targetAndSources[0];
+        for (var i = 1, len = targetAndSources.length; i < len; i++) {
+            result = merge(result, targetAndSources[i], overwrite);
+        }
+        return result;
+    }
+
+    /**
+     * @param {*} target
+     * @param {*} source
+     * @memberOf module:zrender/core/util
+     */
+    function extend(target, source) {
+        for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+                target[key] = source[key];
+            }
+        }
+        return target;
+    }
+
+    /**
+     * @param {*} target
+     * @param {*} source
+     * @param {boolen} [overlay=false]
+     * @memberOf module:zrender/core/util
+     */
+    function defaults(target, source, overlay) {
+        for (var key in source) {
+            if (source.hasOwnProperty(key)
+                && (overlay ? source[key] != null : target[key] == null)
+            ) {
+                target[key] = source[key];
+            }
+        }
+        return target;
+    }
+
+    function createCanvas() {
+        return document.createElement('canvas');
+    }
+    // FIXME
+    var _ctx;
+    function getContext() {
+        if (!_ctx) {
+            // Use util.createCanvas instead of createCanvas
+            // because createCanvas may be overwritten in different environment
+            _ctx = util.createCanvas().getContext('2d');
+        }
+        return _ctx;
+    }
+
+    /**
+     * 查询数组中元素的index
+     * @memberOf module:zrender/core/util
+     */
+    function indexOf(array, value) {
+        if (array) {
+            if (array.indexOf) {
+                return array.indexOf(value);
+            }
+            for (var i = 0, len = array.length; i < len; i++) {
+                if (array[i] === value) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 构造类继承关系
+     *
+     * @memberOf module:zrender/core/util
+     * @param {Function} clazz 源类
+     * @param {Function} baseClazz 基类
+     */
+    function inherits(clazz, baseClazz) {
+        var clazzPrototype = clazz.prototype;
+        function F() {}
+        F.prototype = baseClazz.prototype;
+        clazz.prototype = new F();
+
+        for (var prop in clazzPrototype) {
+            clazz.prototype[prop] = clazzPrototype[prop];
+        }
+        clazz.prototype.constructor = clazz;
+        clazz.superClass = baseClazz;
+    }
+
+    /**
+     * @memberOf module:zrender/core/util
+     * @param {Object|Function} target
+     * @param {Object|Function} sorce
+     * @param {boolean} overlay
+     */
+    function mixin(target, source, overlay) {
+        target = 'prototype' in target ? target.prototype : target;
+        source = 'prototype' in source ? source.prototype : source;
+
+        defaults(target, source, overlay);
+    }
+
+    /**
+     * Consider typed array.
+     * @param {Array|TypedArray} data
+     */
+    function isArrayLike(data) {
+        if (! data) {
+            return;
+        }
+        if (typeof data == 'string') {
+            return false;
+        }
+        return typeof data.length == 'number';
+    }
+
+    /**
+     * 数组或对象遍历
+     * @memberOf module:zrender/core/util
+     * @param {Object|Array} obj
+     * @param {Function} cb
+     * @param {*} [context]
+     */
+    function each(obj, cb, context) {
+        if (!(obj && cb)) {
+            return;
+        }
+        if (obj.forEach && obj.forEach === nativeForEach) {
+            obj.forEach(cb, context);
+        }
+        else if (obj.length === +obj.length) {
+            for (var i = 0, len = obj.length; i < len; i++) {
+                cb.call(context, obj[i], i, obj);
+            }
+        }
+        else {
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    cb.call(context, obj[key], key, obj);
+                }
+            }
+        }
+    }
+
+    /**
+     * 数组映射
+     * @memberOf module:zrender/core/util
+     * @param {Array} obj
+     * @param {Function} cb
+     * @param {*} [context]
+     * @return {Array}
+     */
+    function map(obj, cb, context) {
+        if (!(obj && cb)) {
+            return;
+        }
+        if (obj.map && obj.map === nativeMap) {
+            return obj.map(cb, context);
+        }
+        else {
+            var result = [];
+            for (var i = 0, len = obj.length; i < len; i++) {
+                result.push(cb.call(context, obj[i], i, obj));
+            }
+            return result;
+        }
+    }
+
+    /**
+     * @memberOf module:zrender/core/util
+     * @param {Array} obj
+     * @param {Function} cb
+     * @param {Object} [memo]
+     * @param {*} [context]
+     * @return {Array}
+     */
+    function reduce(obj, cb, memo, context) {
+        if (!(obj && cb)) {
+            return;
+        }
+        if (obj.reduce && obj.reduce === nativeReduce) {
+            return obj.reduce(cb, memo, context);
+        }
+        else {
+            for (var i = 0, len = obj.length; i < len; i++) {
+                memo = cb.call(context, memo, obj[i], i, obj);
+            }
+            return memo;
+        }
+    }
+
+    /**
+     * 数组过滤
+     * @memberOf module:zrender/core/util
+     * @param {Array} obj
+     * @param {Function} cb
+     * @param {*} [context]
+     * @return {Array}
+     */
+    function filter(obj, cb, context) {
+        if (!(obj && cb)) {
+            return;
+        }
+        if (obj.filter && obj.filter === nativeFilter) {
+            return obj.filter(cb, context);
+        }
+        else {
+            var result = [];
+            for (var i = 0, len = obj.length; i < len; i++) {
+                if (cb.call(context, obj[i], i, obj)) {
+                    result.push(obj[i]);
+                }
+            }
+            return result;
+        }
+    }
+
+    /**
+     * 数组项查找
+     * @memberOf module:zrender/core/util
+     * @param {Array} obj
+     * @param {Function} cb
+     * @param {*} [context]
+     * @return {Array}
+     */
+    function find(obj, cb, context) {
+        if (!(obj && cb)) {
+            return;
+        }
+        for (var i = 0, len = obj.length; i < len; i++) {
+            if (cb.call(context, obj[i], i, obj)) {
+                return obj[i];
+            }
+        }
+    }
+
+    /**
+     * @memberOf module:zrender/core/util
+     * @param {Function} func
+     * @param {*} context
+     * @return {Function}
+     */
+    function bind(func, context) {
+        var args = nativeSlice.call(arguments, 2);
+        return function () {
+            return func.apply(context, args.concat(nativeSlice.call(arguments)));
+        };
+    }
+
+    /**
+     * @memberOf module:zrender/core/util
+     * @param {Function} func
+     * @return {Function}
+     */
+    function curry(func) {
+        var args = nativeSlice.call(arguments, 1);
+        return function () {
+            return func.apply(this, args.concat(nativeSlice.call(arguments)));
+        };
+    }
+
+    /**
+     * @memberOf module:zrender/core/util
+     * @param {*} value
+     * @return {boolean}
+     */
+    function isArray(value) {
+        return objToString.call(value) === '[object Array]';
+    }
+
+    /**
+     * @memberOf module:zrender/core/util
+     * @param {*} value
+     * @return {boolean}
+     */
+    function isFunction(value) {
+        return typeof value === 'function';
+    }
+
+    /**
+     * @memberOf module:zrender/core/util
+     * @param {*} value
+     * @return {boolean}
+     */
+    function isString(value) {
+        return objToString.call(value) === '[object String]';
+    }
+
+    /**
+     * @memberOf module:zrender/core/util
+     * @param {*} value
+     * @return {boolean}
+     */
+    function isObject(value) {
+        // Avoid a V8 JIT bug in Chrome 19-20.
+        // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
+        var type = typeof value;
+        return type === 'function' || (!!value && type == 'object');
+    }
+
+    /**
+     * @memberOf module:zrender/core/util
+     * @param {*} value
+     * @return {boolean}
+     */
+    function isBuiltInObject(value) {
+        return !!BUILTIN_OBJECT[objToString.call(value)];
+    }
+
+    /**
+     * @memberOf module:zrender/core/util
+     * @param {*} value
+     * @return {boolean}
+     */
+    function isDom(value) {
+        return typeof value === 'object'
+            && typeof value.nodeType === 'number'
+            && typeof value.ownerDocument === 'object';
+    }
+
+    /**
+     * Whether is exactly NaN. Notice isNaN('a') returns true.
+     * @param {*} value
+     * @return {boolean}
+     */
+    function eqNaN(value) {
+        return value !== value;
+    }
+
+    /**
+     * If value1 is not null, then return value1, otherwise judget rest of values.
+     * @memberOf module:zrender/core/util
+     * @return {*} Final value
+     */
+    function retrieve(values) {
+        for (var i = 0, len = arguments.length; i < len; i++) {
+            if (arguments[i] != null) {
+                return arguments[i];
+            }
+        }
+    }
+
+    /**
+     * @memberOf module:zrender/core/util
+     * @param {Array} arr
+     * @param {number} startIndex
+     * @param {number} endIndex
+     * @return {Array}
+     */
+    function slice() {
+        return Function.call.apply(nativeSlice, arguments);
+    }
+
+    /**
+     * @memberOf module:zrender/core/util
+     * @param {boolean} condition
+     * @param {string} message
+     */
+    function assert(condition, message) {
+        if (!condition) {
+            throw new Error(message);
+        }
+    }
+
+    var primitiveKey = '__ec_primitive__';
+    /**
+     * Set an object as primitive to be ignored traversing children in clone or merge
+     */
+    function setAsPrimitive(obj) {
+        obj[primitiveKey] = true;
+    }
+
+    function isPrimitive(obj) {
+        return obj[primitiveKey];
+    }
+
+    /**
+     * @constructor
+     * @param {Object} obj Only apply `ownProperty`.
+     */
+    function HashMap(obj) {
+        obj && each(obj, function (value, key) {
+            this.set(key, value);
+        }, this);
+    }
+
+    // Add prefix to avoid conflict with Object.prototype.
+    var HASH_MAP_PREFIX = '_ec_';
+    var HASH_MAP_PREFIX_LENGTH = 4;
+
+    HashMap.prototype = {
+        constructor: HashMap,
+        // Do not provide `has` method to avoid defining what is `has`.
+        // (We usually treat `null` and `undefined` as the same, different
+        // from ES6 Map).
+        get: function (key) {
+            return this[HASH_MAP_PREFIX + key];
+        },
+        set: function (key, value) {
+            this[HASH_MAP_PREFIX + key] = value;
+            // Comparing with invocation chaining, `return value` is more commonly
+            // used in this case: `var someVal = map.set('a', genVal());`
+            return value;
+        },
+        // Although util.each can be performed on this hashMap directly, user
+        // should not use the exposed keys, who are prefixed.
+        each: function (cb, context) {
+            context !== void 0 && (cb = bind(cb, context));
+            for (var prefixedKey in this) {
+                this.hasOwnProperty(prefixedKey)
+                    && cb(this[prefixedKey], prefixedKey.slice(HASH_MAP_PREFIX_LENGTH));
+            }
+        },
+        // Do not use this method if performance sensitive.
+        removeKey: function (key) {
+            delete this[key];
+        }
+    };
+
+    function createHashMap(obj) {
+        return new HashMap(obj);
+    }
+
+    var util = {
+        inherits: inherits,
+        mixin: mixin,
+        clone: clone,
+        merge: merge,
+        mergeAll: mergeAll,
+        extend: extend,
+        defaults: defaults,
+        getContext: getContext,
+        createCanvas: createCanvas,
+        indexOf: indexOf,
+        slice: slice,
+        find: find,
+        isArrayLike: isArrayLike,
+        each: each,
+        map: map,
+        reduce: reduce,
+        filter: filter,
+        bind: bind,
+        curry: curry,
+        isArray: isArray,
+        isString: isString,
+        isObject: isObject,
+        isFunction: isFunction,
+        isBuiltInObject: isBuiltInObject,
+        isDom: isDom,
+        eqNaN: eqNaN,
+        retrieve: retrieve,
+        assert: assert,
+        setAsPrimitive: setAsPrimitive,
+        createHashMap: createHashMap,
+        noop: function () {}
+    };
+    return util;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 331:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * @module zrender/Element
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
+    'use strict';
+
+    var guid = __webpack_require__(336);
+    var Eventful = __webpack_require__(155);
+    var Transformable = __webpack_require__(781);
+    var Animatable = __webpack_require__(779);
+    var zrUtil = __webpack_require__(33);
+
+    /**
+     * @alias module:zrender/Element
+     * @constructor
+     * @extends {module:zrender/mixin/Animatable}
+     * @extends {module:zrender/mixin/Transformable}
+     * @extends {module:zrender/mixin/Eventful}
+     */
+    var Element = function (opts) {
+
+        Transformable.call(this, opts);
+        Eventful.call(this, opts);
+        Animatable.call(this, opts);
+
+        /**
+         * 画布元素ID
+         * @type {string}
+         */
+        this.id = opts.id || guid();
+    };
+
+    Element.prototype = {
+
+        /**
+         * 元素类型
+         * Element type
+         * @type {string}
+         */
+        type: 'element',
+
+        /**
+         * 元素名字
+         * Element name
+         * @type {string}
+         */
+        name: '',
+
+        /**
+         * ZRender 实例对象，会在 element 添加到 zrender 实例中后自动赋值
+         * ZRender instance will be assigned when element is associated with zrender
+         * @name module:/zrender/Element#__zr
+         * @type {module:zrender/ZRender}
+         */
+        __zr: null,
+
+        /**
+         * 图形是否忽略，为true时忽略图形的绘制以及事件触发
+         * If ignore drawing and events of the element object
+         * @name module:/zrender/Element#ignore
+         * @type {boolean}
+         * @default false
+         */
+        ignore: false,
+
+        /**
+         * 用于裁剪的路径(shape)，所有 Group 内的路径在绘制时都会被这个路径裁剪
+         * 该路径会继承被裁减对象的变换
+         * @type {module:zrender/graphic/Path}
+         * @see http://www.w3.org/TR/2dcontext/#clipping-region
+         * @readOnly
+         */
+        clipPath: null,
+
+        /**
+         * Drift element
+         * @param  {number} dx dx on the global space
+         * @param  {number} dy dy on the global space
+         */
+        drift: function (dx, dy) {
+            switch (this.draggable) {
+                case 'horizontal':
+                    dy = 0;
+                    break;
+                case 'vertical':
+                    dx = 0;
+                    break;
+            }
+
+            var m = this.transform;
+            if (!m) {
+                m = this.transform = [1, 0, 0, 1, 0, 0];
+            }
+            m[4] += dx;
+            m[5] += dy;
+
+            this.decomposeTransform();
+            this.dirty(false);
+        },
+
+        /**
+         * Hook before update
+         */
+        beforeUpdate: function () {},
+        /**
+         * Hook after update
+         */
+        afterUpdate: function () {},
+        /**
+         * Update each frame
+         */
+        update: function () {
+            this.updateTransform();
+        },
+
+        /**
+         * @param  {Function} cb
+         * @param  {}   context
+         */
+        traverse: function (cb, context) {},
+
+        /**
+         * @protected
+         */
+        attrKV: function (key, value) {
+            if (key === 'position' || key === 'scale' || key === 'origin') {
+                // Copy the array
+                if (value) {
+                    var target = this[key];
+                    if (!target) {
+                        target = this[key] = [];
+                    }
+                    target[0] = value[0];
+                    target[1] = value[1];
+                }
+            }
+            else {
+                this[key] = value;
+            }
+        },
+
+        /**
+         * Hide the element
+         */
+        hide: function () {
+            this.ignore = true;
+            this.__zr && this.__zr.refresh();
+        },
+
+        /**
+         * Show the element
+         */
+        show: function () {
+            this.ignore = false;
+            this.__zr && this.__zr.refresh();
+        },
+
+        /**
+         * @param {string|Object} key
+         * @param {*} value
+         */
+        attr: function (key, value) {
+            if (typeof key === 'string') {
+                this.attrKV(key, value);
+            }
+            else if (zrUtil.isObject(key)) {
+                for (var name in key) {
+                    if (key.hasOwnProperty(name)) {
+                        this.attrKV(name, key[name]);
+                    }
+                }
+            }
+
+            this.dirty(false);
+
+            return this;
+        },
+
+        /**
+         * @param {module:zrender/graphic/Path} clipPath
+         */
+        setClipPath: function (clipPath) {
+            var zr = this.__zr;
+            if (zr) {
+                clipPath.addSelfToZr(zr);
+            }
+
+            // Remove previous clip path
+            if (this.clipPath && this.clipPath !== clipPath) {
+                this.removeClipPath();
+            }
+
+            this.clipPath = clipPath;
+            clipPath.__zr = zr;
+            clipPath.__clipTarget = this;
+
+            this.dirty(false);
+        },
+
+        /**
+         */
+        removeClipPath: function () {
+            var clipPath = this.clipPath;
+            if (clipPath) {
+                if (clipPath.__zr) {
+                    clipPath.removeSelfFromZr(clipPath.__zr);
+                }
+
+                clipPath.__zr = null;
+                clipPath.__clipTarget = null;
+                this.clipPath = null;
+
+                this.dirty(false);
+            }
+        },
+
+        /**
+         * Add self from zrender instance.
+         * Not recursively because it will be invoked when element added to storage.
+         * @param {module:zrender/ZRender} zr
+         */
+        addSelfToZr: function (zr) {
+            this.__zr = zr;
+            // 添加动画
+            var animators = this.animators;
+            if (animators) {
+                for (var i = 0; i < animators.length; i++) {
+                    zr.animation.addAnimator(animators[i]);
+                }
+            }
+
+            if (this.clipPath) {
+                this.clipPath.addSelfToZr(zr);
+            }
+        },
+
+        /**
+         * Remove self from zrender instance.
+         * Not recursively because it will be invoked when element added to storage.
+         * @param {module:zrender/ZRender} zr
+         */
+        removeSelfFromZr: function (zr) {
+            this.__zr = null;
+            // 移除动画
+            var animators = this.animators;
+            if (animators) {
+                for (var i = 0; i < animators.length; i++) {
+                    zr.animation.removeAnimator(animators[i]);
+                }
+            }
+
+            if (this.clipPath) {
+                this.clipPath.removeSelfFromZr(zr);
+            }
+        }
+    };
+
+    zrUtil.mixin(Element, Animatable);
+    zrUtil.mixin(Element, Transformable);
+    zrUtil.mixin(Element, Eventful);
+
+    return Element;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 332:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * @module echarts/animation/Animator
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var Clip = __webpack_require__(763);
+    var color = __webpack_require__(782);
+    var util = __webpack_require__(33);
+    var isArrayLike = util.isArrayLike;
+
+    var arraySlice = Array.prototype.slice;
+
+    function defaultGetter(target, key) {
+        return target[key];
+    }
+
+    function defaultSetter(target, key, value) {
+        target[key] = value;
+    }
+
+    /**
+     * @param  {number} p0
+     * @param  {number} p1
+     * @param  {number} percent
+     * @return {number}
+     */
+    function interpolateNumber(p0, p1, percent) {
+        return (p1 - p0) * percent + p0;
+    }
+
+    /**
+     * @param  {string} p0
+     * @param  {string} p1
+     * @param  {number} percent
+     * @return {string}
+     */
+    function interpolateString(p0, p1, percent) {
+        return percent > 0.5 ? p1 : p0;
+    }
+
+    /**
+     * @param  {Array} p0
+     * @param  {Array} p1
+     * @param  {number} percent
+     * @param  {Array} out
+     * @param  {number} arrDim
+     */
+    function interpolateArray(p0, p1, percent, out, arrDim) {
+        var len = p0.length;
+        if (arrDim == 1) {
+            for (var i = 0; i < len; i++) {
+                out[i] = interpolateNumber(p0[i], p1[i], percent);
+            }
+        }
+        else {
+            var len2 = len && p0[0].length;
+            for (var i = 0; i < len; i++) {
+                for (var j = 0; j < len2; j++) {
+                    out[i][j] = interpolateNumber(
+                        p0[i][j], p1[i][j], percent
+                    );
+                }
+            }
+        }
+    }
+
+    // arr0 is source array, arr1 is target array.
+    // Do some preprocess to avoid error happened when interpolating from arr0 to arr1
+    function fillArr(arr0, arr1, arrDim) {
+        var arr0Len = arr0.length;
+        var arr1Len = arr1.length;
+        if (arr0Len !== arr1Len) {
+            // FIXME Not work for TypedArray
+            var isPreviousLarger = arr0Len > arr1Len;
+            if (isPreviousLarger) {
+                // Cut the previous
+                arr0.length = arr1Len;
+            }
+            else {
+                // Fill the previous
+                for (var i = arr0Len; i < arr1Len; i++) {
+                    arr0.push(
+                        arrDim === 1 ? arr1[i] : arraySlice.call(arr1[i])
+                    );
+                }
+            }
+        }
+        // Handling NaN value
+        var len2 = arr0[0] && arr0[0].length;
+        for (var i = 0; i < arr0.length; i++) {
+            if (arrDim === 1) {
+                if (isNaN(arr0[i])) {
+                    arr0[i] = arr1[i];
+                }
+            }
+            else {
+                for (var j = 0; j < len2; j++) {
+                    if (isNaN(arr0[i][j])) {
+                        arr0[i][j] = arr1[i][j];
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * @param  {Array} arr0
+     * @param  {Array} arr1
+     * @param  {number} arrDim
+     * @return {boolean}
+     */
+    function isArraySame(arr0, arr1, arrDim) {
+        if (arr0 === arr1) {
+            return true;
+        }
+        var len = arr0.length;
+        if (len !== arr1.length) {
+            return false;
+        }
+        if (arrDim === 1) {
+            for (var i = 0; i < len; i++) {
+                if (arr0[i] !== arr1[i]) {
+                    return false;
+                }
+            }
+        }
+        else {
+            var len2 = arr0[0].length;
+            for (var i = 0; i < len; i++) {
+                for (var j = 0; j < len2; j++) {
+                    if (arr0[i][j] !== arr1[i][j]) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Catmull Rom interpolate array
+     * @param  {Array} p0
+     * @param  {Array} p1
+     * @param  {Array} p2
+     * @param  {Array} p3
+     * @param  {number} t
+     * @param  {number} t2
+     * @param  {number} t3
+     * @param  {Array} out
+     * @param  {number} arrDim
+     */
+    function catmullRomInterpolateArray(
+        p0, p1, p2, p3, t, t2, t3, out, arrDim
+    ) {
+        var len = p0.length;
+        if (arrDim == 1) {
+            for (var i = 0; i < len; i++) {
+                out[i] = catmullRomInterpolate(
+                    p0[i], p1[i], p2[i], p3[i], t, t2, t3
+                );
+            }
+        }
+        else {
+            var len2 = p0[0].length;
+            for (var i = 0; i < len; i++) {
+                for (var j = 0; j < len2; j++) {
+                    out[i][j] = catmullRomInterpolate(
+                        p0[i][j], p1[i][j], p2[i][j], p3[i][j],
+                        t, t2, t3
+                    );
+                }
+            }
+        }
+    }
+
+    /**
+     * Catmull Rom interpolate number
+     * @param  {number} p0
+     * @param  {number} p1
+     * @param  {number} p2
+     * @param  {number} p3
+     * @param  {number} t
+     * @param  {number} t2
+     * @param  {number} t3
+     * @return {number}
+     */
+    function catmullRomInterpolate(p0, p1, p2, p3, t, t2, t3) {
+        var v0 = (p2 - p0) * 0.5;
+        var v1 = (p3 - p1) * 0.5;
+        return (2 * (p1 - p2) + v0 + v1) * t3
+                + (-3 * (p1 - p2) - 2 * v0 - v1) * t2
+                + v0 * t + p1;
+    }
+
+    function cloneValue(value) {
+        if (isArrayLike(value)) {
+            var len = value.length;
+            if (isArrayLike(value[0])) {
+                var ret = [];
+                for (var i = 0; i < len; i++) {
+                    ret.push(arraySlice.call(value[i]));
+                }
+                return ret;
+            }
+
+            return arraySlice.call(value);
+        }
+
+        return value;
+    }
+
+    function rgba2String(rgba) {
+        rgba[0] = Math.floor(rgba[0]);
+        rgba[1] = Math.floor(rgba[1]);
+        rgba[2] = Math.floor(rgba[2]);
+
+        return 'rgba(' + rgba.join(',') + ')';
+    }
+
+    function getArrayDim(keyframes) {
+        var lastValue = keyframes[keyframes.length - 1].value;
+        return isArrayLike(lastValue && lastValue[0]) ? 2 : 1;
+    }
+
+    function createTrackClip (animator, easing, oneTrackDone, keyframes, propName) {
+        var getter = animator._getter;
+        var setter = animator._setter;
+        var useSpline = easing === 'spline';
+
+        var trackLen = keyframes.length;
+        if (!trackLen) {
+            return;
+        }
+        // Guess data type
+        var firstVal = keyframes[0].value;
+        var isValueArray = isArrayLike(firstVal);
+        var isValueColor = false;
+        var isValueString = false;
+
+        // For vertices morphing
+        var arrDim = isValueArray ? getArrayDim(keyframes) : 0;
+
+        var trackMaxTime;
+        // Sort keyframe as ascending
+        keyframes.sort(function(a, b) {
+            return a.time - b.time;
+        });
+
+        trackMaxTime = keyframes[trackLen - 1].time;
+        // Percents of each keyframe
+        var kfPercents = [];
+        // Value of each keyframe
+        var kfValues = [];
+        var prevValue = keyframes[0].value;
+        var isAllValueEqual = true;
+        for (var i = 0; i < trackLen; i++) {
+            kfPercents.push(keyframes[i].time / trackMaxTime);
+            // Assume value is a color when it is a string
+            var value = keyframes[i].value;
+
+            // Check if value is equal, deep check if value is array
+            if (!((isValueArray && isArraySame(value, prevValue, arrDim))
+                || (!isValueArray && value === prevValue))) {
+                isAllValueEqual = false;
+            }
+            prevValue = value;
+
+            // Try converting a string to a color array
+            if (typeof value == 'string') {
+                var colorArray = color.parse(value);
+                if (colorArray) {
+                    value = colorArray;
+                    isValueColor = true;
+                }
+                else {
+                    isValueString = true;
+                }
+            }
+            kfValues.push(value);
+        }
+        if (isAllValueEqual) {
+            return;
+        }
+
+        var lastValue = kfValues[trackLen - 1];
+        // Polyfill array and NaN value
+        for (var i = 0; i < trackLen - 1; i++) {
+            if (isValueArray) {
+                fillArr(kfValues[i], lastValue, arrDim);
+            }
+            else {
+                if (isNaN(kfValues[i]) && !isNaN(lastValue) && !isValueString && !isValueColor) {
+                    kfValues[i] = lastValue;
+                }
+            }
+        }
+        isValueArray && fillArr(getter(animator._target, propName), lastValue, arrDim);
+
+        // Cache the key of last frame to speed up when
+        // animation playback is sequency
+        var lastFrame = 0;
+        var lastFramePercent = 0;
+        var start;
+        var w;
+        var p0;
+        var p1;
+        var p2;
+        var p3;
+
+        if (isValueColor) {
+            var rgba = [0, 0, 0, 0];
+        }
+
+        var onframe = function (target, percent) {
+            // Find the range keyframes
+            // kf1-----kf2---------current--------kf3
+            // find kf2 and kf3 and do interpolation
+            var frame;
+            // In the easing function like elasticOut, percent may less than 0
+            if (percent < 0) {
+                frame = 0;
+            }
+            else if (percent < lastFramePercent) {
+                // Start from next key
+                // PENDING start from lastFrame ?
+                start = Math.min(lastFrame + 1, trackLen - 1);
+                for (frame = start; frame >= 0; frame--) {
+                    if (kfPercents[frame] <= percent) {
+                        break;
+                    }
+                }
+                // PENDING really need to do this ?
+                frame = Math.min(frame, trackLen - 2);
+            }
+            else {
+                for (frame = lastFrame; frame < trackLen; frame++) {
+                    if (kfPercents[frame] > percent) {
+                        break;
+                    }
+                }
+                frame = Math.min(frame - 1, trackLen - 2);
+            }
+            lastFrame = frame;
+            lastFramePercent = percent;
+
+            var range = (kfPercents[frame + 1] - kfPercents[frame]);
+            if (range === 0) {
+                return;
+            }
+            else {
+                w = (percent - kfPercents[frame]) / range;
+            }
+            if (useSpline) {
+                p1 = kfValues[frame];
+                p0 = kfValues[frame === 0 ? frame : frame - 1];
+                p2 = kfValues[frame > trackLen - 2 ? trackLen - 1 : frame + 1];
+                p3 = kfValues[frame > trackLen - 3 ? trackLen - 1 : frame + 2];
+                if (isValueArray) {
+                    catmullRomInterpolateArray(
+                        p0, p1, p2, p3, w, w * w, w * w * w,
+                        getter(target, propName),
+                        arrDim
+                    );
+                }
+                else {
+                    var value;
+                    if (isValueColor) {
+                        value = catmullRomInterpolateArray(
+                            p0, p1, p2, p3, w, w * w, w * w * w,
+                            rgba, 1
+                        );
+                        value = rgba2String(rgba);
+                    }
+                    else if (isValueString) {
+                        // String is step(0.5)
+                        return interpolateString(p1, p2, w);
+                    }
+                    else {
+                        value = catmullRomInterpolate(
+                            p0, p1, p2, p3, w, w * w, w * w * w
+                        );
+                    }
+                    setter(
+                        target,
+                        propName,
+                        value
+                    );
+                }
+            }
+            else {
+                if (isValueArray) {
+                    interpolateArray(
+                        kfValues[frame], kfValues[frame + 1], w,
+                        getter(target, propName),
+                        arrDim
+                    );
+                }
+                else {
+                    var value;
+                    if (isValueColor) {
+                        interpolateArray(
+                            kfValues[frame], kfValues[frame + 1], w,
+                            rgba, 1
+                        );
+                        value = rgba2String(rgba);
+                    }
+                    else if (isValueString) {
+                        // String is step(0.5)
+                        return interpolateString(kfValues[frame], kfValues[frame + 1], w);
+                    }
+                    else {
+                        value = interpolateNumber(kfValues[frame], kfValues[frame + 1], w);
+                    }
+                    setter(
+                        target,
+                        propName,
+                        value
+                    );
+                }
+            }
+        };
+
+        var clip = new Clip({
+            target: animator._target,
+            life: trackMaxTime,
+            loop: animator._loop,
+            delay: animator._delay,
+            onframe: onframe,
+            ondestroy: oneTrackDone
+        });
+
+        if (easing && easing !== 'spline') {
+            clip.easing = easing;
+        }
+
+        return clip;
+    }
+
+    /**
+     * @alias module:zrender/animation/Animator
+     * @constructor
+     * @param {Object} target
+     * @param {boolean} loop
+     * @param {Function} getter
+     * @param {Function} setter
+     */
+    var Animator = function(target, loop, getter, setter) {
+        this._tracks = {};
+        this._target = target;
+
+        this._loop = loop || false;
+
+        this._getter = getter || defaultGetter;
+        this._setter = setter || defaultSetter;
+
+        this._clipCount = 0;
+
+        this._delay = 0;
+
+        this._doneList = [];
+
+        this._onframeList = [];
+
+        this._clipList = [];
+    };
+
+    Animator.prototype = {
+        /**
+         * 设置动画关键帧
+         * @param  {number} time 关键帧时间，单位是ms
+         * @param  {Object} props 关键帧的属性值，key-value表示
+         * @return {module:zrender/animation/Animator}
+         */
+        when: function(time /* ms */, props) {
+            var tracks = this._tracks;
+            for (var propName in props) {
+                if (!props.hasOwnProperty(propName)) {
+                    continue;
+                }
+
+                if (!tracks[propName]) {
+                    tracks[propName] = [];
+                    // Invalid value
+                    var value = this._getter(this._target, propName);
+                    if (value == null) {
+                        // zrLog('Invalid property ' + propName);
+                        continue;
+                    }
+                    // If time is 0
+                    //  Then props is given initialize value
+                    // Else
+                    //  Initialize value from current prop value
+                    if (time !== 0) {
+                        tracks[propName].push({
+                            time: 0,
+                            value: cloneValue(value)
+                        });
+                    }
+                }
+                tracks[propName].push({
+                    time: time,
+                    value: props[propName]
+                });
+            }
+            return this;
+        },
+        /**
+         * 添加动画每一帧的回调函数
+         * @param  {Function} callback
+         * @return {module:zrender/animation/Animator}
+         */
+        during: function (callback) {
+            this._onframeList.push(callback);
+            return this;
+        },
+
+        pause: function () {
+            for (var i = 0; i < this._clipList.length; i++) {
+                this._clipList[i].pause();
+            }
+            this._paused = true;
+        },
+
+        resume: function () {
+            for (var i = 0; i < this._clipList.length; i++) {
+                this._clipList[i].resume();
+            }
+            this._paused = false;
+        },
+
+        isPaused: function () {
+            return !!this._paused;
+        },
+
+        _doneCallback: function () {
+            // Clear all tracks
+            this._tracks = {};
+            // Clear all clips
+            this._clipList.length = 0;
+
+            var doneList = this._doneList;
+            var len = doneList.length;
+            for (var i = 0; i < len; i++) {
+                doneList[i].call(this);
+            }
+        },
+        /**
+         * 开始执行动画
+         * @param  {string|Function} easing
+         *         动画缓动函数，详见{@link module:zrender/animation/easing}
+         * @return {module:zrender/animation/Animator}
+         */
+        start: function (easing) {
+
+            var self = this;
+            var clipCount = 0;
+
+            var oneTrackDone = function() {
+                clipCount--;
+                if (!clipCount) {
+                    self._doneCallback();
+                }
+            };
+
+            var lastClip;
+            for (var propName in this._tracks) {
+                if (!this._tracks.hasOwnProperty(propName)) {
+                    continue;
+                }
+                var clip = createTrackClip(
+                    this, easing, oneTrackDone,
+                    this._tracks[propName], propName
+                );
+                if (clip) {
+                    this._clipList.push(clip);
+                    clipCount++;
+
+                    // If start after added to animation
+                    if (this.animation) {
+                        this.animation.addClip(clip);
+                    }
+
+                    lastClip = clip;
+                }
+            }
+
+            // Add during callback on the last clip
+            if (lastClip) {
+                var oldOnFrame = lastClip.onframe;
+                lastClip.onframe = function (target, percent) {
+                    oldOnFrame(target, percent);
+
+                    for (var i = 0; i < self._onframeList.length; i++) {
+                        self._onframeList[i](target, percent);
+                    }
+                };
+            }
+
+            if (!clipCount) {
+                this._doneCallback();
+            }
+            return this;
+        },
+        /**
+         * 停止动画
+         * @param {boolean} forwardToLast If move to last frame before stop
+         */
+        stop: function (forwardToLast) {
+            var clipList = this._clipList;
+            var animation = this.animation;
+            for (var i = 0; i < clipList.length; i++) {
+                var clip = clipList[i];
+                if (forwardToLast) {
+                    // Move to last frame before stop
+                    clip.onframe(this._target, 1);
+                }
+                animation && animation.removeClip(clip);
+            }
+            clipList.length = 0;
+        },
+        /**
+         * 设置动画延迟开始的时间
+         * @param  {number} time 单位ms
+         * @return {module:zrender/animation/Animator}
+         */
+        delay: function (time) {
+            this._delay = time;
+            return this;
+        },
+        /**
+         * 添加动画结束的回调
+         * @param  {Function} cb
+         * @return {module:zrender/animation/Animator}
+         */
+        done: function(cb) {
+            if (cb) {
+                this._doneList.push(cb);
+            }
+            return this;
+        },
+
+        /**
+         * @return {Array.<module:zrender/animation/Clip>}
+         */
+        getClips: function () {
+            return this._clipList;
+        }
+    };
+
+    return Animator;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 333:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
+
+    return (typeof window !== 'undefined' &&
+                ((window.requestAnimationFrame && window.requestAnimationFrame.bind(window))
+                // https://github.com/ecomfe/zrender/issues/189#issuecomment-224919809
+                || (window.msRequestAnimationFrame && window.msRequestAnimationFrame.bind(window))
+                || window.mozRequestAnimationFrame
+                || window.webkitRequestAnimationFrame)
+            )
+            || function (func) {
+                setTimeout(func, 16);
+            };
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 334:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var PI2 = Math.PI * 2;
+    return {
+        normalizeRadian: function(angle) {
+            angle %= PI2;
+            if (angle < 0) {
+                angle += PI2;
+            }
+            return angle;
+        }
+    };
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 335:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;// Simple LRU cache use doubly linked list
+// @module zrender/core/LRU
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    /**
+     * Simple double linked list. Compared with array, it has O(1) remove operation.
+     * @constructor
+     */
+    var LinkedList = function () {
+
+        /**
+         * @type {module:zrender/core/LRU~Entry}
+         */
+        this.head = null;
+
+        /**
+         * @type {module:zrender/core/LRU~Entry}
+         */
+        this.tail = null;
+
+        this._len = 0;
+    };
+
+    var linkedListProto = LinkedList.prototype;
+    /**
+     * Insert a new value at the tail
+     * @param  {} val
+     * @return {module:zrender/core/LRU~Entry}
+     */
+    linkedListProto.insert = function (val) {
+        var entry = new Entry(val);
+        this.insertEntry(entry);
+        return entry;
+    };
+
+    /**
+     * Insert an entry at the tail
+     * @param  {module:zrender/core/LRU~Entry} entry
+     */
+    linkedListProto.insertEntry = function (entry) {
+        if (!this.head) {
+            this.head = this.tail = entry;
+        }
+        else {
+            this.tail.next = entry;
+            entry.prev = this.tail;
+            entry.next = null;
+            this.tail = entry;
+        }
+        this._len++;
+    };
+
+    /**
+     * Remove entry.
+     * @param  {module:zrender/core/LRU~Entry} entry
+     */
+    linkedListProto.remove = function (entry) {
+        var prev = entry.prev;
+        var next = entry.next;
+        if (prev) {
+            prev.next = next;
+        }
+        else {
+            // Is head
+            this.head = next;
+        }
+        if (next) {
+            next.prev = prev;
+        }
+        else {
+            // Is tail
+            this.tail = prev;
+        }
+        entry.next = entry.prev = null;
+        this._len--;
+    };
+
+    /**
+     * @return {number}
+     */
+    linkedListProto.len = function () {
+        return this._len;
+    };
+
+    /**
+     * Clear list
+     */
+    linkedListProto.clear = function () {
+        this.head = this.tail = null;
+        this._len = 0;
+    };
+
+    /**
+     * @constructor
+     * @param {} val
+     */
+    var Entry = function (val) {
+        /**
+         * @type {}
+         */
+        this.value = val;
+
+        /**
+         * @type {module:zrender/core/LRU~Entry}
+         */
+        this.next;
+
+        /**
+         * @type {module:zrender/core/LRU~Entry}
+         */
+        this.prev;
+    };
+
+    /**
+     * LRU Cache
+     * @constructor
+     * @alias module:zrender/core/LRU
+     */
+    var LRU = function (maxSize) {
+
+        this._list = new LinkedList();
+
+        this._map = {};
+
+        this._maxSize = maxSize || 10;
+
+        this._lastRemovedEntry = null;
+    };
+
+    var LRUProto = LRU.prototype;
+
+    /**
+     * @param  {string} key
+     * @param  {} value
+     * @return {} Removed value
+     */
+    LRUProto.put = function (key, value) {
+        var list = this._list;
+        var map = this._map;
+        var removed = null;
+        if (map[key] == null) {
+            var len = list.len();
+            // Reuse last removed entry
+            var entry = this._lastRemovedEntry;
+
+            if (len >= this._maxSize && len > 0) {
+                // Remove the least recently used
+                var leastUsedEntry = list.head;
+                list.remove(leastUsedEntry);
+                delete map[leastUsedEntry.key];
+
+                removed = leastUsedEntry.value;
+                this._lastRemovedEntry = leastUsedEntry;
+            }
+
+            if (entry) {
+                entry.value = value;
+            }
+            else {
+                entry = new Entry(value);
+            }
+            entry.key = key;
+            list.insertEntry(entry);
+            map[key] = entry;
+        }
+
+        return removed;
+    };
+
+    /**
+     * @param  {string} key
+     * @return {}
+     */
+    LRUProto.get = function (key) {
+        var entry = this._map[key];
+        var list = this._list;
+        if (entry != null) {
+            // Put the latest used entry in the tail
+            if (entry !== list.tail) {
+                list.remove(entry);
+                list.insertEntry(entry);
+            }
+
+            return entry.value;
+        }
+    };
+
+    /**
+     * Clear the cache
+     */
+    LRUProto.clear = function () {
+        this._list.clear();
+        this._map = {};
+    };
+
+    return LRU;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 336:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * zrender: 生成唯一id
+ *
+ * @author errorrik (errorrik@gmail.com)
+ */
+
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function() {
+    var idStart = 0x0907;
+
+    return function () {
+        return idStart++;
+    };
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 337:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+        var config = __webpack_require__(152);
+
+        /**
+         * @exports zrender/tool/log
+         * @author Kener (@Kener-林峰, kener.linfeng@gmail.com)
+         */
+        return function() {
+            if (config.debugMode === 0) {
+                return;
+            }
+            else if (config.debugMode == 1) {
+                for (var k in arguments) {
+                    throw new Error(arguments[k]);
+                }
+            }
+            else if (config.debugMode > 1) {
+                for (var k in arguments) {
+                    console.log(arguments[k]);
+                }
+            }
+        };
+
+        /* for debug
+        return function(mes) {
+            document.getElementById('wrong-message').innerHTML =
+                mes + ' ' + (new Date() - 0)
+                + '<br/>'
+                + document.getElementById('wrong-message').innerHTML;
+        };
+        */
+    }.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 338:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    var ArrayCtor = typeof Float32Array === 'undefined'
+        ? Array
+        : Float32Array;
+    /**
+     * 3x2矩阵操作类
+     * @exports zrender/tool/matrix
+     */
+    var matrix = {
+        /**
+         * 创建一个单位矩阵
+         * @return {Float32Array|Array.<number>}
+         */
+        create : function() {
+            var out = new ArrayCtor(6);
+            matrix.identity(out);
+
+            return out;
+        },
+        /**
+         * 设置矩阵为单位矩阵
+         * @param {Float32Array|Array.<number>} out
+         */
+        identity : function(out) {
+            out[0] = 1;
+            out[1] = 0;
+            out[2] = 0;
+            out[3] = 1;
+            out[4] = 0;
+            out[5] = 0;
+            return out;
+        },
+        /**
+         * 复制矩阵
+         * @param {Float32Array|Array.<number>} out
+         * @param {Float32Array|Array.<number>} m
+         */
+        copy: function(out, m) {
+            out[0] = m[0];
+            out[1] = m[1];
+            out[2] = m[2];
+            out[3] = m[3];
+            out[4] = m[4];
+            out[5] = m[5];
+            return out;
+        },
+        /**
+         * 矩阵相乘
+         * @param {Float32Array|Array.<number>} out
+         * @param {Float32Array|Array.<number>} m1
+         * @param {Float32Array|Array.<number>} m2
+         */
+        mul : function (out, m1, m2) {
+            // Consider matrix.mul(m, m2, m);
+            // where out is the same as m2.
+            // So use temp variable to escape error.
+            var out0 = m1[0] * m2[0] + m1[2] * m2[1];
+            var out1 = m1[1] * m2[0] + m1[3] * m2[1];
+            var out2 = m1[0] * m2[2] + m1[2] * m2[3];
+            var out3 = m1[1] * m2[2] + m1[3] * m2[3];
+            var out4 = m1[0] * m2[4] + m1[2] * m2[5] + m1[4];
+            var out5 = m1[1] * m2[4] + m1[3] * m2[5] + m1[5];
+            out[0] = out0;
+            out[1] = out1;
+            out[2] = out2;
+            out[3] = out3;
+            out[4] = out4;
+            out[5] = out5;
+            return out;
+        },
+        /**
+         * 平移变换
+         * @param {Float32Array|Array.<number>} out
+         * @param {Float32Array|Array.<number>} a
+         * @param {Float32Array|Array.<number>} v
+         */
+        translate : function(out, a, v) {
+            out[0] = a[0];
+            out[1] = a[1];
+            out[2] = a[2];
+            out[3] = a[3];
+            out[4] = a[4] + v[0];
+            out[5] = a[5] + v[1];
+            return out;
+        },
+        /**
+         * 旋转变换
+         * @param {Float32Array|Array.<number>} out
+         * @param {Float32Array|Array.<number>} a
+         * @param {number} rad
+         */
+        rotate : function(out, a, rad) {
+            var aa = a[0];
+            var ac = a[2];
+            var atx = a[4];
+            var ab = a[1];
+            var ad = a[3];
+            var aty = a[5];
+            var st = Math.sin(rad);
+            var ct = Math.cos(rad);
+
+            out[0] = aa * ct + ab * st;
+            out[1] = -aa * st + ab * ct;
+            out[2] = ac * ct + ad * st;
+            out[3] = -ac * st + ct * ad;
+            out[4] = ct * atx + st * aty;
+            out[5] = ct * aty - st * atx;
+            return out;
+        },
+        /**
+         * 缩放变换
+         * @param {Float32Array|Array.<number>} out
+         * @param {Float32Array|Array.<number>} a
+         * @param {Float32Array|Array.<number>} v
+         */
+        scale : function(out, a, v) {
+            var vx = v[0];
+            var vy = v[1];
+            out[0] = a[0] * vx;
+            out[1] = a[1] * vy;
+            out[2] = a[2] * vx;
+            out[3] = a[3] * vy;
+            out[4] = a[4] * vx;
+            out[5] = a[5] * vy;
+            return out;
+        },
+        /**
+         * 求逆矩阵
+         * @param {Float32Array|Array.<number>} out
+         * @param {Float32Array|Array.<number>} a
+         */
+        invert : function(out, a) {
+
+            var aa = a[0];
+            var ac = a[2];
+            var atx = a[4];
+            var ab = a[1];
+            var ad = a[3];
+            var aty = a[5];
+
+            var det = aa * ad - ab * ac;
+            if (!det) {
+                return null;
+            }
+            det = 1.0 / det;
+
+            out[0] = ad * det;
+            out[1] = -ab * det;
+            out[2] = -ac * det;
+            out[3] = aa * det;
+            out[4] = (ac * aty - ad * atx) * det;
+            out[5] = (ab * atx - aa * aty) * det;
+            return out;
+        }
+    };
+
+    return matrix;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 339:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;// https://github.com/mziccard/node-timsort
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    var DEFAULT_MIN_MERGE = 32;
+
+    var DEFAULT_MIN_GALLOPING = 7;
+
+    var DEFAULT_TMP_STORAGE_LENGTH = 256;
+
+    function minRunLength(n) {
+        var r = 0;
+
+        while (n >= DEFAULT_MIN_MERGE) {
+            r |= n & 1;
+            n >>= 1;
+        }
+
+        return n + r;
+    }
+
+    function makeAscendingRun(array, lo, hi, compare) {
+        var runHi = lo + 1;
+
+        if (runHi === hi) {
+            return 1;
+        }
+
+        if (compare(array[runHi++], array[lo]) < 0) {
+            while (runHi < hi && compare(array[runHi], array[runHi - 1]) < 0) {
+                runHi++;
+            }
+
+            reverseRun(array, lo, runHi);
+        }
+        else {
+            while (runHi < hi && compare(array[runHi], array[runHi - 1]) >= 0) {
+                runHi++;
+            }
+        }
+
+        return runHi - lo;
+    }
+
+    function reverseRun(array, lo, hi) {
+        hi--;
+
+        while (lo < hi) {
+            var t = array[lo];
+            array[lo++] = array[hi];
+            array[hi--] = t;
+        }
+    }
+
+    function binaryInsertionSort(array, lo, hi, start, compare) {
+        if (start === lo) {
+            start++;
+        }
+
+        for (; start < hi; start++) {
+            var pivot = array[start];
+
+            var left = lo;
+            var right = start;
+            var mid;
+
+            while (left < right) {
+                mid = left + right >>> 1;
+
+                if (compare(pivot, array[mid]) < 0) {
+                    right = mid;
+                }
+                else {
+                    left = mid + 1;
+                }
+            }
+
+            var n = start - left;
+
+            switch (n) {
+                case 3:
+                    array[left + 3] = array[left + 2];
+
+                case 2:
+                    array[left + 2] = array[left + 1];
+
+                case 1:
+                    array[left + 1] = array[left];
+                    break;
+                default:
+                    while (n > 0) {
+                        array[left + n] = array[left + n - 1];
+                        n--;
+                    }
+            }
+
+            array[left] = pivot;
+        }
+    }
+
+    function gallopLeft(value, array, start, length, hint, compare) {
+        var lastOffset = 0;
+        var maxOffset = 0;
+        var offset = 1;
+
+        if (compare(value, array[start + hint]) > 0) {
+            maxOffset = length - hint;
+
+            while (offset < maxOffset && compare(value, array[start + hint + offset]) > 0) {
+                lastOffset = offset;
+                offset = (offset << 1) + 1;
+
+                if (offset <= 0) {
+                    offset = maxOffset;
+                }
+            }
+
+            if (offset > maxOffset) {
+                offset = maxOffset;
+            }
+
+            lastOffset += hint;
+            offset += hint;
+        }
+        else {
+            maxOffset = hint + 1;
+            while (offset < maxOffset && compare(value, array[start + hint - offset]) <= 0) {
+                lastOffset = offset;
+                offset = (offset << 1) + 1;
+
+                if (offset <= 0) {
+                    offset = maxOffset;
+                }
+            }
+            if (offset > maxOffset) {
+                offset = maxOffset;
+            }
+
+            var tmp = lastOffset;
+            lastOffset = hint - offset;
+            offset = hint - tmp;
+        }
+
+        lastOffset++;
+        while (lastOffset < offset) {
+            var m = lastOffset + (offset - lastOffset >>> 1);
+
+            if (compare(value, array[start + m]) > 0) {
+                lastOffset = m + 1;
+            }
+            else {
+                offset = m;
+            }
+        }
+        return offset;
+    }
+
+    function gallopRight(value, array, start, length, hint, compare) {
+        var lastOffset = 0;
+        var maxOffset = 0;
+        var offset = 1;
+
+        if (compare(value, array[start + hint]) < 0) {
+            maxOffset = hint + 1;
+
+            while (offset < maxOffset && compare(value, array[start + hint - offset]) < 0) {
+                lastOffset = offset;
+                offset = (offset << 1) + 1;
+
+                if (offset <= 0) {
+                    offset = maxOffset;
+                }
+            }
+
+            if (offset > maxOffset) {
+                offset = maxOffset;
+            }
+
+            var tmp = lastOffset;
+            lastOffset = hint - offset;
+            offset = hint - tmp;
+        }
+        else {
+            maxOffset = length - hint;
+
+            while (offset < maxOffset && compare(value, array[start + hint + offset]) >= 0) {
+                lastOffset = offset;
+                offset = (offset << 1) + 1;
+
+                if (offset <= 0) {
+                    offset = maxOffset;
+                }
+            }
+
+            if (offset > maxOffset) {
+                offset = maxOffset;
+            }
+
+            lastOffset += hint;
+            offset += hint;
+        }
+
+        lastOffset++;
+
+        while (lastOffset < offset) {
+            var m = lastOffset + (offset - lastOffset >>> 1);
+
+            if (compare(value, array[start + m]) < 0) {
+                offset = m;
+            }
+            else {
+                lastOffset = m + 1;
+            }
+        }
+
+        return offset;
+    }
+
+    function TimSort(array, compare) {
+        var minGallop = DEFAULT_MIN_GALLOPING;
+        var length = 0;
+        var tmpStorageLength = DEFAULT_TMP_STORAGE_LENGTH;
+        var stackLength = 0;
+        var runStart;
+        var runLength;
+        var stackSize = 0;
+
+        length = array.length;
+
+        if (length < 2 * DEFAULT_TMP_STORAGE_LENGTH) {
+            tmpStorageLength = length >>> 1;
+        }
+
+        var tmp = [];
+
+        stackLength = length < 120 ? 5 : length < 1542 ? 10 : length < 119151 ? 19 : 40;
+
+        runStart = [];
+        runLength = [];
+
+        function pushRun(_runStart, _runLength) {
+            runStart[stackSize] = _runStart;
+            runLength[stackSize] = _runLength;
+            stackSize += 1;
+        }
+
+        function mergeRuns() {
+            while (stackSize > 1) {
+                var n = stackSize - 2;
+
+                if (n >= 1 && runLength[n - 1] <= runLength[n] + runLength[n + 1] || n >= 2 && runLength[n - 2] <= runLength[n] + runLength[n - 1]) {
+                    if (runLength[n - 1] < runLength[n + 1]) {
+                        n--;
+                    }
+                }
+                else if (runLength[n] > runLength[n + 1]) {
+                    break;
+                }
+                mergeAt(n);
+            }
+        }
+
+        function forceMergeRuns() {
+            while (stackSize > 1) {
+                var n = stackSize - 2;
+
+                if (n > 0 && runLength[n - 1] < runLength[n + 1]) {
+                    n--;
+                }
+
+                mergeAt(n);
+            }
+        }
+
+        function mergeAt(i) {
+            var start1 = runStart[i];
+            var length1 = runLength[i];
+            var start2 = runStart[i + 1];
+            var length2 = runLength[i + 1];
+
+            runLength[i] = length1 + length2;
+
+            if (i === stackSize - 3) {
+                runStart[i + 1] = runStart[i + 2];
+                runLength[i + 1] = runLength[i + 2];
+            }
+
+            stackSize--;
+
+            var k = gallopRight(array[start2], array, start1, length1, 0, compare);
+            start1 += k;
+            length1 -= k;
+
+            if (length1 === 0) {
+                return;
+            }
+
+            length2 = gallopLeft(array[start1 + length1 - 1], array, start2, length2, length2 - 1, compare);
+
+            if (length2 === 0) {
+                return;
+            }
+
+            if (length1 <= length2) {
+                mergeLow(start1, length1, start2, length2);
+            }
+            else {
+                mergeHigh(start1, length1, start2, length2);
+            }
+        }
+
+        function mergeLow(start1, length1, start2, length2) {
+            var i = 0;
+
+            for (i = 0; i < length1; i++) {
+                tmp[i] = array[start1 + i];
+            }
+
+            var cursor1 = 0;
+            var cursor2 = start2;
+            var dest = start1;
+
+            array[dest++] = array[cursor2++];
+
+            if (--length2 === 0) {
+                for (i = 0; i < length1; i++) {
+                    array[dest + i] = tmp[cursor1 + i];
+                }
+                return;
+            }
+
+            if (length1 === 1) {
+                for (i = 0; i < length2; i++) {
+                    array[dest + i] = array[cursor2 + i];
+                }
+                array[dest + length2] = tmp[cursor1];
+                return;
+            }
+
+            var _minGallop = minGallop;
+            var count1, count2, exit;
+
+            while (1) {
+                count1 = 0;
+                count2 = 0;
+                exit = false;
+
+                do {
+                    if (compare(array[cursor2], tmp[cursor1]) < 0) {
+                        array[dest++] = array[cursor2++];
+                        count2++;
+                        count1 = 0;
+
+                        if (--length2 === 0) {
+                            exit = true;
+                            break;
+                        }
+                    }
+                    else {
+                        array[dest++] = tmp[cursor1++];
+                        count1++;
+                        count2 = 0;
+                        if (--length1 === 1) {
+                            exit = true;
+                            break;
+                        }
+                    }
+                } while ((count1 | count2) < _minGallop);
+
+                if (exit) {
+                    break;
+                }
+
+                do {
+                    count1 = gallopRight(array[cursor2], tmp, cursor1, length1, 0, compare);
+
+                    if (count1 !== 0) {
+                        for (i = 0; i < count1; i++) {
+                            array[dest + i] = tmp[cursor1 + i];
+                        }
+
+                        dest += count1;
+                        cursor1 += count1;
+                        length1 -= count1;
+                        if (length1 <= 1) {
+                            exit = true;
+                            break;
+                        }
+                    }
+
+                    array[dest++] = array[cursor2++];
+
+                    if (--length2 === 0) {
+                        exit = true;
+                        break;
+                    }
+
+                    count2 = gallopLeft(tmp[cursor1], array, cursor2, length2, 0, compare);
+
+                    if (count2 !== 0) {
+                        for (i = 0; i < count2; i++) {
+                            array[dest + i] = array[cursor2 + i];
+                        }
+
+                        dest += count2;
+                        cursor2 += count2;
+                        length2 -= count2;
+
+                        if (length2 === 0) {
+                            exit = true;
+                            break;
+                        }
+                    }
+                    array[dest++] = tmp[cursor1++];
+
+                    if (--length1 === 1) {
+                        exit = true;
+                        break;
+                    }
+
+                    _minGallop--;
+                } while (count1 >= DEFAULT_MIN_GALLOPING || count2 >= DEFAULT_MIN_GALLOPING);
+
+                if (exit) {
+                    break;
+                }
+
+                if (_minGallop < 0) {
+                    _minGallop = 0;
+                }
+
+                _minGallop += 2;
+            }
+
+            minGallop = _minGallop;
+
+            minGallop < 1 && (minGallop = 1);
+
+            if (length1 === 1) {
+                for (i = 0; i < length2; i++) {
+                    array[dest + i] = array[cursor2 + i];
+                }
+                array[dest + length2] = tmp[cursor1];
+            }
+            else if (length1 === 0) {
+                throw new Error();
+                // throw new Error('mergeLow preconditions were not respected');
+            }
+            else {
+                for (i = 0; i < length1; i++) {
+                    array[dest + i] = tmp[cursor1 + i];
+                }
+            }
+        }
+
+        function mergeHigh (start1, length1, start2, length2) {
+            var i = 0;
+
+            for (i = 0; i < length2; i++) {
+                tmp[i] = array[start2 + i];
+            }
+
+            var cursor1 = start1 + length1 - 1;
+            var cursor2 = length2 - 1;
+            var dest = start2 + length2 - 1;
+            var customCursor = 0;
+            var customDest = 0;
+
+            array[dest--] = array[cursor1--];
+
+            if (--length1 === 0) {
+                customCursor = dest - (length2 - 1);
+
+                for (i = 0; i < length2; i++) {
+                    array[customCursor + i] = tmp[i];
+                }
+
+                return;
+            }
+
+            if (length2 === 1) {
+                dest -= length1;
+                cursor1 -= length1;
+                customDest = dest + 1;
+                customCursor = cursor1 + 1;
+
+                for (i = length1 - 1; i >= 0; i--) {
+                    array[customDest + i] = array[customCursor + i];
+                }
+
+                array[dest] = tmp[cursor2];
+                return;
+            }
+
+            var _minGallop = minGallop;
+
+            while (true) {
+                var count1 = 0;
+                var count2 = 0;
+                var exit = false;
+
+                do {
+                    if (compare(tmp[cursor2], array[cursor1]) < 0) {
+                        array[dest--] = array[cursor1--];
+                        count1++;
+                        count2 = 0;
+                        if (--length1 === 0) {
+                            exit = true;
+                            break;
+                        }
+                    }
+                    else {
+                        array[dest--] = tmp[cursor2--];
+                        count2++;
+                        count1 = 0;
+                        if (--length2 === 1) {
+                            exit = true;
+                            break;
+                        }
+                    }
+                } while ((count1 | count2) < _minGallop);
+
+                if (exit) {
+                    break;
+                }
+
+                do {
+                    count1 = length1 - gallopRight(tmp[cursor2], array, start1, length1, length1 - 1, compare);
+
+                    if (count1 !== 0) {
+                        dest -= count1;
+                        cursor1 -= count1;
+                        length1 -= count1;
+                        customDest = dest + 1;
+                        customCursor = cursor1 + 1;
+
+                        for (i = count1 - 1; i >= 0; i--) {
+                            array[customDest + i] = array[customCursor + i];
+                        }
+
+                        if (length1 === 0) {
+                            exit = true;
+                            break;
+                        }
+                    }
+
+                    array[dest--] = tmp[cursor2--];
+
+                    if (--length2 === 1) {
+                        exit = true;
+                        break;
+                    }
+
+                    count2 = length2 - gallopLeft(array[cursor1], tmp, 0, length2, length2 - 1, compare);
+
+                    if (count2 !== 0) {
+                        dest -= count2;
+                        cursor2 -= count2;
+                        length2 -= count2;
+                        customDest = dest + 1;
+                        customCursor = cursor2 + 1;
+
+                        for (i = 0; i < count2; i++) {
+                            array[customDest + i] = tmp[customCursor + i];
+                        }
+
+                        if (length2 <= 1) {
+                            exit = true;
+                            break;
+                        }
+                    }
+
+                    array[dest--] = array[cursor1--];
+
+                    if (--length1 === 0) {
+                        exit = true;
+                        break;
+                    }
+
+                    _minGallop--;
+                } while (count1 >= DEFAULT_MIN_GALLOPING || count2 >= DEFAULT_MIN_GALLOPING);
+
+                if (exit) {
+                    break;
+                }
+
+                if (_minGallop < 0) {
+                    _minGallop = 0;
+                }
+
+                _minGallop += 2;
+            }
+
+            minGallop = _minGallop;
+
+            if (minGallop < 1) {
+                minGallop = 1;
+            }
+
+            if (length2 === 1) {
+                dest -= length1;
+                cursor1 -= length1;
+                customDest = dest + 1;
+                customCursor = cursor1 + 1;
+
+                for (i = length1 - 1; i >= 0; i--) {
+                    array[customDest + i] = array[customCursor + i];
+                }
+
+                array[dest] = tmp[cursor2];
+            }
+            else if (length2 === 0) {
+                throw new Error();
+                // throw new Error('mergeHigh preconditions were not respected');
+            }
+            else {
+                customCursor = dest - (length2 - 1);
+                for (i = 0; i < length2; i++) {
+                    array[customCursor + i] = tmp[i];
+                }
+            }
+        }
+
+        this.mergeRuns = mergeRuns;
+        this.forceMergeRuns = forceMergeRuns;
+        this.pushRun = pushRun;
+    }
+
+    function sort(array, compare, lo, hi) {
+        if (!lo) {
+            lo = 0;
+        }
+        if (!hi) {
+            hi = array.length;
+        }
+
+        var remaining = hi - lo;
+
+        if (remaining < 2) {
+            return;
+        }
+
+        var runLength = 0;
+
+        if (remaining < DEFAULT_MIN_MERGE) {
+            runLength = makeAscendingRun(array, lo, hi, compare);
+            binaryInsertionSort(array, lo, hi, lo + runLength, compare);
+            return;
+        }
+
+        var ts = new TimSort(array, compare);
+
+        var minRun = minRunLength(remaining);
+
+        do {
+            runLength = makeAscendingRun(array, lo, hi, compare);
+            if (runLength < minRun) {
+                var force = remaining;
+                if (force > minRun) {
+                    force = minRun;
+                }
+
+                binaryInsertionSort(array, lo, lo + force, lo + runLength, compare);
+                runLength = force;
+            }
+
+            ts.pushRun(lo, runLength);
+            ts.mergeRuns();
+
+            remaining -= runLength;
+            lo += runLength;
+        } while (remaining !== 0);
+
+        ts.forceMergeRuns();
+    }
+
+    return sort;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 340:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * 可绘制的图形基类
+ * Base class of all displayable graphic objects
+ * @module zrender/graphic/Displayable
+ */
+
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var zrUtil = __webpack_require__(33);
+
+    var Style = __webpack_require__(343);
+
+    var Element = __webpack_require__(331);
+    var RectText = __webpack_require__(777);
+    // var Stateful = require('./mixin/Stateful');
+
+    /**
+     * @alias module:zrender/graphic/Displayable
+     * @extends module:zrender/Element
+     * @extends module:zrender/graphic/mixin/RectText
+     */
+    function Displayable(opts) {
+
+        opts = opts || {};
+
+        Element.call(this, opts);
+
+        // Extend properties
+        for (var name in opts) {
+            if (
+                opts.hasOwnProperty(name) &&
+                name !== 'style'
+            ) {
+                this[name] = opts[name];
+            }
+        }
+
+        /**
+         * @type {module:zrender/graphic/Style}
+         */
+        this.style = new Style(opts.style);
+
+        this._rect = null;
+        // Shapes for cascade clipping.
+        this.__clipPaths = [];
+
+        // FIXME Stateful must be mixined after style is setted
+        // Stateful.call(this, opts);
+    }
+
+    Displayable.prototype = {
+
+        constructor: Displayable,
+
+        type: 'displayable',
+
+        /**
+         * Displayable 是否为脏，Painter 中会根据该标记判断是否需要是否需要重新绘制
+         * Dirty flag. From which painter will determine if this displayable object needs brush
+         * @name module:zrender/graphic/Displayable#__dirty
+         * @type {boolean}
+         */
+        __dirty: true,
+
+        /**
+         * 图形是否可见，为true时不绘制图形，但是仍能触发鼠标事件
+         * If ignore drawing of the displayable object. Mouse event will still be triggered
+         * @name module:/zrender/graphic/Displayable#invisible
+         * @type {boolean}
+         * @default false
+         */
+        invisible: false,
+
+        /**
+         * @name module:/zrender/graphic/Displayable#z
+         * @type {number}
+         * @default 0
+         */
+        z: 0,
+
+        /**
+         * @name module:/zrender/graphic/Displayable#z
+         * @type {number}
+         * @default 0
+         */
+        z2: 0,
+
+        /**
+         * z层level，决定绘画在哪层canvas中
+         * @name module:/zrender/graphic/Displayable#zlevel
+         * @type {number}
+         * @default 0
+         */
+        zlevel: 0,
+
+        /**
+         * 是否可拖拽
+         * @name module:/zrender/graphic/Displayable#draggable
+         * @type {boolean}
+         * @default false
+         */
+        draggable: false,
+
+        /**
+         * 是否正在拖拽
+         * @name module:/zrender/graphic/Displayable#draggable
+         * @type {boolean}
+         * @default false
+         */
+        dragging: false,
+
+        /**
+         * 是否相应鼠标事件
+         * @name module:/zrender/graphic/Displayable#silent
+         * @type {boolean}
+         * @default false
+         */
+        silent: false,
+
+        /**
+         * If enable culling
+         * @type {boolean}
+         * @default false
+         */
+        culling: false,
+
+        /**
+         * Mouse cursor when hovered
+         * @name module:/zrender/graphic/Displayable#cursor
+         * @type {string}
+         */
+        cursor: 'pointer',
+
+        /**
+         * If hover area is bounding rect
+         * @name module:/zrender/graphic/Displayable#rectHover
+         * @type {string}
+         */
+        rectHover: false,
+
+        /**
+         * Render the element progressively when the value >= 0,
+         * usefull for large data.
+         * @type {number}
+         */
+        progressive: -1,
+
+        beforeBrush: function (ctx) {},
+
+        afterBrush: function (ctx) {},
+
+        /**
+         * 图形绘制方法
+         * @param {Canvas2DRenderingContext} ctx
+         */
+        // Interface
+        brush: function (ctx, prevEl) {},
+
+        /**
+         * 获取最小包围盒
+         * @return {module:zrender/core/BoundingRect}
+         */
+        // Interface
+        getBoundingRect: function () {},
+
+        /**
+         * 判断坐标 x, y 是否在图形上
+         * If displayable element contain coord x, y
+         * @param  {number} x
+         * @param  {number} y
+         * @return {boolean}
+         */
+        contain: function (x, y) {
+            return this.rectContain(x, y);
+        },
+
+        /**
+         * @param  {Function} cb
+         * @param  {}   context
+         */
+        traverse: function (cb, context) {
+            cb.call(context, this);
+        },
+
+        /**
+         * 判断坐标 x, y 是否在图形的包围盒上
+         * If bounding rect of element contain coord x, y
+         * @param  {number} x
+         * @param  {number} y
+         * @return {boolean}
+         */
+        rectContain: function (x, y) {
+            var coord = this.transformCoordToLocal(x, y);
+            var rect = this.getBoundingRect();
+            return rect.contain(coord[0], coord[1]);
+        },
+
+        /**
+         * 标记图形元素为脏，并且在下一帧重绘
+         * Mark displayable element dirty and refresh next frame
+         */
+        dirty: function () {
+            this.__dirty = true;
+
+            this._rect = null;
+
+            this.__zr && this.__zr.refresh();
+        },
+
+        /**
+         * 图形是否会触发事件
+         * If displayable object binded any event
+         * @return {boolean}
+         */
+        // TODO, 通过 bind 绑定的事件
+        // isSilent: function () {
+        //     return !(
+        //         this.hoverable || this.draggable
+        //         || this.onmousemove || this.onmouseover || this.onmouseout
+        //         || this.onmousedown || this.onmouseup || this.onclick
+        //         || this.ondragenter || this.ondragover || this.ondragleave
+        //         || this.ondrop
+        //     );
+        // },
+        /**
+         * Alias for animate('style')
+         * @param {boolean} loop
+         */
+        animateStyle: function (loop) {
+            return this.animate('style', loop);
+        },
+
+        attrKV: function (key, value) {
+            if (key !== 'style') {
+                Element.prototype.attrKV.call(this, key, value);
+            }
+            else {
+                this.style.set(value);
+            }
+        },
+
+        /**
+         * @param {Object|string} key
+         * @param {*} value
+         */
+        setStyle: function (key, value) {
+            this.style.set(key, value);
+            this.dirty(false);
+            return this;
+        },
+
+        /**
+         * Use given style object
+         * @param  {Object} obj
+         */
+        useStyle: function (obj) {
+            this.style = new Style(obj);
+            this.dirty(false);
+            return this;
+        }
+    };
+
+    zrUtil.inherits(Displayable, Element);
+
+    zrUtil.mixin(Displayable, RectText);
+    // zrUtil.mixin(Displayable, Stateful);
+
+    return Displayable;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 341:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var Pattern = function (image, repeat) {
+        // Should do nothing more in this constructor. Because gradient can be
+        // declard by `color: {image: ...}`, where this constructor will not be called.
+
+        this.image = image;
+        this.repeat = repeat;
+
+        // Can be cloned
+        this.type = 'pattern';
+    };
+
+    Pattern.prototype.getCanvasPattern = function (ctx) {
+        return ctx.createPattern(this.image, this.repeat || 'repeat');
+    };
+
+    return Pattern;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 342:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
+    'use strict';
+
+    var zrUtil = __webpack_require__(33);
+
+    var Gradient = __webpack_require__(775);
+
+    /**
+     * x, y, r are all percent from 0 to 1
+     * @param {number} [x=0.5]
+     * @param {number} [y=0.5]
+     * @param {number} [r=0.5]
+     * @param {Array.<Object>} [colorStops]
+     * @param {boolean} [globalCoord=false]
+     */
+    var RadialGradient = function (x, y, r, colorStops, globalCoord) {
+        // Should do nothing more in this constructor. Because gradient can be
+        // declard by `color: {type: 'radial', colorStops: ...}`, where
+        // this constructor will not be called.
+
+        this.x = x == null ? 0.5 : x;
+
+        this.y = y == null ? 0.5 : y;
+
+        this.r = r == null ? 0.5 : r;
+
+        // Can be cloned
+        this.type = 'radial';
+
+        // If use global coord
+        this.global = globalCoord || false;
+
+        Gradient.call(this, colorStops);
+    };
+
+    RadialGradient.prototype = {
+
+        constructor: RadialGradient
+    };
+
+    zrUtil.inherits(RadialGradient, Gradient);
+
+    return RadialGradient;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 343:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * @module zrender/graphic/Style
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var STYLE_COMMON_PROPS = [
+        ['shadowBlur', 0], ['shadowOffsetX', 0], ['shadowOffsetY', 0], ['shadowColor', '#000'],
+        ['lineCap', 'butt'], ['lineJoin', 'miter'], ['miterLimit', 10]
+    ];
+
+    // var SHADOW_PROPS = STYLE_COMMON_PROPS.slice(0, 4);
+    // var LINE_PROPS = STYLE_COMMON_PROPS.slice(4);
+
+    var Style = function (opts) {
+        this.extendFrom(opts);
+    };
+
+    function createLinearGradient(ctx, obj, rect) {
+        var x = obj.x == null ? 0 : obj.x;
+        var x2 = obj.x2 == null ? 1 : obj.x2;
+        var y = obj.y == null ? 0 : obj.y;
+        var y2 = obj.y2 == null ? 0 : obj.y2;
+
+        if (!obj.global) {
+            x = x * rect.width + rect.x;
+            x2 = x2 * rect.width + rect.x;
+            y = y * rect.height + rect.y;
+            y2 = y2 * rect.height + rect.y;
+        }
+
+        var canvasGradient = ctx.createLinearGradient(x, y, x2, y2);
+
+        return canvasGradient;
+    }
+
+    function createRadialGradient(ctx, obj, rect) {
+        var width = rect.width;
+        var height = rect.height;
+        var min = Math.min(width, height);
+
+        var x = obj.x == null ? 0.5 : obj.x;
+        var y = obj.y == null ? 0.5 : obj.y;
+        var r = obj.r == null ? 0.5 : obj.r;
+        if (!obj.global) {
+            x = x * width + rect.x;
+            y = y * height + rect.y;
+            r = r * min;
+        }
+
+        var canvasGradient = ctx.createRadialGradient(x, y, 0, x, y, r);
+
+        return canvasGradient;
+    }
+
+
+    Style.prototype = {
+
+        constructor: Style,
+
+        /**
+         * @type {string}
+         */
+        fill: '#000000',
+
+        /**
+         * @type {string}
+         */
+        stroke: null,
+
+        /**
+         * @type {number}
+         */
+        opacity: 1,
+
+        /**
+         * @type {Array.<number>}
+         */
+        lineDash: null,
+
+        /**
+         * @type {number}
+         */
+        lineDashOffset: 0,
+
+        /**
+         * @type {number}
+         */
+        shadowBlur: 0,
+
+        /**
+         * @type {number}
+         */
+        shadowOffsetX: 0,
+
+        /**
+         * @type {number}
+         */
+        shadowOffsetY: 0,
+
+        /**
+         * @type {number}
+         */
+        lineWidth: 1,
+
+        /**
+         * If stroke ignore scale
+         * @type {Boolean}
+         */
+        strokeNoScale: false,
+
+        // Bounding rect text configuration
+        // Not affected by element transform
+        /**
+         * @type {string}
+         */
+        text: null,
+
+        /**
+         * @type {string}
+         */
+        textFill: '#000',
+
+        /**
+         * @type {string}
+         */
+        textStroke: null,
+
+        /**
+         * 'inside', 'left', 'right', 'top', 'bottom'
+         * [x, y]
+         * @type {string|Array.<number>}
+         * @default 'inside'
+         */
+        textPosition: 'inside',
+
+        /**
+         * If not specified, use the boundingRect of a `displayable`.
+         * @type {Object}
+         */
+        textPositionRect: null,
+
+        /**
+         * [x, y]
+         * @type {Array.<number>}
+         */
+        textOffset: null,
+
+        /**
+         * @type {string}
+         */
+        textBaseline: null,
+
+        /**
+         * @type {string}
+         */
+        textAlign: null,
+
+        /**
+         * @type {string}
+         */
+        textVerticalAlign: null,
+
+        /**
+         * Only useful in Path and Image element
+         * @type {number}
+         */
+        textDistance: 5,
+
+        /**
+         * Only useful in Path and Image element
+         * @type {number}
+         */
+        textShadowBlur: 0,
+
+        /**
+         * Only useful in Path and Image element
+         * @type {number}
+         */
+        textShadowOffsetX: 0,
+
+        /**
+         * Only useful in Path and Image element
+         * @type {number}
+         */
+        textShadowOffsetY: 0,
+
+        /**
+         * If transform text
+         * Only useful in Path and Image element
+         * @type {boolean}
+         */
+        textTransform: false,
+
+        /**
+         * Text rotate around position of Path or Image
+         * Only useful in Path and Image element and textTransform is false.
+         */
+        textRotation: 0,
+
+        /**
+         * @type {string}
+         * https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
+         */
+        blend: null,
+
+        /**
+         * @param {CanvasRenderingContext2D} ctx
+         */
+        bind: function (ctx, el, prevEl) {
+            var style = this;
+            var prevStyle = prevEl && prevEl.style;
+            var firstDraw = !prevStyle;
+
+            for (var i = 0; i < STYLE_COMMON_PROPS.length; i++) {
+                var prop = STYLE_COMMON_PROPS[i];
+                var styleName = prop[0];
+
+                if (firstDraw || style[styleName] !== prevStyle[styleName]) {
+                    // FIXME Invalid property value will cause style leak from previous element.
+                    ctx[styleName] = style[styleName] || prop[1];
+                }
+            }
+
+            if ((firstDraw || style.fill !== prevStyle.fill)) {
+                ctx.fillStyle = style.fill;
+            }
+            if ((firstDraw || style.stroke !== prevStyle.stroke)) {
+                ctx.strokeStyle = style.stroke;
+            }
+            if ((firstDraw || style.opacity !== prevStyle.opacity)) {
+                ctx.globalAlpha = style.opacity == null ? 1 : style.opacity;
+            }
+
+            if ((firstDraw || style.blend !== prevStyle.blend)) {
+                ctx.globalCompositeOperation = style.blend || 'source-over';
+            }
+            if (this.hasStroke()) {
+                var lineWidth = style.lineWidth;
+                ctx.lineWidth = lineWidth / (
+                    (this.strokeNoScale && el && el.getLineScale) ? el.getLineScale() : 1
+                );
+            }
+        },
+
+        hasFill: function () {
+            var fill = this.fill;
+            return fill != null && fill !== 'none';
+        },
+
+        hasStroke: function () {
+            var stroke = this.stroke;
+            return stroke != null && stroke !== 'none' && this.lineWidth > 0;
+        },
+
+        /**
+         * Extend from other style
+         * @param {zrender/graphic/Style} otherStyle
+         * @param {boolean} overwrite
+         */
+        extendFrom: function (otherStyle, overwrite) {
+            if (otherStyle) {
+                var target = this;
+                for (var name in otherStyle) {
+                    if (otherStyle.hasOwnProperty(name)
+                        && (overwrite || ! target.hasOwnProperty(name))
+                    ) {
+                        target[name] = otherStyle[name];
+                    }
+                }
+            }
+        },
+
+        /**
+         * Batch setting style with a given object
+         * @param {Object|string} obj
+         * @param {*} [obj]
+         */
+        set: function (obj, value) {
+            if (typeof obj === 'string') {
+                this[obj] = value;
+            }
+            else {
+                this.extendFrom(obj, true);
+            }
+        },
+
+        /**
+         * Clone
+         * @return {zrender/graphic/Style} [description]
+         */
+        clone: function () {
+            var newStyle = new this.constructor();
+            newStyle.extendFrom(this, true);
+            return newStyle;
+        },
+
+        getGradient: function (ctx, obj, rect) {
+            var method = obj.type === 'radial' ? createRadialGradient : createLinearGradient;
+            var canvasGradient = method(ctx, obj, rect);
+            var colorStops = obj.colorStops;
+            for (var i = 0; i < colorStops.length; i++) {
+                canvasGradient.addColorStop(
+                    colorStops[i].offset, colorStops[i].color
+                );
+            }
+            return canvasGradient;
+        }
+    };
+
+    var styleProto = Style.prototype;
+    for (var i = 0; i < STYLE_COMMON_PROPS.length; i++) {
+        var prop = STYLE_COMMON_PROPS[i];
+        if (!(prop[0] in styleProto)) {
+            styleProto[prop[0]] = prop[1];
+        }
+    }
+
+    // Provide for others
+    Style.getGradient = styleProto.getGradient;
+
+    return Style;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 344:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * 圆形
+ * @module zrender/shape/Circle
+ */
+
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+    'use strict';
+
+    return __webpack_require__(218).extend({
+
+        type: 'circle',
+
+        shape: {
+            cx: 0,
+            cy: 0,
+            r: 0
+        },
+
+
+        buildPath : function (ctx, shape, inBundle) {
+            // Better stroking in ShapeBundle
+            // Always do it may have performence issue ( fill may be 2x more cost)
+            if (inBundle) {
+                ctx.moveTo(shape.cx + shape.r, shape.cy);
+            }
+            // else {
+            //     if (ctx.allocate && !ctx.data.length) {
+            //         ctx.allocate(ctx.CMD_MEM_SIZE.A);
+            //     }
+            // }
+            // Better stroking in ShapeBundle
+            // ctx.moveTo(shape.cx + shape.r, shape.cy);
+            ctx.arc(shape.cx, shape.cy, shape.r, 0, Math.PI * 2, true);
+        }
+    });
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 395:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Config = __webpack_require__(121);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+var _mathUtil = __webpack_require__(1036);
+
+var _mathUtil2 = _interopRequireDefault(_mathUtil);
+
+var _BezierCurve = __webpack_require__(778);
+
+var _BezierCurve2 = _interopRequireDefault(_BezierCurve);
+
+var _Group = __webpack_require__(112);
+
+var _Group2 = _interopRequireDefault(_Group);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Link = function () {
+    function Link(opts) {
+        _classCallCheck(this, Link);
+
+        this.from = opts['from'] || 0;
+        this.to = opts['to'] || 0;
+        this.loop = opts['loop'];
+        this.callback = opts['callback'];
+        this.lineWidth = opts['lineWidth'] || 2;
+        this.stroke = opts['stroke'] || 'rgba(255, 255, 0, 1)';
+        this.lineJoin = opts['lineJoin'] || 'round';
+        this.lineCap = opts['lineCap'] || 'round';
+        this.during = opts['during'] || _Config2.default.animationDefaultDuring;
+        this.shadowBlur = opts['shadowBlur'] || 25;
+    }
+
+    _createClass(Link, [{
+        key: 'render',
+        value: function render() {
+            var from = this.from,
+                to = this.to;
+
+            var cp = _mathUtil2.default.getCurvenessPoint(this.from, this.to);
+
+            var link = new _BezierCurve2.default({
+                shape: {
+                    x1: from.x,
+                    y1: from.y,
+                    x2: to.x,
+                    y2: to.y,
+                    cpx1: cp.x,
+                    cpy1: cp.y
+                },
+                style: {
+                    stroke: this.stroke,
+                    lineWidth: this.lineWidth,
+                    fill: null,
+                    lineJoin: this.lineJoin,
+                    lineCap: this.lineCap,
+                    shadowBlur: this.shadowBlur,
+                    shadowColor: this.stroke
+                }
+            });
+
+            return link;
+        }
+    }]);
+
+    return Link;
+}();
+
+exports.default = Link;
+
+/***/ }),
+
+/***/ 396:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Config = __webpack_require__(121);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+var _Link = __webpack_require__(395);
+
+var _Link2 = _interopRequireDefault(_Link);
+
+var _Circle = __webpack_require__(344);
+
+var _Circle2 = _interopRequireDefault(_Circle);
+
+var _Group = __webpack_require__(112);
+
+var _Group2 = _interopRequireDefault(_Group);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Tail = function () {
+    function Tail(opts) {
+        _classCallCheck(this, Tail);
+
+        this.link = opts['link'] || null;
+        this.size = opts['size'] || 2;
+        this.during = opts['during'] || _Config2.default.animationDefaultDuring;
+        this.loop = opts['loop'];
+        this.callback = opts['callback'];
+    }
+
+    _createClass(Tail, [{
+        key: 'render',
+        value: function render() {
+            var _this = this;
+
+            var g = new _Group2.default();
+
+            for (var index = 60; index > 0; index--) {
+                var c = new _Circle2.default({
+                    shape: {
+                        cx: 0,
+                        cy: 0,
+                        r: this.size
+                    },
+                    style: {
+                        fill: 'rgba(255, 255, 255, ' + index * 0.003 + ')'
+                    },
+                    position: [0, 0]
+                });
+
+                g.add(c);
+            }
+
+            if (this.link) {
+                g.animate('', this.loop).when(this.during, {
+                    position: [1, 0]
+                }).during(function (i, t) {
+                    var tmp = t;
+
+                    for (var _index = 0; _index < g.childCount(); _index++) {
+                        if (tmp >= 0) {
+                            var child = g.childAt(_index);
+
+                            if (tmp >= 0.98) {
+                                var _pos = _this.link.pointAt(1);
+                                child.position = _pos;
+                                child.style.opacity = 0;
+                                continue;
+                            }
+
+                            var pos = _this.link.pointAt(tmp);
+                            child.position = pos;
+                            child.style.opacity = 1;
+                        }
+
+                        tmp -= 0.005;
+                    }
+                }).start(_Config2.default.animationEasing).done(this.callback);
+            }
+
+            return g;
+        }
+    }]);
+
+    return Tail;
+}();
+
+exports.default = Tail;
+
+/***/ }),
+
+/***/ 397:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Attack = __webpack_require__(1029);
+
+var _Attack2 = _interopRequireDefault(_Attack);
+
+var _Detector = __webpack_require__(1035);
+
+var _Detector2 = _interopRequireDefault(_Detector);
+
+var _Globe = __webpack_require__(1030);
+
+var _Globe2 = _interopRequireDefault(_Globe);
+
+var _InfoContainer = __webpack_require__(1027);
+
+var _InfoContainer2 = _interopRequireDefault(_InfoContainer);
+
+var _InfoPanel = __webpack_require__(1028);
+
+var _InfoPanel2 = _interopRequireDefault(_InfoPanel);
+
+var _socket = __webpack_require__(653);
+
+var _socket2 = _interopRequireDefault(_socket);
+
+var _react = __webpack_require__(57);
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(658);
+
+__webpack_require__(661);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_Component) {
+    _inherits(App, _Component);
+
+    function App(props) {
+        _classCallCheck(this, App);
+
+        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+        _this.state = {
+            nodes: {},
+            edges: [],
+            flight: [],
+            origins: [], //攻击源
+            types: [], //攻击类型
+            targets: [], //攻击目标
+            attacks: [], //实时信息
+            data: {
+                info: {
+                    origin: {},
+                    target: {},
+                    type: {},
+                    live: {}
+                }
+            }
+        };
+        return _this;
+    }
+
+    _createClass(App, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            // add SocketIO.
+            var socket = (0, _socket2.default)('http://localhost:4000');
+            window.webSocket = socket; // 存入全局变量.
+
+            socket.on('connect', function (c) {
+                console.log("连接成功..." + new Date().getTime());
+                socket.emit('hello', 'hello world!');
+            });
+
+            socket.on('disconnect', function () {
+                console.log('you have been disconnected.');
+            });
+
+            socket.on('reconnect', function () {
+                console.log('you have been reconnected');
+            });
+
+            socket.on('reconnect_error', function () {
+                console.log('attempt to reconnect has failed');
+            });
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            window.webSocket.on('link', function (data) {
+                var _JSON$parse = JSON.parse(data.info),
+                    origin = _JSON$parse.origin,
+                    target = _JSON$parse.target,
+                    type = _JSON$parse.type,
+                    live = _JSON$parse.live;
+
+                var _state = _this2.state,
+                    origins = _state.origins,
+                    targets = _state.targets,
+                    types = _state.types,
+                    attacks = _state.attacks;
+
+
+                origins.push(origin);
+                targets.push(target);
+                types.push(type);
+                attacks.push(live);
+
+                [origins, targets, types, attacks].forEach(function (a) {
+                    if (a.length >= 8) {
+                        a.shift();
+                    }
+                });
+
+                _this2.setState({
+                    'origins': origins,
+                    'targets': targets,
+                    'types': types,
+                    'attacks': attacks
+                });
+            });
+        }
+    }, {
+        key: 'componentWillUnMount',
+        value: function componentWillUnMount() {
+            if (window.webSocket) {
+                delete window.webSocket;
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'app' },
+                _react2.default.createElement(_Attack2.default, null),
+                _react2.default.createElement(
+                    _InfoContainer2.default,
+                    null,
+                    _react2.default.createElement(_InfoPanel2.default, { items: this.state.origins, title: 'ATTACK ORIGINS' }),
+                    _react2.default.createElement(_InfoPanel2.default, { items: this.state.types, title: 'ATTACK TYPES' }),
+                    _react2.default.createElement(_InfoPanel2.default, { items: this.state.targets, title: 'ATTACK TARGETS' }),
+                    _react2.default.createElement(_InfoPanel2.default, { items: this.state.attacks, title: 'LIVE ATTACKS' })
+                )
+            );
+        }
+    }]);
+
+    return App;
+}(_react.Component);
+
+exports.default = App;
+
+/***/ }),
+
+/***/ 398:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * JSON parse.
+ *
+ * @see Based on jQuery#parseJSON (MIT) and JSON2
+ * @api private
+ */
+
+var rvalidchars = /^[\],:{}\s]*$/;
+var rvalidescape = /\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g;
+var rvalidtokens = /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g;
+var rvalidbraces = /(?:^|:|,)(?:\s*\[)+/g;
+var rtrimLeft = /^\s+/;
+var rtrimRight = /\s+$/;
+
+module.exports = function parsejson(data) {
+  if ('string' != typeof data || !data) {
+    return null;
+  }
+
+  data = data.replace(rtrimLeft, '').replace(rtrimRight, '');
+
+  // Attempt to parse using the native JSON parser first
+  if (global.JSON && JSON.parse) {
+    return JSON.parse(data);
+  }
+
+  if (rvalidchars.test(data.replace(rvalidescape, '@')
+      .replace(rvalidtokens, ']')
+      .replace(rvalidbraces, ''))) {
+    return (new Function('return ' + data))();
+  }
+};
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+
+/***/ }),
+
+/***/ 399:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Create a blob builder even when vendor prefixes exist
+ */
+
+var BlobBuilder = global.BlobBuilder
+  || global.WebKitBlobBuilder
+  || global.MSBlobBuilder
+  || global.MozBlobBuilder;
+
+/**
+ * Check if Blob constructor is supported
+ */
+
+var blobSupported = (function() {
+  try {
+    var a = new Blob(['hi']);
+    return a.size === 2;
+  } catch(e) {
+    return false;
+  }
+})();
+
+/**
+ * Check if Blob constructor supports ArrayBufferViews
+ * Fails in Safari 6, so we need to map to ArrayBuffers there.
+ */
+
+var blobSupportsArrayBufferView = blobSupported && (function() {
+  try {
+    var b = new Blob([new Uint8Array([1,2])]);
+    return b.size === 2;
+  } catch(e) {
+    return false;
+  }
+})();
+
+/**
+ * Check if BlobBuilder is supported
+ */
+
+var blobBuilderSupported = BlobBuilder
+  && BlobBuilder.prototype.append
+  && BlobBuilder.prototype.getBlob;
+
+/**
+ * Helper function that maps ArrayBufferViews to ArrayBuffers
+ * Used by BlobBuilder constructor and old browsers that didn't
+ * support it in the Blob constructor.
+ */
+
+function mapArrayBufferViews(ary) {
+  for (var i = 0; i < ary.length; i++) {
+    var chunk = ary[i];
+    if (chunk.buffer instanceof ArrayBuffer) {
+      var buf = chunk.buffer;
+
+      // if this is a subarray, make a copy so we only
+      // include the subarray region from the underlying buffer
+      if (chunk.byteLength !== buf.byteLength) {
+        var copy = new Uint8Array(chunk.byteLength);
+        copy.set(new Uint8Array(buf, chunk.byteOffset, chunk.byteLength));
+        buf = copy.buffer;
+      }
+
+      ary[i] = buf;
+    }
+  }
+}
+
+function BlobBuilderConstructor(ary, options) {
+  options = options || {};
+
+  var bb = new BlobBuilder();
+  mapArrayBufferViews(ary);
+
+  for (var i = 0; i < ary.length; i++) {
+    bb.append(ary[i]);
+  }
+
+  return (options.type) ? bb.getBlob(options.type) : bb.getBlob();
+};
+
+function BlobConstructor(ary, options) {
+  mapArrayBufferViews(ary);
+  return new Blob(ary, options || {});
+};
+
+module.exports = (function() {
+  if (blobSupported) {
+    return blobSupportsArrayBufferView ? global.Blob : BlobConstructor;
+  } else if (blobBuilderSupported) {
+    return BlobBuilderConstructor;
+  } else {
+    return undefined;
+  }
+})();
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+
+/***/ }),
+
+/***/ 400:
+/***/ (function(module, exports) {
+
+/**
+ * An abstraction for slicing an arraybuffer even when
+ * ArrayBuffer.prototype.slice is not supported
+ *
+ * @api public
+ */
+
+module.exports = function(arraybuffer, start, end) {
+  var bytes = arraybuffer.byteLength;
+  start = start || 0;
+  end = end || bytes;
+
+  if (arraybuffer.slice) { return arraybuffer.slice(start, end); }
+
+  if (start < 0) { start += bytes; }
+  if (end < 0) { end += bytes; }
+  if (end > bytes) { end = bytes; }
+
+  if (start >= bytes || start >= end || bytes === 0) {
+    return new ArrayBuffer(0);
+  }
+
+  var abv = new Uint8Array(arraybuffer);
+  var result = new Uint8Array(end - start);
+  for (var i = start, ii = 0; i < end; i++, ii++) {
+    result[ii] = abv[i];
+  }
+  return result.buffer;
+};
+
+
+/***/ }),
+
+/***/ 401:
+/***/ (function(module, exports) {
+
+module.exports = toArray
+
+function toArray(list, index) {
+    var array = []
+
+    index = index || 0
+
+    for (var i = index || 0; i < list.length; i++) {
+        array[i - index] = list[i]
+    }
+
+    return array
+}
+
+
+/***/ }),
+
+/***/ 402:
+/***/ (function(module, exports) {
+
+/*
+ * base64-arraybuffer
+ * https://github.com/niklasvh/base64-arraybuffer
+ *
+ * Copyright (c) 2012 Niklas von Hertzen
+ * Licensed under the MIT license.
+ */
+(function(){
+  "use strict";
+
+  var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+  // Use a lookup table to find the index.
+  var lookup = new Uint8Array(256);
+  for (var i = 0; i < chars.length; i++) {
+    lookup[chars.charCodeAt(i)] = i;
+  }
+
+  exports.encode = function(arraybuffer) {
+    var bytes = new Uint8Array(arraybuffer),
+    i, len = bytes.length, base64 = "";
+
+    for (i = 0; i < len; i+=3) {
+      base64 += chars[bytes[i] >> 2];
+      base64 += chars[((bytes[i] & 3) << 4) | (bytes[i + 1] >> 4)];
+      base64 += chars[((bytes[i + 1] & 15) << 2) | (bytes[i + 2] >> 6)];
+      base64 += chars[bytes[i + 2] & 63];
+    }
+
+    if ((len % 3) === 2) {
+      base64 = base64.substring(0, base64.length - 1) + "=";
+    } else if (len % 3 === 1) {
+      base64 = base64.substring(0, base64.length - 2) + "==";
+    }
+
+    return base64;
+  };
+
+  exports.decode =  function(base64) {
+    var bufferLength = base64.length * 0.75,
+    len = base64.length, i, p = 0,
+    encoded1, encoded2, encoded3, encoded4;
+
+    if (base64[base64.length - 1] === "=") {
+      bufferLength--;
+      if (base64[base64.length - 2] === "=") {
+        bufferLength--;
+      }
+    }
+
+    var arraybuffer = new ArrayBuffer(bufferLength),
+    bytes = new Uint8Array(arraybuffer);
+
+    for (i = 0; i < len; i+=4) {
+      encoded1 = lookup[base64.charCodeAt(i)];
+      encoded2 = lookup[base64.charCodeAt(i+1)];
+      encoded3 = lookup[base64.charCodeAt(i+2)];
+      encoded4 = lookup[base64.charCodeAt(i+3)];
+
+      bytes[p++] = (encoded1 << 2) | (encoded2 >> 4);
+      bytes[p++] = ((encoded2 & 15) << 4) | (encoded3 >> 2);
+      bytes[p++] = ((encoded3 & 3) << 6) | (encoded4 & 63);
+    }
+
+    return arraybuffer;
+  };
+})();
+
+
+/***/ }),
+
+/***/ 403:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+// If obj.hasOwnProperty has been overridden, then calling
+// obj.hasOwnProperty(prop) will break.
+// See: https://github.com/joyent/node/issues/1707
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+module.exports = function(qs, sep, eq, options) {
+  sep = sep || '&';
+  eq = eq || '=';
+  var obj = {};
+
+  if (typeof qs !== 'string' || qs.length === 0) {
+    return obj;
+  }
+
+  var regexp = /\+/g;
+  qs = qs.split(sep);
+
+  var maxKeys = 1000;
+  if (options && typeof options.maxKeys === 'number') {
+    maxKeys = options.maxKeys;
+  }
+
+  var len = qs.length;
+  // maxKeys <= 0 means that we should not limit keys count
+  if (maxKeys > 0 && len > maxKeys) {
+    len = maxKeys;
+  }
+
+  for (var i = 0; i < len; ++i) {
+    var x = qs[i].replace(regexp, '%20'),
+        idx = x.indexOf(eq),
+        kstr, vstr, k, v;
+
+    if (idx >= 0) {
+      kstr = x.substr(0, idx);
+      vstr = x.substr(idx + 1);
+    } else {
+      kstr = x;
+      vstr = '';
+    }
+
+    k = decodeURIComponent(kstr);
+    v = decodeURIComponent(vstr);
+
+    if (!hasOwnProperty(obj, k)) {
+      obj[k] = v;
+    } else if (isArray(obj[k])) {
+      obj[k].push(v);
+    } else {
+      obj[k] = [obj[k], v];
+    }
+  }
+
+  return obj;
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+
+/***/ }),
+
+/***/ 404:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+var stringifyPrimitive = function(v) {
+  switch (typeof v) {
+    case 'string':
+      return v;
+
+    case 'boolean':
+      return v ? 'true' : 'false';
+
+    case 'number':
+      return isFinite(v) ? v : '';
+
+    default:
+      return '';
+  }
+};
+
+module.exports = function(obj, sep, eq, name) {
+  sep = sep || '&';
+  eq = eq || '=';
+  if (obj === null) {
+    obj = undefined;
+  }
+
+  if (typeof obj === 'object') {
+    return map(objectKeys(obj), function(k) {
+      var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
+      if (isArray(obj[k])) {
+        return map(obj[k], function(v) {
+          return ks + encodeURIComponent(stringifyPrimitive(v));
+        }).join(sep);
+      } else {
+        return ks + encodeURIComponent(stringifyPrimitive(obj[k]));
+      }
+    }).join(sep);
+
+  }
+
+  if (!name) return '';
+  return encodeURIComponent(stringifyPrimitive(name)) + eq +
+         encodeURIComponent(stringifyPrimitive(obj));
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+function map (xs, f) {
+  if (xs.map) return xs.map(f);
+  var res = [];
+  for (var i = 0; i < xs.length; i++) {
+    res.push(f(xs[i], i));
+  }
+  return res;
+}
+
+var objectKeys = Object.keys || function (obj) {
+  var res = [];
+  for (var key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) res.push(key);
+  }
+  return res;
+};
+
+
+/***/ }),
+
+/***/ 405:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.decode = exports.parse = __webpack_require__(403);
+exports.encode = exports.stringify = __webpack_require__(404);
+
+
+/***/ }),
+
+/***/ 461:
+/***/ (function(module, exports) {
+
+module.exports = after
+
+function after(count, callback, err_cb) {
+    var bail = false
+    err_cb = err_cb || noop
+    proxy.count = count
+
+    return (count === 0) ? callback() : proxy
+
+    function proxy(err, result) {
+        if (proxy.count <= 0) {
+            throw new Error('after called too many times')
+        }
+        --proxy.count
+
+        // after first error, rest are passed to err_cb
+        if (err) {
+            bail = true
+            callback(err)
+            // future error callbacks will go to error handler
+            callback = err_cb
+        } else if (proxy.count === 0 && !bail) {
+            callback(null, result)
+        }
+    }
+}
+
+function noop() {}
+
+
+/***/ }),
+
+/***/ 52:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * This is the web browser implementation of `debug()`.
+ *
+ * Expose `debug()` as the module.
+ */
+
+exports = module.exports = __webpack_require__(717);
+exports.log = log;
+exports.formatArgs = formatArgs;
+exports.save = save;
+exports.load = load;
+exports.useColors = useColors;
+exports.storage = 'undefined' != typeof chrome
+               && 'undefined' != typeof chrome.storage
+                  ? chrome.storage.local
+                  : localstorage();
+
+/**
+ * Colors.
+ */
+
+exports.colors = [
+  'lightseagreen',
+  'forestgreen',
+  'goldenrod',
+  'dodgerblue',
+  'darkorchid',
+  'crimson'
+];
+
+/**
+ * Currently only WebKit-based Web Inspectors, Firefox >= v31,
+ * and the Firebug extension (any Firefox version) are known
+ * to support "%c" CSS customizations.
+ *
+ * TODO: add a `localStorage` variable to explicitly enable/disable colors
+ */
+
+function useColors() {
+  // NB: In an Electron preload script, document will be defined but not fully
+  // initialized. Since we know we're in Chrome, we'll just detect this case
+  // explicitly
+  if (typeof window !== 'undefined' && window.process && window.process.type === 'renderer') {
+    return true;
+  }
+
+  // is webkit? http://stackoverflow.com/a/16459606/376773
+  // document is undefined in react-native: https://github.com/facebook/react-native/pull/1632
+  return (typeof document !== 'undefined' && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance) ||
+    // is firebug? http://stackoverflow.com/a/398120/376773
+    (typeof window !== 'undefined' && window.console && (window.console.firebug || (window.console.exception && window.console.table))) ||
+    // is firefox >= v31?
+    // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
+    (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31) ||
+    // double check webkit in userAgent just in case we are in a worker
+    (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/));
+}
+
+/**
+ * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
+ */
+
+exports.formatters.j = function(v) {
+  try {
+    return JSON.stringify(v);
+  } catch (err) {
+    return '[UnexpectedJSONParseError]: ' + err.message;
+  }
+};
+
+
+/**
+ * Colorize log arguments if enabled.
+ *
+ * @api public
+ */
+
+function formatArgs(args) {
+  var useColors = this.useColors;
+
+  args[0] = (useColors ? '%c' : '')
+    + this.namespace
+    + (useColors ? ' %c' : ' ')
+    + args[0]
+    + (useColors ? '%c ' : ' ')
+    + '+' + exports.humanize(this.diff);
+
+  if (!useColors) return;
+
+  var c = 'color: ' + this.color;
+  args.splice(1, 0, c, 'color: inherit')
+
+  // the final "%c" is somewhat tricky, because there could be other
+  // arguments passed either before or after the %c, so we need to
+  // figure out the correct index to insert the CSS into
+  var index = 0;
+  var lastC = 0;
+  args[0].replace(/%[a-zA-Z%]/g, function(match) {
+    if ('%%' === match) return;
+    index++;
+    if ('%c' === match) {
+      // we only are interested in the *last* %c
+      // (the user may have provided their own)
+      lastC = index;
+    }
+  });
+
+  args.splice(lastC, 0, c);
+}
+
+/**
+ * Invokes `console.log()` when available.
+ * No-op when `console.log` is not a "function".
+ *
+ * @api public
+ */
+
+function log() {
+  // this hackery is required for IE8/9, where
+  // the `console.log` function doesn't have 'apply'
+  return 'object' === typeof console
+    && console.log
+    && Function.prototype.apply.call(console.log, console, arguments);
+}
+
+/**
+ * Save `namespaces`.
+ *
+ * @param {String} namespaces
+ * @api private
+ */
+
+function save(namespaces) {
+  try {
+    if (null == namespaces) {
+      exports.storage.removeItem('debug');
+    } else {
+      exports.storage.debug = namespaces;
+    }
+  } catch(e) {}
+}
+
+/**
+ * Load `namespaces`.
+ *
+ * @return {String} returns the previously persisted debug modes
+ * @api private
+ */
+
+function load() {
+  var r;
+  try {
+    r = exports.storage.debug;
+  } catch(e) {}
+
+  // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
+  if (!r && typeof process !== 'undefined' && 'env' in process) {
+    r = process.env.DEBUG;
+  }
+
+  return r;
+}
+
+/**
+ * Enable namespaces listed in `localStorage.debug` initially.
+ */
+
+exports.enable(load());
+
+/**
+ * Localstorage attempts to return the localstorage.
+ *
+ * This is necessary because safari throws
+ * when a user disables cookies/localstorage
+ * and you attempt to access it.
+ *
+ * @return {LocalStorage}
+ * @api private
+ */
+
+function localstorage() {
+  try {
+    return window.localStorage;
+  } catch (e) {}
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+
+/***/ 562:
+/***/ (function(module, exports) {
+
+
+/**
+ * Expose `Backoff`.
+ */
+
+module.exports = Backoff;
+
+/**
+ * Initialize backoff timer with `opts`.
+ *
+ * - `min` initial timeout in milliseconds [100]
+ * - `max` max timeout [10000]
+ * - `jitter` [0]
+ * - `factor` [2]
+ *
+ * @param {Object} opts
+ * @api public
+ */
+
+function Backoff(opts) {
+  opts = opts || {};
+  this.ms = opts.min || 100;
+  this.max = opts.max || 10000;
+  this.factor = opts.factor || 2;
+  this.jitter = opts.jitter > 0 && opts.jitter <= 1 ? opts.jitter : 0;
+  this.attempts = 0;
+}
+
+/**
+ * Return the backoff duration.
+ *
+ * @return {Number}
+ * @api public
+ */
+
+Backoff.prototype.duration = function(){
+  var ms = this.ms * Math.pow(this.factor, this.attempts++);
+  if (this.jitter) {
+    var rand =  Math.random();
+    var deviation = Math.floor(rand * this.jitter * ms);
+    ms = (Math.floor(rand * 10) & 1) == 0  ? ms - deviation : ms + deviation;
+  }
+  return Math.min(ms, this.max) | 0;
+};
+
+/**
+ * Reset the number of attempts.
+ *
+ * @api public
+ */
+
+Backoff.prototype.reset = function(){
+  this.attempts = 0;
+};
+
+/**
+ * Set the minimum duration
+ *
+ * @api public
+ */
+
+Backoff.prototype.setMin = function(min){
+  this.ms = min;
+};
+
+/**
+ * Set the maximum duration
+ *
+ * @api public
+ */
+
+Backoff.prototype.setMax = function(max){
+  this.max = max;
+};
+
+/**
+ * Set the jitter
+ *
+ * @api public
+ */
+
+Backoff.prototype.setJitter = function(jitter){
+  this.jitter = jitter;
+};
+
+
+
+/***/ }),
+
+/***/ 563:
+/***/ (function(module, exports) {
+
+
+/**
+ * Module exports.
+ *
+ * Logic borrowed from Modernizr:
+ *
+ *   - https://github.com/Modernizr/Modernizr/blob/master/feature-detects/cors.js
+ */
+
+try {
+  module.exports = typeof XMLHttpRequest !== 'undefined' &&
+    'withCredentials' in new XMLHttpRequest();
+} catch (err) {
+  // if XMLHttp support is disabled in IE then it will throw
+  // when trying to create
+  module.exports = false;
+}
+
+
+/***/ }),
+
+/***/ 652:
+/***/ (function(module, exports) {
+
+/**
+ * Helpers.
+ */
+
+var s = 1000;
+var m = s * 60;
+var h = m * 60;
+var d = h * 24;
+var y = d * 365.25;
+
+/**
+ * Parse or format the given `val`.
+ *
+ * Options:
+ *
+ *  - `long` verbose formatting [false]
+ *
+ * @param {String|Number} val
+ * @param {Object} [options]
+ * @throws {Error} throw an error if val is not a non-empty string or a number
+ * @return {String|Number}
+ * @api public
+ */
+
+module.exports = function(val, options) {
+  options = options || {};
+  var type = typeof val;
+  if (type === 'string' && val.length > 0) {
+    return parse(val);
+  } else if (type === 'number' && isNaN(val) === false) {
+    return options.long ? fmtLong(val) : fmtShort(val);
+  }
+  throw new Error(
+    'val is not a non-empty string or a valid number. val=' +
+      JSON.stringify(val)
+  );
+};
+
+/**
+ * Parse the given `str` and return milliseconds.
+ *
+ * @param {String} str
+ * @return {Number}
+ * @api private
+ */
+
+function parse(str) {
+  str = String(str);
+  if (str.length > 100) {
+    return;
+  }
+  var match = /^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(
+    str
+  );
+  if (!match) {
+    return;
+  }
+  var n = parseFloat(match[1]);
+  var type = (match[2] || 'ms').toLowerCase();
+  switch (type) {
+    case 'years':
+    case 'year':
+    case 'yrs':
+    case 'yr':
+    case 'y':
+      return n * y;
+    case 'days':
+    case 'day':
+    case 'd':
+      return n * d;
+    case 'hours':
+    case 'hour':
+    case 'hrs':
+    case 'hr':
+    case 'h':
+      return n * h;
+    case 'minutes':
+    case 'minute':
+    case 'mins':
+    case 'min':
+    case 'm':
+      return n * m;
+    case 'seconds':
+    case 'second':
+    case 'secs':
+    case 'sec':
+    case 's':
+      return n * s;
+    case 'milliseconds':
+    case 'millisecond':
+    case 'msecs':
+    case 'msec':
+    case 'ms':
+      return n;
+    default:
+      return undefined;
+  }
+}
+
+/**
+ * Short format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function fmtShort(ms) {
+  if (ms >= d) {
+    return Math.round(ms / d) + 'd';
+  }
+  if (ms >= h) {
+    return Math.round(ms / h) + 'h';
+  }
+  if (ms >= m) {
+    return Math.round(ms / m) + 'm';
+  }
+  if (ms >= s) {
+    return Math.round(ms / s) + 's';
+  }
+  return ms + 'ms';
+}
+
+/**
+ * Long format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function fmtLong(ms) {
+  return plural(ms, d, 'day') ||
+    plural(ms, h, 'hour') ||
+    plural(ms, m, 'minute') ||
+    plural(ms, s, 'second') ||
+    ms + ' ms';
+}
+
+/**
+ * Pluralization helper.
+ */
+
+function plural(ms, n, name) {
+  if (ms < n) {
+    return;
+  }
+  if (ms < n * 1.5) {
+    return Math.floor(ms / n) + ' ' + name;
+  }
+  return Math.ceil(ms / n) + ' ' + name + 's';
+}
+
+
+/***/ }),
+
+/***/ 653:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * Module dependencies.
+ */
+
+var url = __webpack_require__(654);
+var parser = __webpack_require__(208);
+var Manager = __webpack_require__(302);
+var debug = __webpack_require__(52)('socket.io-client');
+
+/**
+ * Module exports.
+ */
+
+module.exports = exports = lookup;
+
+/**
+ * Managers cache.
+ */
+
+var cache = exports.managers = {};
+
+/**
+ * Looks up an existing `Manager` for multiplexing.
+ * If the user summons:
+ *
+ *   `io('http://localhost/a');`
+ *   `io('http://localhost/b');`
+ *
+ * We reuse the existing instance based on same scheme/port/host,
+ * and we initialize sockets for each namespace.
+ *
+ * @api public
+ */
+
+function lookup (uri, opts) {
+  if (typeof uri === 'object') {
+    opts = uri;
+    uri = undefined;
+  }
+
+  opts = opts || {};
+
+  var parsed = url(uri);
+  var source = parsed.source;
+  var id = parsed.id;
+  var path = parsed.path;
+  var sameNamespace = cache[id] && path in cache[id].nsps;
+  var newConnection = opts.forceNew || opts['force new connection'] ||
+                      false === opts.multiplex || sameNamespace;
+
+  var io;
+
+  if (newConnection) {
+    debug('ignoring socket cache for %s', source);
+    io = Manager(source, opts);
+  } else {
+    if (!cache[id]) {
+      debug('new io instance for %s', source);
+      cache[id] = Manager(source, opts);
+    }
+    io = cache[id];
+  }
+  if (parsed.query && !opts.query) {
+    opts.query = parsed.query;
+  }
+  return io.socket(parsed.path, opts);
+}
+
+/**
+ * Protocol version.
+ *
+ * @api public
+ */
+
+exports.protocol = parser.protocol;
+
+/**
+ * `connect`.
+ *
+ * @param {String} uri
+ * @api public
+ */
+
+exports.connect = lookup;
+
+/**
+ * Expose constructors for standalone build.
+ *
+ * @api public
+ */
+
+exports.Manager = __webpack_require__(302);
+exports.Socket = __webpack_require__(304);
+
+
+/***/ }),
+
+/***/ 654:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {
+/**
+ * Module dependencies.
+ */
+
+var parseuri = __webpack_require__(242);
+var debug = __webpack_require__(52)('socket.io-client:url');
+
+/**
+ * Module exports.
+ */
+
+module.exports = url;
+
+/**
+ * URL parser.
+ *
+ * @param {String} url
+ * @param {Object} An object meant to mimic window.location.
+ *                 Defaults to window.location.
+ * @api public
+ */
+
+function url (uri, loc) {
+  var obj = uri;
+
+  // default to window.location
+  loc = loc || global.location;
+  if (null == uri) uri = loc.protocol + '//' + loc.host;
+
+  // relative path support
+  if ('string' === typeof uri) {
+    if ('/' === uri.charAt(0)) {
+      if ('/' === uri.charAt(1)) {
+        uri = loc.protocol + uri;
+      } else {
+        uri = loc.host + uri;
+      }
+    }
+
+    if (!/^(https?|wss?):\/\//.test(uri)) {
+      debug('protocol-less url %s', uri);
+      if ('undefined' !== typeof loc) {
+        uri = loc.protocol + '//' + uri;
+      } else {
+        uri = 'https://' + uri;
+      }
+    }
+
+    // parse
+    debug('parse %s', uri);
+    obj = parseuri(uri);
+  }
+
+  // make sure we treat `localhost:80` and `localhost` equally
+  if (!obj.port) {
+    if (/^(http|ws)$/.test(obj.protocol)) {
+      obj.port = '80';
+    } else if (/^(http|ws)s$/.test(obj.protocol)) {
+      obj.port = '443';
+    }
+  }
+
+  obj.path = obj.path || '/';
+
+  var ipv6 = obj.host.indexOf(':') !== -1;
+  var host = ipv6 ? '[' + obj.host + ']' : obj.host;
+
+  // define unique id
+  obj.id = obj.protocol + '://' + host + ':' + obj.port;
+  // define href
+  obj.href = obj.protocol + '://' + host + (loc && loc.port === obj.port ? '' : (':' + obj.port));
+
+  return obj;
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+
+/***/ }),
+
+/***/ 655:
+/***/ (function(module, exports) {
+
+
+/**
+ * Gets the keys for an object.
+ *
+ * @return {Array} keys
+ * @api private
+ */
+
+module.exports = Object.keys || function keys (obj){
+  var arr = [];
+  var has = Object.prototype.hasOwnProperty;
+
+  for (var i in obj) {
+    if (has.call(obj, i)) {
+      arr.push(i);
+    }
+  }
+  return arr;
+};
+
+
+/***/ }),
+
+/***/ 656:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/utf8js v2.1.2 by @mathias */
+;(function(root) {
+
+	// Detect free variables `exports`
+	var freeExports = typeof exports == 'object' && exports;
+
+	// Detect free variable `module`
+	var freeModule = typeof module == 'object' && module &&
+		module.exports == freeExports && module;
+
+	// Detect free variable `global`, from Node.js or Browserified code,
+	// and use it as `root`
+	var freeGlobal = typeof global == 'object' && global;
+	if (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal) {
+		root = freeGlobal;
+	}
+
+	/*--------------------------------------------------------------------------*/
+
+	var stringFromCharCode = String.fromCharCode;
+
+	// Taken from https://mths.be/punycode
+	function ucs2decode(string) {
+		var output = [];
+		var counter = 0;
+		var length = string.length;
+		var value;
+		var extra;
+		while (counter < length) {
+			value = string.charCodeAt(counter++);
+			if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
+				// high surrogate, and there is a next character
+				extra = string.charCodeAt(counter++);
+				if ((extra & 0xFC00) == 0xDC00) { // low surrogate
+					output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
+				} else {
+					// unmatched surrogate; only append this code unit, in case the next
+					// code unit is the high surrogate of a surrogate pair
+					output.push(value);
+					counter--;
+				}
+			} else {
+				output.push(value);
+			}
+		}
+		return output;
+	}
+
+	// Taken from https://mths.be/punycode
+	function ucs2encode(array) {
+		var length = array.length;
+		var index = -1;
+		var value;
+		var output = '';
+		while (++index < length) {
+			value = array[index];
+			if (value > 0xFFFF) {
+				value -= 0x10000;
+				output += stringFromCharCode(value >>> 10 & 0x3FF | 0xD800);
+				value = 0xDC00 | value & 0x3FF;
+			}
+			output += stringFromCharCode(value);
+		}
+		return output;
+	}
+
+	function checkScalarValue(codePoint, strict) {
+		if (codePoint >= 0xD800 && codePoint <= 0xDFFF) {
+			if (strict) {
+				throw Error(
+					'Lone surrogate U+' + codePoint.toString(16).toUpperCase() +
+					' is not a scalar value'
+				);
+			}
+			return false;
+		}
+		return true;
+	}
+	/*--------------------------------------------------------------------------*/
+
+	function createByte(codePoint, shift) {
+		return stringFromCharCode(((codePoint >> shift) & 0x3F) | 0x80);
+	}
+
+	function encodeCodePoint(codePoint, strict) {
+		if ((codePoint & 0xFFFFFF80) == 0) { // 1-byte sequence
+			return stringFromCharCode(codePoint);
+		}
+		var symbol = '';
+		if ((codePoint & 0xFFFFF800) == 0) { // 2-byte sequence
+			symbol = stringFromCharCode(((codePoint >> 6) & 0x1F) | 0xC0);
+		}
+		else if ((codePoint & 0xFFFF0000) == 0) { // 3-byte sequence
+			if (!checkScalarValue(codePoint, strict)) {
+				codePoint = 0xFFFD;
+			}
+			symbol = stringFromCharCode(((codePoint >> 12) & 0x0F) | 0xE0);
+			symbol += createByte(codePoint, 6);
+		}
+		else if ((codePoint & 0xFFE00000) == 0) { // 4-byte sequence
+			symbol = stringFromCharCode(((codePoint >> 18) & 0x07) | 0xF0);
+			symbol += createByte(codePoint, 12);
+			symbol += createByte(codePoint, 6);
+		}
+		symbol += stringFromCharCode((codePoint & 0x3F) | 0x80);
+		return symbol;
+	}
+
+	function utf8encode(string, opts) {
+		opts = opts || {};
+		var strict = false !== opts.strict;
+
+		var codePoints = ucs2decode(string);
+		var length = codePoints.length;
+		var index = -1;
+		var codePoint;
+		var byteString = '';
+		while (++index < length) {
+			codePoint = codePoints[index];
+			byteString += encodeCodePoint(codePoint, strict);
+		}
+		return byteString;
+	}
+
+	/*--------------------------------------------------------------------------*/
+
+	function readContinuationByte() {
+		if (byteIndex >= byteCount) {
+			throw Error('Invalid byte index');
+		}
+
+		var continuationByte = byteArray[byteIndex] & 0xFF;
+		byteIndex++;
+
+		if ((continuationByte & 0xC0) == 0x80) {
+			return continuationByte & 0x3F;
+		}
+
+		// If we end up here, it’s not a continuation byte
+		throw Error('Invalid continuation byte');
+	}
+
+	function decodeSymbol(strict) {
+		var byte1;
+		var byte2;
+		var byte3;
+		var byte4;
+		var codePoint;
+
+		if (byteIndex > byteCount) {
+			throw Error('Invalid byte index');
+		}
+
+		if (byteIndex == byteCount) {
+			return false;
+		}
+
+		// Read first byte
+		byte1 = byteArray[byteIndex] & 0xFF;
+		byteIndex++;
+
+		// 1-byte sequence (no continuation bytes)
+		if ((byte1 & 0x80) == 0) {
+			return byte1;
+		}
+
+		// 2-byte sequence
+		if ((byte1 & 0xE0) == 0xC0) {
+			byte2 = readContinuationByte();
+			codePoint = ((byte1 & 0x1F) << 6) | byte2;
+			if (codePoint >= 0x80) {
+				return codePoint;
+			} else {
+				throw Error('Invalid continuation byte');
+			}
+		}
+
+		// 3-byte sequence (may include unpaired surrogates)
+		if ((byte1 & 0xF0) == 0xE0) {
+			byte2 = readContinuationByte();
+			byte3 = readContinuationByte();
+			codePoint = ((byte1 & 0x0F) << 12) | (byte2 << 6) | byte3;
+			if (codePoint >= 0x0800) {
+				return checkScalarValue(codePoint, strict) ? codePoint : 0xFFFD;
+			} else {
+				throw Error('Invalid continuation byte');
+			}
+		}
+
+		// 4-byte sequence
+		if ((byte1 & 0xF8) == 0xF0) {
+			byte2 = readContinuationByte();
+			byte3 = readContinuationByte();
+			byte4 = readContinuationByte();
+			codePoint = ((byte1 & 0x07) << 0x12) | (byte2 << 0x0C) |
+				(byte3 << 0x06) | byte4;
+			if (codePoint >= 0x010000 && codePoint <= 0x10FFFF) {
+				return codePoint;
+			}
+		}
+
+		throw Error('Invalid UTF-8 detected');
+	}
+
+	var byteArray;
+	var byteCount;
+	var byteIndex;
+	function utf8decode(byteString, opts) {
+		opts = opts || {};
+		var strict = false !== opts.strict;
+
+		byteArray = ucs2decode(byteString);
+		byteCount = byteArray.length;
+		byteIndex = 0;
+		var codePoints = [];
+		var tmp;
+		while ((tmp = decodeSymbol(strict)) !== false) {
+			codePoints.push(tmp);
+		}
+		return ucs2encode(codePoints);
+	}
+
+	/*--------------------------------------------------------------------------*/
+
+	var utf8 = {
+		'version': '2.1.2',
+		'encode': utf8encode,
+		'decode': utf8decode
+	};
+
+	// Some AMD build optimizers, like r.js, check for specific condition patterns
+	// like the following:
+	if (
+		true
+	) {
+		!(__WEBPACK_AMD_DEFINE_RESULT__ = function() {
+			return utf8;
+		}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	}	else if (freeExports && !freeExports.nodeType) {
+		if (freeModule) { // in Node.js or RingoJS v0.8.0+
+			freeModule.exports = utf8;
+		} else { // in Narwhal or RingoJS v0.7.0-
+			var object = {};
+			var hasOwnProperty = object.hasOwnProperty;
+			for (var key in utf8) {
+				hasOwnProperty.call(utf8, key) && (freeExports[key] = utf8[key]);
+			}
+		}
+	} else { // in Rhino or a web browser
+		root.utf8 = utf8;
+	}
+
+}(this));
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(314)(module), __webpack_require__(31)))
+
+/***/ }),
+
+/***/ 657:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 658:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 659:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 660:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 661:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 662:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 663:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 717:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * This is the common logic for both the Node.js and web browser
+ * implementations of `debug()`.
+ *
+ * Expose `debug()` as the module.
+ */
+
+exports = module.exports = createDebug.debug = createDebug['default'] = createDebug;
+exports.coerce = coerce;
+exports.disable = disable;
+exports.enable = enable;
+exports.enabled = enabled;
+exports.humanize = __webpack_require__(652);
+
+/**
+ * The currently active debug mode names, and names to skip.
+ */
+
+exports.names = [];
+exports.skips = [];
+
+/**
+ * Map of special "%n" handling functions, for the debug "format" argument.
+ *
+ * Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
+ */
+
+exports.formatters = {};
+
+/**
+ * Previous log timestamp.
+ */
+
+var prevTime;
+
+/**
+ * Select a color.
+ * @param {String} namespace
+ * @return {Number}
+ * @api private
+ */
+
+function selectColor(namespace) {
+  var hash = 0, i;
+
+  for (i in namespace) {
+    hash  = ((hash << 5) - hash) + namespace.charCodeAt(i);
+    hash |= 0; // Convert to 32bit integer
+  }
+
+  return exports.colors[Math.abs(hash) % exports.colors.length];
+}
+
+/**
+ * Create a debugger with the given `namespace`.
+ *
+ * @param {String} namespace
+ * @return {Function}
+ * @api public
+ */
+
+function createDebug(namespace) {
+
+  function debug() {
+    // disabled?
+    if (!debug.enabled) return;
+
+    var self = debug;
+
+    // set `diff` timestamp
+    var curr = +new Date();
+    var ms = curr - (prevTime || curr);
+    self.diff = ms;
+    self.prev = prevTime;
+    self.curr = curr;
+    prevTime = curr;
+
+    // turn the `arguments` into a proper Array
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+
+    args[0] = exports.coerce(args[0]);
+
+    if ('string' !== typeof args[0]) {
+      // anything else let's inspect with %O
+      args.unshift('%O');
+    }
+
+    // apply any `formatters` transformations
+    var index = 0;
+    args[0] = args[0].replace(/%([a-zA-Z%])/g, function(match, format) {
+      // if we encounter an escaped % then don't increase the array index
+      if (match === '%%') return match;
+      index++;
+      var formatter = exports.formatters[format];
+      if ('function' === typeof formatter) {
+        var val = args[index];
+        match = formatter.call(self, val);
+
+        // now we need to remove `args[index]` since it's inlined in the `format`
+        args.splice(index, 1);
+        index--;
+      }
+      return match;
+    });
+
+    // apply env-specific formatting (colors, etc.)
+    exports.formatArgs.call(self, args);
+
+    var logFn = debug.log || exports.log || console.log.bind(console);
+    logFn.apply(self, args);
+  }
+
+  debug.namespace = namespace;
+  debug.enabled = exports.enabled(namespace);
+  debug.useColors = exports.useColors();
+  debug.color = selectColor(namespace);
+
+  // env-specific initialization logic for debug instances
+  if ('function' === typeof exports.init) {
+    exports.init(debug);
+  }
+
+  return debug;
+}
+
+/**
+ * Enables a debug mode by namespaces. This can include modes
+ * separated by a colon and wildcards.
+ *
+ * @param {String} namespaces
+ * @api public
+ */
+
+function enable(namespaces) {
+  exports.save(namespaces);
+
+  exports.names = [];
+  exports.skips = [];
+
+  var split = (typeof namespaces === 'string' ? namespaces : '').split(/[\s,]+/);
+  var len = split.length;
+
+  for (var i = 0; i < len; i++) {
+    if (!split[i]) continue; // ignore empty strings
+    namespaces = split[i].replace(/\*/g, '.*?');
+    if (namespaces[0] === '-') {
+      exports.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
+    } else {
+      exports.names.push(new RegExp('^' + namespaces + '$'));
+    }
+  }
+}
+
+/**
+ * Disable debug output.
+ *
+ * @api public
+ */
+
+function disable() {
+  exports.enable('');
+}
+
+/**
+ * Returns true if the given mode name is enabled, false otherwise.
+ *
+ * @param {String} name
+ * @return {Boolean}
+ * @api public
+ */
+
+function enabled(name) {
+  var i, len;
+  for (i = 0, len = exports.skips.length; i < len; i++) {
+    if (exports.skips[i].test(name)) {
+      return false;
+    }
+  }
+  for (i = 0, len = exports.names.length; i < len; i++) {
+    if (exports.names[i].test(name)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Coerce `val`.
+ *
+ * @param {Mixed} val
+ * @return {Mixed}
+ * @api private
+ */
+
+function coerce(val) {
+  if (val instanceof Error) return val.stack || val.message;
+  return val;
+}
+
+
+/***/ }),
+
+/***/ 718:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+module.exports = __webpack_require__(719);
+
+
+/***/ }),
+
+/***/ 719:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+module.exports = __webpack_require__(720);
+
+/**
+ * Exports parser
+ *
+ * @api public
+ *
+ */
+module.exports.parser = __webpack_require__(86);
+
+
+/***/ }),
+
+/***/ 720:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Module dependencies.
+ */
+
+var transports = __webpack_require__(315);
+var Emitter = __webpack_require__(81);
+var debug = __webpack_require__(52)('engine.io-client:socket');
+var index = __webpack_require__(241);
+var parser = __webpack_require__(86);
+var parseuri = __webpack_require__(242);
+var parsejson = __webpack_require__(398);
+var parseqs = __webpack_require__(123);
+
+/**
+ * Module exports.
+ */
+
+module.exports = Socket;
+
+/**
+ * Socket constructor.
+ *
+ * @param {String|Object} uri or options
+ * @param {Object} options
+ * @api public
+ */
+
+function Socket (uri, opts) {
+  if (!(this instanceof Socket)) return new Socket(uri, opts);
+
+  opts = opts || {};
+
+  if (uri && 'object' === typeof uri) {
+    opts = uri;
+    uri = null;
+  }
+
+  if (uri) {
+    uri = parseuri(uri);
+    opts.hostname = uri.host;
+    opts.secure = uri.protocol === 'https' || uri.protocol === 'wss';
+    opts.port = uri.port;
+    if (uri.query) opts.query = uri.query;
+  } else if (opts.host) {
+    opts.hostname = parseuri(opts.host).host;
+  }
+
+  this.secure = null != opts.secure ? opts.secure
+    : (global.location && 'https:' === location.protocol);
+
+  if (opts.hostname && !opts.port) {
+    // if no port is specified manually, use the protocol default
+    opts.port = this.secure ? '443' : '80';
+  }
+
+  this.agent = opts.agent || false;
+  this.hostname = opts.hostname ||
+    (global.location ? location.hostname : 'localhost');
+  this.port = opts.port || (global.location && location.port
+      ? location.port
+      : (this.secure ? 443 : 80));
+  this.query = opts.query || {};
+  if ('string' === typeof this.query) this.query = parseqs.decode(this.query);
+  this.upgrade = false !== opts.upgrade;
+  this.path = (opts.path || '/engine.io').replace(/\/$/, '') + '/';
+  this.forceJSONP = !!opts.forceJSONP;
+  this.jsonp = false !== opts.jsonp;
+  this.forceBase64 = !!opts.forceBase64;
+  this.enablesXDR = !!opts.enablesXDR;
+  this.timestampParam = opts.timestampParam || 't';
+  this.timestampRequests = opts.timestampRequests;
+  this.transports = opts.transports || ['polling', 'websocket'];
+  this.transportOptions = opts.transportOptions || {};
+  this.readyState = '';
+  this.writeBuffer = [];
+  this.prevBufferLen = 0;
+  this.policyPort = opts.policyPort || 843;
+  this.rememberUpgrade = opts.rememberUpgrade || false;
+  this.binaryType = null;
+  this.onlyBinaryUpgrades = opts.onlyBinaryUpgrades;
+  this.perMessageDeflate = false !== opts.perMessageDeflate ? (opts.perMessageDeflate || {}) : false;
+
+  if (true === this.perMessageDeflate) this.perMessageDeflate = {};
+  if (this.perMessageDeflate && null == this.perMessageDeflate.threshold) {
+    this.perMessageDeflate.threshold = 1024;
+  }
+
+  // SSL options for Node.js client
+  this.pfx = opts.pfx || null;
+  this.key = opts.key || null;
+  this.passphrase = opts.passphrase || null;
+  this.cert = opts.cert || null;
+  this.ca = opts.ca || null;
+  this.ciphers = opts.ciphers || null;
+  this.rejectUnauthorized = opts.rejectUnauthorized === undefined ? true : opts.rejectUnauthorized;
+  this.forceNode = !!opts.forceNode;
+
+  // other options for Node.js client
+  var freeGlobal = typeof global === 'object' && global;
+  if (freeGlobal.global === freeGlobal) {
+    if (opts.extraHeaders && Object.keys(opts.extraHeaders).length > 0) {
+      this.extraHeaders = opts.extraHeaders;
+    }
+
+    if (opts.localAddress) {
+      this.localAddress = opts.localAddress;
+    }
+  }
+
+  // set on handshake
+  this.id = null;
+  this.upgrades = null;
+  this.pingInterval = null;
+  this.pingTimeout = null;
+
+  // set on heartbeat
+  this.pingIntervalTimer = null;
+  this.pingTimeoutTimer = null;
+
+  this.open();
+}
+
+Socket.priorWebsocketSuccess = false;
+
+/**
+ * Mix in `Emitter`.
+ */
+
+Emitter(Socket.prototype);
+
+/**
+ * Protocol version.
+ *
+ * @api public
+ */
+
+Socket.protocol = parser.protocol; // this is an int
+
+/**
+ * Expose deps for legacy compatibility
+ * and standalone browser access.
+ */
+
+Socket.Socket = Socket;
+Socket.Transport = __webpack_require__(206);
+Socket.transports = __webpack_require__(315);
+Socket.parser = __webpack_require__(86);
+
+/**
+ * Creates transport of the given type.
+ *
+ * @param {String} transport name
+ * @return {Transport}
+ * @api private
+ */
+
+Socket.prototype.createTransport = function (name) {
+  debug('creating transport "%s"', name);
+  var query = clone(this.query);
+
+  // append engine.io protocol identifier
+  query.EIO = parser.protocol;
+
+  // transport name
+  query.transport = name;
+
+  // per-transport options
+  var options = this.transportOptions[name] || {};
+
+  // session id if we already have one
+  if (this.id) query.sid = this.id;
+
+  var transport = new transports[name]({
+    query: query,
+    socket: this,
+    agent: options.agent || this.agent,
+    hostname: options.hostname || this.hostname,
+    port: options.port || this.port,
+    secure: options.secure || this.secure,
+    path: options.path || this.path,
+    forceJSONP: options.forceJSONP || this.forceJSONP,
+    jsonp: options.jsonp || this.jsonp,
+    forceBase64: options.forceBase64 || this.forceBase64,
+    enablesXDR: options.enablesXDR || this.enablesXDR,
+    timestampRequests: options.timestampRequests || this.timestampRequests,
+    timestampParam: options.timestampParam || this.timestampParam,
+    policyPort: options.policyPort || this.policyPort,
+    pfx: options.pfx || this.pfx,
+    key: options.key || this.key,
+    passphrase: options.passphrase || this.passphrase,
+    cert: options.cert || this.cert,
+    ca: options.ca || this.ca,
+    ciphers: options.ciphers || this.ciphers,
+    rejectUnauthorized: options.rejectUnauthorized || this.rejectUnauthorized,
+    perMessageDeflate: options.perMessageDeflate || this.perMessageDeflate,
+    extraHeaders: options.extraHeaders || this.extraHeaders,
+    forceNode: options.forceNode || this.forceNode,
+    localAddress: options.localAddress || this.localAddress,
+    requestTimeout: options.requestTimeout || this.requestTimeout,
+    protocols: options.protocols || void (0)
+  });
+
+  return transport;
+};
+
+function clone (obj) {
+  var o = {};
+  for (var i in obj) {
+    if (obj.hasOwnProperty(i)) {
+      o[i] = obj[i];
+    }
+  }
+  return o;
+}
+
+/**
+ * Initializes transport to use and starts probe.
+ *
+ * @api private
+ */
+Socket.prototype.open = function () {
+  var transport;
+  if (this.rememberUpgrade && Socket.priorWebsocketSuccess && this.transports.indexOf('websocket') !== -1) {
+    transport = 'websocket';
+  } else if (0 === this.transports.length) {
+    // Emit error on next tick so it can be listened to
+    var self = this;
+    setTimeout(function () {
+      self.emit('error', 'No transports available');
+    }, 0);
+    return;
+  } else {
+    transport = this.transports[0];
+  }
+  this.readyState = 'opening';
+
+  // Retry with the next transport if the transport is disabled (jsonp: false)
+  try {
+    transport = this.createTransport(transport);
+  } catch (e) {
+    this.transports.shift();
+    this.open();
+    return;
+  }
+
+  transport.open();
+  this.setTransport(transport);
+};
+
+/**
+ * Sets the current transport. Disables the existing one (if any).
+ *
+ * @api private
+ */
+
+Socket.prototype.setTransport = function (transport) {
+  debug('setting transport %s', transport.name);
+  var self = this;
+
+  if (this.transport) {
+    debug('clearing existing transport %s', this.transport.name);
+    this.transport.removeAllListeners();
+  }
+
+  // set up transport
+  this.transport = transport;
+
+  // set up transport listeners
+  transport
+  .on('drain', function () {
+    self.onDrain();
+  })
+  .on('packet', function (packet) {
+    self.onPacket(packet);
+  })
+  .on('error', function (e) {
+    self.onError(e);
+  })
+  .on('close', function () {
+    self.onClose('transport close');
+  });
+};
+
+/**
+ * Probes a transport.
+ *
+ * @param {String} transport name
+ * @api private
+ */
+
+Socket.prototype.probe = function (name) {
+  debug('probing transport "%s"', name);
+  var transport = this.createTransport(name, { probe: 1 });
+  var failed = false;
+  var self = this;
+
+  Socket.priorWebsocketSuccess = false;
+
+  function onTransportOpen () {
+    if (self.onlyBinaryUpgrades) {
+      var upgradeLosesBinary = !this.supportsBinary && self.transport.supportsBinary;
+      failed = failed || upgradeLosesBinary;
+    }
+    if (failed) return;
+
+    debug('probe transport "%s" opened', name);
+    transport.send([{ type: 'ping', data: 'probe' }]);
+    transport.once('packet', function (msg) {
+      if (failed) return;
+      if ('pong' === msg.type && 'probe' === msg.data) {
+        debug('probe transport "%s" pong', name);
+        self.upgrading = true;
+        self.emit('upgrading', transport);
+        if (!transport) return;
+        Socket.priorWebsocketSuccess = 'websocket' === transport.name;
+
+        debug('pausing current transport "%s"', self.transport.name);
+        self.transport.pause(function () {
+          if (failed) return;
+          if ('closed' === self.readyState) return;
+          debug('changing transport and sending upgrade packet');
+
+          cleanup();
+
+          self.setTransport(transport);
+          transport.send([{ type: 'upgrade' }]);
+          self.emit('upgrade', transport);
+          transport = null;
+          self.upgrading = false;
+          self.flush();
+        });
+      } else {
+        debug('probe transport "%s" failed', name);
+        var err = new Error('probe error');
+        err.transport = transport.name;
+        self.emit('upgradeError', err);
+      }
+    });
+  }
+
+  function freezeTransport () {
+    if (failed) return;
+
+    // Any callback called by transport should be ignored since now
+    failed = true;
+
+    cleanup();
+
+    transport.close();
+    transport = null;
+  }
+
+  // Handle any error that happens while probing
+  function onerror (err) {
+    var error = new Error('probe error: ' + err);
+    error.transport = transport.name;
+
+    freezeTransport();
+
+    debug('probe transport "%s" failed because of error: %s', name, err);
+
+    self.emit('upgradeError', error);
+  }
+
+  function onTransportClose () {
+    onerror('transport closed');
+  }
+
+  // When the socket is closed while we're probing
+  function onclose () {
+    onerror('socket closed');
+  }
+
+  // When the socket is upgraded while we're probing
+  function onupgrade (to) {
+    if (transport && to.name !== transport.name) {
+      debug('"%s" works - aborting "%s"', to.name, transport.name);
+      freezeTransport();
+    }
+  }
+
+  // Remove all listeners on the transport and on self
+  function cleanup () {
+    transport.removeListener('open', onTransportOpen);
+    transport.removeListener('error', onerror);
+    transport.removeListener('close', onTransportClose);
+    self.removeListener('close', onclose);
+    self.removeListener('upgrading', onupgrade);
+  }
+
+  transport.once('open', onTransportOpen);
+  transport.once('error', onerror);
+  transport.once('close', onTransportClose);
+
+  this.once('close', onclose);
+  this.once('upgrading', onupgrade);
+
+  transport.open();
+};
+
+/**
+ * Called when connection is deemed open.
+ *
+ * @api public
+ */
+
+Socket.prototype.onOpen = function () {
+  debug('socket open');
+  this.readyState = 'open';
+  Socket.priorWebsocketSuccess = 'websocket' === this.transport.name;
+  this.emit('open');
+  this.flush();
+
+  // we check for `readyState` in case an `open`
+  // listener already closed the socket
+  if ('open' === this.readyState && this.upgrade && this.transport.pause) {
+    debug('starting upgrade probes');
+    for (var i = 0, l = this.upgrades.length; i < l; i++) {
+      this.probe(this.upgrades[i]);
+    }
+  }
+};
+
+/**
+ * Handles a packet.
+ *
+ * @api private
+ */
+
+Socket.prototype.onPacket = function (packet) {
+  if ('opening' === this.readyState || 'open' === this.readyState ||
+      'closing' === this.readyState) {
+    debug('socket receive: type "%s", data "%s"', packet.type, packet.data);
+
+    this.emit('packet', packet);
+
+    // Socket is live - any packet counts
+    this.emit('heartbeat');
+
+    switch (packet.type) {
+      case 'open':
+        this.onHandshake(parsejson(packet.data));
+        break;
+
+      case 'pong':
+        this.setPing();
+        this.emit('pong');
+        break;
+
+      case 'error':
+        var err = new Error('server error');
+        err.code = packet.data;
+        this.onError(err);
+        break;
+
+      case 'message':
+        this.emit('data', packet.data);
+        this.emit('message', packet.data);
+        break;
+    }
+  } else {
+    debug('packet received with socket readyState "%s"', this.readyState);
+  }
+};
+
+/**
+ * Called upon handshake completion.
+ *
+ * @param {Object} handshake obj
+ * @api private
+ */
+
+Socket.prototype.onHandshake = function (data) {
+  this.emit('handshake', data);
+  this.id = data.sid;
+  this.transport.query.sid = data.sid;
+  this.upgrades = this.filterUpgrades(data.upgrades);
+  this.pingInterval = data.pingInterval;
+  this.pingTimeout = data.pingTimeout;
+  this.onOpen();
+  // In case open handler closes socket
+  if ('closed' === this.readyState) return;
+  this.setPing();
+
+  // Prolong liveness of socket on heartbeat
+  this.removeListener('heartbeat', this.onHeartbeat);
+  this.on('heartbeat', this.onHeartbeat);
+};
+
+/**
+ * Resets ping timeout.
+ *
+ * @api private
+ */
+
+Socket.prototype.onHeartbeat = function (timeout) {
+  clearTimeout(this.pingTimeoutTimer);
+  var self = this;
+  self.pingTimeoutTimer = setTimeout(function () {
+    if ('closed' === self.readyState) return;
+    self.onClose('ping timeout');
+  }, timeout || (self.pingInterval + self.pingTimeout));
+};
+
+/**
+ * Pings server every `this.pingInterval` and expects response
+ * within `this.pingTimeout` or closes connection.
+ *
+ * @api private
+ */
+
+Socket.prototype.setPing = function () {
+  var self = this;
+  clearTimeout(self.pingIntervalTimer);
+  self.pingIntervalTimer = setTimeout(function () {
+    debug('writing ping packet - expecting pong within %sms', self.pingTimeout);
+    self.ping();
+    self.onHeartbeat(self.pingTimeout);
+  }, self.pingInterval);
+};
+
+/**
+* Sends a ping packet.
+*
+* @api private
+*/
+
+Socket.prototype.ping = function () {
+  var self = this;
+  this.sendPacket('ping', function () {
+    self.emit('ping');
+  });
+};
+
+/**
+ * Called on `drain` event
+ *
+ * @api private
+ */
+
+Socket.prototype.onDrain = function () {
+  this.writeBuffer.splice(0, this.prevBufferLen);
+
+  // setting prevBufferLen = 0 is very important
+  // for example, when upgrading, upgrade packet is sent over,
+  // and a nonzero prevBufferLen could cause problems on `drain`
+  this.prevBufferLen = 0;
+
+  if (0 === this.writeBuffer.length) {
+    this.emit('drain');
+  } else {
+    this.flush();
+  }
+};
+
+/**
+ * Flush write buffers.
+ *
+ * @api private
+ */
+
+Socket.prototype.flush = function () {
+  if ('closed' !== this.readyState && this.transport.writable &&
+    !this.upgrading && this.writeBuffer.length) {
+    debug('flushing %d packets in socket', this.writeBuffer.length);
+    this.transport.send(this.writeBuffer);
+    // keep track of current length of writeBuffer
+    // splice writeBuffer and callbackBuffer on `drain`
+    this.prevBufferLen = this.writeBuffer.length;
+    this.emit('flush');
+  }
+};
+
+/**
+ * Sends a message.
+ *
+ * @param {String} message.
+ * @param {Function} callback function.
+ * @param {Object} options.
+ * @return {Socket} for chaining.
+ * @api public
+ */
+
+Socket.prototype.write =
+Socket.prototype.send = function (msg, options, fn) {
+  this.sendPacket('message', msg, options, fn);
+  return this;
+};
+
+/**
+ * Sends a packet.
+ *
+ * @param {String} packet type.
+ * @param {String} data.
+ * @param {Object} options.
+ * @param {Function} callback function.
+ * @api private
+ */
+
+Socket.prototype.sendPacket = function (type, data, options, fn) {
+  if ('function' === typeof data) {
+    fn = data;
+    data = undefined;
+  }
+
+  if ('function' === typeof options) {
+    fn = options;
+    options = null;
+  }
+
+  if ('closing' === this.readyState || 'closed' === this.readyState) {
+    return;
+  }
+
+  options = options || {};
+  options.compress = false !== options.compress;
+
+  var packet = {
+    type: type,
+    data: data,
+    options: options
+  };
+  this.emit('packetCreate', packet);
+  this.writeBuffer.push(packet);
+  if (fn) this.once('flush', fn);
+  this.flush();
+};
+
+/**
+ * Closes the connection.
+ *
+ * @api private
+ */
+
+Socket.prototype.close = function () {
+  if ('opening' === this.readyState || 'open' === this.readyState) {
+    this.readyState = 'closing';
+
+    var self = this;
+
+    if (this.writeBuffer.length) {
+      this.once('drain', function () {
+        if (this.upgrading) {
+          waitForUpgrade();
+        } else {
+          close();
+        }
+      });
+    } else if (this.upgrading) {
+      waitForUpgrade();
+    } else {
+      close();
+    }
+  }
+
+  function close () {
+    self.onClose('forced close');
+    debug('socket closing - telling transport to close');
+    self.transport.close();
+  }
+
+  function cleanupAndClose () {
+    self.removeListener('upgrade', cleanupAndClose);
+    self.removeListener('upgradeError', cleanupAndClose);
+    close();
+  }
+
+  function waitForUpgrade () {
+    // wait for upgrade to finish since we can't send packets while pausing a transport
+    self.once('upgrade', cleanupAndClose);
+    self.once('upgradeError', cleanupAndClose);
+  }
+
+  return this;
+};
+
+/**
+ * Called upon transport error
+ *
+ * @api private
+ */
+
+Socket.prototype.onError = function (err) {
+  debug('socket error %j', err);
+  Socket.priorWebsocketSuccess = false;
+  this.emit('error', err);
+  this.onClose('transport error', err);
+};
+
+/**
+ * Called upon transport close.
+ *
+ * @api private
+ */
+
+Socket.prototype.onClose = function (reason, desc) {
+  if ('opening' === this.readyState || 'open' === this.readyState || 'closing' === this.readyState) {
+    debug('socket close with reason: "%s"', reason);
+    var self = this;
+
+    // clear timers
+    clearTimeout(this.pingIntervalTimer);
+    clearTimeout(this.pingTimeoutTimer);
+
+    // stop event from firing again for transport
+    this.transport.removeAllListeners('close');
+
+    // ensure transport won't stay open
+    this.transport.close();
+
+    // ignore further transport communication
+    this.transport.removeAllListeners();
+
+    // set ready state
+    this.readyState = 'closed';
+
+    // clear session id
+    this.id = null;
+
+    // emit close event
+    this.emit('close', reason, desc);
+
+    // clean buffers after, so users can still
+    // grab the buffers on `close` event
+    self.writeBuffer = [];
+    self.prevBufferLen = 0;
+  }
+};
+
+/**
+ * Filters upgrades, returning only those matching client transports.
+ *
+ * @param {Array} server upgrades
+ * @api private
+ *
+ */
+
+Socket.prototype.filterUpgrades = function (upgrades) {
+  var filteredUpgrades = [];
+  for (var i = 0, j = upgrades.length; i < j; i++) {
+    if (~index(this.transports, upgrades[i])) filteredUpgrades.push(upgrades[i]);
+  }
+  return filteredUpgrades;
+};
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+
+/***/ }),
+
+/***/ 721:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {
+/**
+ * Module requirements.
+ */
+
+var Polling = __webpack_require__(316);
+var inherit = __webpack_require__(122);
+
+/**
+ * Module exports.
+ */
+
+module.exports = JSONPPolling;
+
+/**
+ * Cached regular expressions.
+ */
+
+var rNewline = /\n/g;
+var rEscapedNewline = /\\n/g;
+
+/**
+ * Global JSONP callbacks.
+ */
+
+var callbacks;
+
+/**
+ * Noop.
+ */
+
+function empty () { }
+
+/**
+ * JSONP Polling constructor.
+ *
+ * @param {Object} opts.
+ * @api public
+ */
+
+function JSONPPolling (opts) {
+  Polling.call(this, opts);
+
+  this.query = this.query || {};
+
+  // define global callbacks array if not present
+  // we do this here (lazily) to avoid unneeded global pollution
+  if (!callbacks) {
+    // we need to consider multiple engines in the same page
+    if (!global.___eio) global.___eio = [];
+    callbacks = global.___eio;
+  }
+
+  // callback identifier
+  this.index = callbacks.length;
+
+  // add callback to jsonp global
+  var self = this;
+  callbacks.push(function (msg) {
+    self.onData(msg);
+  });
+
+  // append to query string
+  this.query.j = this.index;
+
+  // prevent spurious errors from being emitted when the window is unloaded
+  if (global.document && global.addEventListener) {
+    global.addEventListener('beforeunload', function () {
+      if (self.script) self.script.onerror = empty;
+    }, false);
+  }
+}
+
+/**
+ * Inherits from Polling.
+ */
+
+inherit(JSONPPolling, Polling);
+
+/*
+ * JSONP only supports binary as base64 encoded strings
+ */
+
+JSONPPolling.prototype.supportsBinary = false;
+
+/**
+ * Closes the socket.
+ *
+ * @api private
+ */
+
+JSONPPolling.prototype.doClose = function () {
+  if (this.script) {
+    this.script.parentNode.removeChild(this.script);
+    this.script = null;
+  }
+
+  if (this.form) {
+    this.form.parentNode.removeChild(this.form);
+    this.form = null;
+    this.iframe = null;
+  }
+
+  Polling.prototype.doClose.call(this);
+};
+
+/**
+ * Starts a poll cycle.
+ *
+ * @api private
+ */
+
+JSONPPolling.prototype.doPoll = function () {
+  var self = this;
+  var script = document.createElement('script');
+
+  if (this.script) {
+    this.script.parentNode.removeChild(this.script);
+    this.script = null;
+  }
+
+  script.async = true;
+  script.src = this.uri();
+  script.onerror = function (e) {
+    self.onError('jsonp poll error', e);
+  };
+
+  var insertAt = document.getElementsByTagName('script')[0];
+  if (insertAt) {
+    insertAt.parentNode.insertBefore(script, insertAt);
+  } else {
+    (document.head || document.body).appendChild(script);
+  }
+  this.script = script;
+
+  var isUAgecko = 'undefined' !== typeof navigator && /gecko/i.test(navigator.userAgent);
+
+  if (isUAgecko) {
+    setTimeout(function () {
+      var iframe = document.createElement('iframe');
+      document.body.appendChild(iframe);
+      document.body.removeChild(iframe);
+    }, 100);
+  }
+};
+
+/**
+ * Writes with a hidden iframe.
+ *
+ * @param {String} data to send
+ * @param {Function} called upon flush.
+ * @api private
+ */
+
+JSONPPolling.prototype.doWrite = function (data, fn) {
+  var self = this;
+
+  if (!this.form) {
+    var form = document.createElement('form');
+    var area = document.createElement('textarea');
+    var id = this.iframeId = 'eio_iframe_' + this.index;
+    var iframe;
+
+    form.className = 'socketio';
+    form.style.position = 'absolute';
+    form.style.top = '-1000px';
+    form.style.left = '-1000px';
+    form.target = id;
+    form.method = 'POST';
+    form.setAttribute('accept-charset', 'utf-8');
+    area.name = 'd';
+    form.appendChild(area);
+    document.body.appendChild(form);
+
+    this.form = form;
+    this.area = area;
+  }
+
+  this.form.action = this.uri();
+
+  function complete () {
+    initIframe();
+    fn();
+  }
+
+  function initIframe () {
+    if (self.iframe) {
+      try {
+        self.form.removeChild(self.iframe);
+      } catch (e) {
+        self.onError('jsonp polling iframe removal error', e);
+      }
+    }
+
+    try {
+      // ie6 dynamic iframes with target="" support (thanks Chris Lambacher)
+      var html = '<iframe src="javascript:0" name="' + self.iframeId + '">';
+      iframe = document.createElement(html);
+    } catch (e) {
+      iframe = document.createElement('iframe');
+      iframe.name = self.iframeId;
+      iframe.src = 'javascript:0';
+    }
+
+    iframe.id = self.iframeId;
+
+    self.form.appendChild(iframe);
+    self.iframe = iframe;
+  }
+
+  initIframe();
+
+  // escape \n to prevent it from being converted into \r\n by some UAs
+  // double escaping is required for escaped new lines because unescaping of new lines can be done safely on server-side
+  data = data.replace(rEscapedNewline, '\\\n');
+  this.area.value = data.replace(rNewline, '\\n');
+
+  try {
+    this.form.submit();
+  } catch (e) {}
+
+  if (this.iframe.attachEvent) {
+    this.iframe.onreadystatechange = function () {
+      if (self.iframe.readyState === 'complete') {
+        complete();
+      }
+    };
+  } else {
+    this.iframe.onload = complete;
+  }
+};
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+
+/***/ }),
+
+/***/ 722:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Module requirements.
+ */
+
+var XMLHttpRequest = __webpack_require__(207);
+var Polling = __webpack_require__(316);
+var Emitter = __webpack_require__(81);
+var inherit = __webpack_require__(122);
+var debug = __webpack_require__(52)('engine.io-client:polling-xhr');
+
+/**
+ * Module exports.
+ */
+
+module.exports = XHR;
+module.exports.Request = Request;
+
+/**
+ * Empty function
+ */
+
+function empty () {}
+
+/**
+ * XHR Polling constructor.
+ *
+ * @param {Object} opts
+ * @api public
+ */
+
+function XHR (opts) {
+  Polling.call(this, opts);
+  this.requestTimeout = opts.requestTimeout;
+  this.extraHeaders = opts.extraHeaders;
+
+  if (global.location) {
+    var isSSL = 'https:' === location.protocol;
+    var port = location.port;
+
+    // some user agents have empty `location.port`
+    if (!port) {
+      port = isSSL ? 443 : 80;
+    }
+
+    this.xd = opts.hostname !== global.location.hostname ||
+      port !== opts.port;
+    this.xs = opts.secure !== isSSL;
+  }
+}
+
+/**
+ * Inherits from Polling.
+ */
+
+inherit(XHR, Polling);
+
+/**
+ * XHR supports binary
+ */
+
+XHR.prototype.supportsBinary = true;
+
+/**
+ * Creates a request.
+ *
+ * @param {String} method
+ * @api private
+ */
+
+XHR.prototype.request = function (opts) {
+  opts = opts || {};
+  opts.uri = this.uri();
+  opts.xd = this.xd;
+  opts.xs = this.xs;
+  opts.agent = this.agent || false;
+  opts.supportsBinary = this.supportsBinary;
+  opts.enablesXDR = this.enablesXDR;
+
+  // SSL options for Node.js client
+  opts.pfx = this.pfx;
+  opts.key = this.key;
+  opts.passphrase = this.passphrase;
+  opts.cert = this.cert;
+  opts.ca = this.ca;
+  opts.ciphers = this.ciphers;
+  opts.rejectUnauthorized = this.rejectUnauthorized;
+  opts.requestTimeout = this.requestTimeout;
+
+  // other options for Node.js client
+  opts.extraHeaders = this.extraHeaders;
+
+  return new Request(opts);
+};
+
+/**
+ * Sends data.
+ *
+ * @param {String} data to send.
+ * @param {Function} called upon flush.
+ * @api private
+ */
+
+XHR.prototype.doWrite = function (data, fn) {
+  var isBinary = typeof data !== 'string' && data !== undefined;
+  var req = this.request({ method: 'POST', data: data, isBinary: isBinary });
+  var self = this;
+  req.on('success', fn);
+  req.on('error', function (err) {
+    self.onError('xhr post error', err);
+  });
+  this.sendXhr = req;
+};
+
+/**
+ * Starts a poll cycle.
+ *
+ * @api private
+ */
+
+XHR.prototype.doPoll = function () {
+  debug('xhr poll');
+  var req = this.request();
+  var self = this;
+  req.on('data', function (data) {
+    self.onData(data);
+  });
+  req.on('error', function (err) {
+    self.onError('xhr poll error', err);
+  });
+  this.pollXhr = req;
+};
+
+/**
+ * Request constructor
+ *
+ * @param {Object} options
+ * @api public
+ */
+
+function Request (opts) {
+  this.method = opts.method || 'GET';
+  this.uri = opts.uri;
+  this.xd = !!opts.xd;
+  this.xs = !!opts.xs;
+  this.async = false !== opts.async;
+  this.data = undefined !== opts.data ? opts.data : null;
+  this.agent = opts.agent;
+  this.isBinary = opts.isBinary;
+  this.supportsBinary = opts.supportsBinary;
+  this.enablesXDR = opts.enablesXDR;
+  this.requestTimeout = opts.requestTimeout;
+
+  // SSL options for Node.js client
+  this.pfx = opts.pfx;
+  this.key = opts.key;
+  this.passphrase = opts.passphrase;
+  this.cert = opts.cert;
+  this.ca = opts.ca;
+  this.ciphers = opts.ciphers;
+  this.rejectUnauthorized = opts.rejectUnauthorized;
+
+  // other options for Node.js client
+  this.extraHeaders = opts.extraHeaders;
+
+  this.create();
+}
+
+/**
+ * Mix in `Emitter`.
+ */
+
+Emitter(Request.prototype);
+
+/**
+ * Creates the XHR object and sends the request.
+ *
+ * @api private
+ */
+
+Request.prototype.create = function () {
+  var opts = { agent: this.agent, xdomain: this.xd, xscheme: this.xs, enablesXDR: this.enablesXDR };
+
+  // SSL options for Node.js client
+  opts.pfx = this.pfx;
+  opts.key = this.key;
+  opts.passphrase = this.passphrase;
+  opts.cert = this.cert;
+  opts.ca = this.ca;
+  opts.ciphers = this.ciphers;
+  opts.rejectUnauthorized = this.rejectUnauthorized;
+
+  var xhr = this.xhr = new XMLHttpRequest(opts);
+  var self = this;
+
+  try {
+    debug('xhr open %s: %s', this.method, this.uri);
+    xhr.open(this.method, this.uri, this.async);
+    try {
+      if (this.extraHeaders) {
+        xhr.setDisableHeaderCheck && xhr.setDisableHeaderCheck(true);
+        for (var i in this.extraHeaders) {
+          if (this.extraHeaders.hasOwnProperty(i)) {
+            xhr.setRequestHeader(i, this.extraHeaders[i]);
+          }
+        }
+      }
+    } catch (e) {}
+
+    if ('POST' === this.method) {
+      try {
+        if (this.isBinary) {
+          xhr.setRequestHeader('Content-type', 'application/octet-stream');
+        } else {
+          xhr.setRequestHeader('Content-type', 'text/plain;charset=UTF-8');
+        }
+      } catch (e) {}
+    }
+
+    try {
+      xhr.setRequestHeader('Accept', '*/*');
+    } catch (e) {}
+
+    // ie6 check
+    if ('withCredentials' in xhr) {
+      xhr.withCredentials = true;
+    }
+
+    if (this.requestTimeout) {
+      xhr.timeout = this.requestTimeout;
+    }
+
+    if (this.hasXDR()) {
+      xhr.onload = function () {
+        self.onLoad();
+      };
+      xhr.onerror = function () {
+        self.onError(xhr.responseText);
+      };
+    } else {
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 2) {
+          var contentType;
+          try {
+            contentType = xhr.getResponseHeader('Content-Type');
+          } catch (e) {}
+          if (contentType === 'application/octet-stream') {
+            xhr.responseType = 'arraybuffer';
+          }
+        }
+        if (4 !== xhr.readyState) return;
+        if (200 === xhr.status || 1223 === xhr.status) {
+          self.onLoad();
+        } else {
+          // make sure the `error` event handler that's user-set
+          // does not throw in the same tick and gets caught here
+          setTimeout(function () {
+            self.onError(xhr.status);
+          }, 0);
+        }
+      };
+    }
+
+    debug('xhr data %s', this.data);
+    xhr.send(this.data);
+  } catch (e) {
+    // Need to defer since .create() is called directly fhrom the constructor
+    // and thus the 'error' event can only be only bound *after* this exception
+    // occurs.  Therefore, also, we cannot throw here at all.
+    setTimeout(function () {
+      self.onError(e);
+    }, 0);
+    return;
+  }
+
+  if (global.document) {
+    this.index = Request.requestsCount++;
+    Request.requests[this.index] = this;
+  }
+};
+
+/**
+ * Called upon successful response.
+ *
+ * @api private
+ */
+
+Request.prototype.onSuccess = function () {
+  this.emit('success');
+  this.cleanup();
+};
+
+/**
+ * Called if we have data.
+ *
+ * @api private
+ */
+
+Request.prototype.onData = function (data) {
+  this.emit('data', data);
+  this.onSuccess();
+};
+
+/**
+ * Called upon error.
+ *
+ * @api private
+ */
+
+Request.prototype.onError = function (err) {
+  this.emit('error', err);
+  this.cleanup(true);
+};
+
+/**
+ * Cleans up house.
+ *
+ * @api private
+ */
+
+Request.prototype.cleanup = function (fromError) {
+  if ('undefined' === typeof this.xhr || null === this.xhr) {
+    return;
+  }
+  // xmlhttprequest
+  if (this.hasXDR()) {
+    this.xhr.onload = this.xhr.onerror = empty;
+  } else {
+    this.xhr.onreadystatechange = empty;
+  }
+
+  if (fromError) {
+    try {
+      this.xhr.abort();
+    } catch (e) {}
+  }
+
+  if (global.document) {
+    delete Request.requests[this.index];
+  }
+
+  this.xhr = null;
+};
+
+/**
+ * Called upon load.
+ *
+ * @api private
+ */
+
+Request.prototype.onLoad = function () {
+  var data;
+  try {
+    var contentType;
+    try {
+      contentType = this.xhr.getResponseHeader('Content-Type');
+    } catch (e) {}
+    if (contentType === 'application/octet-stream') {
+      data = this.xhr.response || this.xhr.responseText;
+    } else {
+      data = this.xhr.responseText;
+    }
+  } catch (e) {
+    this.onError(e);
+  }
+  if (null != data) {
+    this.onData(data);
+  }
+};
+
+/**
+ * Check if it has XDomainRequest.
+ *
+ * @api private
+ */
+
+Request.prototype.hasXDR = function () {
+  return 'undefined' !== typeof global.XDomainRequest && !this.xs && this.enablesXDR;
+};
+
+/**
+ * Aborts the request.
+ *
+ * @api public
+ */
+
+Request.prototype.abort = function () {
+  this.cleanup();
+};
+
+/**
+ * Aborts pending requests when unloading the window. This is needed to prevent
+ * memory leaks (e.g. when using IE) and to ensure that no spurious error is
+ * emitted.
+ */
+
+Request.requestsCount = 0;
+Request.requests = {};
+
+if (global.document) {
+  if (global.attachEvent) {
+    global.attachEvent('onunload', unloadHandler);
+  } else if (global.addEventListener) {
+    global.addEventListener('beforeunload', unloadHandler, false);
+  }
+}
+
+function unloadHandler () {
+  for (var i in Request.requests) {
+    if (Request.requests.hasOwnProperty(i)) {
+      Request.requests[i].abort();
+    }
+  }
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+
+/***/ }),
+
+/***/ 723:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Module dependencies.
+ */
+
+var Transport = __webpack_require__(206);
+var parser = __webpack_require__(86);
+var parseqs = __webpack_require__(123);
+var inherit = __webpack_require__(122);
+var yeast = __webpack_require__(243);
+var debug = __webpack_require__(52)('engine.io-client:websocket');
+var BrowserWebSocket = global.WebSocket || global.MozWebSocket;
+var NodeWebSocket;
+if (typeof window === 'undefined') {
+  try {
+    NodeWebSocket = __webpack_require__(1037);
+  } catch (e) { }
+}
+
+/**
+ * Get either the `WebSocket` or `MozWebSocket` globals
+ * in the browser or try to resolve WebSocket-compatible
+ * interface exposed by `ws` for Node-like environment.
+ */
+
+var WebSocket = BrowserWebSocket;
+if (!WebSocket && typeof window === 'undefined') {
+  WebSocket = NodeWebSocket;
+}
+
+/**
+ * Module exports.
+ */
+
+module.exports = WS;
+
+/**
+ * WebSocket transport constructor.
+ *
+ * @api {Object} connection options
+ * @api public
+ */
+
+function WS (opts) {
+  var forceBase64 = (opts && opts.forceBase64);
+  if (forceBase64) {
+    this.supportsBinary = false;
+  }
+  this.perMessageDeflate = opts.perMessageDeflate;
+  this.usingBrowserWebSocket = BrowserWebSocket && !opts.forceNode;
+  this.protocols = opts.protocols;
+  if (!this.usingBrowserWebSocket) {
+    WebSocket = NodeWebSocket;
+  }
+  Transport.call(this, opts);
+}
+
+/**
+ * Inherits from Transport.
+ */
+
+inherit(WS, Transport);
+
+/**
+ * Transport name.
+ *
+ * @api public
+ */
+
+WS.prototype.name = 'websocket';
+
+/*
+ * WebSockets support binary
+ */
+
+WS.prototype.supportsBinary = true;
+
+/**
+ * Opens socket.
+ *
+ * @api private
+ */
+
+WS.prototype.doOpen = function () {
+  if (!this.check()) {
+    // let probe timeout
+    return;
+  }
+
+  var uri = this.uri();
+  var protocols = this.protocols;
+  var opts = {
+    agent: this.agent,
+    perMessageDeflate: this.perMessageDeflate
+  };
+
+  // SSL options for Node.js client
+  opts.pfx = this.pfx;
+  opts.key = this.key;
+  opts.passphrase = this.passphrase;
+  opts.cert = this.cert;
+  opts.ca = this.ca;
+  opts.ciphers = this.ciphers;
+  opts.rejectUnauthorized = this.rejectUnauthorized;
+  if (this.extraHeaders) {
+    opts.headers = this.extraHeaders;
+  }
+  if (this.localAddress) {
+    opts.localAddress = this.localAddress;
+  }
+
+  try {
+    this.ws = this.usingBrowserWebSocket ? (protocols ? new WebSocket(uri, protocols) : new WebSocket(uri)) : new WebSocket(uri, protocols, opts);
+  } catch (err) {
+    return this.emit('error', err);
+  }
+
+  if (this.ws.binaryType === undefined) {
+    this.supportsBinary = false;
+  }
+
+  if (this.ws.supports && this.ws.supports.binary) {
+    this.supportsBinary = true;
+    this.ws.binaryType = 'nodebuffer';
+  } else {
+    this.ws.binaryType = 'arraybuffer';
+  }
+
+  this.addEventListeners();
+};
+
+/**
+ * Adds event listeners to the socket
+ *
+ * @api private
+ */
+
+WS.prototype.addEventListeners = function () {
+  var self = this;
+
+  this.ws.onopen = function () {
+    self.onOpen();
+  };
+  this.ws.onclose = function () {
+    self.onClose();
+  };
+  this.ws.onmessage = function (ev) {
+    self.onData(ev.data);
+  };
+  this.ws.onerror = function (e) {
+    self.onError('websocket error', e);
+  };
+};
+
+/**
+ * Writes data to socket.
+ *
+ * @param {Array} array of packets.
+ * @api private
+ */
+
+WS.prototype.write = function (packets) {
+  var self = this;
+  this.writable = false;
+
+  // encodePacket efficient as it uses WS framing
+  // no need for encodePayload
+  var total = packets.length;
+  for (var i = 0, l = total; i < l; i++) {
+    (function (packet) {
+      parser.encodePacket(packet, self.supportsBinary, function (data) {
+        if (!self.usingBrowserWebSocket) {
+          // always create a new object (GH-437)
+          var opts = {};
+          if (packet.options) {
+            opts.compress = packet.options.compress;
+          }
+
+          if (self.perMessageDeflate) {
+            var len = 'string' === typeof data ? global.Buffer.byteLength(data) : data.length;
+            if (len < self.perMessageDeflate.threshold) {
+              opts.compress = false;
+            }
+          }
+        }
+
+        // Sometimes the websocket has already been closed but the browser didn't
+        // have a chance of informing us about it yet, in that case send will
+        // throw an error
+        try {
+          if (self.usingBrowserWebSocket) {
+            // TypeError is thrown when passing the second argument on Safari
+            self.ws.send(data);
+          } else {
+            self.ws.send(data, opts);
+          }
+        } catch (e) {
+          debug('websocket closed before onclose event');
+        }
+
+        --total || done();
+      });
+    })(packets[i]);
+  }
+
+  function done () {
+    self.emit('flush');
+
+    // fake drain
+    // defer to next tick to allow Socket to clear writeBuffer
+    setTimeout(function () {
+      self.writable = true;
+      self.emit('drain');
+    }, 0);
+  }
+};
+
+/**
+ * Called upon close
+ *
+ * @api private
+ */
+
+WS.prototype.onClose = function () {
+  Transport.prototype.onClose.call(this);
+};
+
+/**
+ * Closes socket.
+ *
+ * @api private
+ */
+
+WS.prototype.doClose = function () {
+  if (typeof this.ws !== 'undefined') {
+    this.ws.close();
+  }
+};
+
+/**
+ * Generates uri for connection.
+ *
+ * @api private
+ */
+
+WS.prototype.uri = function () {
+  var query = this.query || {};
+  var schema = this.secure ? 'wss' : 'ws';
+  var port = '';
+
+  // avoid port if default for schema
+  if (this.port && (('wss' === schema && Number(this.port) !== 443) ||
+    ('ws' === schema && Number(this.port) !== 80))) {
+    port = ':' + this.port;
+  }
+
+  // append timestamp to URI
+  if (this.timestampRequests) {
+    query[this.timestampParam] = yeast();
+  }
+
+  // communicate binary support capabilities
+  if (!this.supportsBinary) {
+    query.b64 = 1;
+  }
+
+  query = parseqs.encode(query);
+
+  // prepend ? to query
+  if (query.length) {
+    query = '?' + query;
+  }
+
+  var ipv6 = this.hostname.indexOf(':') !== -1;
+  return schema + '://' + (ipv6 ? '[' + this.hostname + ']' : this.hostname) + port + this.path + query;
+};
+
+/**
+ * Feature detection for WebSocket.
+ *
+ * @return {Boolean} whether this transport is available.
+ * @api public
+ */
+
+WS.prototype.check = function () {
+  return !!WebSocket && !('__initialize' in WebSocket && this.name === WS.prototype.name);
+};
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+
+/***/ }),
+
+/***/ 724:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/*global Blob,File*/
+
+/**
+ * Module requirements
+ */
+
+var isArray = __webpack_require__(301);
+var isBuf = __webpack_require__(317);
+var toString = Object.prototype.toString;
+var withNativeBlob = typeof global.Blob === 'function' || toString.call(global.Blob) === '[object BlobConstructor]';
+var withNativeFile = typeof global.File === 'function' || toString.call(global.File) === '[object FileConstructor]';
+
+/**
+ * Replaces every Buffer | ArrayBuffer in packet with a numbered placeholder.
+ * Anything with blobs or files should be fed through removeBlobs before coming
+ * here.
+ *
+ * @param {Object} packet - socket.io event packet
+ * @return {Object} with deconstructed packet and list of buffers
+ * @api public
+ */
+
+exports.deconstructPacket = function(packet) {
+  var buffers = [];
+  var packetData = packet.data;
+  var pack = packet;
+  pack.data = _deconstructPacket(packetData, buffers);
+  pack.attachments = buffers.length; // number of binary 'attachments'
+  return {packet: pack, buffers: buffers};
+};
+
+function _deconstructPacket(data, buffers) {
+  if (!data) return data;
+
+  if (isBuf(data)) {
+    var placeholder = { _placeholder: true, num: buffers.length };
+    buffers.push(data);
+    return placeholder;
+  } else if (isArray(data)) {
+    var newData = new Array(data.length);
+    for (var i = 0; i < data.length; i++) {
+      newData[i] = _deconstructPacket(data[i], buffers);
+    }
+    return newData;
+  } else if (typeof data === 'object' && !(data instanceof Date)) {
+    var newData = {};
+    for (var key in data) {
+      newData[key] = _deconstructPacket(data[key], buffers);
+    }
+    return newData;
+  }
+  return data;
+}
+
+/**
+ * Reconstructs a binary packet from its placeholder packet and buffers
+ *
+ * @param {Object} packet - event packet with placeholders
+ * @param {Array} buffers - binary buffers to put in placeholder positions
+ * @return {Object} reconstructed packet
+ * @api public
+ */
+
+exports.reconstructPacket = function(packet, buffers) {
+  packet.data = _reconstructPacket(packet.data, buffers);
+  packet.attachments = undefined; // no longer useful
+  return packet;
+};
+
+function _reconstructPacket(data, buffers) {
+  if (!data) return data;
+
+  if (data && data._placeholder) {
+    return buffers[data.num]; // appropriate buffer (should be natural order anyway)
+  } else if (isArray(data)) {
+    for (var i = 0; i < data.length; i++) {
+      data[i] = _reconstructPacket(data[i], buffers);
+    }
+  } else if (typeof data === 'object') {
+    for (var key in data) {
+      data[key] = _reconstructPacket(data[key], buffers);
+    }
+  }
+
+  return data;
+}
+
+/**
+ * Asynchronously removes Blobs or Files from data via
+ * FileReader's readAsArrayBuffer method. Used before encoding
+ * data as msgpack. Calls callback with the blobless data.
+ *
+ * @param {Object} data
+ * @param {Function} callback
+ * @api private
+ */
+
+exports.removeBlobs = function(data, callback) {
+  function _removeBlobs(obj, curKey, containingObject) {
+    if (!obj) return obj;
+
+    // convert any blob
+    if ((withNativeBlob && obj instanceof Blob) ||
+        (withNativeFile && obj instanceof File)) {
+      pendingBlobs++;
+
+      // async filereader
+      var fileReader = new FileReader();
+      fileReader.onload = function() { // this.result == arraybuffer
+        if (containingObject) {
+          containingObject[curKey] = this.result;
+        }
+        else {
+          bloblessData = this.result;
+        }
+
+        // if nothing pending its callback time
+        if(! --pendingBlobs) {
+          callback(bloblessData);
+        }
+      };
+
+      fileReader.readAsArrayBuffer(obj); // blob -> arraybuffer
+    } else if (isArray(obj)) { // handle array
+      for (var i = 0; i < obj.length; i++) {
+        _removeBlobs(obj[i], i, obj);
+      }
+    } else if (typeof obj === 'object' && !isBuf(obj)) { // and object
+      for (var key in obj) {
+        _removeBlobs(obj[key], key, obj);
+      }
+    }
+  }
+
+  var pendingBlobs = 0;
+  var bloblessData = data;
+  _removeBlobs(bloblessData);
+  if (!pendingBlobs) {
+    callback(bloblessData);
+  }
+};
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+
+/***/ }),
+
+/***/ 74:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    var ArrayCtor = typeof Float32Array === 'undefined'
+        ? Array
+        : Float32Array;
+
+    /**
+     * @typedef {Float32Array|Array.<number>} Vector2
+     */
+    /**
+     * 二维向量类
+     * @exports zrender/tool/vector
+     */
+    var vector = {
+        /**
+         * 创建一个向量
+         * @param {number} [x=0]
+         * @param {number} [y=0]
+         * @return {Vector2}
+         */
+        create: function (x, y) {
+            var out = new ArrayCtor(2);
+            if (x == null) {
+                x = 0;
+            }
+            if (y == null) {
+                y = 0;
+            }
+            out[0] = x;
+            out[1] = y;
+            return out;
+        },
+
+        /**
+         * 复制向量数据
+         * @param {Vector2} out
+         * @param {Vector2} v
+         * @return {Vector2}
+         */
+        copy: function (out, v) {
+            out[0] = v[0];
+            out[1] = v[1];
+            return out;
+        },
+
+        /**
+         * 克隆一个向量
+         * @param {Vector2} v
+         * @return {Vector2}
+         */
+        clone: function (v) {
+            var out = new ArrayCtor(2);
+            out[0] = v[0];
+            out[1] = v[1];
+            return out;
+        },
+
+        /**
+         * 设置向量的两个项
+         * @param {Vector2} out
+         * @param {number} a
+         * @param {number} b
+         * @return {Vector2} 结果
+         */
+        set: function (out, a, b) {
+            out[0] = a;
+            out[1] = b;
+            return out;
+        },
+
+        /**
+         * 向量相加
+         * @param {Vector2} out
+         * @param {Vector2} v1
+         * @param {Vector2} v2
+         */
+        add: function (out, v1, v2) {
+            out[0] = v1[0] + v2[0];
+            out[1] = v1[1] + v2[1];
+            return out;
+        },
+
+        /**
+         * 向量缩放后相加
+         * @param {Vector2} out
+         * @param {Vector2} v1
+         * @param {Vector2} v2
+         * @param {number} a
+         */
+        scaleAndAdd: function (out, v1, v2, a) {
+            out[0] = v1[0] + v2[0] * a;
+            out[1] = v1[1] + v2[1] * a;
+            return out;
+        },
+
+        /**
+         * 向量相减
+         * @param {Vector2} out
+         * @param {Vector2} v1
+         * @param {Vector2} v2
+         */
+        sub: function (out, v1, v2) {
+            out[0] = v1[0] - v2[0];
+            out[1] = v1[1] - v2[1];
+            return out;
+        },
+
+        /**
+         * 向量长度
+         * @param {Vector2} v
+         * @return {number}
+         */
+        len: function (v) {
+            return Math.sqrt(this.lenSquare(v));
+        },
+
+        /**
+         * 向量长度平方
+         * @param {Vector2} v
+         * @return {number}
+         */
+        lenSquare: function (v) {
+            return v[0] * v[0] + v[1] * v[1];
+        },
+
+        /**
+         * 向量乘法
+         * @param {Vector2} out
+         * @param {Vector2} v1
+         * @param {Vector2} v2
+         */
+        mul: function (out, v1, v2) {
+            out[0] = v1[0] * v2[0];
+            out[1] = v1[1] * v2[1];
+            return out;
+        },
+
+        /**
+         * 向量除法
+         * @param {Vector2} out
+         * @param {Vector2} v1
+         * @param {Vector2} v2
+         */
+        div: function (out, v1, v2) {
+            out[0] = v1[0] / v2[0];
+            out[1] = v1[1] / v2[1];
+            return out;
+        },
+
+        /**
+         * 向量点乘
+         * @param {Vector2} v1
+         * @param {Vector2} v2
+         * @return {number}
+         */
+        dot: function (v1, v2) {
+            return v1[0] * v2[0] + v1[1] * v2[1];
+        },
+
+        /**
+         * 向量缩放
+         * @param {Vector2} out
+         * @param {Vector2} v
+         * @param {number} s
+         */
+        scale: function (out, v, s) {
+            out[0] = v[0] * s;
+            out[1] = v[1] * s;
+            return out;
+        },
+
+        /**
+         * 向量归一化
+         * @param {Vector2} out
+         * @param {Vector2} v
+         */
+        normalize: function (out, v) {
+            var d = vector.len(v);
+            if (d === 0) {
+                out[0] = 0;
+                out[1] = 0;
+            }
+            else {
+                out[0] = v[0] / d;
+                out[1] = v[1] / d;
+            }
+            return out;
+        },
+
+        /**
+         * 计算向量间距离
+         * @param {Vector2} v1
+         * @param {Vector2} v2
+         * @return {number}
+         */
+        distance: function (v1, v2) {
+            return Math.sqrt(
+                (v1[0] - v2[0]) * (v1[0] - v2[0])
+                + (v1[1] - v2[1]) * (v1[1] - v2[1])
+            );
+        },
+
+        /**
+         * 向量距离平方
+         * @param {Vector2} v1
+         * @param {Vector2} v2
+         * @return {number}
+         */
+        distanceSquare: function (v1, v2) {
+            return (v1[0] - v2[0]) * (v1[0] - v2[0])
+                + (v1[1] - v2[1]) * (v1[1] - v2[1]);
+        },
+
+        /**
+         * 求负向量
+         * @param {Vector2} out
+         * @param {Vector2} v
+         */
+        negate: function (out, v) {
+            out[0] = -v[0];
+            out[1] = -v[1];
+            return out;
+        },
+
+        /**
+         * 插值两个点
+         * @param {Vector2} out
+         * @param {Vector2} v1
+         * @param {Vector2} v2
+         * @param {number} t
+         */
+        lerp: function (out, v1, v2, t) {
+            out[0] = v1[0] + t * (v2[0] - v1[0]);
+            out[1] = v1[1] + t * (v2[1] - v1[1]);
+            return out;
+        },
+
+        /**
+         * 矩阵左乘向量
+         * @param {Vector2} out
+         * @param {Vector2} v
+         * @param {Vector2} m
+         */
+        applyTransform: function (out, v, m) {
+            var x = v[0];
+            var y = v[1];
+            out[0] = m[0] * x + m[2] * y + m[4];
+            out[1] = m[1] * x + m[3] * y + m[5];
+            return out;
+        },
+        /**
+         * 求两个向量最小值
+         * @param  {Vector2} out
+         * @param  {Vector2} v1
+         * @param  {Vector2} v2
+         */
+        min: function (out, v1, v2) {
+            out[0] = Math.min(v1[0], v2[0]);
+            out[1] = Math.min(v1[1], v2[1]);
+            return out;
+        },
+        /**
+         * 求两个向量最大值
+         * @param  {Vector2} out
+         * @param  {Vector2} v1
+         * @param  {Vector2} v2
+         */
+        max: function (out, v1, v2) {
+            out[0] = Math.max(v1[0], v2[0]);
+            out[1] = Math.max(v1[1], v2[1]);
+            return out;
+        }
+    };
+
+    vector.length = vector.len;
+    vector.lengthSquare = vector.lenSquare;
+    vector.dist = vector.distance;
+    vector.distSquare = vector.distanceSquare;
+
+    return vector;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 758:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * Handler
+ * @module zrender/Handler
+ * @author Kener (@Kener-林峰, kener.linfeng@gmail.com)
+ *         errorrik (errorrik@gmail.com)
+ *         pissang (shenyi.914@gmail.com)
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    'use strict';
+
+    var util = __webpack_require__(33);
+    var Draggable = __webpack_require__(780);
+
+    var Eventful = __webpack_require__(155);
+
+    var SILENT = 'silent';
+
+    function makeEventPacket(eveType, targetInfo, event) {
+        return {
+            type: eveType,
+            event: event,
+            // target can only be an element that is not silent.
+            target: targetInfo.target,
+            // topTarget can be a silent element.
+            topTarget: targetInfo.topTarget,
+            cancelBubble: false,
+            offsetX: event.zrX,
+            offsetY: event.zrY,
+            gestureEvent: event.gestureEvent,
+            pinchX: event.pinchX,
+            pinchY: event.pinchY,
+            pinchScale: event.pinchScale,
+            wheelDelta: event.zrDelta,
+            zrByTouch: event.zrByTouch
+        };
+    }
+
+    function EmptyProxy () {}
+    EmptyProxy.prototype.dispose = function () {};
+
+    var handlerNames = [
+        'click', 'dblclick', 'mousewheel', 'mouseout',
+        'mouseup', 'mousedown', 'mousemove', 'contextmenu'
+    ];
+    /**
+     * @alias module:zrender/Handler
+     * @constructor
+     * @extends module:zrender/mixin/Eventful
+     * @param {module:zrender/Storage} storage Storage instance.
+     * @param {module:zrender/Painter} painter Painter instance.
+     * @param {module:zrender/dom/HandlerProxy} proxy HandlerProxy instance.
+     * @param {HTMLElement} painterRoot painter.root (not painter.getViewportRoot()).
+     */
+    var Handler = function(storage, painter, proxy, painterRoot) {
+        Eventful.call(this);
+
+        this.storage = storage;
+
+        this.painter = painter;
+
+        this.painterRoot = painterRoot;
+
+        proxy = proxy || new EmptyProxy();
+
+        /**
+         * Proxy of event. can be Dom, WebGLSurface, etc.
+         */
+        this.proxy = proxy;
+
+        // Attach handler
+        proxy.handler = this;
+
+        /**
+         * {target, topTarget}
+         * @private
+         * @type {Object}
+         */
+        this._hovered = {};
+
+        /**
+         * @private
+         * @type {Date}
+         */
+        this._lastTouchMoment;
+
+        /**
+         * @private
+         * @type {number}
+         */
+        this._lastX;
+
+        /**
+         * @private
+         * @type {number}
+         */
+        this._lastY;
+
+
+        Draggable.call(this);
+
+        util.each(handlerNames, function (name) {
+            proxy.on && proxy.on(name, this[name], this);
+        }, this);
+    };
+
+    Handler.prototype = {
+
+        constructor: Handler,
+
+        mousemove: function (event) {
+            var x = event.zrX;
+            var y = event.zrY;
+
+            var lastHovered = this._hovered;
+            var hovered = this._hovered = this.findHover(x, y);
+            var hoveredTarget = hovered.target;
+            var lastHoveredTarget = lastHovered.target;
+
+            var proxy = this.proxy;
+            proxy.setCursor && proxy.setCursor(hoveredTarget ? hoveredTarget.cursor : 'default');
+
+            // Mouse out on previous hovered element
+            if (lastHoveredTarget && hoveredTarget !== lastHoveredTarget && lastHoveredTarget.__zr) {
+                this.dispatchToElement(lastHovered, 'mouseout', event);
+            }
+
+            // Mouse moving on one element
+            this.dispatchToElement(hovered, 'mousemove', event);
+
+            // Mouse over on a new element
+            if (hoveredTarget && hoveredTarget !== lastHoveredTarget) {
+                this.dispatchToElement(hovered, 'mouseover', event);
+            }
+        },
+
+        mouseout: function (event) {
+            this.dispatchToElement(this._hovered, 'mouseout', event);
+
+            // There might be some doms created by upper layer application
+            // at the same level of painter.getViewportRoot() (e.g., tooltip
+            // dom created by echarts), where 'globalout' event should not
+            // be triggered when mouse enters these doms. (But 'mouseout'
+            // should be triggered at the original hovered element as usual).
+            var element = event.toElement || event.relatedTarget;
+            var innerDom;
+            do {
+                element = element && element.parentNode;
+            }
+            while (element && element.nodeType != 9 && !(
+                innerDom = element === this.painterRoot
+            ));
+
+            !innerDom && this.trigger('globalout', {event: event});
+        },
+
+        /**
+         * Resize
+         */
+        resize: function (event) {
+            this._hovered = {};
+        },
+
+        /**
+         * Dispatch event
+         * @param {string} eventName
+         * @param {event=} eventArgs
+         */
+        dispatch: function (eventName, eventArgs) {
+            var handler = this[eventName];
+            handler && handler.call(this, eventArgs);
+        },
+
+        /**
+         * Dispose
+         */
+        dispose: function () {
+
+            this.proxy.dispose();
+
+            this.storage =
+            this.proxy =
+            this.painter = null;
+        },
+
+        /**
+         * 设置默认的cursor style
+         * @param {string} [cursorStyle='default'] 例如 crosshair
+         */
+        setCursorStyle: function (cursorStyle) {
+            var proxy = this.proxy;
+            proxy.setCursor && proxy.setCursor(cursorStyle);
+        },
+
+        /**
+         * 事件分发代理
+         *
+         * @private
+         * @param {Object} targetInfo {target, topTarget} 目标图形元素
+         * @param {string} eventName 事件名称
+         * @param {Object} event 事件对象
+         */
+        dispatchToElement: function (targetInfo, eventName, event) {
+            targetInfo = targetInfo || {};
+            var eventHandler = 'on' + eventName;
+            var eventPacket = makeEventPacket(eventName, targetInfo, event);
+
+            var el = targetInfo.target;
+            while (el) {
+                el[eventHandler]
+                    && (eventPacket.cancelBubble = el[eventHandler].call(el, eventPacket));
+
+                el.trigger(eventName, eventPacket);
+
+                el = el.parent;
+
+                if (eventPacket.cancelBubble) {
+                    break;
+                }
+            }
+
+            if (!eventPacket.cancelBubble) {
+                // 冒泡到顶级 zrender 对象
+                this.trigger(eventName, eventPacket);
+                // 分发事件到用户自定义层
+                // 用户有可能在全局 click 事件中 dispose，所以需要判断下 painter 是否存在
+                this.painter && this.painter.eachOtherLayer(function (layer) {
+                    if (typeof(layer[eventHandler]) == 'function') {
+                        layer[eventHandler].call(layer, eventPacket);
+                    }
+                    if (layer.trigger) {
+                        layer.trigger(eventName, eventPacket);
+                    }
+                });
+            }
+        },
+
+        /**
+         * @private
+         * @param {number} x
+         * @param {number} y
+         * @param {module:zrender/graphic/Displayable} exclude
+         * @return {model:zrender/Element}
+         * @method
+         */
+        findHover: function(x, y, exclude) {
+            var list = this.storage.getDisplayList();
+            var out = {};
+
+            for (var i = list.length - 1; i >= 0 ; i--) {
+                var hoverCheckResult;
+                if (list[i] !== exclude
+                    // getDisplayList may include ignored item in VML mode
+                    && !list[i].ignore
+                    && (hoverCheckResult = isHover(list[i], x, y))
+                ) {
+                    !out.topTarget && (out.topTarget = list[i]);
+                    if (hoverCheckResult !== SILENT) {
+                        out.target = list[i];
+                        break;
+                    }
+                }
+            }
+
+            return out;
+        }
+    };
+
+    // Common handlers
+    util.each(['click', 'mousedown', 'mouseup', 'mousewheel', 'dblclick', 'contextmenu'], function (name) {
+        Handler.prototype[name] = function (event) {
+            // Find hover again to avoid click event is dispatched manually. Or click is triggered without mouseover
+            var hovered = this.findHover(event.zrX, event.zrY);
+            var hoveredTarget = hovered.target;
+
+            if (name === 'mousedown') {
+                this._downel = hoveredTarget;
+                // In case click triggered before mouseup
+                this._upel = hoveredTarget;
+            }
+            else if (name === 'mosueup') {
+                this._upel = hoveredTarget;
+            }
+            else if (name === 'click') {
+                if (this._downel !== this._upel) {
+                    return;
+                }
+            }
+
+            this.dispatchToElement(hovered, name, event);
+        };
+    });
+
+    function isHover(displayable, x, y) {
+        if (displayable[displayable.rectHover ? 'rectContain' : 'contain'](x, y)) {
+            var el = displayable;
+            var isSilent;
+            while (el) {
+                // If clipped by ancestor.
+                // FIXME: If clipPath has neither stroke nor fill,
+                // el.clipPath.contain(x, y) will always return false.
+                if (el.clipPath && !el.clipPath.contain(x, y))  {
+                    return false;
+                }
+                if (el.silent) {
+                    isSilent = true;
+                }
+                el = el.parent;
+            }
+            return isSilent ? SILENT : true;
+        }
+
+        return false;
+    }
+
+    util.mixin(Handler, Eventful);
+    util.mixin(Handler, Draggable);
+
+    return Handler;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 759:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * @module zrender/Layer
+ * @author pissang(https://www.github.com/pissang)
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var util = __webpack_require__(33);
+    var config = __webpack_require__(152);
+    var Style = __webpack_require__(343);
+    var Pattern = __webpack_require__(341);
+
+    function returnFalse() {
+        return false;
+    }
+
+    /**
+     * 创建dom
+     *
+     * @inner
+     * @param {string} id dom id 待用
+     * @param {string} type dom type，such as canvas, div etc.
+     * @param {Painter} painter painter instance
+     * @param {number} number
+     */
+    function createDom(id, type, painter, dpr) {
+        var newDom = document.createElement(type);
+        var width = painter.getWidth();
+        var height = painter.getHeight();
+
+        var newDomStyle = newDom.style;
+        // 没append呢，请原谅我这样写，清晰~
+        newDomStyle.position = 'absolute';
+        newDomStyle.left = 0;
+        newDomStyle.top = 0;
+        newDomStyle.width = width + 'px';
+        newDomStyle.height = height + 'px';
+        newDom.width = width * dpr;
+        newDom.height = height * dpr;
+
+        // id不作为索引用，避免可能造成的重名，定义为私有属性
+        newDom.setAttribute('data-zr-dom-id', id);
+        return newDom;
+    }
+
+    /**
+     * @alias module:zrender/Layer
+     * @constructor
+     * @extends module:zrender/mixin/Transformable
+     * @param {string} id
+     * @param {module:zrender/Painter} painter
+     * @param {number} [dpr]
+     */
+    var Layer = function(id, painter, dpr) {
+        var dom;
+        dpr = dpr || config.devicePixelRatio;
+        if (typeof id === 'string') {
+            dom = createDom(id, 'canvas', painter, dpr);
+        }
+        // Not using isDom because in node it will return false
+        else if (util.isObject(id)) {
+            dom = id;
+            id = dom.id;
+        }
+        this.id = id;
+        this.dom = dom;
+
+        var domStyle = dom.style;
+        if (domStyle) { // Not in node
+            dom.onselectstart = returnFalse; // 避免页面选中的尴尬
+            domStyle['-webkit-user-select'] = 'none';
+            domStyle['user-select'] = 'none';
+            domStyle['-webkit-touch-callout'] = 'none';
+            domStyle['-webkit-tap-highlight-color'] = 'rgba(0,0,0,0)';
+            domStyle['padding'] = 0;
+            domStyle['margin'] = 0;
+            domStyle['border-width'] = 0;
+        }
+
+        this.domBack = null;
+        this.ctxBack = null;
+
+        this.painter = painter;
+
+        this.config = null;
+
+        // Configs
+        /**
+         * 每次清空画布的颜色
+         * @type {string}
+         * @default 0
+         */
+        this.clearColor = 0;
+        /**
+         * 是否开启动态模糊
+         * @type {boolean}
+         * @default false
+         */
+        this.motionBlur = false;
+        /**
+         * 在开启动态模糊的时候使用，与上一帧混合的alpha值，值越大尾迹越明显
+         * @type {number}
+         * @default 0.7
+         */
+        this.lastFrameAlpha = 0.7;
+
+        /**
+         * Layer dpr
+         * @type {number}
+         */
+        this.dpr = dpr;
+    };
+
+    Layer.prototype = {
+
+        constructor: Layer,
+
+        elCount: 0,
+
+        __dirty: true,
+
+        initContext: function () {
+            this.ctx = this.dom.getContext('2d');
+
+            this.ctx.dpr = this.dpr;
+        },
+
+        createBackBuffer: function () {
+            var dpr = this.dpr;
+
+            this.domBack = createDom('back-' + this.id, 'canvas', this.painter, dpr);
+            this.ctxBack = this.domBack.getContext('2d');
+
+            if (dpr != 1) {
+                this.ctxBack.scale(dpr, dpr);
+            }
+        },
+
+        /**
+         * @param  {number} width
+         * @param  {number} height
+         */
+        resize: function (width, height) {
+            var dpr = this.dpr;
+
+            var dom = this.dom;
+            var domStyle = dom.style;
+            var domBack = this.domBack;
+
+            domStyle.width = width + 'px';
+            domStyle.height = height + 'px';
+
+            dom.width = width * dpr;
+            dom.height = height * dpr;
+
+            if (domBack) {
+                domBack.width = width * dpr;
+                domBack.height = height * dpr;
+
+                if (dpr != 1) {
+                    this.ctxBack.scale(dpr, dpr);
+                }
+            }
+        },
+
+        /**
+         * 清空该层画布
+         * @param {boolean} clearAll Clear all with out motion blur
+         */
+        clear: function (clearAll) {
+            var dom = this.dom;
+            var ctx = this.ctx;
+            var width = dom.width;
+            var height = dom.height;
+
+            var clearColor = this.clearColor;
+            var haveMotionBLur = this.motionBlur && !clearAll;
+            var lastFrameAlpha = this.lastFrameAlpha;
+
+            var dpr = this.dpr;
+
+            if (haveMotionBLur) {
+                if (!this.domBack) {
+                    this.createBackBuffer();
+                }
+
+                this.ctxBack.globalCompositeOperation = 'copy';
+                this.ctxBack.drawImage(
+                    dom, 0, 0,
+                    width / dpr,
+                    height / dpr
+                );
+            }
+
+            ctx.clearRect(0, 0, width, height);
+            if (clearColor) {
+                var clearColorGradientOrPattern;
+                // Gradient
+                if (clearColor.colorStops) {
+                    // Cache canvas gradient
+                    clearColorGradientOrPattern = clearColor.__canvasGradient || Style.getGradient(ctx, clearColor, {
+                        x: 0,
+                        y: 0,
+                        width: width,
+                        height: height
+                    });
+
+                    clearColor.__canvasGradient = clearColorGradientOrPattern;
+                }
+                // Pattern
+                else if (clearColor.image) {
+                    clearColorGradientOrPattern = Pattern.prototype.getCanvasPattern.call(clearColor, ctx);
+                }
+                ctx.save();
+                ctx.fillStyle = clearColorGradientOrPattern || clearColor;
+                ctx.fillRect(0, 0, width, height);
+                ctx.restore();
+            }
+
+            if (haveMotionBLur) {
+                var domBack = this.domBack;
+                ctx.save();
+                ctx.globalAlpha = lastFrameAlpha;
+                ctx.drawImage(domBack, 0, 0, width, height);
+                ctx.restore();
+            }
+        }
+    };
+
+    return Layer;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 760:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * Default canvas painter
+ * @module zrender/Painter
+ * @author Kener (@Kener-林峰, kener.linfeng@gmail.com)
+ *         errorrik (errorrik@gmail.com)
+ *         pissang (https://www.github.com/pissang)
+ */
+ !(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+    'use strict';
+
+    var config = __webpack_require__(152);
+    var util = __webpack_require__(33);
+    var log = __webpack_require__(337);
+    var BoundingRect = __webpack_require__(90);
+    var timsort = __webpack_require__(339);
+
+    var Layer = __webpack_require__(759);
+
+    var requestAnimationFrame = __webpack_require__(333);
+
+    // PENDIGN
+    // Layer exceeds MAX_PROGRESSIVE_LAYER_NUMBER may have some problem when flush directly second time.
+    //
+    // Maximum progressive layer. When exceeding this number. All elements will be drawed in the last layer.
+    var MAX_PROGRESSIVE_LAYER_NUMBER = 5;
+
+    function parseInt10(val) {
+        return parseInt(val, 10);
+    }
+
+    function isLayerValid(layer) {
+        if (!layer) {
+            return false;
+        }
+
+        if (layer.__builtin__) {
+            return true;
+        }
+
+        if (typeof(layer.resize) !== 'function'
+            || typeof(layer.refresh) !== 'function'
+        ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    function preProcessLayer(layer) {
+        layer.__unusedCount++;
+    }
+
+    function postProcessLayer(layer) {
+        if (layer.__unusedCount == 1) {
+            layer.clear();
+        }
+    }
+
+    var tmpRect = new BoundingRect(0, 0, 0, 0);
+    var viewRect = new BoundingRect(0, 0, 0, 0);
+    function isDisplayableCulled(el, width, height) {
+        tmpRect.copy(el.getBoundingRect());
+        if (el.transform) {
+            tmpRect.applyTransform(el.transform);
+        }
+        viewRect.width = width;
+        viewRect.height = height;
+        return !tmpRect.intersect(viewRect);
+    }
+
+    function isClipPathChanged(clipPaths, prevClipPaths) {
+        if (clipPaths == prevClipPaths) { // Can both be null or undefined
+            return false;
+        }
+
+        if (!clipPaths || !prevClipPaths || (clipPaths.length !== prevClipPaths.length)) {
+            return true;
+        }
+        for (var i = 0; i < clipPaths.length; i++) {
+            if (clipPaths[i] !== prevClipPaths[i]) {
+                return true;
+            }
+        }
+    }
+
+    function doClip(clipPaths, ctx) {
+        for (var i = 0; i < clipPaths.length; i++) {
+            var clipPath = clipPaths[i];
+
+            clipPath.setTransform(ctx);
+            ctx.beginPath();
+            clipPath.buildPath(ctx, clipPath.shape);
+            ctx.clip();
+            // Transform back
+            clipPath.restoreTransform(ctx);
+        }
+    }
+
+    function createRoot(width, height) {
+        var domRoot = document.createElement('div');
+
+        // domRoot.onselectstart = returnFalse; // 避免页面选中的尴尬
+        domRoot.style.cssText = [
+            'position:relative',
+            'overflow:hidden',
+            'width:' + width + 'px',
+            'height:' + height + 'px',
+            'padding:0',
+            'margin:0',
+            'border-width:0'
+        ].join(';') + ';';
+
+        return domRoot;
+    }
+
+    /**
+     * @alias module:zrender/Painter
+     * @constructor
+     * @param {HTMLElement} root 绘图容器
+     * @param {module:zrender/Storage} storage
+     * @param {Ojbect} opts
+     */
+    var Painter = function (root, storage, opts) {
+        // In node environment using node-canvas
+        var singleCanvas = !root.nodeName // In node ?
+            || root.nodeName.toUpperCase() === 'CANVAS';
+
+        this._opts = opts = util.extend({}, opts || {});
+
+        /**
+         * @type {number}
+         */
+        this.dpr = opts.devicePixelRatio || config.devicePixelRatio;
+        /**
+         * @type {boolean}
+         * @private
+         */
+        this._singleCanvas = singleCanvas;
+        /**
+         * 绘图容器
+         * @type {HTMLElement}
+         */
+        this.root = root;
+
+        var rootStyle = root.style;
+
+        if (rootStyle) {
+            rootStyle['-webkit-tap-highlight-color'] = 'transparent';
+            rootStyle['-webkit-user-select'] =
+            rootStyle['user-select'] =
+            rootStyle['-webkit-touch-callout'] = 'none';
+
+            root.innerHTML = '';
+        }
+
+        /**
+         * @type {module:zrender/Storage}
+         */
+        this.storage = storage;
+
+        /**
+         * @type {Array.<number>}
+         * @private
+         */
+        var zlevelList = this._zlevelList = [];
+
+        /**
+         * @type {Object.<string, module:zrender/Layer>}
+         * @private
+         */
+        var layers = this._layers = {};
+
+        /**
+         * @type {Object.<string, Object>}
+         * @type {private}
+         */
+        this._layerConfig = {};
+
+        if (!singleCanvas) {
+            this._width = this._getSize(0);
+            this._height = this._getSize(1);
+
+            var domRoot = this._domRoot = createRoot(
+                this._width, this._height
+            );
+            root.appendChild(domRoot);
+        }
+        else {
+            if (opts.width != null) {
+                root.width = opts.width;
+            }
+            if (opts.height != null) {
+                root.height = opts.height;
+            }
+            // Use canvas width and height directly
+            var width = root.width;
+            var height = root.height;
+            this._width = width;
+            this._height = height;
+
+            // Create layer if only one given canvas
+            // Device pixel ratio is fixed to 1 because given canvas has its specified width and height
+            var mainLayer = new Layer(root, this, 1);
+            mainLayer.initContext();
+            // FIXME Use canvas width and height
+            // mainLayer.resize(width, height);
+            layers[0] = mainLayer;
+            zlevelList.push(0);
+
+            this._domRoot = root;
+        }
+
+        // Layers for progressive rendering
+        this._progressiveLayers = [];
+
+        /**
+         * @type {module:zrender/Layer}
+         * @private
+         */
+        this._hoverlayer;
+
+        this._hoverElements = [];
+    };
+
+    Painter.prototype = {
+
+        constructor: Painter,
+
+        /**
+         * If painter use a single canvas
+         * @return {boolean}
+         */
+        isSingleCanvas: function () {
+            return this._singleCanvas;
+        },
+        /**
+         * @return {HTMLDivElement}
+         */
+        getViewportRoot: function () {
+            return this._domRoot;
+        },
+
+        /**
+         * 刷新
+         * @param {boolean} [paintAll=false] 强制绘制所有displayable
+         */
+        refresh: function (paintAll) {
+
+            var list = this.storage.getDisplayList(true);
+
+            var zlevelList = this._zlevelList;
+
+            this._paintList(list, paintAll);
+
+            // Paint custum layers
+            for (var i = 0; i < zlevelList.length; i++) {
+                var z = zlevelList[i];
+                var layer = this._layers[z];
+                if (!layer.__builtin__ && layer.refresh) {
+                    layer.refresh();
+                }
+            }
+
+            this.refreshHover();
+
+            if (this._progressiveLayers.length) {
+                this._startProgessive();
+            }
+
+            return this;
+        },
+
+        addHover: function (el, hoverStyle) {
+            if (el.__hoverMir) {
+                return;
+            }
+            var elMirror = new el.constructor({
+                style: el.style,
+                shape: el.shape
+            });
+            elMirror.__from = el;
+            el.__hoverMir = elMirror;
+            elMirror.setStyle(hoverStyle);
+            this._hoverElements.push(elMirror);
+        },
+
+        removeHover: function (el) {
+            var elMirror = el.__hoverMir;
+            var hoverElements = this._hoverElements;
+            var idx = util.indexOf(hoverElements, elMirror);
+            if (idx >= 0) {
+                hoverElements.splice(idx, 1);
+            }
+            el.__hoverMir = null;
+        },
+
+        clearHover: function (el) {
+            var hoverElements = this._hoverElements;
+            for (var i = 0; i < hoverElements.length; i++) {
+                var from = hoverElements[i].__from;
+                if (from) {
+                    from.__hoverMir = null;
+                }
+            }
+            hoverElements.length = 0;
+        },
+
+        refreshHover: function () {
+            var hoverElements = this._hoverElements;
+            var len = hoverElements.length;
+            var hoverLayer = this._hoverlayer;
+            hoverLayer && hoverLayer.clear();
+
+            if (!len) {
+                return;
+            }
+            timsort(hoverElements, this.storage.displayableSortFunc);
+
+            // Use a extream large zlevel
+            // FIXME?
+            if (!hoverLayer) {
+                hoverLayer = this._hoverlayer = this.getLayer(1e5);
+            }
+
+            var scope = {};
+            hoverLayer.ctx.save();
+            for (var i = 0; i < len;) {
+                var el = hoverElements[i];
+                var originalEl = el.__from;
+                // Original el is removed
+                // PENDING
+                if (!(originalEl && originalEl.__zr)) {
+                    hoverElements.splice(i, 1);
+                    originalEl.__hoverMir = null;
+                    len--;
+                    continue;
+                }
+                i++;
+
+                // Use transform
+                // FIXME style and shape ?
+                if (!originalEl.invisible) {
+                    el.transform = originalEl.transform;
+                    el.invTransform = originalEl.invTransform;
+                    el.__clipPaths = originalEl.__clipPaths;
+                    // el.
+                    this._doPaintEl(el, hoverLayer, true, scope);
+                }
+            }
+            hoverLayer.ctx.restore();
+        },
+
+        _startProgessive: function () {
+            var self = this;
+
+            if (!self._furtherProgressive) {
+                return;
+            }
+
+            // Use a token to stop progress steps triggered by
+            // previous zr.refresh calling.
+            var token = self._progressiveToken = +new Date();
+
+            self._progress++;
+            requestAnimationFrame(step);
+
+            function step() {
+                // In case refreshed or disposed
+                if (token === self._progressiveToken && self.storage) {
+
+                    self._doPaintList(self.storage.getDisplayList());
+
+                    if (self._furtherProgressive) {
+                        self._progress++;
+                        requestAnimationFrame(step);
+                    }
+                    else {
+                        self._progressiveToken = -1;
+                    }
+                }
+            }
+        },
+
+        _clearProgressive: function () {
+            this._progressiveToken = -1;
+            this._progress = 0;
+            util.each(this._progressiveLayers, function (layer) {
+                layer.__dirty && layer.clear();
+            });
+        },
+
+        _paintList: function (list, paintAll) {
+
+            if (paintAll == null) {
+                paintAll = false;
+            }
+
+            this._updateLayerStatus(list);
+
+            this._clearProgressive();
+
+            this.eachBuiltinLayer(preProcessLayer);
+
+            this._doPaintList(list, paintAll);
+
+            this.eachBuiltinLayer(postProcessLayer);
+        },
+
+        _doPaintList: function (list, paintAll) {
+            var currentLayer;
+            var currentZLevel;
+            var ctx;
+
+            // var invTransform = [];
+            var scope;
+
+            var progressiveLayerIdx = 0;
+            var currentProgressiveLayer;
+
+            var width = this._width;
+            var height = this._height;
+            var layerProgress;
+            var frame = this._progress;
+            function flushProgressiveLayer(layer) {
+                var dpr = ctx.dpr || 1;
+                ctx.save();
+                ctx.globalAlpha = 1;
+                ctx.shadowBlur = 0;
+                // Avoid layer don't clear in next progressive frame
+                currentLayer.__dirty = true;
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.drawImage(layer.dom, 0, 0, width * dpr, height * dpr);
+                ctx.restore();
+            }
+
+            for (var i = 0, l = list.length; i < l; i++) {
+                var el = list[i];
+                var elZLevel = this._singleCanvas ? 0 : el.zlevel;
+
+                var elFrame = el.__frame;
+
+                // Flush at current context
+                // PENDING
+                if (elFrame < 0 && currentProgressiveLayer) {
+                    flushProgressiveLayer(currentProgressiveLayer);
+                    currentProgressiveLayer = null;
+                }
+
+                // Change draw layer
+                if (currentZLevel !== elZLevel) {
+                    if (ctx) {
+                        ctx.restore();
+                    }
+
+                    // Reset scope
+                    scope = {};
+
+                    // Only 0 zlevel if only has one canvas
+                    currentZLevel = elZLevel;
+                    currentLayer = this.getLayer(currentZLevel);
+
+                    if (!currentLayer.__builtin__) {
+                        log(
+                            'ZLevel ' + currentZLevel
+                            + ' has been used by unkown layer ' + currentLayer.id
+                        );
+                    }
+
+                    ctx = currentLayer.ctx;
+                    ctx.save();
+
+                    // Reset the count
+                    currentLayer.__unusedCount = 0;
+
+                    if (currentLayer.__dirty || paintAll) {
+                        currentLayer.clear();
+                    }
+                }
+
+                if (!(currentLayer.__dirty || paintAll)) {
+                    continue;
+                }
+
+                if (elFrame >= 0) {
+                    // Progressive layer changed
+                    if (!currentProgressiveLayer) {
+                        currentProgressiveLayer = this._progressiveLayers[
+                            Math.min(progressiveLayerIdx++, MAX_PROGRESSIVE_LAYER_NUMBER - 1)
+                        ];
+
+                        currentProgressiveLayer.ctx.save();
+                        currentProgressiveLayer.renderScope = {};
+
+                        if (currentProgressiveLayer
+                            && (currentProgressiveLayer.__progress > currentProgressiveLayer.__maxProgress)
+                        ) {
+                            // flushProgressiveLayer(currentProgressiveLayer);
+                            // Quick jump all progressive elements
+                            // All progressive element are not dirty, jump over and flush directly
+                            i = currentProgressiveLayer.__nextIdxNotProg - 1;
+                            // currentProgressiveLayer = null;
+                            continue;
+                        }
+
+                        layerProgress = currentProgressiveLayer.__progress;
+
+                        if (!currentProgressiveLayer.__dirty) {
+                            // Keep rendering
+                            frame = layerProgress;
+                        }
+
+                        currentProgressiveLayer.__progress = frame + 1;
+                    }
+
+                    if (elFrame === frame) {
+                        this._doPaintEl(el, currentProgressiveLayer, true, currentProgressiveLayer.renderScope);
+                    }
+                }
+                else {
+                    this._doPaintEl(el, currentLayer, paintAll, scope);
+                }
+
+                el.__dirty = false;
+            }
+
+            if (currentProgressiveLayer) {
+                flushProgressiveLayer(currentProgressiveLayer);
+            }
+
+            // Restore the lastLayer ctx
+            ctx && ctx.restore();
+            // If still has clipping state
+            // if (scope.prevElClipPaths) {
+            //     ctx.restore();
+            // }
+
+            this._furtherProgressive = false;
+            util.each(this._progressiveLayers, function (layer) {
+                if (layer.__maxProgress >= layer.__progress) {
+                    this._furtherProgressive = true;
+                }
+            }, this);
+        },
+
+        _doPaintEl: function (el, currentLayer, forcePaint, scope) {
+            var ctx = currentLayer.ctx;
+            var m = el.transform;
+            if (
+                (currentLayer.__dirty || forcePaint)
+                // Ignore invisible element
+                && !el.invisible
+                // Ignore transparent element
+                && el.style.opacity !== 0
+                // Ignore scale 0 element, in some environment like node-canvas
+                // Draw a scale 0 element can cause all following draw wrong
+                // And setTransform with scale 0 will cause set back transform failed.
+                && !(m && !m[0] && !m[3])
+                // Ignore culled element
+                && !(el.culling && isDisplayableCulled(el, this._width, this._height))
+            ) {
+
+                var clipPaths = el.__clipPaths;
+
+                // Optimize when clipping on group with several elements
+                if (scope.prevClipLayer !== currentLayer
+                    || isClipPathChanged(clipPaths, scope.prevElClipPaths)
+                ) {
+                    // If has previous clipping state, restore from it
+                    if (scope.prevElClipPaths) {
+                        scope.prevClipLayer.ctx.restore();
+                        scope.prevClipLayer = scope.prevElClipPaths = null;
+
+                        // Reset prevEl since context has been restored
+                        scope.prevEl = null;
+                    }
+                    // New clipping state
+                    if (clipPaths) {
+                        ctx.save();
+                        doClip(clipPaths, ctx);
+                        scope.prevClipLayer = currentLayer;
+                        scope.prevElClipPaths = clipPaths;
+                    }
+                }
+                el.beforeBrush && el.beforeBrush(ctx);
+
+                el.brush(ctx, scope.prevEl || null);
+                scope.prevEl = el;
+
+                el.afterBrush && el.afterBrush(ctx);
+            }
+        },
+
+        /**
+         * 获取 zlevel 所在层，如果不存在则会创建一个新的层
+         * @param {number} zlevel
+         * @return {module:zrender/Layer}
+         */
+        getLayer: function (zlevel) {
+            if (this._singleCanvas) {
+                return this._layers[0];
+            }
+
+            var layer = this._layers[zlevel];
+            if (!layer) {
+                // Create a new layer
+                layer = new Layer('zr_' + zlevel, this, this.dpr);
+                layer.__builtin__ = true;
+
+                if (this._layerConfig[zlevel]) {
+                    util.merge(layer, this._layerConfig[zlevel], true);
+                }
+
+                this.insertLayer(zlevel, layer);
+
+                // Context is created after dom inserted to document
+                // Or excanvas will get 0px clientWidth and clientHeight
+                layer.initContext();
+            }
+
+            return layer;
+        },
+
+        insertLayer: function (zlevel, layer) {
+
+            var layersMap = this._layers;
+            var zlevelList = this._zlevelList;
+            var len = zlevelList.length;
+            var prevLayer = null;
+            var i = -1;
+            var domRoot = this._domRoot;
+
+            if (layersMap[zlevel]) {
+                log('ZLevel ' + zlevel + ' has been used already');
+                return;
+            }
+            // Check if is a valid layer
+            if (!isLayerValid(layer)) {
+                log('Layer of zlevel ' + zlevel + ' is not valid');
+                return;
+            }
+
+            if (len > 0 && zlevel > zlevelList[0]) {
+                for (i = 0; i < len - 1; i++) {
+                    if (
+                        zlevelList[i] < zlevel
+                        && zlevelList[i + 1] > zlevel
+                    ) {
+                        break;
+                    }
+                }
+                prevLayer = layersMap[zlevelList[i]];
+            }
+            zlevelList.splice(i + 1, 0, zlevel);
+
+            layersMap[zlevel] = layer;
+
+            // Vitual layer will not directly show on the screen.
+            // (It can be a WebGL layer and assigned to a ZImage element)
+            // But it still under management of zrender.
+            if (!layer.virtual) {
+                if (prevLayer) {
+                    var prevDom = prevLayer.dom;
+                    if (prevDom.nextSibling) {
+                        domRoot.insertBefore(
+                            layer.dom,
+                            prevDom.nextSibling
+                        );
+                    }
+                    else {
+                        domRoot.appendChild(layer.dom);
+                    }
+                }
+                else {
+                    if (domRoot.firstChild) {
+                        domRoot.insertBefore(layer.dom, domRoot.firstChild);
+                    }
+                    else {
+                        domRoot.appendChild(layer.dom);
+                    }
+                }
+            }
+        },
+
+        // Iterate each layer
+        eachLayer: function (cb, context) {
+            var zlevelList = this._zlevelList;
+            var z;
+            var i;
+            for (i = 0; i < zlevelList.length; i++) {
+                z = zlevelList[i];
+                cb.call(context, this._layers[z], z);
+            }
+        },
+
+        // Iterate each buildin layer
+        eachBuiltinLayer: function (cb, context) {
+            var zlevelList = this._zlevelList;
+            var layer;
+            var z;
+            var i;
+            for (i = 0; i < zlevelList.length; i++) {
+                z = zlevelList[i];
+                layer = this._layers[z];
+                if (layer.__builtin__) {
+                    cb.call(context, layer, z);
+                }
+            }
+        },
+
+        // Iterate each other layer except buildin layer
+        eachOtherLayer: function (cb, context) {
+            var zlevelList = this._zlevelList;
+            var layer;
+            var z;
+            var i;
+            for (i = 0; i < zlevelList.length; i++) {
+                z = zlevelList[i];
+                layer = this._layers[z];
+                if (!layer.__builtin__) {
+                    cb.call(context, layer, z);
+                }
+            }
+        },
+
+        /**
+         * 获取所有已创建的层
+         * @param {Array.<module:zrender/Layer>} [prevLayer]
+         */
+        getLayers: function () {
+            return this._layers;
+        },
+
+        _updateLayerStatus: function (list) {
+
+            var layers = this._layers;
+            var progressiveLayers = this._progressiveLayers;
+
+            var elCountsLastFrame = {};
+            var progressiveElCountsLastFrame = {};
+
+            this.eachBuiltinLayer(function (layer, z) {
+                elCountsLastFrame[z] = layer.elCount;
+                layer.elCount = 0;
+                layer.__dirty = false;
+            });
+
+            util.each(progressiveLayers, function (layer, idx) {
+                progressiveElCountsLastFrame[idx] = layer.elCount;
+                layer.elCount = 0;
+                layer.__dirty = false;
+            });
+
+            var progressiveLayerCount = 0;
+            var currentProgressiveLayer;
+            var lastProgressiveKey;
+            var frameCount = 0;
+            for (var i = 0, l = list.length; i < l; i++) {
+                var el = list[i];
+                var zlevel = this._singleCanvas ? 0 : el.zlevel;
+                var layer = layers[zlevel];
+                var elProgress = el.progressive;
+                if (layer) {
+                    layer.elCount++;
+                    layer.__dirty = layer.__dirty || el.__dirty;
+                }
+
+                /////// Update progressive
+                if (elProgress >= 0) {
+                    // Fix wrong progressive sequence problem.
+                    if (lastProgressiveKey !== elProgress) {
+                        lastProgressiveKey = elProgress;
+                        frameCount++;
+                    }
+                    var elFrame = el.__frame = frameCount - 1;
+                    if (!currentProgressiveLayer) {
+                        var idx = Math.min(progressiveLayerCount, MAX_PROGRESSIVE_LAYER_NUMBER - 1);
+                        currentProgressiveLayer = progressiveLayers[idx];
+                        if (!currentProgressiveLayer) {
+                            currentProgressiveLayer = progressiveLayers[idx] = new Layer(
+                                'progressive', this, this.dpr
+                            );
+                            currentProgressiveLayer.initContext();
+                        }
+                        currentProgressiveLayer.__maxProgress = 0;
+                    }
+                    currentProgressiveLayer.__dirty = currentProgressiveLayer.__dirty || el.__dirty;
+                    currentProgressiveLayer.elCount++;
+
+                    currentProgressiveLayer.__maxProgress = Math.max(
+                        currentProgressiveLayer.__maxProgress, elFrame
+                    );
+
+                    if (currentProgressiveLayer.__maxProgress >= currentProgressiveLayer.__progress) {
+                        // Should keep rendering this  layer because progressive rendering is not finished yet
+                        layer.__dirty = true;
+                    }
+                }
+                else {
+                    el.__frame = -1;
+
+                    if (currentProgressiveLayer) {
+                        currentProgressiveLayer.__nextIdxNotProg = i;
+                        progressiveLayerCount++;
+                        currentProgressiveLayer = null;
+                    }
+                }
+            }
+
+            if (currentProgressiveLayer) {
+                progressiveLayerCount++;
+                currentProgressiveLayer.__nextIdxNotProg = i;
+            }
+
+            // 层中的元素数量有发生变化
+            this.eachBuiltinLayer(function (layer, z) {
+                if (elCountsLastFrame[z] !== layer.elCount) {
+                    layer.__dirty = true;
+                }
+            });
+
+            progressiveLayers.length = Math.min(progressiveLayerCount, MAX_PROGRESSIVE_LAYER_NUMBER);
+            util.each(progressiveLayers, function (layer, idx) {
+                if (progressiveElCountsLastFrame[idx] !== layer.elCount) {
+                    el.__dirty = true;
+                }
+                if (layer.__dirty) {
+                    layer.__progress = 0;
+                }
+            });
+        },
+
+        /**
+         * 清除hover层外所有内容
+         */
+        clear: function () {
+            this.eachBuiltinLayer(this._clearLayer);
+            return this;
+        },
+
+        _clearLayer: function (layer) {
+            layer.clear();
+        },
+
+        /**
+         * 修改指定zlevel的绘制参数
+         *
+         * @param {string} zlevel
+         * @param {Object} config 配置对象
+         * @param {string} [config.clearColor=0] 每次清空画布的颜色
+         * @param {string} [config.motionBlur=false] 是否开启动态模糊
+         * @param {number} [config.lastFrameAlpha=0.7]
+         *                 在开启动态模糊的时候使用，与上一帧混合的alpha值，值越大尾迹越明显
+         */
+        configLayer: function (zlevel, config) {
+            if (config) {
+                var layerConfig = this._layerConfig;
+                if (!layerConfig[zlevel]) {
+                    layerConfig[zlevel] = config;
+                }
+                else {
+                    util.merge(layerConfig[zlevel], config, true);
+                }
+
+                var layer = this._layers[zlevel];
+
+                if (layer) {
+                    util.merge(layer, layerConfig[zlevel], true);
+                }
+            }
+        },
+
+        /**
+         * 删除指定层
+         * @param {number} zlevel 层所在的zlevel
+         */
+        delLayer: function (zlevel) {
+            var layers = this._layers;
+            var zlevelList = this._zlevelList;
+            var layer = layers[zlevel];
+            if (!layer) {
+                return;
+            }
+            layer.dom.parentNode.removeChild(layer.dom);
+            delete layers[zlevel];
+
+            zlevelList.splice(util.indexOf(zlevelList, zlevel), 1);
+        },
+
+        /**
+         * 区域大小变化后重绘
+         */
+        resize: function (width, height) {
+            var domRoot = this._domRoot;
+            // FIXME Why ?
+            domRoot.style.display = 'none';
+
+            // Save input w/h
+            var opts = this._opts;
+            width != null && (opts.width = width);
+            height != null && (opts.height = height);
+
+            width = this._getSize(0);
+            height = this._getSize(1);
+
+            domRoot.style.display = '';
+
+            // 优化没有实际改变的resize
+            if (this._width != width || height != this._height) {
+                domRoot.style.width = width + 'px';
+                domRoot.style.height = height + 'px';
+
+                for (var id in this._layers) {
+                    if (this._layers.hasOwnProperty(id)) {
+                        this._layers[id].resize(width, height);
+                    }
+                }
+                util.each(this._progressiveLayers, function (layer) {
+                    layer.resize(width, height);
+                });
+
+                this.refresh(true);
+            }
+
+            this._width = width;
+            this._height = height;
+
+            return this;
+        },
+
+        /**
+         * 清除单独的一个层
+         * @param {number} zlevel
+         */
+        clearLayer: function (zlevel) {
+            var layer = this._layers[zlevel];
+            if (layer) {
+                layer.clear();
+            }
+        },
+
+        /**
+         * 释放
+         */
+        dispose: function () {
+            this.root.innerHTML = '';
+
+            this.root =
+            this.storage =
+
+            this._domRoot =
+            this._layers = null;
+        },
+
+        /**
+         * Get canvas which has all thing rendered
+         * @param {Object} opts
+         * @param {string} [opts.backgroundColor]
+         */
+        getRenderedCanvas: function (opts) {
+            opts = opts || {};
+            if (this._singleCanvas) {
+                return this._layers[0].dom;
+            }
+
+            var imageLayer = new Layer('image', this, opts.pixelRatio || this.dpr);
+            imageLayer.initContext();
+
+            imageLayer.clearColor = opts.backgroundColor;
+            imageLayer.clear();
+
+            var displayList = this.storage.getDisplayList(true);
+
+            var scope = {};
+            var zlevel;
+
+            var self = this;
+            function findAndDrawOtherLayer(smaller, larger) {
+                var zlevelList = self._zlevelList;
+                if (smaller == null) {
+                    smaller = -Infinity;
+                }
+                var intermediateLayer;
+                for (var i = 0; i < zlevelList.length; i++) {
+                    var z = zlevelList[i];
+                    var layer = self._layers[z];
+                    if (!layer.__builtin__ && z > smaller && z < larger) {
+                        intermediateLayer = layer;
+                        break;
+                    }
+                }
+                if (intermediateLayer && intermediateLayer.renderToCanvas) {
+                    imageLayer.ctx.save();
+                    intermediateLayer.renderToCanvas(imageLayer.ctx);
+                    imageLayer.ctx.restore();
+                }
+            }
+            for (var i = 0; i < displayList.length; i++) {
+                var el = displayList[i];
+
+                if (el.zlevel !== zlevel) {
+                    findAndDrawOtherLayer(zlevel, el.zlevel);
+                    zlevel = el.zlevel;
+                }
+                this._doPaintEl(el, imageLayer, true, scope);
+            }
+
+            findAndDrawOtherLayer(zlevel, Infinity);
+
+            return imageLayer.dom;
+        },
+        /**
+         * 获取绘图区域宽度
+         */
+        getWidth: function () {
+            return this._width;
+        },
+
+        /**
+         * 获取绘图区域高度
+         */
+        getHeight: function () {
+            return this._height;
+        },
+
+        _getSize: function (whIdx) {
+            var opts = this._opts;
+            var wh = ['width', 'height'][whIdx];
+            var cwh = ['clientWidth', 'clientHeight'][whIdx];
+            var plt = ['paddingLeft', 'paddingTop'][whIdx];
+            var prb = ['paddingRight', 'paddingBottom'][whIdx];
+
+            if (opts[wh] != null && opts[wh] !== 'auto') {
+                return parseFloat(opts[wh]);
+            }
+
+            var root = this.root;
+            var stl = document.defaultView.getComputedStyle(root);
+
+            return (
+                (root[cwh] || parseInt10(stl[wh]) || parseInt10(root.style[wh]))
+                - (parseInt10(stl[plt]) || 0)
+                - (parseInt10(stl[prb]) || 0)
+            ) | 0;
+        },
+
+        pathToImage: function (path, dpr) {
+            dpr = dpr || this.dpr;
+
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            var rect = path.getBoundingRect();
+            var style = path.style;
+            var shadowBlurSize = style.shadowBlur;
+            var shadowOffsetX = style.shadowOffsetX;
+            var shadowOffsetY = style.shadowOffsetY;
+            var lineWidth = style.hasStroke() ? style.lineWidth : 0;
+
+            var leftMargin = Math.max(lineWidth / 2, -shadowOffsetX + shadowBlurSize);
+            var rightMargin = Math.max(lineWidth / 2, shadowOffsetX + shadowBlurSize);
+            var topMargin = Math.max(lineWidth / 2, -shadowOffsetY + shadowBlurSize);
+            var bottomMargin = Math.max(lineWidth / 2, shadowOffsetY + shadowBlurSize);
+            var width = rect.width + leftMargin + rightMargin;
+            var height = rect.height + topMargin + bottomMargin;
+
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+
+            ctx.scale(dpr, dpr);
+            ctx.clearRect(0, 0, width, height);
+            ctx.dpr = dpr;
+
+            var pathTransform = {
+                position: path.position,
+                rotation: path.rotation,
+                scale: path.scale
+            };
+            path.position = [leftMargin - rect.x, topMargin - rect.y];
+            path.rotation = 0;
+            path.scale = [1, 1];
+            path.updateTransform();
+            if (path) {
+                path.brush(ctx);
+            }
+
+            var ImageShape = __webpack_require__(776);
+            var imgShape = new ImageShape({
+                style: {
+                    x: 0,
+                    y: 0,
+                    image: canvas
+                }
+            });
+
+            if (pathTransform.position != null) {
+                imgShape.position = path.position = pathTransform.position;
+            }
+
+            if (pathTransform.rotation != null) {
+                imgShape.rotation = path.rotation = pathTransform.rotation;
+            }
+
+            if (pathTransform.scale != null) {
+                imgShape.scale = path.scale = pathTransform.scale;
+            }
+
+            return imgShape;
+        }
+    };
+
+    return Painter;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 761:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * Storage内容仓库模块
+ * @module zrender/Storage
+ * @author Kener (@Kener-林峰, kener.linfeng@gmail.com)
+ * @author errorrik (errorrik@gmail.com)
+ * @author pissang (https://github.com/pissang/)
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    'use strict';
+
+    var util = __webpack_require__(33);
+    var env = __webpack_require__(154);
+
+    var Group = __webpack_require__(112);
+
+    // Use timsort because in most case elements are partially sorted
+    // https://jsfiddle.net/pissang/jr4x7mdm/8/
+    var timsort = __webpack_require__(339);
+
+    function shapeCompareFunc(a, b) {
+        if (a.zlevel === b.zlevel) {
+            if (a.z === b.z) {
+                // if (a.z2 === b.z2) {
+                //     // FIXME Slow has renderidx compare
+                //     // http://stackoverflow.com/questions/20883421/sorting-in-javascript-should-every-compare-function-have-a-return-0-statement
+                //     // https://github.com/v8/v8/blob/47cce544a31ed5577ffe2963f67acb4144ee0232/src/js/array.js#L1012
+                //     return a.__renderidx - b.__renderidx;
+                // }
+                return a.z2 - b.z2;
+            }
+            return a.z - b.z;
+        }
+        return a.zlevel - b.zlevel;
+    }
+    /**
+     * 内容仓库 (M)
+     * @alias module:zrender/Storage
+     * @constructor
+     */
+    var Storage = function () {
+        this._roots = [];
+
+        this._displayList = [];
+
+        this._displayListLen = 0;
+    };
+
+    Storage.prototype = {
+
+        constructor: Storage,
+
+        /**
+         * @param  {Function} cb
+         *
+         */
+        traverse: function (cb, context) {
+            for (var i = 0; i < this._roots.length; i++) {
+                this._roots[i].traverse(cb, context);
+            }
+        },
+
+        /**
+         * 返回所有图形的绘制队列
+         * @param {boolean} [update=false] 是否在返回前更新该数组
+         * @param {boolean} [includeIgnore=false] 是否包含 ignore 的数组, 在 update 为 true 的时候有效
+         *
+         * 详见{@link module:zrender/graphic/Displayable.prototype.updateDisplayList}
+         * @return {Array.<module:zrender/graphic/Displayable>}
+         */
+        getDisplayList: function (update, includeIgnore) {
+            includeIgnore = includeIgnore || false;
+            if (update) {
+                this.updateDisplayList(includeIgnore);
+            }
+            return this._displayList;
+        },
+
+        /**
+         * 更新图形的绘制队列。
+         * 每次绘制前都会调用，该方法会先深度优先遍历整个树，更新所有Group和Shape的变换并且把所有可见的Shape保存到数组中，
+         * 最后根据绘制的优先级（zlevel > z > 插入顺序）排序得到绘制队列
+         * @param {boolean} [includeIgnore=false] 是否包含 ignore 的数组
+         */
+        updateDisplayList: function (includeIgnore) {
+            this._displayListLen = 0;
+            var roots = this._roots;
+            var displayList = this._displayList;
+            for (var i = 0, len = roots.length; i < len; i++) {
+                this._updateAndAddDisplayable(roots[i], null, includeIgnore);
+            }
+            displayList.length = this._displayListLen;
+
+            // for (var i = 0, len = displayList.length; i < len; i++) {
+            //     displayList[i].__renderidx = i;
+            // }
+
+            // displayList.sort(shapeCompareFunc);
+            env.canvasSupported && timsort(displayList, shapeCompareFunc);
+        },
+
+        _updateAndAddDisplayable: function (el, clipPaths, includeIgnore) {
+
+            if (el.ignore && !includeIgnore) {
+                return;
+            }
+
+            el.beforeUpdate();
+
+            if (el.__dirty) {
+
+                el.update();
+
+            }
+
+            el.afterUpdate();
+
+            var userSetClipPath = el.clipPath;
+            if (userSetClipPath) {
+
+                // FIXME 效率影响
+                if (clipPaths) {
+                    clipPaths = clipPaths.slice();
+                }
+                else {
+                    clipPaths = [];
+                }
+
+                var currentClipPath = userSetClipPath;
+                var parentClipPath = el;
+                // Recursively add clip path
+                while (currentClipPath) {
+                    // clipPath 的变换是基于使用这个 clipPath 的元素
+                    currentClipPath.parent = parentClipPath;
+                    currentClipPath.updateTransform();
+
+                    clipPaths.push(currentClipPath);
+
+                    parentClipPath = currentClipPath;
+                    currentClipPath = currentClipPath.clipPath;
+                }
+            }
+
+            if (el.isGroup) {
+                var children = el._children;
+
+                for (var i = 0; i < children.length; i++) {
+                    var child = children[i];
+
+                    // Force to mark as dirty if group is dirty
+                    // FIXME __dirtyPath ?
+                    if (el.__dirty) {
+                        child.__dirty = true;
+                    }
+
+                    this._updateAndAddDisplayable(child, clipPaths, includeIgnore);
+                }
+
+                // Mark group clean here
+                el.__dirty = false;
+
+            }
+            else {
+                el.__clipPaths = clipPaths;
+
+                this._displayList[this._displayListLen++] = el;
+            }
+        },
+
+        /**
+         * 添加图形(Shape)或者组(Group)到根节点
+         * @param {module:zrender/Element} el
+         */
+        addRoot: function (el) {
+            if (el.__storage === this) {
+                return;
+            }
+
+            if (el instanceof Group) {
+                el.addChildrenToStorage(this);
+            }
+
+            this.addToStorage(el);
+            this._roots.push(el);
+        },
+
+        /**
+         * 删除指定的图形(Shape)或者组(Group)
+         * @param {string|Array.<string>} [el] 如果为空清空整个Storage
+         */
+        delRoot: function (el) {
+            if (el == null) {
+                // 不指定el清空
+                for (var i = 0; i < this._roots.length; i++) {
+                    var root = this._roots[i];
+                    if (root instanceof Group) {
+                        root.delChildrenFromStorage(this);
+                    }
+                }
+
+                this._roots = [];
+                this._displayList = [];
+                this._displayListLen = 0;
+
+                return;
+            }
+
+            if (el instanceof Array) {
+                for (var i = 0, l = el.length; i < l; i++) {
+                    this.delRoot(el[i]);
+                }
+                return;
+            }
+
+
+            var idx = util.indexOf(this._roots, el);
+            if (idx >= 0) {
+                this.delFromStorage(el);
+                this._roots.splice(idx, 1);
+                if (el instanceof Group) {
+                    el.delChildrenFromStorage(this);
+                }
+            }
+        },
+
+        addToStorage: function (el) {
+            el.__storage = this;
+            el.dirty(false);
+
+            return this;
+        },
+
+        delFromStorage: function (el) {
+            if (el) {
+                el.__storage = null;
+            }
+
+            return this;
+        },
+
+        /**
+         * 清空并且释放Storage
+         */
+        dispose: function () {
+            this._renderList =
+            this._roots = null;
+        },
+
+        displayableSortFunc: shapeCompareFunc
+    };
+
+    return Storage;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 762:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * 动画主类, 调度和管理所有动画控制器
+ *
+ * @module zrender/animation/Animation
+ * @author pissang(https://github.com/pissang)
+ */
+// TODO Additive animation
+// http://iosoteric.com/additive-animations-animatewithduration-in-ios-8/
+// https://developer.apple.com/videos/wwdc2014/#236
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
+
+    'use strict';
+
+    var util = __webpack_require__(33);
+    var Dispatcher = __webpack_require__(217).Dispatcher;
+
+    var requestAnimationFrame = __webpack_require__(333);
+
+    var Animator = __webpack_require__(332);
+    /**
+     * @typedef {Object} IZRenderStage
+     * @property {Function} update
+     */
+
+    /**
+     * @alias module:zrender/animation/Animation
+     * @constructor
+     * @param {Object} [options]
+     * @param {Function} [options.onframe]
+     * @param {IZRenderStage} [options.stage]
+     * @example
+     *     var animation = new Animation();
+     *     var obj = {
+     *         x: 100,
+     *         y: 100
+     *     };
+     *     animation.animate(node.position)
+     *         .when(1000, {
+     *             x: 500,
+     *             y: 500
+     *         })
+     *         .when(2000, {
+     *             x: 100,
+     *             y: 100
+     *         })
+     *         .start('spline');
+     */
+    var Animation = function (options) {
+
+        options = options || {};
+
+        this.stage = options.stage || {};
+
+        this.onframe = options.onframe || function() {};
+
+        // private properties
+        this._clips = [];
+
+        this._running = false;
+
+        this._time;
+
+        this._pausedTime;
+
+        this._pauseStart;
+
+        this._paused = false;
+
+        Dispatcher.call(this);
+    };
+
+    Animation.prototype = {
+
+        constructor: Animation,
+        /**
+         * 添加 clip
+         * @param {module:zrender/animation/Clip} clip
+         */
+        addClip: function (clip) {
+            this._clips.push(clip);
+        },
+        /**
+         * 添加 animator
+         * @param {module:zrender/animation/Animator} animator
+         */
+        addAnimator: function (animator) {
+            animator.animation = this;
+            var clips = animator.getClips();
+            for (var i = 0; i < clips.length; i++) {
+                this.addClip(clips[i]);
+            }
+        },
+        /**
+         * 删除动画片段
+         * @param {module:zrender/animation/Clip} clip
+         */
+        removeClip: function(clip) {
+            var idx = util.indexOf(this._clips, clip);
+            if (idx >= 0) {
+                this._clips.splice(idx, 1);
+            }
+        },
+
+        /**
+         * 删除动画片段
+         * @param {module:zrender/animation/Animator} animator
+         */
+        removeAnimator: function (animator) {
+            var clips = animator.getClips();
+            for (var i = 0; i < clips.length; i++) {
+                this.removeClip(clips[i]);
+            }
+            animator.animation = null;
+        },
+
+        _update: function() {
+
+            var time = new Date().getTime() - this._pausedTime;
+            var delta = time - this._time;
+            var clips = this._clips;
+            var len = clips.length;
+
+            var deferredEvents = [];
+            var deferredClips = [];
+            for (var i = 0; i < len; i++) {
+                var clip = clips[i];
+                var e = clip.step(time, delta);
+                // Throw out the events need to be called after
+                // stage.update, like destroy
+                if (e) {
+                    deferredEvents.push(e);
+                    deferredClips.push(clip);
+                }
+            }
+
+            // Remove the finished clip
+            for (var i = 0; i < len;) {
+                if (clips[i]._needsRemove) {
+                    clips[i] = clips[len - 1];
+                    clips.pop();
+                    len--;
+                }
+                else {
+                    i++;
+                }
+            }
+
+            len = deferredEvents.length;
+            for (var i = 0; i < len; i++) {
+                deferredClips[i].fire(deferredEvents[i]);
+            }
+
+            this._time = time;
+
+            this.onframe(delta);
+
+            this.trigger('frame', delta);
+
+            if (this.stage.update) {
+                this.stage.update();
+            }
+        },
+
+        _startLoop: function () {
+            var self = this;
+
+            this._running = true;
+
+            function step() {
+                if (self._running) {
+
+                    requestAnimationFrame(step);
+
+                    !self._paused && self._update();
+                }
+            }
+
+            requestAnimationFrame(step);
+        },
+
+        /**
+         * 开始运行动画
+         */
+        start: function () {
+
+            this._time = new Date().getTime();
+            this._pausedTime = 0;
+
+            this._startLoop();
+        },
+        /**
+         * 停止运行动画
+         */
+        stop: function () {
+            this._running = false;
+        },
+
+        /**
+         * Pause
+         */
+        pause: function () {
+            if (!this._paused) {
+                this._pauseStart = new Date().getTime();
+                this._paused = true;
+            }
+        },
+
+        /**
+         * Resume
+         */
+        resume: function () {
+            if (this._paused) {
+                this._pausedTime += (new Date().getTime()) - this._pauseStart;
+                this._paused = false;
+            }
+        },
+
+        /**
+         * 清除所有动画片段
+         */
+        clear: function () {
+            this._clips = [];
+        },
+        /**
+         * 对一个目标创建一个animator对象，可以指定目标中的属性使用动画
+         * @param  {Object} target
+         * @param  {Object} options
+         * @param  {boolean} [options.loop=false] 是否循环播放动画
+         * @param  {Function} [options.getter=null]
+         *         如果指定getter函数，会通过getter函数取属性值
+         * @param  {Function} [options.setter=null]
+         *         如果指定setter函数，会通过setter函数设置属性值
+         * @return {module:zrender/animation/Animation~Animator}
+         */
+        // TODO Gap
+        animate: function (target, options) {
+            options = options || {};
+
+            var animator = new Animator(
+                target,
+                options.loop,
+                options.getter,
+                options.setter
+            );
+
+            this.addAnimator(animator);
+
+            return animator;
+        }
+    };
+
+    util.mixin(Animation, Dispatcher);
+
+    return Animation;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 763:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * 动画主控制器
+ * @config target 动画对象，可以是数组，如果是数组的话会批量分发onframe等事件
+ * @config life(1000) 动画时长
+ * @config delay(0) 动画延迟时间
+ * @config loop(true)
+ * @config gap(0) 循环的间隔时间
+ * @config onframe
+ * @config easing(optional)
+ * @config ondestroy(optional)
+ * @config onrestart(optional)
+ *
+ * TODO pause
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
+
+    var easingFuncs = __webpack_require__(764);
+
+    function Clip(options) {
+
+        this._target = options.target;
+
+        // 生命周期
+        this._life = options.life || 1000;
+        // 延时
+        this._delay = options.delay || 0;
+        // 开始时间
+        // this._startTime = new Date().getTime() + this._delay;// 单位毫秒
+        this._initialized = false;
+
+        // 是否循环
+        this.loop = options.loop == null ? false : options.loop;
+
+        this.gap = options.gap || 0;
+
+        this.easing = options.easing || 'Linear';
+
+        this.onframe = options.onframe;
+        this.ondestroy = options.ondestroy;
+        this.onrestart = options.onrestart;
+
+        this._pausedTime = 0;
+        this._paused = false;
+    }
+
+    Clip.prototype = {
+
+        constructor: Clip,
+
+        step: function (globalTime, deltaTime) {
+            // Set startTime on first step, or _startTime may has milleseconds different between clips
+            // PENDING
+            if (!this._initialized) {
+                this._startTime = globalTime + this._delay;
+                this._initialized = true;
+            }
+
+            if (this._paused) {
+                this._pausedTime += deltaTime;
+                return;
+            }
+
+            var percent = (globalTime - this._startTime - this._pausedTime) / this._life;
+
+            // 还没开始
+            if (percent < 0) {
+                return;
+            }
+
+            percent = Math.min(percent, 1);
+
+            var easing = this.easing;
+            var easingFunc = typeof easing == 'string' ? easingFuncs[easing] : easing;
+            var schedule = typeof easingFunc === 'function'
+                ? easingFunc(percent)
+                : percent;
+
+            this.fire('frame', schedule);
+
+            // 结束
+            if (percent == 1) {
+                if (this.loop) {
+                    this.restart (globalTime);
+                    // 重新开始周期
+                    // 抛出而不是直接调用事件直到 stage.update 后再统一调用这些事件
+                    return 'restart';
+                }
+
+                // 动画完成将这个控制器标识为待删除
+                // 在Animation.update中进行批量删除
+                this._needsRemove = true;
+                return 'destroy';
+            }
+
+            return null;
+        },
+
+        restart: function (globalTime) {
+            var remainder = (globalTime - this._startTime - this._pausedTime) % this._life;
+            this._startTime = globalTime - remainder + this.gap;
+            this._pausedTime = 0;
+
+            this._needsRemove = false;
+        },
+
+        fire: function (eventType, arg) {
+            eventType = 'on' + eventType;
+            if (this[eventType]) {
+                this[eventType](this._target, arg);
+            }
+        },
+
+        pause: function () {
+            this._paused = true;
+        },
+
+        resume: function () {
+            this._paused = false;
+        }
+    };
+
+    return Clip;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 764:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * 缓动代码来自 https://github.com/sole/tween.js/blob/master/src/Tween.js
+ * @see http://sole.github.io/tween.js/examples/03_graphs.html
+ * @exports zrender/animation/easing
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    var easing = {
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        linear: function (k) {
+            return k;
+        },
+
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        quadraticIn: function (k) {
+            return k * k;
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        quadraticOut: function (k) {
+            return k * (2 - k);
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        quadraticInOut: function (k) {
+            if ((k *= 2) < 1) {
+                return 0.5 * k * k;
+            }
+            return -0.5 * (--k * (k - 2) - 1);
+        },
+
+        // 三次方的缓动（t^3）
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        cubicIn: function (k) {
+            return k * k * k;
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        cubicOut: function (k) {
+            return --k * k * k + 1;
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        cubicInOut: function (k) {
+            if ((k *= 2) < 1) {
+                return 0.5 * k * k * k;
+            }
+            return 0.5 * ((k -= 2) * k * k + 2);
+        },
+
+        // 四次方的缓动（t^4）
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        quarticIn: function (k) {
+            return k * k * k * k;
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        quarticOut: function (k) {
+            return 1 - (--k * k * k * k);
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        quarticInOut: function (k) {
+            if ((k *= 2) < 1) {
+                return 0.5 * k * k * k * k;
+            }
+            return -0.5 * ((k -= 2) * k * k * k - 2);
+        },
+
+        // 五次方的缓动（t^5）
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        quinticIn: function (k) {
+            return k * k * k * k * k;
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        quinticOut: function (k) {
+            return --k * k * k * k * k + 1;
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        quinticInOut: function (k) {
+            if ((k *= 2) < 1) {
+                return 0.5 * k * k * k * k * k;
+            }
+            return 0.5 * ((k -= 2) * k * k * k * k + 2);
+        },
+
+        // 正弦曲线的缓动（sin(t)）
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        sinusoidalIn: function (k) {
+            return 1 - Math.cos(k * Math.PI / 2);
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        sinusoidalOut: function (k) {
+            return Math.sin(k * Math.PI / 2);
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        sinusoidalInOut: function (k) {
+            return 0.5 * (1 - Math.cos(Math.PI * k));
+        },
+
+        // 指数曲线的缓动（2^t）
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        exponentialIn: function (k) {
+            return k === 0 ? 0 : Math.pow(1024, k - 1);
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        exponentialOut: function (k) {
+            return k === 1 ? 1 : 1 - Math.pow(2, -10 * k);
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        exponentialInOut: function (k) {
+            if (k === 0) {
+                return 0;
+            }
+            if (k === 1) {
+                return 1;
+            }
+            if ((k *= 2) < 1) {
+                return 0.5 * Math.pow(1024, k - 1);
+            }
+            return 0.5 * (-Math.pow(2, -10 * (k - 1)) + 2);
+        },
+
+        // 圆形曲线的缓动（sqrt(1-t^2)）
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        circularIn: function (k) {
+            return 1 - Math.sqrt(1 - k * k);
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        circularOut: function (k) {
+            return Math.sqrt(1 - (--k * k));
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        circularInOut: function (k) {
+            if ((k *= 2) < 1) {
+                return -0.5 * (Math.sqrt(1 - k * k) - 1);
+            }
+            return 0.5 * (Math.sqrt(1 - (k -= 2) * k) + 1);
+        },
+
+        // 创建类似于弹簧在停止前来回振荡的动画
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        elasticIn: function (k) {
+            var s;
+            var a = 0.1;
+            var p = 0.4;
+            if (k === 0) {
+                return 0;
+            }
+            if (k === 1) {
+                return 1;
+            }
+            if (!a || a < 1) {
+                a = 1; s = p / 4;
+            }
+            else {
+                s = p * Math.asin(1 / a) / (2 * Math.PI);
+            }
+            return -(a * Math.pow(2, 10 * (k -= 1)) *
+                        Math.sin((k - s) * (2 * Math.PI) / p));
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        elasticOut: function (k) {
+            var s;
+            var a = 0.1;
+            var p = 0.4;
+            if (k === 0) {
+                return 0;
+            }
+            if (k === 1) {
+                return 1;
+            }
+            if (!a || a < 1) {
+                a = 1; s = p / 4;
+            }
+            else {
+                s = p * Math.asin(1 / a) / (2 * Math.PI);
+            }
+            return (a * Math.pow(2, -10 * k) *
+                    Math.sin((k - s) * (2 * Math.PI) / p) + 1);
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        elasticInOut: function (k) {
+            var s;
+            var a = 0.1;
+            var p = 0.4;
+            if (k === 0) {
+                return 0;
+            }
+            if (k === 1) {
+                return 1;
+            }
+            if (!a || a < 1) {
+                a = 1; s = p / 4;
+            }
+            else {
+                s = p * Math.asin(1 / a) / (2 * Math.PI);
+            }
+            if ((k *= 2) < 1) {
+                return -0.5 * (a * Math.pow(2, 10 * (k -= 1))
+                    * Math.sin((k - s) * (2 * Math.PI) / p));
+            }
+            return a * Math.pow(2, -10 * (k -= 1))
+                    * Math.sin((k - s) * (2 * Math.PI) / p) * 0.5 + 1;
+
+        },
+
+        // 在某一动画开始沿指示的路径进行动画处理前稍稍收回该动画的移动
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        backIn: function (k) {
+            var s = 1.70158;
+            return k * k * ((s + 1) * k - s);
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        backOut: function (k) {
+            var s = 1.70158;
+            return --k * k * ((s + 1) * k + s) + 1;
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        backInOut: function (k) {
+            var s = 1.70158 * 1.525;
+            if ((k *= 2) < 1) {
+                return 0.5 * (k * k * ((s + 1) * k - s));
+            }
+            return 0.5 * ((k -= 2) * k * ((s + 1) * k + s) + 2);
+        },
+
+        // 创建弹跳效果
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        bounceIn: function (k) {
+            return 1 - easing.bounceOut(1 - k);
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        bounceOut: function (k) {
+            if (k < (1 / 2.75)) {
+                return 7.5625 * k * k;
+            }
+            else if (k < (2 / 2.75)) {
+                return 7.5625 * (k -= (1.5 / 2.75)) * k + 0.75;
+            }
+            else if (k < (2.5 / 2.75)) {
+                return 7.5625 * (k -= (2.25 / 2.75)) * k + 0.9375;
+            }
+            else {
+                return 7.5625 * (k -= (2.625 / 2.75)) * k + 0.984375;
+            }
+        },
+        /**
+        * @param {number} k
+        * @return {number}
+        */
+        bounceInOut: function (k) {
+            if (k < 0.5) {
+                return easing.bounceIn(k * 2) * 0.5;
+            }
+            return easing.bounceOut(k * 2 - 1) * 0.5 + 0.5;
+        }
+    };
+
+    return easing;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+
+/***/ }),
+
+/***/ 765:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var normalizeRadian = __webpack_require__(334).normalizeRadian;
+    var PI2 = Math.PI * 2;
+
+    return {
+        /**
+         * 圆弧描边包含判断
+         * @param  {number}  cx
+         * @param  {number}  cy
+         * @param  {number}  r
+         * @param  {number}  startAngle
+         * @param  {number}  endAngle
+         * @param  {boolean}  anticlockwise
+         * @param  {number} lineWidth
+         * @param  {number}  x
+         * @param  {number}  y
+         * @return {Boolean}
+         */
+        containStroke: function (
+            cx, cy, r, startAngle, endAngle, anticlockwise,
+            lineWidth, x, y
+        ) {
+
+            if (lineWidth === 0) {
+                return false;
+            }
+            var _l = lineWidth;
+
+            x -= cx;
+            y -= cy;
+            var d = Math.sqrt(x * x + y * y);
+
+            if ((d - _l > r) || (d + _l < r)) {
+                return false;
+            }
+            if (Math.abs(startAngle - endAngle) % PI2 < 1e-4) {
+                // Is a circle
+                return true;
+            }
+            if (anticlockwise) {
+                var tmp = startAngle;
+                startAngle = normalizeRadian(endAngle);
+                endAngle = normalizeRadian(tmp);
+            } else {
+                startAngle = normalizeRadian(startAngle);
+                endAngle = normalizeRadian(endAngle);
+            }
+            if (startAngle > endAngle) {
+                endAngle += PI2;
+            }
+
+            var angle = Math.atan2(y, x);
+            if (angle < 0) {
+                angle += PI2;
+            }
+            return (angle >= startAngle && angle <= endAngle)
+                || (angle + PI2 >= startAngle && angle + PI2 <= endAngle);
+        }
+    };
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 766:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var curve = __webpack_require__(91);
+
+    return {
+        /**
+         * 三次贝塞尔曲线描边包含判断
+         * @param  {number}  x0
+         * @param  {number}  y0
+         * @param  {number}  x1
+         * @param  {number}  y1
+         * @param  {number}  x2
+         * @param  {number}  y2
+         * @param  {number}  x3
+         * @param  {number}  y3
+         * @param  {number}  lineWidth
+         * @param  {number}  x
+         * @param  {number}  y
+         * @return {boolean}
+         */
+        containStroke: function(x0, y0, x1, y1, x2, y2, x3, y3, lineWidth, x, y) {
+            if (lineWidth === 0) {
+                return false;
+            }
+            var _l = lineWidth;
+            // Quick reject
+            if (
+                (y > y0 + _l && y > y1 + _l && y > y2 + _l && y > y3 + _l)
+                || (y < y0 - _l && y < y1 - _l && y < y2 - _l && y < y3 - _l)
+                || (x > x0 + _l && x > x1 + _l && x > x2 + _l && x > x3 + _l)
+                || (x < x0 - _l && x < x1 - _l && x < x2 - _l && x < x3 - _l)
+            ) {
+                return false;
+            }
+            var d = curve.cubicProjectPoint(
+                x0, y0, x1, y1, x2, y2, x3, y3,
+                x, y, null
+            );
+            return d <= _l / 2;
+        }
+    };
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 767:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    return {
+        /**
+         * 线段包含判断
+         * @param  {number}  x0
+         * @param  {number}  y0
+         * @param  {number}  x1
+         * @param  {number}  y1
+         * @param  {number}  lineWidth
+         * @param  {number}  x
+         * @param  {number}  y
+         * @return {boolean}
+         */
+        containStroke: function (x0, y0, x1, y1, lineWidth, x, y) {
+            if (lineWidth === 0) {
+                return false;
+            }
+            var _l = lineWidth;
+            var _a = 0;
+            var _b = x0;
+            // Quick reject
+            if (
+                (y > y0 + _l && y > y1 + _l)
+                || (y < y0 - _l && y < y1 - _l)
+                || (x > x0 + _l && x > x1 + _l)
+                || (x < x0 - _l && x < x1 - _l)
+            ) {
+                return false;
+            }
+
+            if (x0 !== x1) {
+                _a = (y0 - y1) / (x0 - x1);
+                _b = (x0 * y1 - x1 * y0) / (x0 - x1) ;
+            }
+            else {
+                return Math.abs(x - x0) <= _l / 2;
+            }
+            var tmp = _a * x - y + _b;
+            var _s = tmp * tmp / (_a * _a + 1);
+            return _s <= _l / 2 * _l / 2;
+        }
+    };
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 768:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    'use strict';
+
+    var CMD = __webpack_require__(153).CMD;
+    var line = __webpack_require__(767);
+    var cubic = __webpack_require__(766);
+    var quadratic = __webpack_require__(769);
+    var arc = __webpack_require__(765);
+    var normalizeRadian = __webpack_require__(334).normalizeRadian;
+    var curve = __webpack_require__(91);
+
+    var windingLine = __webpack_require__(771);
+
+    var containStroke = line.containStroke;
+
+    var PI2 = Math.PI * 2;
+
+    var EPSILON = 1e-4;
+
+    function isAroundEqual(a, b) {
+        return Math.abs(a - b) < EPSILON;
+    }
+
+    // 临时数组
+    var roots = [-1, -1, -1];
+    var extrema = [-1, -1];
+
+    function swapExtrema() {
+        var tmp = extrema[0];
+        extrema[0] = extrema[1];
+        extrema[1] = tmp;
+    }
+
+    function windingCubic(x0, y0, x1, y1, x2, y2, x3, y3, x, y) {
+        // Quick reject
+        if (
+            (y > y0 && y > y1 && y > y2 && y > y3)
+            || (y < y0 && y < y1 && y < y2 && y < y3)
+        ) {
+            return 0;
+        }
+        var nRoots = curve.cubicRootAt(y0, y1, y2, y3, y, roots);
+        if (nRoots === 0) {
+            return 0;
+        }
+        else {
+            var w = 0;
+            var nExtrema = -1;
+            var y0_, y1_;
+            for (var i = 0; i < nRoots; i++) {
+                var t = roots[i];
+
+                // Avoid winding error when intersection point is the connect point of two line of polygon
+                var unit = (t === 0 || t === 1) ? 0.5 : 1;
+
+                var x_ = curve.cubicAt(x0, x1, x2, x3, t);
+                if (x_ < x) { // Quick reject
+                    continue;
+                }
+                if (nExtrema < 0) {
+                    nExtrema = curve.cubicExtrema(y0, y1, y2, y3, extrema);
+                    if (extrema[1] < extrema[0] && nExtrema > 1) {
+                        swapExtrema();
+                    }
+                    y0_ = curve.cubicAt(y0, y1, y2, y3, extrema[0]);
+                    if (nExtrema > 1) {
+                        y1_ = curve.cubicAt(y0, y1, y2, y3, extrema[1]);
+                    }
+                }
+                if (nExtrema == 2) {
+                    // 分成三段单调函数
+                    if (t < extrema[0]) {
+                        w += y0_ < y0 ? unit : -unit;
+                    }
+                    else if (t < extrema[1]) {
+                        w += y1_ < y0_ ? unit : -unit;
+                    }
+                    else {
+                        w += y3 < y1_ ? unit : -unit;
+                    }
+                }
+                else {
+                    // 分成两段单调函数
+                    if (t < extrema[0]) {
+                        w += y0_ < y0 ? unit : -unit;
+                    }
+                    else {
+                        w += y3 < y0_ ? unit : -unit;
+                    }
+                }
+            }
+            return w;
+        }
+    }
+
+    function windingQuadratic(x0, y0, x1, y1, x2, y2, x, y) {
+        // Quick reject
+        if (
+            (y > y0 && y > y1 && y > y2)
+            || (y < y0 && y < y1 && y < y2)
+        ) {
+            return 0;
+        }
+        var nRoots = curve.quadraticRootAt(y0, y1, y2, y, roots);
+        if (nRoots === 0) {
+            return 0;
+        }
+        else {
+            var t = curve.quadraticExtremum(y0, y1, y2);
+            if (t >= 0 && t <= 1) {
+                var w = 0;
+                var y_ = curve.quadraticAt(y0, y1, y2, t);
+                for (var i = 0; i < nRoots; i++) {
+                    // Remove one endpoint.
+                    var unit = (roots[i] === 0 || roots[i] === 1) ? 0.5 : 1;
+
+                    var x_ = curve.quadraticAt(x0, x1, x2, roots[i]);
+                    if (x_ < x) {   // Quick reject
+                        continue;
+                    }
+                    if (roots[i] < t) {
+                        w += y_ < y0 ? unit : -unit;
+                    }
+                    else {
+                        w += y2 < y_ ? unit : -unit;
+                    }
+                }
+                return w;
+            }
+            else {
+                // Remove one endpoint.
+                var unit = (roots[0] === 0 || roots[0] === 1) ? 0.5 : 1;
+
+                var x_ = curve.quadraticAt(x0, x1, x2, roots[0]);
+                if (x_ < x) {   // Quick reject
+                    return 0;
+                }
+                return y2 < y0 ? unit : -unit;
+            }
+        }
+    }
+
+    // TODO
+    // Arc 旋转
+    function windingArc(
+        cx, cy, r, startAngle, endAngle, anticlockwise, x, y
+    ) {
+        y -= cy;
+        if (y > r || y < -r) {
+            return 0;
+        }
+        var tmp = Math.sqrt(r * r - y * y);
+        roots[0] = -tmp;
+        roots[1] = tmp;
+
+        var diff = Math.abs(startAngle - endAngle);
+        if (diff < 1e-4) {
+            return 0;
+        }
+        if (diff % PI2 < 1e-4) {
+            // Is a circle
+            startAngle = 0;
+            endAngle = PI2;
+            var dir = anticlockwise ? 1 : -1;
+            if (x >= roots[0] + cx && x <= roots[1] + cx) {
+                return dir;
+            } else {
+                return 0;
+            }
+        }
+
+        if (anticlockwise) {
+            var tmp = startAngle;
+            startAngle = normalizeRadian(endAngle);
+            endAngle = normalizeRadian(tmp);
+        }
+        else {
+            startAngle = normalizeRadian(startAngle);
+            endAngle = normalizeRadian(endAngle);
+        }
+        if (startAngle > endAngle) {
+            endAngle += PI2;
+        }
+
+        var w = 0;
+        for (var i = 0; i < 2; i++) {
+            var x_ = roots[i];
+            if (x_ + cx > x) {
+                var angle = Math.atan2(y, x_);
+                var dir = anticlockwise ? 1 : -1;
+                if (angle < 0) {
+                    angle = PI2 + angle;
+                }
+                if (
+                    (angle >= startAngle && angle <= endAngle)
+                    || (angle + PI2 >= startAngle && angle + PI2 <= endAngle)
+                ) {
+                    if (angle > Math.PI / 2 && angle < Math.PI * 1.5) {
+                        dir = -dir;
+                    }
+                    w += dir;
+                }
+            }
+        }
+        return w;
+    }
+
+    function containPath(data, lineWidth, isStroke, x, y) {
+        var w = 0;
+        var xi = 0;
+        var yi = 0;
+        var x0 = 0;
+        var y0 = 0;
+
+        for (var i = 0; i < data.length;) {
+            var cmd = data[i++];
+            // Begin a new subpath
+            if (cmd === CMD.M && i > 1) {
+                // Close previous subpath
+                if (!isStroke) {
+                    w += windingLine(xi, yi, x0, y0, x, y);
+                }
+                // 如果被任何一个 subpath 包含
+                // if (w !== 0) {
+                //     return true;
+                // }
+            }
+
+            if (i == 1) {
+                // 如果第一个命令是 L, C, Q
+                // 则 previous point 同绘制命令的第一个 point
+                //
+                // 第一个命令为 Arc 的情况下会在后面特殊处理
+                xi = data[i];
+                yi = data[i + 1];
+
+                x0 = xi;
+                y0 = yi;
+            }
+
+            switch (cmd) {
+                case CMD.M:
+                    // moveTo 命令重新创建一个新的 subpath, 并且更新新的起点
+                    // 在 closePath 的时候使用
+                    x0 = data[i++];
+                    y0 = data[i++];
+                    xi = x0;
+                    yi = y0;
+                    break;
+                case CMD.L:
+                    if (isStroke) {
+                        if (containStroke(xi, yi, data[i], data[i + 1], lineWidth, x, y)) {
+                            return true;
+                        }
+                    }
+                    else {
+                        // NOTE 在第一个命令为 L, C, Q 的时候会计算出 NaN
+                        w += windingLine(xi, yi, data[i], data[i + 1], x, y) || 0;
+                    }
+                    xi = data[i++];
+                    yi = data[i++];
+                    break;
+                case CMD.C:
+                    if (isStroke) {
+                        if (cubic.containStroke(xi, yi,
+                            data[i++], data[i++], data[i++], data[i++], data[i], data[i + 1],
+                            lineWidth, x, y
+                        )) {
+                            return true;
+                        }
+                    }
+                    else {
+                        w += windingCubic(
+                            xi, yi,
+                            data[i++], data[i++], data[i++], data[i++], data[i], data[i + 1],
+                            x, y
+                        ) || 0;
+                    }
+                    xi = data[i++];
+                    yi = data[i++];
+                    break;
+                case CMD.Q:
+                    if (isStroke) {
+                        if (quadratic.containStroke(xi, yi,
+                            data[i++], data[i++], data[i], data[i + 1],
+                            lineWidth, x, y
+                        )) {
+                            return true;
+                        }
+                    }
+                    else {
+                        w += windingQuadratic(
+                            xi, yi,
+                            data[i++], data[i++], data[i], data[i + 1],
+                            x, y
+                        ) || 0;
+                    }
+                    xi = data[i++];
+                    yi = data[i++];
+                    break;
+                case CMD.A:
+                    // TODO Arc 判断的开销比较大
+                    var cx = data[i++];
+                    var cy = data[i++];
+                    var rx = data[i++];
+                    var ry = data[i++];
+                    var theta = data[i++];
+                    var dTheta = data[i++];
+                    // TODO Arc 旋转
+                    var psi = data[i++];
+                    var anticlockwise = 1 - data[i++];
+                    var x1 = Math.cos(theta) * rx + cx;
+                    var y1 = Math.sin(theta) * ry + cy;
+                    // 不是直接使用 arc 命令
+                    if (i > 1) {
+                        w += windingLine(xi, yi, x1, y1, x, y);
+                    }
+                    else {
+                        // 第一个命令起点还未定义
+                        x0 = x1;
+                        y0 = y1;
+                    }
+                    // zr 使用scale来模拟椭圆, 这里也对x做一定的缩放
+                    var _x = (x - cx) * ry / rx + cx;
+                    if (isStroke) {
+                        if (arc.containStroke(
+                            cx, cy, ry, theta, theta + dTheta, anticlockwise,
+                            lineWidth, _x, y
+                        )) {
+                            return true;
+                        }
+                    }
+                    else {
+                        w += windingArc(
+                            cx, cy, ry, theta, theta + dTheta, anticlockwise,
+                            _x, y
+                        );
+                    }
+                    xi = Math.cos(theta + dTheta) * rx + cx;
+                    yi = Math.sin(theta + dTheta) * ry + cy;
+                    break;
+                case CMD.R:
+                    x0 = xi = data[i++];
+                    y0 = yi = data[i++];
+                    var width = data[i++];
+                    var height = data[i++];
+                    var x1 = x0 + width;
+                    var y1 = y0 + height;
+                    if (isStroke) {
+                        if (containStroke(x0, y0, x1, y0, lineWidth, x, y)
+                          || containStroke(x1, y0, x1, y1, lineWidth, x, y)
+                          || containStroke(x1, y1, x0, y1, lineWidth, x, y)
+                          || containStroke(x0, y1, x0, y0, lineWidth, x, y)
+                        ) {
+                            return true;
+                        }
+                    }
+                    else {
+                        // FIXME Clockwise ?
+                        w += windingLine(x1, y0, x1, y1, x, y);
+                        w += windingLine(x0, y1, x0, y0, x, y);
+                    }
+                    break;
+                case CMD.Z:
+                    if (isStroke) {
+                        if (containStroke(
+                            xi, yi, x0, y0, lineWidth, x, y
+                        )) {
+                            return true;
+                        }
+                    }
+                    else {
+                        // Close a subpath
+                        w += windingLine(xi, yi, x0, y0, x, y);
+                        // 如果被任何一个 subpath 包含
+                        // FIXME subpaths may overlap
+                        // if (w !== 0) {
+                        //     return true;
+                        // }
+                    }
+                    xi = x0;
+                    yi = y0;
+                    break;
+            }
+        }
+        if (!isStroke && !isAroundEqual(yi, y0)) {
+            w += windingLine(xi, yi, x0, y0, x, y) || 0;
+        }
+        return w !== 0;
+    }
+
+    return {
+        contain: function (pathData, x, y) {
+            return containPath(pathData, 0, false, x, y);
+        },
+
+        containStroke: function (pathData, lineWidth, x, y) {
+            return containPath(pathData, lineWidth, true, x, y);
+        }
+    };
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 769:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var curve = __webpack_require__(91);
+
+    return {
+        /**
+         * 二次贝塞尔曲线描边包含判断
+         * @param  {number}  x0
+         * @param  {number}  y0
+         * @param  {number}  x1
+         * @param  {number}  y1
+         * @param  {number}  x2
+         * @param  {number}  y2
+         * @param  {number}  lineWidth
+         * @param  {number}  x
+         * @param  {number}  y
+         * @return {boolean}
+         */
+        containStroke: function (x0, y0, x1, y1, x2, y2, lineWidth, x, y) {
+            if (lineWidth === 0) {
+                return false;
+            }
+            var _l = lineWidth;
+            // Quick reject
+            if (
+                (y > y0 + _l && y > y1 + _l && y > y2 + _l)
+                || (y < y0 - _l && y < y1 - _l && y < y2 - _l)
+                || (x > x0 + _l && x > x1 + _l && x > x2 + _l)
+                || (x < x0 - _l && x < x1 - _l && x < x2 - _l)
+            ) {
+                return false;
+            }
+            var d = curve.quadraticProjectPoint(
+                x0, y0, x1, y1, x2, y2,
+                x, y, null
+            );
+            return d <= _l / 2;
+        }
+    };
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 770:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var textWidthCache = {};
+    var textWidthCacheCounter = 0;
+    var TEXT_CACHE_MAX = 5000;
+
+    var util = __webpack_require__(33);
+    var BoundingRect = __webpack_require__(90);
+    var retrieve = util.retrieve;
+
+    function getTextWidth(text, textFont) {
+        var key = text + ':' + textFont;
+        if (textWidthCache[key]) {
+            return textWidthCache[key];
+        }
+
+        var textLines = (text + '').split('\n');
+        var width = 0;
+
+        for (var i = 0, l = textLines.length; i < l; i++) {
+            // measureText 可以被覆盖以兼容不支持 Canvas 的环境
+            width = Math.max(textContain.measureText(textLines[i], textFont).width, width);
+        }
+
+        if (textWidthCacheCounter > TEXT_CACHE_MAX) {
+            textWidthCacheCounter = 0;
+            textWidthCache = {};
+        }
+        textWidthCacheCounter++;
+        textWidthCache[key] = width;
+
+        return width;
+    }
+
+    function getTextRect(text, textFont, textAlign, textBaseline) {
+        var textLineLen = ((text || '') + '').split('\n').length;
+
+        var width = getTextWidth(text, textFont);
+        // FIXME 高度计算比较粗暴
+        var lineHeight = getTextWidth('国', textFont);
+        var height = textLineLen * lineHeight;
+
+        var rect = new BoundingRect(0, 0, width, height);
+        // Text has a special line height property
+        rect.lineHeight = lineHeight;
+
+        switch (textBaseline) {
+            case 'bottom':
+            case 'alphabetic':
+                rect.y -= lineHeight;
+                break;
+            case 'middle':
+                rect.y -= lineHeight / 2;
+                break;
+            // case 'hanging':
+            // case 'top':
+        }
+
+        // FIXME Right to left language
+        switch (textAlign) {
+            case 'end':
+            case 'right':
+                rect.x -= rect.width;
+                break;
+            case 'center':
+                rect.x -= rect.width / 2;
+                break;
+            // case 'start':
+            // case 'left':
+        }
+
+        return rect;
+    }
+
+    function adjustTextPositionOnRect(textPosition, rect, textRect, distance) {
+
+        var x = rect.x;
+        var y = rect.y;
+
+        var height = rect.height;
+        var width = rect.width;
+
+        var textHeight = textRect.height;
+
+        var lineHeight = textRect.lineHeight;
+        var halfHeight = height / 2 - textHeight / 2 + lineHeight;
+
+        var textAlign = 'left';
+
+        switch (textPosition) {
+            case 'left':
+                x -= distance;
+                y += halfHeight;
+                textAlign = 'right';
+                break;
+            case 'right':
+                x += distance + width;
+                y += halfHeight;
+                textAlign = 'left';
+                break;
+            case 'top':
+                x += width / 2;
+                y -= distance + textHeight - lineHeight;
+                textAlign = 'center';
+                break;
+            case 'bottom':
+                x += width / 2;
+                y += height + distance + lineHeight;
+                textAlign = 'center';
+                break;
+            case 'inside':
+                x += width / 2;
+                y += halfHeight;
+                textAlign = 'center';
+                break;
+            case 'insideLeft':
+                x += distance;
+                y += halfHeight;
+                textAlign = 'left';
+                break;
+            case 'insideRight':
+                x += width - distance;
+                y += halfHeight;
+                textAlign = 'right';
+                break;
+            case 'insideTop':
+                x += width / 2;
+                y += distance + lineHeight;
+                textAlign = 'center';
+                break;
+            case 'insideBottom':
+                x += width / 2;
+                y += height - textHeight - distance + lineHeight;
+                textAlign = 'center';
+                break;
+            case 'insideTopLeft':
+                x += distance;
+                y += distance + lineHeight;
+                textAlign = 'left';
+                break;
+            case 'insideTopRight':
+                x += width - distance;
+                y += distance + lineHeight;
+                textAlign = 'right';
+                break;
+            case 'insideBottomLeft':
+                x += distance;
+                y += height - textHeight - distance + lineHeight;
+                break;
+            case 'insideBottomRight':
+                x += width - distance;
+                y += height - textHeight - distance + lineHeight;
+                textAlign = 'right';
+                break;
+        }
+
+        return {
+            x: x,
+            y: y,
+            textAlign: textAlign,
+            textBaseline: 'alphabetic'
+        };
+    }
+
+    /**
+     * Show ellipsis if overflow.
+     *
+     * @param  {string} text
+     * @param  {string} containerWidth
+     * @param  {string} textFont
+     * @param  {number} [ellipsis='...']
+     * @param  {Object} [options]
+     * @param  {number} [options.maxIterations=3]
+     * @param  {number} [options.minChar=0] If truncate result are less
+     *                  then minChar, ellipsis will not show, which is
+     *                  better for user hint in some cases.
+     * @param  {number} [options.placeholder=''] When all truncated, use the placeholder.
+     * @return {string}
+     */
+    function truncateText(text, containerWidth, textFont, ellipsis, options) {
+        if (!containerWidth) {
+            return '';
+        }
+
+        options = options || {};
+
+        ellipsis = retrieve(ellipsis, '...');
+        var maxIterations = retrieve(options.maxIterations, 2);
+        var minChar = retrieve(options.minChar, 0);
+        // FIXME
+        // Other languages?
+        var cnCharWidth = getTextWidth('国', textFont);
+        // FIXME
+        // Consider proportional font?
+        var ascCharWidth = getTextWidth('a', textFont);
+        var placeholder = retrieve(options.placeholder, '');
+
+        // Example 1: minChar: 3, text: 'asdfzxcv', truncate result: 'asdf', but not: 'a...'.
+        // Example 2: minChar: 3, text: '维度', truncate result: '维', but not: '...'.
+        var contentWidth = containerWidth = Math.max(0, containerWidth - 1); // Reserve some gap.
+        for (var i = 0; i < minChar && contentWidth >= ascCharWidth; i++) {
+            contentWidth -= ascCharWidth;
+        }
+
+        var ellipsisWidth = getTextWidth(ellipsis);
+        if (ellipsisWidth > contentWidth) {
+            ellipsis = '';
+            ellipsisWidth = 0;
+        }
+
+        contentWidth = containerWidth - ellipsisWidth;
+
+        var textLines = (text + '').split('\n');
+
+        for (var i = 0, len = textLines.length; i < len; i++) {
+            var textLine = textLines[i];
+            var lineWidth = getTextWidth(textLine, textFont);
+
+            if (lineWidth <= containerWidth) {
+                continue;
+            }
+
+            for (var j = 0;; j++) {
+                if (lineWidth <= contentWidth || j >= maxIterations) {
+                    textLine += ellipsis;
+                    break;
+                }
+
+                var subLength = j === 0
+                    ? estimateLength(textLine, contentWidth, ascCharWidth, cnCharWidth)
+                    : lineWidth > 0
+                    ? Math.floor(textLine.length * contentWidth / lineWidth)
+                    : 0;
+
+                textLine = textLine.substr(0, subLength);
+                lineWidth = getTextWidth(textLine, textFont);
+            }
+
+            if (textLine === '') {
+                textLine = placeholder;
+            }
+
+            textLines[i] = textLine;
+        }
+
+        return textLines.join('\n');
+    }
+
+    function estimateLength(text, contentWidth, ascCharWidth, cnCharWidth) {
+        var width = 0;
+        var i = 0;
+        for (var len = text.length; i < len && width < contentWidth; i++) {
+            var charCode = text.charCodeAt(i);
+            width += (0 <= charCode && charCode <= 127) ? ascCharWidth : cnCharWidth;
+        }
+        return i;
+    }
+
+    var textContain = {
+
+        getWidth: getTextWidth,
+
+        getBoundingRect: getTextRect,
+
+        adjustTextPositionOnRect: adjustTextPositionOnRect,
+
+        truncateText: truncateText,
+
+        measureText: function (text, textFont) {
+            var ctx = util.getContext();
+            ctx.font = textFont || '12px sans-serif';
+            return ctx.measureText(text);
+        }
+    };
+
+    return textContain;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 771:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    return function windingLine(x0, y0, x1, y1, x, y) {
+        if ((y > y0 && y > y1) || (y < y0 && y < y1)) {
+            return 0;
+        }
+        // Ignore horizontal line
+        if (y1 === y0) {
+            return 0;
+        }
+        var dir = y1 < y0 ? 1 : -1;
+        var t = (y - y0) / (y1 - y0);
+
+        // Avoid winding error when intersection point is the connect point of two line of polygon
+        if (t === 1 || t === 0) {
+            dir = y1 < y0 ? 0.5 : -0.5;
+        }
+
+        var x_ = t * (x1 - x0) + x0;
+
+        return x_ > x ? dir : 0;
+    };
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 772:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * Only implements needed gestures for mobile.
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
+
+    'use strict';
+
+    var eventUtil = __webpack_require__(217);
+
+    var GestureMgr = function () {
+
+        /**
+         * @private
+         * @type {Array.<Object>}
+         */
+        this._track = [];
+    };
+
+    GestureMgr.prototype = {
+
+        constructor: GestureMgr,
+
+        recognize: function (event, target, root) {
+            this._doTrack(event, target, root);
+            return this._recognize(event);
+        },
+
+        clear: function () {
+            this._track.length = 0;
+            return this;
+        },
+
+        _doTrack: function (event, target, root) {
+            var touches = event.touches;
+
+            if (!touches) {
+                return;
+            }
+
+            var trackItem = {
+                points: [],
+                touches: [],
+                target: target,
+                event: event
+            };
+
+            for (var i = 0, len = touches.length; i < len; i++) {
+                var touch = touches[i];
+                var pos = eventUtil.clientToLocal(root, touch, {});
+                trackItem.points.push([pos.zrX, pos.zrY]);
+                trackItem.touches.push(touch);
+            }
+
+            this._track.push(trackItem);
+        },
+
+        _recognize: function (event) {
+            for (var eventName in recognizers) {
+                if (recognizers.hasOwnProperty(eventName)) {
+                    var gestureInfo = recognizers[eventName](this._track, event);
+                    if (gestureInfo) {
+                        return gestureInfo;
+                    }
+                }
+            }
+        }
+    };
+
+    function dist(pointPair) {
+        var dx = pointPair[1][0] - pointPair[0][0];
+        var dy = pointPair[1][1] - pointPair[0][1];
+
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function center(pointPair) {
+        return [
+            (pointPair[0][0] + pointPair[1][0]) / 2,
+            (pointPair[0][1] + pointPair[1][1]) / 2
+        ];
+    }
+
+    var recognizers = {
+
+        pinch: function (track, event) {
+            var trackLen = track.length;
+
+            if (!trackLen) {
+                return;
+            }
+
+            var pinchEnd = (track[trackLen - 1] || {}).points;
+            var pinchPre = (track[trackLen - 2] || {}).points || pinchEnd;
+
+            if (pinchPre
+                && pinchPre.length > 1
+                && pinchEnd
+                && pinchEnd.length > 1
+            ) {
+                var pinchScale = dist(pinchEnd) / dist(pinchPre);
+                !isFinite(pinchScale) && (pinchScale = 1);
+
+                event.pinchScale = pinchScale;
+
+                var pinchCenter = center(pinchEnd);
+                event.pinchX = pinchCenter[0];
+                event.pinchY = pinchCenter[1];
+
+                return {
+                    type: 'pinch',
+                    target: track[0].target,
+                    event: event
+                };
+            }
+        }
+
+        // Only pinch currently.
+    };
+
+    return GestureMgr;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 773:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * @author Yi Shen(https://github.com/pissang)
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var vec2 = __webpack_require__(74);
+    var curve = __webpack_require__(91);
+
+    var bbox = {};
+    var mathMin = Math.min;
+    var mathMax = Math.max;
+    var mathSin = Math.sin;
+    var mathCos = Math.cos;
+
+    var start = vec2.create();
+    var end = vec2.create();
+    var extremity = vec2.create();
+
+    var PI2 = Math.PI * 2;
+    /**
+     * 从顶点数组中计算出最小包围盒，写入`min`和`max`中
+     * @module zrender/core/bbox
+     * @param {Array<Object>} points 顶点数组
+     * @param {number} min
+     * @param {number} max
+     */
+    bbox.fromPoints = function(points, min, max) {
+        if (points.length === 0) {
+            return;
+        }
+        var p = points[0];
+        var left = p[0];
+        var right = p[0];
+        var top = p[1];
+        var bottom = p[1];
+        var i;
+
+        for (i = 1; i < points.length; i++) {
+            p = points[i];
+            left = mathMin(left, p[0]);
+            right = mathMax(right, p[0]);
+            top = mathMin(top, p[1]);
+            bottom = mathMax(bottom, p[1]);
+        }
+
+        min[0] = left;
+        min[1] = top;
+        max[0] = right;
+        max[1] = bottom;
+    };
+
+    /**
+     * @memberOf module:zrender/core/bbox
+     * @param {number} x0
+     * @param {number} y0
+     * @param {number} x1
+     * @param {number} y1
+     * @param {Array.<number>} min
+     * @param {Array.<number>} max
+     */
+    bbox.fromLine = function (x0, y0, x1, y1, min, max) {
+        min[0] = mathMin(x0, x1);
+        min[1] = mathMin(y0, y1);
+        max[0] = mathMax(x0, x1);
+        max[1] = mathMax(y0, y1);
+    };
+
+    var xDim = [];
+    var yDim = [];
+    /**
+     * 从三阶贝塞尔曲线(p0, p1, p2, p3)中计算出最小包围盒，写入`min`和`max`中
+     * @memberOf module:zrender/core/bbox
+     * @param {number} x0
+     * @param {number} y0
+     * @param {number} x1
+     * @param {number} y1
+     * @param {number} x2
+     * @param {number} y2
+     * @param {number} x3
+     * @param {number} y3
+     * @param {Array.<number>} min
+     * @param {Array.<number>} max
+     */
+    bbox.fromCubic = function(
+        x0, y0, x1, y1, x2, y2, x3, y3, min, max
+    ) {
+        var cubicExtrema = curve.cubicExtrema;
+        var cubicAt = curve.cubicAt;
+        var i;
+        var n = cubicExtrema(x0, x1, x2, x3, xDim);
+        min[0] = Infinity;
+        min[1] = Infinity;
+        max[0] = -Infinity;
+        max[1] = -Infinity;
+
+        for (i = 0; i < n; i++) {
+            var x = cubicAt(x0, x1, x2, x3, xDim[i]);
+            min[0] = mathMin(x, min[0]);
+            max[0] = mathMax(x, max[0]);
+        }
+        n = cubicExtrema(y0, y1, y2, y3, yDim);
+        for (i = 0; i < n; i++) {
+            var y = cubicAt(y0, y1, y2, y3, yDim[i]);
+            min[1] = mathMin(y, min[1]);
+            max[1] = mathMax(y, max[1]);
+        }
+
+        min[0] = mathMin(x0, min[0]);
+        max[0] = mathMax(x0, max[0]);
+        min[0] = mathMin(x3, min[0]);
+        max[0] = mathMax(x3, max[0]);
+
+        min[1] = mathMin(y0, min[1]);
+        max[1] = mathMax(y0, max[1]);
+        min[1] = mathMin(y3, min[1]);
+        max[1] = mathMax(y3, max[1]);
+    };
+
+    /**
+     * 从二阶贝塞尔曲线(p0, p1, p2)中计算出最小包围盒，写入`min`和`max`中
+     * @memberOf module:zrender/core/bbox
+     * @param {number} x0
+     * @param {number} y0
+     * @param {number} x1
+     * @param {number} y1
+     * @param {number} x2
+     * @param {number} y2
+     * @param {Array.<number>} min
+     * @param {Array.<number>} max
+     */
+    bbox.fromQuadratic = function(x0, y0, x1, y1, x2, y2, min, max) {
+        var quadraticExtremum = curve.quadraticExtremum;
+        var quadraticAt = curve.quadraticAt;
+        // Find extremities, where derivative in x dim or y dim is zero
+        var tx =
+            mathMax(
+                mathMin(quadraticExtremum(x0, x1, x2), 1), 0
+            );
+        var ty =
+            mathMax(
+                mathMin(quadraticExtremum(y0, y1, y2), 1), 0
+            );
+
+        var x = quadraticAt(x0, x1, x2, tx);
+        var y = quadraticAt(y0, y1, y2, ty);
+
+        min[0] = mathMin(x0, x2, x);
+        min[1] = mathMin(y0, y2, y);
+        max[0] = mathMax(x0, x2, x);
+        max[1] = mathMax(y0, y2, y);
+    };
+
+    /**
+     * 从圆弧中计算出最小包围盒，写入`min`和`max`中
+     * @method
+     * @memberOf module:zrender/core/bbox
+     * @param {number} x
+     * @param {number} y
+     * @param {number} rx
+     * @param {number} ry
+     * @param {number} startAngle
+     * @param {number} endAngle
+     * @param {number} anticlockwise
+     * @param {Array.<number>} min
+     * @param {Array.<number>} max
+     */
+    bbox.fromArc = function (
+        x, y, rx, ry, startAngle, endAngle, anticlockwise, min, max
+    ) {
+        var vec2Min = vec2.min;
+        var vec2Max = vec2.max;
+
+        var diff = Math.abs(startAngle - endAngle);
+
+
+        if (diff % PI2 < 1e-4 && diff > 1e-4) {
+            // Is a circle
+            min[0] = x - rx;
+            min[1] = y - ry;
+            max[0] = x + rx;
+            max[1] = y + ry;
+            return;
+        }
+
+        start[0] = mathCos(startAngle) * rx + x;
+        start[1] = mathSin(startAngle) * ry + y;
+
+        end[0] = mathCos(endAngle) * rx + x;
+        end[1] = mathSin(endAngle) * ry + y;
+
+        vec2Min(min, start, end);
+        vec2Max(max, start, end);
+
+        // Thresh to [0, Math.PI * 2]
+        startAngle = startAngle % (PI2);
+        if (startAngle < 0) {
+            startAngle = startAngle + PI2;
+        }
+        endAngle = endAngle % (PI2);
+        if (endAngle < 0) {
+            endAngle = endAngle + PI2;
+        }
+
+        if (startAngle > endAngle && !anticlockwise) {
+            endAngle += PI2;
+        }
+        else if (startAngle < endAngle && anticlockwise) {
+            startAngle += PI2;
+        }
+        if (anticlockwise) {
+            var tmp = endAngle;
+            endAngle = startAngle;
+            startAngle = tmp;
+        }
+
+        // var number = 0;
+        // var step = (anticlockwise ? -Math.PI : Math.PI) / 2;
+        for (var angle = 0; angle < endAngle; angle += Math.PI / 2) {
+            if (angle > startAngle) {
+                extremity[0] = mathCos(angle) * rx + x;
+                extremity[1] = mathSin(angle) * ry + y;
+
+                vec2Min(min, extremity, min);
+                vec2Max(max, extremity, max);
+            }
+        }
+    };
+
+    return bbox;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 774:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var eventTool = __webpack_require__(217);
+    var zrUtil = __webpack_require__(33);
+    var Eventful = __webpack_require__(155);
+    var env = __webpack_require__(154);
+    var GestureMgr = __webpack_require__(772);
+
+    var addEventListener = eventTool.addEventListener;
+    var removeEventListener = eventTool.removeEventListener;
+    var normalizeEvent = eventTool.normalizeEvent;
+
+    var TOUCH_CLICK_DELAY = 300;
+
+    var mouseHandlerNames = [
+        'click', 'dblclick', 'mousewheel', 'mouseout',
+        'mouseup', 'mousedown', 'mousemove', 'contextmenu'
+    ];
+
+    var touchHandlerNames = [
+        'touchstart', 'touchend', 'touchmove'
+    ];
+
+    var pointerEventNames = {
+        pointerdown: 1, pointerup: 1, pointermove: 1, pointerout: 1
+    };
+
+    var pointerHandlerNames = zrUtil.map(mouseHandlerNames, function (name) {
+        var nm = name.replace('mouse', 'pointer');
+        return pointerEventNames[nm] ? nm : name;
+    });
+
+    function eventNameFix(name) {
+        return (name === 'mousewheel' && env.browser.firefox) ? 'DOMMouseScroll' : name;
+    }
+
+    function processGesture(proxy, event, stage) {
+        var gestureMgr = proxy._gestureMgr;
+
+        stage === 'start' && gestureMgr.clear();
+
+        var gestureInfo = gestureMgr.recognize(
+            event,
+            proxy.handler.findHover(event.zrX, event.zrY, null).target,
+            proxy.dom
+        );
+
+        stage === 'end' && gestureMgr.clear();
+
+        // Do not do any preventDefault here. Upper application do that if necessary.
+        if (gestureInfo) {
+            var type = gestureInfo.type;
+            event.gestureEvent = type;
+
+            proxy.handler.dispatchToElement({target: gestureInfo.target}, type, gestureInfo.event);
+        }
+    }
+
+    // function onMSGestureChange(proxy, event) {
+    //     if (event.translationX || event.translationY) {
+    //         // mousemove is carried by MSGesture to reduce the sensitivity.
+    //         proxy.handler.dispatchToElement(event.target, 'mousemove', event);
+    //     }
+    //     if (event.scale !== 1) {
+    //         event.pinchX = event.offsetX;
+    //         event.pinchY = event.offsetY;
+    //         event.pinchScale = event.scale;
+    //         proxy.handler.dispatchToElement(event.target, 'pinch', event);
+    //     }
+    // }
+
+    /**
+     * Prevent mouse event from being dispatched after Touch Events action
+     * @see <https://github.com/deltakosh/handjs/blob/master/src/hand.base.js>
+     * 1. Mobile browsers dispatch mouse events 300ms after touchend.
+     * 2. Chrome for Android dispatch mousedown for long-touch about 650ms
+     * Result: Blocking Mouse Events for 700ms.
+     */
+    function setTouchTimer(instance) {
+        instance._touching = true;
+        clearTimeout(instance._touchTimer);
+        instance._touchTimer = setTimeout(function () {
+            instance._touching = false;
+        }, 700);
+    }
+
+
+    var domHandlers = {
+        /**
+         * Mouse move handler
+         * @inner
+         * @param {Event} event
+         */
+        mousemove: function (event) {
+            event = normalizeEvent(this.dom, event);
+
+            this.trigger('mousemove', event);
+        },
+
+        /**
+         * Mouse out handler
+         * @inner
+         * @param {Event} event
+         */
+        mouseout: function (event) {
+            event = normalizeEvent(this.dom, event);
+
+            var element = event.toElement || event.relatedTarget;
+            if (element != this.dom) {
+                while (element && element.nodeType != 9) {
+                    // 忽略包含在root中的dom引起的mouseOut
+                    if (element === this.dom) {
+                        return;
+                    }
+
+                    element = element.parentNode;
+                }
+            }
+
+            this.trigger('mouseout', event);
+        },
+
+        /**
+         * Touch开始响应函数
+         * @inner
+         * @param {Event} event
+         */
+        touchstart: function (event) {
+            // Default mouse behaviour should not be disabled here.
+            // For example, page may needs to be slided.
+            event = normalizeEvent(this.dom, event);
+
+            // Mark touch, which is useful in distinguish touch and
+            // mouse event in upper applicatoin.
+            event.zrByTouch = true;
+
+            this._lastTouchMoment = new Date();
+
+            processGesture(this, event, 'start');
+
+            // In touch device, trigger `mousemove`(`mouseover`) should
+            // be triggered, and must before `mousedown` triggered.
+            domHandlers.mousemove.call(this, event);
+
+            domHandlers.mousedown.call(this, event);
+
+            setTouchTimer(this);
+        },
+
+        /**
+         * Touch移动响应函数
+         * @inner
+         * @param {Event} event
+         */
+        touchmove: function (event) {
+
+            event = normalizeEvent(this.dom, event);
+
+            // Mark touch, which is useful in distinguish touch and
+            // mouse event in upper applicatoin.
+            event.zrByTouch = true;
+
+            processGesture(this, event, 'change');
+
+            // Mouse move should always be triggered no matter whether
+            // there is gestrue event, because mouse move and pinch may
+            // be used at the same time.
+            domHandlers.mousemove.call(this, event);
+
+            setTouchTimer(this);
+        },
+
+        /**
+         * Touch结束响应函数
+         * @inner
+         * @param {Event} event
+         */
+        touchend: function (event) {
+
+            event = normalizeEvent(this.dom, event);
+
+            // Mark touch, which is useful in distinguish touch and
+            // mouse event in upper applicatoin.
+            event.zrByTouch = true;
+
+            processGesture(this, event, 'end');
+
+            domHandlers.mouseup.call(this, event);
+
+            // Do not trigger `mouseout` here, in spite of `mousemove`(`mouseover`) is
+            // triggered in `touchstart`. This seems to be illogical, but by this mechanism,
+            // we can conveniently implement "hover style" in both PC and touch device just
+            // by listening to `mouseover` to add "hover style" and listening to `mouseout`
+            // to remove "hover style" on an element, without any additional code for
+            // compatibility. (`mouseout` will not be triggered in `touchend`, so "hover
+            // style" will remain for user view)
+
+            // click event should always be triggered no matter whether
+            // there is gestrue event. System click can not be prevented.
+            if (+new Date() - this._lastTouchMoment < TOUCH_CLICK_DELAY) {
+                domHandlers.click.call(this, event);
+            }
+
+            setTouchTimer(this);
+        },
+
+        pointerdown: function (event) {
+            domHandlers.mousedown.call(this, event);
+
+            // if (useMSGuesture(this, event)) {
+            //     this._msGesture.addPointer(event.pointerId);
+            // }
+        },
+
+        pointermove: function (event) {
+            // FIXME
+            // pointermove is so sensitive that it always triggered when
+            // tap(click) on touch screen, which affect some judgement in
+            // upper application. So, we dont support mousemove on MS touch
+            // device yet.
+            if (!isPointerFromTouch(event)) {
+                domHandlers.mousemove.call(this, event);
+            }
+        },
+
+        pointerup: function (event) {
+            domHandlers.mouseup.call(this, event);
+        },
+
+        pointerout: function (event) {
+            // pointerout will be triggered when tap on touch screen
+            // (IE11+/Edge on MS Surface) after click event triggered,
+            // which is inconsistent with the mousout behavior we defined
+            // in touchend. So we unify them.
+            // (check domHandlers.touchend for detailed explanation)
+            if (!isPointerFromTouch(event)) {
+                domHandlers.mouseout.call(this, event);
+            }
+        }
+    };
+
+    function isPointerFromTouch(event) {
+        var pointerType = event.pointerType;
+        return pointerType === 'pen' || pointerType === 'touch';
+    }
+
+    // function useMSGuesture(handlerProxy, event) {
+    //     return isPointerFromTouch(event) && !!handlerProxy._msGesture;
+    // }
+
+    // Common handlers
+    zrUtil.each(['click', 'mousedown', 'mouseup', 'mousewheel', 'dblclick', 'contextmenu'], function (name) {
+        domHandlers[name] = function (event) {
+            event = normalizeEvent(this.dom, event);
+            this.trigger(name, event);
+        };
+    });
+
+    /**
+     * 为控制类实例初始化dom 事件处理函数
+     *
+     * @inner
+     * @param {module:zrender/Handler} instance 控制类实例
+     */
+    function initDomHandler(instance) {
+        zrUtil.each(touchHandlerNames, function (name) {
+            instance._handlers[name] = zrUtil.bind(domHandlers[name], instance);
+        });
+
+        zrUtil.each(pointerHandlerNames, function (name) {
+            instance._handlers[name] = zrUtil.bind(domHandlers[name], instance);
+        });
+
+        zrUtil.each(mouseHandlerNames, function (name) {
+            instance._handlers[name] = makeMouseHandler(domHandlers[name], instance);
+        });
+
+        function makeMouseHandler(fn, instance) {
+            return function () {
+                if (instance._touching) {
+                    return;
+                }
+                return fn.apply(instance, arguments);
+            };
+        }
+    }
+
+
+    function HandlerDomProxy(dom) {
+        Eventful.call(this);
+
+        this.dom = dom;
+
+        /**
+         * @private
+         * @type {boolean}
+         */
+        this._touching = false;
+
+        /**
+         * @private
+         * @type {number}
+         */
+        this._touchTimer;
+
+        /**
+         * @private
+         * @type {module:zrender/core/GestureMgr}
+         */
+        this._gestureMgr = new GestureMgr();
+
+        this._handlers = {};
+
+        initDomHandler(this);
+
+        if (env.pointerEventsSupported) { // Only IE11+/Edge
+            // 1. On devices that both enable touch and mouse (e.g., MS Surface and lenovo X240),
+            // IE11+/Edge do not trigger touch event, but trigger pointer event and mouse event
+            // at the same time.
+            // 2. On MS Surface, it probablely only trigger mousedown but no mouseup when tap on
+            // screen, which do not occurs in pointer event.
+            // So we use pointer event to both detect touch gesture and mouse behavior.
+            mountHandlers(pointerHandlerNames, this);
+
+            // FIXME
+            // Note: MS Gesture require CSS touch-action set. But touch-action is not reliable,
+            // which does not prevent defuault behavior occasionally (which may cause view port
+            // zoomed in but use can not zoom it back). And event.preventDefault() does not work.
+            // So we have to not to use MSGesture and not to support touchmove and pinch on MS
+            // touch screen. And we only support click behavior on MS touch screen now.
+
+            // MS Gesture Event is only supported on IE11+/Edge and on Windows 8+.
+            // We dont support touch on IE on win7.
+            // See <https://msdn.microsoft.com/en-us/library/dn433243(v=vs.85).aspx>
+            // if (typeof MSGesture === 'function') {
+            //     (this._msGesture = new MSGesture()).target = dom; // jshint ignore:line
+            //     dom.addEventListener('MSGestureChange', onMSGestureChange);
+            // }
+        }
+        else {
+            if (env.touchEventsSupported) {
+                mountHandlers(touchHandlerNames, this);
+                // Handler of 'mouseout' event is needed in touch mode, which will be mounted below.
+                // addEventListener(root, 'mouseout', this._mouseoutHandler);
+            }
+
+            // 1. Considering some devices that both enable touch and mouse event (like on MS Surface
+            // and lenovo X240, @see #2350), we make mouse event be always listened, otherwise
+            // mouse event can not be handle in those devices.
+            // 2. On MS Surface, Chrome will trigger both touch event and mouse event. How to prevent
+            // mouseevent after touch event triggered, see `setTouchTimer`.
+            mountHandlers(mouseHandlerNames, this);
+        }
+
+        function mountHandlers(handlerNames, instance) {
+            zrUtil.each(handlerNames, function (name) {
+                addEventListener(dom, eventNameFix(name), instance._handlers[name]);
+            }, instance);
+        }
+    }
+
+    var handlerDomProxyProto = HandlerDomProxy.prototype;
+    handlerDomProxyProto.dispose = function () {
+        var handlerNames = mouseHandlerNames.concat(touchHandlerNames);
+
+        for (var i = 0; i < handlerNames.length; i++) {
+            var name = handlerNames[i];
+            removeEventListener(this.dom, eventNameFix(name), this._handlers[name]);
+        }
+    };
+
+    handlerDomProxyProto.setCursor = function (cursorStyle) {
+        this.dom.style.cursor = cursorStyle || 'default';
+    };
+
+    zrUtil.mixin(HandlerDomProxy, Eventful);
+
+    return HandlerDomProxy;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 775:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    /**
+     * @param {Array.<Object>} colorStops
+     */
+    var Gradient = function (colorStops) {
+
+        this.colorStops = colorStops || [];
+    };
+
+    Gradient.prototype = {
+
+        constructor: Gradient,
+
+        addColorStop: function (offset, color) {
+            this.colorStops.push({
+
+                offset: offset,
+
+                color: color
+            });
+        }
+    };
+
+    return Gradient;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 776:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * Image element
+ * @module zrender/graphic/Image
+ */
+
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var Displayable = __webpack_require__(340);
+    var BoundingRect = __webpack_require__(90);
+    var zrUtil = __webpack_require__(33);
+
+    var LRU = __webpack_require__(335);
+    var globalImageCache = new LRU(50);
+    /**
+     * @alias zrender/graphic/Image
+     * @extends module:zrender/graphic/Displayable
+     * @constructor
+     * @param {Object} opts
+     */
+    function ZImage(opts) {
+        Displayable.call(this, opts);
+    }
+
+    ZImage.prototype = {
+
+        constructor: ZImage,
+
+        type: 'image',
+
+        brush: function (ctx, prevEl) {
+            var style = this.style;
+            var src = style.image;
+            var image;
+
+            // Must bind each time
+            style.bind(ctx, this, prevEl);
+            // style.image is a url string
+            if (typeof src === 'string') {
+                image = this._image;
+            }
+            // style.image is an HTMLImageElement or HTMLCanvasElement or Canvas
+            else {
+                image = src;
+            }
+            // FIXME Case create many images with src
+            if (!image && src) {
+                // Try get from global image cache
+                var cachedImgObj = globalImageCache.get(src);
+                if (!cachedImgObj) {
+                    // Create a new image
+                    image = new Image();
+                    image.onload = function () {
+                        image.onload = null;
+                        for (var i = 0; i < cachedImgObj.pending.length; i++) {
+                            cachedImgObj.pending[i].dirty();
+                        }
+                    };
+                    cachedImgObj = {
+                        image: image,
+                        pending: [this]
+                    };
+                    image.src = src;
+                    globalImageCache.put(src, cachedImgObj);
+                    this._image = image;
+                    return;
+                }
+                else {
+                    image = cachedImgObj.image;
+                    this._image = image;
+                    // Image is not complete finish, add to pending list
+                    if (!image.width || !image.height) {
+                        cachedImgObj.pending.push(this);
+                        return;
+                    }
+                }
+            }
+
+            if (image) {
+                // 图片已经加载完成
+                // if (image.nodeName.toUpperCase() == 'IMG') {
+                //     if (!image.complete) {
+                //         return;
+                //     }
+                // }
+                // Else is canvas
+
+                var x = style.x || 0;
+                var y = style.y || 0;
+                // 图片加载失败
+                if (!image.width || !image.height) {
+                    return;
+                }
+                var width = style.width;
+                var height = style.height;
+                var aspect = image.width / image.height;
+                if (width == null && height != null) {
+                    // Keep image/height ratio
+                    width = height * aspect;
+                }
+                else if (height == null && width != null) {
+                    height = width / aspect;
+                }
+                else if (width == null && height == null) {
+                    width = image.width;
+                    height = image.height;
+                }
+
+                // 设置transform
+                this.setTransform(ctx);
+
+                if (style.sWidth && style.sHeight) {
+                    var sx = style.sx || 0;
+                    var sy = style.sy || 0;
+                    ctx.drawImage(
+                        image,
+                        sx, sy, style.sWidth, style.sHeight,
+                        x, y, width, height
+                    );
+                }
+                else if (style.sx && style.sy) {
+                    var sx = style.sx;
+                    var sy = style.sy;
+                    var sWidth = width - sx;
+                    var sHeight = height - sy;
+                    ctx.drawImage(
+                        image,
+                        sx, sy, sWidth, sHeight,
+                        x, y, width, height
+                    );
+                }
+                else {
+                    ctx.drawImage(image, x, y, width, height);
+                }
+
+                this.restoreTransform(ctx);
+
+                // Draw rect text
+                if (style.text != null) {
+                    this.drawRectText(ctx, this.getBoundingRect());
+                }
+
+            }
+        },
+
+        getBoundingRect: function () {
+            var style = this.style;
+            if (! this._rect) {
+                this._rect = new BoundingRect(
+                    style.x || 0, style.y || 0, style.width || 0, style.height || 0
+                );
+            }
+            return this._rect;
+        }
+    };
+
+    zrUtil.inherits(ZImage, Displayable);
+
+    return ZImage;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 777:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * Mixin for drawing text in a element bounding rect
+ * @module zrender/mixin/RectText
+ */
+
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var textContain = __webpack_require__(770);
+    var BoundingRect = __webpack_require__(90);
+
+    var tmpRect = new BoundingRect();
+
+    var RectText = function () {};
+
+    function parsePercent(value, maxValue) {
+        if (typeof value === 'string') {
+            if (value.lastIndexOf('%') >= 0) {
+                return parseFloat(value) / 100 * maxValue;
+            }
+            return parseFloat(value);
+        }
+        return value;
+    }
+
+    RectText.prototype = {
+
+        constructor: RectText,
+
+        /**
+         * Draw text in a rect with specified position.
+         * @param  {CanvasRenderingContext} ctx
+         * @param  {Object} rect Displayable rect
+         * @return {Object} textRect Alternative precalculated text bounding rect
+         */
+        drawRectText: function (ctx, rect, textRect) {
+            var style = this.style;
+            var text = style.text;
+            // Convert to string
+            text != null && (text += '');
+            if (!text) {
+                return;
+            }
+
+            // FIXME
+            ctx.save();
+
+            var x;
+            var y;
+            var textPosition = style.textPosition;
+            var textOffset = style.textOffset;
+            var distance = style.textDistance;
+            var align = style.textAlign;
+            var font = style.textFont || style.font;
+            var baseline = style.textBaseline;
+            var verticalAlign = style.textVerticalAlign;
+            rect = style.textPositionRect || rect;
+
+            textRect = textRect || textContain.getBoundingRect(text, font, align, baseline);
+
+            // Transform rect to view space
+            var transform = this.transform;
+            if (!style.textTransform) {
+                if (transform) {
+                    tmpRect.copy(rect);
+                    tmpRect.applyTransform(transform);
+                    rect = tmpRect;
+                }
+            }
+            else {
+                this.setTransform(ctx);
+            }
+
+            // Text position represented by coord
+            if (textPosition instanceof Array) {
+                // Percent
+                x = rect.x + parsePercent(textPosition[0], rect.width);
+                y = rect.y + parsePercent(textPosition[1], rect.height);
+                align = align || 'left';
+                baseline = baseline || 'top';
+
+                if (verticalAlign) {
+                    switch (verticalAlign) {
+                        case 'middle':
+                            y -= textRect.height / 2 - textRect.lineHeight / 2;
+                            break;
+                        case 'bottom':
+                            y -= textRect.height - textRect.lineHeight / 2;
+                            break;
+                        default:
+                            y += textRect.lineHeight / 2;
+                    }
+                    // Force bseline to be middle
+                    baseline = 'middle';
+                }
+            }
+            else {
+                var res = textContain.adjustTextPositionOnRect(
+                    textPosition, rect, textRect, distance
+                );
+                x = res.x;
+                y = res.y;
+                // Default align and baseline when has textPosition
+                align = align || res.textAlign;
+                baseline = baseline || res.textBaseline;
+            }
+
+            if (textOffset) {
+                x += textOffset[0];
+                y += textOffset[1];
+            }
+
+            // Use canvas default left textAlign. Giving invalid value will cause state not change
+            ctx.textAlign = align || 'left';
+            // Use canvas default alphabetic baseline
+            ctx.textBaseline = baseline || 'alphabetic';
+
+            var textFill = style.textFill;
+            var textStroke = style.textStroke;
+            textFill && (ctx.fillStyle = textFill);
+            textStroke && (ctx.strokeStyle = textStroke);
+
+            // TODO Invalid font
+            ctx.font = font || '12px sans-serif';
+
+            // Text shadow
+            // Always set shadowBlur and shadowOffset to avoid leak from displayable
+            ctx.shadowBlur = style.textShadowBlur;
+            ctx.shadowColor = style.textShadowColor || 'transparent';
+            ctx.shadowOffsetX = style.textShadowOffsetX;
+            ctx.shadowOffsetY = style.textShadowOffsetY;
+
+            var textLines = text.split('\n');
+
+            if (style.textRotation) {
+                transform && ctx.translate(transform[4], transform[5]);
+                ctx.rotate(style.textRotation);
+                transform && ctx.translate(-transform[4], -transform[5]);
+            }
+
+            for (var i = 0; i < textLines.length; i++) {
+                // Fill after stroke so the outline will not cover the main part.
+                textStroke && ctx.strokeText(textLines[i], x, y);
+                textFill && ctx.fillText(textLines[i], x, y);
+                y += textRect.lineHeight;
+            }
+
+            ctx.restore();
+        }
+    };
+
+    return RectText;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 778:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * 贝塞尔曲线
+ * @module zrender/shape/BezierCurve
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+    'use strict';
+
+    var curveTool = __webpack_require__(91);
+    var vec2 = __webpack_require__(74);
+    var quadraticSubdivide = curveTool.quadraticSubdivide;
+    var cubicSubdivide = curveTool.cubicSubdivide;
+    var quadraticAt = curveTool.quadraticAt;
+    var cubicAt = curveTool.cubicAt;
+    var quadraticDerivativeAt = curveTool.quadraticDerivativeAt;
+    var cubicDerivativeAt = curveTool.cubicDerivativeAt;
+
+    var out = [];
+
+    function someVectorAt(shape, t, isTangent) {
+        var cpx2 = shape.cpx2;
+        var cpy2 = shape.cpy2;
+        if (cpx2 === null || cpy2 === null) {
+            return [
+                (isTangent ? cubicDerivativeAt : cubicAt)(shape.x1, shape.cpx1, shape.cpx2, shape.x2, t),
+                (isTangent ? cubicDerivativeAt : cubicAt)(shape.y1, shape.cpy1, shape.cpy2, shape.y2, t)
+            ];
+        }
+        else {
+            return [
+                (isTangent ? quadraticDerivativeAt : quadraticAt)(shape.x1, shape.cpx1, shape.x2, t),
+                (isTangent ? quadraticDerivativeAt : quadraticAt)(shape.y1, shape.cpy1, shape.y2, t)
+            ];
+        }
+    }
+    return __webpack_require__(218).extend({
+
+        type: 'bezier-curve',
+
+        shape: {
+            x1: 0,
+            y1: 0,
+            x2: 0,
+            y2: 0,
+            cpx1: 0,
+            cpy1: 0,
+            // cpx2: 0,
+            // cpy2: 0
+
+            // Curve show percent, for animating
+            percent: 1
+        },
+
+        style: {
+            stroke: '#000',
+            fill: null
+        },
+
+        buildPath: function (ctx, shape) {
+            var x1 = shape.x1;
+            var y1 = shape.y1;
+            var x2 = shape.x2;
+            var y2 = shape.y2;
+            var cpx1 = shape.cpx1;
+            var cpy1 = shape.cpy1;
+            var cpx2 = shape.cpx2;
+            var cpy2 = shape.cpy2;
+            var percent = shape.percent;
+            if (percent === 0) {
+                return;
+            }
+
+            ctx.moveTo(x1, y1);
+
+            if (cpx2 == null || cpy2 == null) {
+                if (percent < 1) {
+                    quadraticSubdivide(
+                        x1, cpx1, x2, percent, out
+                    );
+                    cpx1 = out[1];
+                    x2 = out[2];
+                    quadraticSubdivide(
+                        y1, cpy1, y2, percent, out
+                    );
+                    cpy1 = out[1];
+                    y2 = out[2];
+                }
+
+                ctx.quadraticCurveTo(
+                    cpx1, cpy1,
+                    x2, y2
+                );
+            }
+            else {
+                if (percent < 1) {
+                    cubicSubdivide(
+                        x1, cpx1, cpx2, x2, percent, out
+                    );
+                    cpx1 = out[1];
+                    cpx2 = out[2];
+                    x2 = out[3];
+                    cubicSubdivide(
+                        y1, cpy1, cpy2, y2, percent, out
+                    );
+                    cpy1 = out[1];
+                    cpy2 = out[2];
+                    y2 = out[3];
+                }
+                ctx.bezierCurveTo(
+                    cpx1, cpy1,
+                    cpx2, cpy2,
+                    x2, y2
+                );
+            }
+        },
+
+        /**
+         * Get point at percent
+         * @param  {number} t
+         * @return {Array.<number>}
+         */
+        pointAt: function (t) {
+            return someVectorAt(this.shape, t, false);
+        },
+
+        /**
+         * Get tangent at percent
+         * @param  {number} t
+         * @return {Array.<number>}
+         */
+        tangentAt: function (t) {
+            var p = someVectorAt(this.shape, t, true);
+            return vec2.normalize(p, p);
+        }
+    });
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 779:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * @module zrender/mixin/Animatable
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
+
+    'use strict';
+
+    var Animator = __webpack_require__(332);
+    var util = __webpack_require__(33);
+    var isString = util.isString;
+    var isFunction = util.isFunction;
+    var isObject = util.isObject;
+    var log = __webpack_require__(337);
+
+    /**
+     * @alias modue:zrender/mixin/Animatable
+     * @constructor
+     */
+    var Animatable = function () {
+
+        /**
+         * @type {Array.<module:zrender/animation/Animator>}
+         * @readOnly
+         */
+        this.animators = [];
+    };
+
+    Animatable.prototype = {
+
+        constructor: Animatable,
+
+        /**
+         * 动画
+         *
+         * @param {string} path 需要添加动画的属性获取路径，可以通过a.b.c来获取深层的属性
+         * @param {boolean} [loop] 动画是否循环
+         * @return {module:zrender/animation/Animator}
+         * @example:
+         *     el.animate('style', false)
+         *         .when(1000, {x: 10} )
+         *         .done(function(){ // Animation done })
+         *         .start()
+         */
+        animate: function (path, loop) {
+            var target;
+            var animatingShape = false;
+            var el = this;
+            var zr = this.__zr;
+            if (path) {
+                var pathSplitted = path.split('.');
+                var prop = el;
+                // If animating shape
+                animatingShape = pathSplitted[0] === 'shape';
+                for (var i = 0, l = pathSplitted.length; i < l; i++) {
+                    if (!prop) {
+                        continue;
+                    }
+                    prop = prop[pathSplitted[i]];
+                }
+                if (prop) {
+                    target = prop;
+                }
+            }
+            else {
+                target = el;
+            }
+
+            if (!target) {
+                log(
+                    'Property "'
+                    + path
+                    + '" is not existed in element '
+                    + el.id
+                );
+                return;
+            }
+
+            var animators = el.animators;
+
+            var animator = new Animator(target, loop);
+
+            animator.during(function (target) {
+                el.dirty(animatingShape);
+            })
+            .done(function () {
+                // FIXME Animator will not be removed if use `Animator#stop` to stop animation
+                animators.splice(util.indexOf(animators, animator), 1);
+            });
+
+            animators.push(animator);
+
+            // If animate after added to the zrender
+            if (zr) {
+                zr.animation.addAnimator(animator);
+            }
+
+            return animator;
+        },
+
+        /**
+         * 停止动画
+         * @param {boolean} forwardToLast If move to last frame before stop
+         */
+        stopAnimation: function (forwardToLast) {
+            var animators = this.animators;
+            var len = animators.length;
+            for (var i = 0; i < len; i++) {
+                animators[i].stop(forwardToLast);
+            }
+            animators.length = 0;
+
+            return this;
+        },
+
+        /**
+         * @param {Object} target
+         * @param {number} [time=500] Time in ms
+         * @param {string} [easing='linear']
+         * @param {number} [delay=0]
+         * @param {Function} [callback]
+         *
+         * @example
+         *  // Animate position
+         *  el.animateTo({
+         *      position: [10, 10]
+         *  }, function () { // done })
+         *
+         *  // Animate shape, style and position in 100ms, delayed 100ms, with cubicOut easing
+         *  el.animateTo({
+         *      shape: {
+         *          width: 500
+         *      },
+         *      style: {
+         *          fill: 'red'
+         *      }
+         *      position: [10, 10]
+         *  }, 100, 100, 'cubicOut', function () { // done })
+         */
+         // TODO Return animation key
+        animateTo: function (target, time, delay, easing, callback) {
+            // animateTo(target, time, easing, callback);
+            if (isString(delay)) {
+                callback = easing;
+                easing = delay;
+                delay = 0;
+            }
+            // animateTo(target, time, delay, callback);
+            else if (isFunction(easing)) {
+                callback = easing;
+                easing = 'linear';
+                delay = 0;
+            }
+            // animateTo(target, time, callback);
+            else if (isFunction(delay)) {
+                callback = delay;
+                delay = 0;
+            }
+            // animateTo(target, callback)
+            else if (isFunction(time)) {
+                callback = time;
+                time = 500;
+            }
+            // animateTo(target)
+            else if (!time) {
+                time = 500;
+            }
+            // Stop all previous animations
+            this.stopAnimation();
+            this._animateToShallow('', this, target, time, delay, easing, callback);
+
+            // Animators may be removed immediately after start
+            // if there is nothing to animate
+            var animators = this.animators.slice();
+            var count = animators.length;
+            function done() {
+                count--;
+                if (!count) {
+                    callback && callback();
+                }
+            }
+
+            // No animators. This should be checked before animators[i].start(),
+            // because 'done' may be executed immediately if no need to animate.
+            if (!count) {
+                callback && callback();
+            }
+            // Start after all animators created
+            // Incase any animator is done immediately when all animation properties are not changed
+            for (var i = 0; i < animators.length; i++) {
+                animators[i]
+                    .done(done)
+                    .start(easing);
+            }
+        },
+
+        /**
+         * @private
+         * @param {string} path=''
+         * @param {Object} source=this
+         * @param {Object} target
+         * @param {number} [time=500]
+         * @param {number} [delay=0]
+         *
+         * @example
+         *  // Animate position
+         *  el._animateToShallow({
+         *      position: [10, 10]
+         *  })
+         *
+         *  // Animate shape, style and position in 100ms, delayed 100ms
+         *  el._animateToShallow({
+         *      shape: {
+         *          width: 500
+         *      },
+         *      style: {
+         *          fill: 'red'
+         *      }
+         *      position: [10, 10]
+         *  }, 100, 100)
+         */
+        _animateToShallow: function (path, source, target, time, delay) {
+            var objShallow = {};
+            var propertyCount = 0;
+            for (var name in target) {
+                if (!target.hasOwnProperty(name)) {
+                    continue;
+                }
+
+                if (source[name] != null) {
+                    if (isObject(target[name]) && !util.isArrayLike(target[name])) {
+                        this._animateToShallow(
+                            path ? path + '.' + name : name,
+                            source[name],
+                            target[name],
+                            time,
+                            delay
+                        );
+                    }
+                    else {
+                        objShallow[name] = target[name];
+                        propertyCount++;
+                    }
+                }
+                else if (target[name] != null) {
+                    // Attr directly if not has property
+                    // FIXME, if some property not needed for element ?
+                    if (!path) {
+                        this.attr(name, target[name]);
+                    }
+                    else {  // Shape or style
+                        var props = {};
+                        props[path] = {};
+                        props[path][name] = target[name];
+                        this.attr(props);
+                    }
+                }
+            }
+
+            if (propertyCount > 0) {
+                this.animate(path, false)
+                    .when(time == null ? 500 : time, objShallow)
+                    .delay(delay || 0);
+            }
+
+            return this;
+        }
+    };
+
+    return Animatable;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 780:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;// TODO Draggable for group
+// FIXME Draggable on element which has parent rotation or scale
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+    function Draggable() {
+
+        this.on('mousedown', this._dragStart, this);
+        this.on('mousemove', this._drag, this);
+        this.on('mouseup', this._dragEnd, this);
+        this.on('globalout', this._dragEnd, this);
+        // this._dropTarget = null;
+        // this._draggingTarget = null;
+
+        // this._x = 0;
+        // this._y = 0;
+    }
+
+    Draggable.prototype = {
+
+        constructor: Draggable,
+
+        _dragStart: function (e) {
+            var draggingTarget = e.target;
+            if (draggingTarget && draggingTarget.draggable) {
+                this._draggingTarget = draggingTarget;
+                draggingTarget.dragging = true;
+                this._x = e.offsetX;
+                this._y = e.offsetY;
+
+                this.dispatchToElement(param(draggingTarget, e), 'dragstart', e.event);
+            }
+        },
+
+        _drag: function (e) {
+            var draggingTarget = this._draggingTarget;
+            if (draggingTarget) {
+
+                var x = e.offsetX;
+                var y = e.offsetY;
+
+                var dx = x - this._x;
+                var dy = y - this._y;
+                this._x = x;
+                this._y = y;
+
+                draggingTarget.drift(dx, dy, e);
+                this.dispatchToElement(param(draggingTarget, e), 'drag', e.event);
+
+                var dropTarget = this.findHover(x, y, draggingTarget).target;
+                var lastDropTarget = this._dropTarget;
+                this._dropTarget = dropTarget;
+
+                if (draggingTarget !== dropTarget) {
+                    if (lastDropTarget && dropTarget !== lastDropTarget) {
+                        this.dispatchToElement(param(lastDropTarget, e), 'dragleave', e.event);
+                    }
+                    if (dropTarget && dropTarget !== lastDropTarget) {
+                        this.dispatchToElement(param(dropTarget, e), 'dragenter', e.event);
+                    }
+                }
+            }
+        },
+
+        _dragEnd: function (e) {
+            var draggingTarget = this._draggingTarget;
+
+            if (draggingTarget) {
+                draggingTarget.dragging = false;
+            }
+
+            this.dispatchToElement(param(draggingTarget, e), 'dragend', e.event);
+
+            if (this._dropTarget) {
+                this.dispatchToElement(param(this._dropTarget, e), 'drop', e.event);
+            }
+
+            this._draggingTarget = null;
+            this._dropTarget = null;
+        }
+
+    };
+
+    function param(target, e) {
+        return {target: target, topTarget: e && e.topTarget};
+    }
+
+    return Draggable;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 781:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * 提供变换扩展
+ * @module zrender/mixin/Transformable
+ * @author pissang (https://www.github.com/pissang)
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    'use strict';
+
+    var matrix = __webpack_require__(338);
+    var vector = __webpack_require__(74);
+    var mIdentity = matrix.identity;
+
+    var EPSILON = 5e-5;
+
+    function isNotAroundZero(val) {
+        return val > EPSILON || val < -EPSILON;
+    }
+
+    /**
+     * @alias module:zrender/mixin/Transformable
+     * @constructor
+     */
+    var Transformable = function (opts) {
+        opts = opts || {};
+        // If there are no given position, rotation, scale
+        if (!opts.position) {
+            /**
+             * 平移
+             * @type {Array.<number>}
+             * @default [0, 0]
+             */
+            this.position = [0, 0];
+        }
+        if (opts.rotation == null) {
+            /**
+             * 旋转
+             * @type {Array.<number>}
+             * @default 0
+             */
+            this.rotation = 0;
+        }
+        if (!opts.scale) {
+            /**
+             * 缩放
+             * @type {Array.<number>}
+             * @default [1, 1]
+             */
+            this.scale = [1, 1];
+        }
+        /**
+         * 旋转和缩放的原点
+         * @type {Array.<number>}
+         * @default null
+         */
+        this.origin = this.origin || null;
+    };
+
+    var transformableProto = Transformable.prototype;
+    transformableProto.transform = null;
+
+    /**
+     * 判断是否需要有坐标变换
+     * 如果有坐标变换, 则从position, rotation, scale以及父节点的transform计算出自身的transform矩阵
+     */
+    transformableProto.needLocalTransform = function () {
+        return isNotAroundZero(this.rotation)
+            || isNotAroundZero(this.position[0])
+            || isNotAroundZero(this.position[1])
+            || isNotAroundZero(this.scale[0] - 1)
+            || isNotAroundZero(this.scale[1] - 1);
+    };
+
+    transformableProto.updateTransform = function () {
+        var parent = this.parent;
+        var parentHasTransform = parent && parent.transform;
+        var needLocalTransform = this.needLocalTransform();
+
+        var m = this.transform;
+        if (!(needLocalTransform || parentHasTransform)) {
+            m && mIdentity(m);
+            return;
+        }
+
+        m = m || matrix.create();
+
+        if (needLocalTransform) {
+            this.getLocalTransform(m);
+        }
+        else {
+            mIdentity(m);
+        }
+
+        // 应用父节点变换
+        if (parentHasTransform) {
+            if (needLocalTransform) {
+                matrix.mul(m, parent.transform, m);
+            }
+            else {
+                matrix.copy(m, parent.transform);
+            }
+        }
+        // 保存这个变换矩阵
+        this.transform = m;
+
+        this.invTransform = this.invTransform || matrix.create();
+        matrix.invert(this.invTransform, m);
+    };
+
+    transformableProto.getLocalTransform = function (m) {
+        return Transformable.getLocalTransform(this, m);
+    };
+
+    /**
+     * 将自己的transform应用到context上
+     * @param {Context2D} ctx
+     */
+    transformableProto.setTransform = function (ctx) {
+        var m = this.transform;
+        var dpr = ctx.dpr || 1;
+        if (m) {
+            ctx.setTransform(dpr * m[0], dpr * m[1], dpr * m[2], dpr * m[3], dpr * m[4], dpr * m[5]);
+        }
+        else {
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+    };
+
+    transformableProto.restoreTransform = function (ctx) {
+        var dpr = ctx.dpr || 1;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    var tmpTransform = [];
+
+    /**
+     * 分解`transform`矩阵到`position`, `rotation`, `scale`
+     */
+    transformableProto.decomposeTransform = function () {
+        if (!this.transform) {
+            return;
+        }
+        var parent = this.parent;
+        var m = this.transform;
+        if (parent && parent.transform) {
+            // Get local transform and decompose them to position, scale, rotation
+            matrix.mul(tmpTransform, parent.invTransform, m);
+            m = tmpTransform;
+        }
+        var sx = m[0] * m[0] + m[1] * m[1];
+        var sy = m[2] * m[2] + m[3] * m[3];
+        var position = this.position;
+        var scale = this.scale;
+        if (isNotAroundZero(sx - 1)) {
+            sx = Math.sqrt(sx);
+        }
+        if (isNotAroundZero(sy - 1)) {
+            sy = Math.sqrt(sy);
+        }
+        if (m[0] < 0) {
+            sx = -sx;
+        }
+        if (m[3] < 0) {
+            sy = -sy;
+        }
+        position[0] = m[4];
+        position[1] = m[5];
+        scale[0] = sx;
+        scale[1] = sy;
+        this.rotation = Math.atan2(-m[1] / sy, m[0] / sx);
+    };
+
+    /**
+     * Get global scale
+     * @return {Array.<number>}
+     */
+    transformableProto.getGlobalScale = function () {
+        var m = this.transform;
+        if (!m) {
+            return [1, 1];
+        }
+        var sx = Math.sqrt(m[0] * m[0] + m[1] * m[1]);
+        var sy = Math.sqrt(m[2] * m[2] + m[3] * m[3]);
+        if (m[0] < 0) {
+            sx = -sx;
+        }
+        if (m[3] < 0) {
+            sy = -sy;
+        }
+        return [sx, sy];
+    };
+    /**
+     * 变换坐标位置到 shape 的局部坐标空间
+     * @method
+     * @param {number} x
+     * @param {number} y
+     * @return {Array.<number>}
+     */
+    transformableProto.transformCoordToLocal = function (x, y) {
+        var v2 = [x, y];
+        var invTransform = this.invTransform;
+        if (invTransform) {
+            vector.applyTransform(v2, v2, invTransform);
+        }
+        return v2;
+    };
+
+    /**
+     * 变换局部坐标位置到全局坐标空间
+     * @method
+     * @param {number} x
+     * @param {number} y
+     * @return {Array.<number>}
+     */
+    transformableProto.transformCoordToGlobal = function (x, y) {
+        var v2 = [x, y];
+        var transform = this.transform;
+        if (transform) {
+            vector.applyTransform(v2, v2, transform);
+        }
+        return v2;
+    };
+
+    /**
+     * @static
+     * @param {Object} target
+     * @param {Array.<number>} target.origin
+     * @param {number} target.rotation
+     * @param {Array.<number>} target.position
+     * @param {Array.<number>} [m]
+     */
+    Transformable.getLocalTransform = function (target, m) {
+        m = m || [];
+        mIdentity(m);
+
+        var origin = target.origin;
+        var scale = target.scale || [1, 1];
+        var rotation = target.rotation || 0;
+        var position = target.position || [0, 0];
+
+        if (origin) {
+            // Translate to origin
+            m[4] -= origin[0];
+            m[5] -= origin[1];
+        }
+        matrix.scale(m, m, scale);
+        if (rotation) {
+            matrix.rotate(m, m, rotation);
+        }
+        if (origin) {
+            // Translate back from origin
+            m[4] += origin[0];
+            m[5] += origin[1];
+        }
+
+        m[4] += position[0];
+        m[5] += position[1];
+
+        return m;
+    };
+
+    return Transformable;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 782:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * @module zrender/tool/color
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
+
+    var LRU = __webpack_require__(335);
+
+    var kCSSColorTable = {
+        'transparent': [0,0,0,0], 'aliceblue': [240,248,255,1],
+        'antiquewhite': [250,235,215,1], 'aqua': [0,255,255,1],
+        'aquamarine': [127,255,212,1], 'azure': [240,255,255,1],
+        'beige': [245,245,220,1], 'bisque': [255,228,196,1],
+        'black': [0,0,0,1], 'blanchedalmond': [255,235,205,1],
+        'blue': [0,0,255,1], 'blueviolet': [138,43,226,1],
+        'brown': [165,42,42,1], 'burlywood': [222,184,135,1],
+        'cadetblue': [95,158,160,1], 'chartreuse': [127,255,0,1],
+        'chocolate': [210,105,30,1], 'coral': [255,127,80,1],
+        'cornflowerblue': [100,149,237,1], 'cornsilk': [255,248,220,1],
+        'crimson': [220,20,60,1], 'cyan': [0,255,255,1],
+        'darkblue': [0,0,139,1], 'darkcyan': [0,139,139,1],
+        'darkgoldenrod': [184,134,11,1], 'darkgray': [169,169,169,1],
+        'darkgreen': [0,100,0,1], 'darkgrey': [169,169,169,1],
+        'darkkhaki': [189,183,107,1], 'darkmagenta': [139,0,139,1],
+        'darkolivegreen': [85,107,47,1], 'darkorange': [255,140,0,1],
+        'darkorchid': [153,50,204,1], 'darkred': [139,0,0,1],
+        'darksalmon': [233,150,122,1], 'darkseagreen': [143,188,143,1],
+        'darkslateblue': [72,61,139,1], 'darkslategray': [47,79,79,1],
+        'darkslategrey': [47,79,79,1], 'darkturquoise': [0,206,209,1],
+        'darkviolet': [148,0,211,1], 'deeppink': [255,20,147,1],
+        'deepskyblue': [0,191,255,1], 'dimgray': [105,105,105,1],
+        'dimgrey': [105,105,105,1], 'dodgerblue': [30,144,255,1],
+        'firebrick': [178,34,34,1], 'floralwhite': [255,250,240,1],
+        'forestgreen': [34,139,34,1], 'fuchsia': [255,0,255,1],
+        'gainsboro': [220,220,220,1], 'ghostwhite': [248,248,255,1],
+        'gold': [255,215,0,1], 'goldenrod': [218,165,32,1],
+        'gray': [128,128,128,1], 'green': [0,128,0,1],
+        'greenyellow': [173,255,47,1], 'grey': [128,128,128,1],
+        'honeydew': [240,255,240,1], 'hotpink': [255,105,180,1],
+        'indianred': [205,92,92,1], 'indigo': [75,0,130,1],
+        'ivory': [255,255,240,1], 'khaki': [240,230,140,1],
+        'lavender': [230,230,250,1], 'lavenderblush': [255,240,245,1],
+        'lawngreen': [124,252,0,1], 'lemonchiffon': [255,250,205,1],
+        'lightblue': [173,216,230,1], 'lightcoral': [240,128,128,1],
+        'lightcyan': [224,255,255,1], 'lightgoldenrodyellow': [250,250,210,1],
+        'lightgray': [211,211,211,1], 'lightgreen': [144,238,144,1],
+        'lightgrey': [211,211,211,1], 'lightpink': [255,182,193,1],
+        'lightsalmon': [255,160,122,1], 'lightseagreen': [32,178,170,1],
+        'lightskyblue': [135,206,250,1], 'lightslategray': [119,136,153,1],
+        'lightslategrey': [119,136,153,1], 'lightsteelblue': [176,196,222,1],
+        'lightyellow': [255,255,224,1], 'lime': [0,255,0,1],
+        'limegreen': [50,205,50,1], 'linen': [250,240,230,1],
+        'magenta': [255,0,255,1], 'maroon': [128,0,0,1],
+        'mediumaquamarine': [102,205,170,1], 'mediumblue': [0,0,205,1],
+        'mediumorchid': [186,85,211,1], 'mediumpurple': [147,112,219,1],
+        'mediumseagreen': [60,179,113,1], 'mediumslateblue': [123,104,238,1],
+        'mediumspringgreen': [0,250,154,1], 'mediumturquoise': [72,209,204,1],
+        'mediumvioletred': [199,21,133,1], 'midnightblue': [25,25,112,1],
+        'mintcream': [245,255,250,1], 'mistyrose': [255,228,225,1],
+        'moccasin': [255,228,181,1], 'navajowhite': [255,222,173,1],
+        'navy': [0,0,128,1], 'oldlace': [253,245,230,1],
+        'olive': [128,128,0,1], 'olivedrab': [107,142,35,1],
+        'orange': [255,165,0,1], 'orangered': [255,69,0,1],
+        'orchid': [218,112,214,1], 'palegoldenrod': [238,232,170,1],
+        'palegreen': [152,251,152,1], 'paleturquoise': [175,238,238,1],
+        'palevioletred': [219,112,147,1], 'papayawhip': [255,239,213,1],
+        'peachpuff': [255,218,185,1], 'peru': [205,133,63,1],
+        'pink': [255,192,203,1], 'plum': [221,160,221,1],
+        'powderblue': [176,224,230,1], 'purple': [128,0,128,1],
+        'red': [255,0,0,1], 'rosybrown': [188,143,143,1],
+        'royalblue': [65,105,225,1], 'saddlebrown': [139,69,19,1],
+        'salmon': [250,128,114,1], 'sandybrown': [244,164,96,1],
+        'seagreen': [46,139,87,1], 'seashell': [255,245,238,1],
+        'sienna': [160,82,45,1], 'silver': [192,192,192,1],
+        'skyblue': [135,206,235,1], 'slateblue': [106,90,205,1],
+        'slategray': [112,128,144,1], 'slategrey': [112,128,144,1],
+        'snow': [255,250,250,1], 'springgreen': [0,255,127,1],
+        'steelblue': [70,130,180,1], 'tan': [210,180,140,1],
+        'teal': [0,128,128,1], 'thistle': [216,191,216,1],
+        'tomato': [255,99,71,1], 'turquoise': [64,224,208,1],
+        'violet': [238,130,238,1], 'wheat': [245,222,179,1],
+        'white': [255,255,255,1], 'whitesmoke': [245,245,245,1],
+        'yellow': [255,255,0,1], 'yellowgreen': [154,205,50,1]
+    };
+
+    function clampCssByte(i) {  // Clamp to integer 0 .. 255.
+        i = Math.round(i);  // Seems to be what Chrome does (vs truncation).
+        return i < 0 ? 0 : i > 255 ? 255 : i;
+    }
+
+    function clampCssAngle(i) {  // Clamp to integer 0 .. 360.
+        i = Math.round(i);  // Seems to be what Chrome does (vs truncation).
+        return i < 0 ? 0 : i > 360 ? 360 : i;
+    }
+
+    function clampCssFloat(f) {  // Clamp to float 0.0 .. 1.0.
+        return f < 0 ? 0 : f > 1 ? 1 : f;
+    }
+
+    function parseCssInt(str) {  // int or percentage.
+        if (str.length && str.charAt(str.length - 1) === '%') {
+            return clampCssByte(parseFloat(str) / 100 * 255);
+        }
+        return clampCssByte(parseInt(str, 10));
+    }
+
+    function parseCssFloat(str) {  // float or percentage.
+        if (str.length && str.charAt(str.length - 1) === '%') {
+            return clampCssFloat(parseFloat(str) / 100);
+        }
+        return clampCssFloat(parseFloat(str));
+    }
+
+    function cssHueToRgb(m1, m2, h) {
+        if (h < 0) {
+            h += 1;
+        }
+        else if (h > 1) {
+            h -= 1;
+        }
+
+        if (h * 6 < 1) {
+            return m1 + (m2 - m1) * h * 6;
+        }
+        if (h * 2 < 1) {
+            return m2;
+        }
+        if (h * 3 < 2) {
+            return m1 + (m2 - m1) * (2/3 - h) * 6;
+        }
+        return m1;
+    }
+
+    function lerp(a, b, p) {
+        return a + (b - a) * p;
+    }
+
+    function setRgba(out, r, g, b, a) {
+        out[0] = r; out[1] = g; out[2] = b; out[3] = a;
+        return out;
+    }
+    function copyRgba(out, a) {
+        out[0] = a[0]; out[1] = a[1]; out[2] = a[2]; out[3] = a[3];
+        return out;
+    }
+    var colorCache = new LRU(20);
+    var lastRemovedArr = null;
+    function putToCache(colorStr, rgbaArr) {
+        // Reuse removed array
+        if (lastRemovedArr) {
+            copyRgba(lastRemovedArr, rgbaArr);
+        }
+        lastRemovedArr = colorCache.put(colorStr, lastRemovedArr || (rgbaArr.slice()));
+    }
+    /**
+     * @param {string} colorStr
+     * @param {Array.<number>} out
+     * @return {Array.<number>}
+     * @memberOf module:zrender/util/color
+     */
+    function parse(colorStr, rgbaArr) {
+        if (!colorStr) {
+            return;
+        }
+        rgbaArr = rgbaArr || [];
+
+        var cached = colorCache.get(colorStr);
+        if (cached) {
+            return copyRgba(rgbaArr, cached);
+        }
+
+        // colorStr may be not string
+        colorStr = colorStr + '';
+        // Remove all whitespace, not compliant, but should just be more accepting.
+        var str = colorStr.replace(/ /g, '').toLowerCase();
+
+        // Color keywords (and transparent) lookup.
+        if (str in kCSSColorTable) {
+            copyRgba(rgbaArr, kCSSColorTable[str]);
+            putToCache(colorStr, rgbaArr);
+            return rgbaArr;
+        }
+
+        // #abc and #abc123 syntax.
+        if (str.charAt(0) === '#') {
+            if (str.length === 4) {
+                var iv = parseInt(str.substr(1), 16);  // TODO(deanm): Stricter parsing.
+                if (!(iv >= 0 && iv <= 0xfff)) {
+                    setRgba(rgbaArr, 0, 0, 0, 1);
+                    return;  // Covers NaN.
+                }
+                setRgba(rgbaArr,
+                    ((iv & 0xf00) >> 4) | ((iv & 0xf00) >> 8),
+                    (iv & 0xf0) | ((iv & 0xf0) >> 4),
+                    (iv & 0xf) | ((iv & 0xf) << 4),
+                    1
+                );
+                putToCache(colorStr, rgbaArr);
+                return rgbaArr;
+            }
+            else if (str.length === 7) {
+                var iv = parseInt(str.substr(1), 16);  // TODO(deanm): Stricter parsing.
+                if (!(iv >= 0 && iv <= 0xffffff)) {
+                    setRgba(rgbaArr, 0, 0, 0, 1);
+                    return;  // Covers NaN.
+                }
+                setRgba(rgbaArr,
+                    (iv & 0xff0000) >> 16,
+                    (iv & 0xff00) >> 8,
+                    iv & 0xff,
+                    1
+                );
+                putToCache(colorStr, rgbaArr);
+                return rgbaArr;
+            }
+
+            return;
+        }
+        var op = str.indexOf('('), ep = str.indexOf(')');
+        if (op !== -1 && ep + 1 === str.length) {
+            var fname = str.substr(0, op);
+            var params = str.substr(op + 1, ep - (op + 1)).split(',');
+            var alpha = 1;  // To allow case fallthrough.
+            switch (fname) {
+                case 'rgba':
+                    if (params.length !== 4) {
+                        setRgba(rgbaArr, 0, 0, 0, 1);
+                        return;
+                    }
+                    alpha = parseCssFloat(params.pop()); // jshint ignore:line
+                // Fall through.
+                case 'rgb':
+                    if (params.length !== 3) {
+                        setRgba(rgbaArr, 0, 0, 0, 1);
+                        return;
+                    }
+                    setRgba(rgbaArr,
+                        parseCssInt(params[0]),
+                        parseCssInt(params[1]),
+                        parseCssInt(params[2]),
+                        alpha
+                    );
+                    putToCache(colorStr, rgbaArr);
+                    return rgbaArr;
+                case 'hsla':
+                    if (params.length !== 4) {
+                        setRgba(rgbaArr, 0, 0, 0, 1);
+                        return;
+                    }
+                    params[3] = parseCssFloat(params[3]);
+                    hsla2rgba(params, rgbaArr);
+                    putToCache(colorStr, rgbaArr);
+                    return rgbaArr;
+                case 'hsl':
+                    if (params.length !== 3) {
+                        setRgba(rgbaArr, 0, 0, 0, 1);
+                        return;
+                    }
+                    hsla2rgba(params, rgbaArr);
+                    putToCache(colorStr, rgbaArr);
+                    return rgbaArr;
+                default:
+                    return;
+            }
+        }
+
+        setRgba(rgbaArr, 0, 0, 0, 1);
+        return;
+    }
+
+    /**
+     * @param {Array.<number>} hsla
+     * @param {Array.<number>} rgba
+     * @return {Array.<number>} rgba
+     */
+    function hsla2rgba(hsla, rgba) {
+        var h = (((parseFloat(hsla[0]) % 360) + 360) % 360) / 360;  // 0 .. 1
+        // NOTE(deanm): According to the CSS spec s/l should only be
+        // percentages, but we don't bother and let float or percentage.
+        var s = parseCssFloat(hsla[1]);
+        var l = parseCssFloat(hsla[2]);
+        var m2 = l <= 0.5 ? l * (s + 1) : l + s - l * s;
+        var m1 = l * 2 - m2;
+
+        rgba = rgba || [];
+        setRgba(rgba,
+            clampCssByte(cssHueToRgb(m1, m2, h + 1 / 3) * 255),
+            clampCssByte(cssHueToRgb(m1, m2, h) * 255),
+            clampCssByte(cssHueToRgb(m1, m2, h - 1 / 3) * 255),
+            1
+        );
+
+        if (hsla.length === 4) {
+            rgba[3] = hsla[3];
+        }
+
+        return rgba;
+    }
+
+    /**
+     * @param {Array.<number>} rgba
+     * @return {Array.<number>} hsla
+     */
+    function rgba2hsla(rgba) {
+        if (!rgba) {
+            return;
+        }
+
+        // RGB from 0 to 255
+        var R = rgba[0] / 255;
+        var G = rgba[1] / 255;
+        var B = rgba[2] / 255;
+
+        var vMin = Math.min(R, G, B); // Min. value of RGB
+        var vMax = Math.max(R, G, B); // Max. value of RGB
+        var delta = vMax - vMin; // Delta RGB value
+
+        var L = (vMax + vMin) / 2;
+        var H;
+        var S;
+        // HSL results from 0 to 1
+        if (delta === 0) {
+            H = 0;
+            S = 0;
+        }
+        else {
+            if (L < 0.5) {
+                S = delta / (vMax + vMin);
+            }
+            else {
+                S = delta / (2 - vMax - vMin);
+            }
+
+            var deltaR = (((vMax - R) / 6) + (delta / 2)) / delta;
+            var deltaG = (((vMax - G) / 6) + (delta / 2)) / delta;
+            var deltaB = (((vMax - B) / 6) + (delta / 2)) / delta;
+
+            if (R === vMax) {
+                H = deltaB - deltaG;
+            }
+            else if (G === vMax) {
+                H = (1 / 3) + deltaR - deltaB;
+            }
+            else if (B === vMax) {
+                H = (2 / 3) + deltaG - deltaR;
+            }
+
+            if (H < 0) {
+                H += 1;
+            }
+
+            if (H > 1) {
+                H -= 1;
+            }
+        }
+
+        var hsla = [H * 360, S, L];
+
+        if (rgba[3] != null) {
+            hsla.push(rgba[3]);
+        }
+
+        return hsla;
+    }
+
+    /**
+     * @param {string} color
+     * @param {number} level
+     * @return {string}
+     * @memberOf module:zrender/util/color
+     */
+    function lift(color, level) {
+        var colorArr = parse(color);
+        if (colorArr) {
+            for (var i = 0; i < 3; i++) {
+                if (level < 0) {
+                    colorArr[i] = colorArr[i] * (1 - level) | 0;
+                }
+                else {
+                    colorArr[i] = ((255 - colorArr[i]) * level + colorArr[i]) | 0;
+                }
+            }
+            return stringify(colorArr, colorArr.length === 4 ? 'rgba' : 'rgb');
+        }
+    }
+
+    /**
+     * @param {string} color
+     * @return {string}
+     * @memberOf module:zrender/util/color
+     */
+    function toHex(color, level) {
+        var colorArr = parse(color);
+        if (colorArr) {
+            return ((1 << 24) + (colorArr[0] << 16) + (colorArr[1] << 8) + (+colorArr[2])).toString(16).slice(1);
+        }
+    }
+
+    /**
+     * Map value to color. Faster than mapToColor methods because color is represented by rgba array.
+     * @param {number} normalizedValue A float between 0 and 1.
+     * @param {Array.<Array.<number>>} colors List of rgba color array
+     * @param {Array.<number>} [out] Mapped gba color array
+     * @return {Array.<number>} will be null/undefined if input illegal.
+     */
+    function fastMapToColor(normalizedValue, colors, out) {
+        if (!(colors && colors.length)
+            || !(normalizedValue >= 0 && normalizedValue <= 1)
+        ) {
+            return;
+        }
+
+        out = out || [];
+
+        var value = normalizedValue * (colors.length - 1);
+        var leftIndex = Math.floor(value);
+        var rightIndex = Math.ceil(value);
+        var leftColor = colors[leftIndex];
+        var rightColor = colors[rightIndex];
+        var dv = value - leftIndex;
+        out[0] = clampCssByte(lerp(leftColor[0], rightColor[0], dv));
+        out[1] = clampCssByte(lerp(leftColor[1], rightColor[1], dv));
+        out[2] = clampCssByte(lerp(leftColor[2], rightColor[2], dv));
+        out[3] = clampCssFloat(lerp(leftColor[3], rightColor[3], dv));
+
+        return out;
+    }
+    /**
+     * @param {number} normalizedValue A float between 0 and 1.
+     * @param {Array.<string>} colors Color list.
+     * @param {boolean=} fullOutput Default false.
+     * @return {(string|Object)} Result color. If fullOutput,
+     *                           return {color: ..., leftIndex: ..., rightIndex: ..., value: ...},
+     * @memberOf module:zrender/util/color
+     */
+    function mapToColor(normalizedValue, colors, fullOutput) {
+        if (!(colors && colors.length)
+            || !(normalizedValue >= 0 && normalizedValue <= 1)
+        ) {
+            return;
+        }
+
+        var value = normalizedValue * (colors.length - 1);
+        var leftIndex = Math.floor(value);
+        var rightIndex = Math.ceil(value);
+        var leftColor = parse(colors[leftIndex]);
+        var rightColor = parse(colors[rightIndex]);
+        var dv = value - leftIndex;
+
+        var color = stringify(
+            [
+                clampCssByte(lerp(leftColor[0], rightColor[0], dv)),
+                clampCssByte(lerp(leftColor[1], rightColor[1], dv)),
+                clampCssByte(lerp(leftColor[2], rightColor[2], dv)),
+                clampCssFloat(lerp(leftColor[3], rightColor[3], dv))
+            ],
+            'rgba'
+        );
+
+        return fullOutput
+            ? {
+                color: color,
+                leftIndex: leftIndex,
+                rightIndex: rightIndex,
+                value: value
+            }
+            : color;
+    }
+
+    /**
+     * @param {string} color
+     * @param {number=} h 0 ~ 360, ignore when null.
+     * @param {number=} s 0 ~ 1, ignore when null.
+     * @param {number=} l 0 ~ 1, ignore when null.
+     * @return {string} Color string in rgba format.
+     * @memberOf module:zrender/util/color
+     */
+    function modifyHSL(color, h, s, l) {
+        color = parse(color);
+
+        if (color) {
+            color = rgba2hsla(color);
+            h != null && (color[0] = clampCssAngle(h));
+            s != null && (color[1] = parseCssFloat(s));
+            l != null && (color[2] = parseCssFloat(l));
+
+            return stringify(hsla2rgba(color), 'rgba');
+        }
+    }
+
+    /**
+     * @param {string} color
+     * @param {number=} alpha 0 ~ 1
+     * @return {string} Color string in rgba format.
+     * @memberOf module:zrender/util/color
+     */
+    function modifyAlpha(color, alpha) {
+        color = parse(color);
+
+        if (color && alpha != null) {
+            color[3] = clampCssFloat(alpha);
+            return stringify(color, 'rgba');
+        }
+    }
+
+    /**
+     * @param {Array.<number>} arrColor like [12,33,44,0.4]
+     * @param {string} type 'rgba', 'hsva', ...
+     * @return {string} Result color. (If input illegal, return undefined).
+     */
+    function stringify(arrColor, type) {
+        if (!arrColor || !arrColor.length) {
+            return;
+        }
+        var colorStr = arrColor[0] + ',' + arrColor[1] + ',' + arrColor[2];
+        if (type === 'rgba' || type === 'hsva' || type === 'hsla') {
+            colorStr += ',' + arrColor[3];
+        }
+        return type + '(' + colorStr + ')';
+    }
+
+    return {
+        parse: parse,
+        lift: lift,
+        toHex: toHex,
+        fastMapToColor: fastMapToColor,
+        mapToColor: mapToColor,
+        modifyHSL: modifyHSL,
+        modifyAlpha: modifyAlpha,
+        stringify: stringify
+    };
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+
+/***/ }),
+
+/***/ 783:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var Path = __webpack_require__(218);
+    var PathProxy = __webpack_require__(153);
+    var transformPath = __webpack_require__(784);
+
+    // command chars
+    var cc = [
+        'm', 'M', 'l', 'L', 'v', 'V', 'h', 'H', 'z', 'Z',
+        'c', 'C', 'q', 'Q', 't', 'T', 's', 'S', 'a', 'A'
+    ];
+
+    var mathSqrt = Math.sqrt;
+    var mathSin = Math.sin;
+    var mathCos = Math.cos;
+    var PI = Math.PI;
+
+    var vMag = function(v) {
+        return Math.sqrt(v[0] * v[0] + v[1] * v[1]);
+    };
+    var vRatio = function(u, v) {
+        return (u[0] * v[0] + u[1] * v[1]) / (vMag(u) * vMag(v));
+    };
+    var vAngle = function(u, v) {
+        return (u[0] * v[1] < u[1] * v[0] ? -1 : 1)
+                * Math.acos(vRatio(u, v));
+    };
+
+    function processArc(x1, y1, x2, y2, fa, fs, rx, ry, psiDeg, cmd, path) {
+        var psi = psiDeg * (PI / 180.0);
+        var xp = mathCos(psi) * (x1 - x2) / 2.0
+                 + mathSin(psi) * (y1 - y2) / 2.0;
+        var yp = -1 * mathSin(psi) * (x1 - x2) / 2.0
+                 + mathCos(psi) * (y1 - y2) / 2.0;
+
+        var lambda = (xp * xp) / (rx * rx) + (yp * yp) / (ry * ry);
+
+        if (lambda > 1) {
+            rx *= mathSqrt(lambda);
+            ry *= mathSqrt(lambda);
+        }
+
+        var f = (fa === fs ? -1 : 1)
+            * mathSqrt((((rx * rx) * (ry * ry))
+                    - ((rx * rx) * (yp * yp))
+                    - ((ry * ry) * (xp * xp))) / ((rx * rx) * (yp * yp)
+                    + (ry * ry) * (xp * xp))
+                ) || 0;
+
+        var cxp = f * rx * yp / ry;
+        var cyp = f * -ry * xp / rx;
+
+        var cx = (x1 + x2) / 2.0
+                 + mathCos(psi) * cxp
+                 - mathSin(psi) * cyp;
+        var cy = (y1 + y2) / 2.0
+                + mathSin(psi) * cxp
+                + mathCos(psi) * cyp;
+
+        var theta = vAngle([ 1, 0 ], [ (xp - cxp) / rx, (yp - cyp) / ry ]);
+        var u = [ (xp - cxp) / rx, (yp - cyp) / ry ];
+        var v = [ (-1 * xp - cxp) / rx, (-1 * yp - cyp) / ry ];
+        var dTheta = vAngle(u, v);
+
+        if (vRatio(u, v) <= -1) {
+            dTheta = PI;
+        }
+        if (vRatio(u, v) >= 1) {
+            dTheta = 0;
+        }
+        if (fs === 0 && dTheta > 0) {
+            dTheta = dTheta - 2 * PI;
+        }
+        if (fs === 1 && dTheta < 0) {
+            dTheta = dTheta + 2 * PI;
+        }
+
+        path.addData(cmd, cx, cy, rx, ry, theta, dTheta, psi, fs);
+    }
+
+    function createPathProxyFromString(data) {
+        if (!data) {
+            return [];
+        }
+
+        // command string
+        var cs = data.replace(/-/g, ' -')
+            .replace(/  /g, ' ')
+            .replace(/ /g, ',')
+            .replace(/,,/g, ',');
+
+        var n;
+        // create pipes so that we can split the data
+        for (n = 0; n < cc.length; n++) {
+            cs = cs.replace(new RegExp(cc[n], 'g'), '|' + cc[n]);
+        }
+
+        // create array
+        var arr = cs.split('|');
+        // init context point
+        var cpx = 0;
+        var cpy = 0;
+
+        var path = new PathProxy();
+        var CMD = PathProxy.CMD;
+
+        var prevCmd;
+        for (n = 1; n < arr.length; n++) {
+            var str = arr[n];
+            var c = str.charAt(0);
+            var off = 0;
+            var p = str.slice(1).replace(/e,-/g, 'e-').split(',');
+            var cmd;
+
+            if (p.length > 0 && p[0] === '') {
+                p.shift();
+            }
+
+            for (var i = 0; i < p.length; i++) {
+                p[i] = parseFloat(p[i]);
+            }
+            while (off < p.length && !isNaN(p[off])) {
+                if (isNaN(p[0])) {
+                    break;
+                }
+                var ctlPtx;
+                var ctlPty;
+
+                var rx;
+                var ry;
+                var psi;
+                var fa;
+                var fs;
+
+                var x1 = cpx;
+                var y1 = cpy;
+
+                // convert l, H, h, V, and v to L
+                switch (c) {
+                    case 'l':
+                        cpx += p[off++];
+                        cpy += p[off++];
+                        cmd = CMD.L;
+                        path.addData(cmd, cpx, cpy);
+                        break;
+                    case 'L':
+                        cpx = p[off++];
+                        cpy = p[off++];
+                        cmd = CMD.L;
+                        path.addData(cmd, cpx, cpy);
+                        break;
+                    case 'm':
+                        cpx += p[off++];
+                        cpy += p[off++];
+                        cmd = CMD.M;
+                        path.addData(cmd, cpx, cpy);
+                        c = 'l';
+                        break;
+                    case 'M':
+                        cpx = p[off++];
+                        cpy = p[off++];
+                        cmd = CMD.M;
+                        path.addData(cmd, cpx, cpy);
+                        c = 'L';
+                        break;
+                    case 'h':
+                        cpx += p[off++];
+                        cmd = CMD.L;
+                        path.addData(cmd, cpx, cpy);
+                        break;
+                    case 'H':
+                        cpx = p[off++];
+                        cmd = CMD.L;
+                        path.addData(cmd, cpx, cpy);
+                        break;
+                    case 'v':
+                        cpy += p[off++];
+                        cmd = CMD.L;
+                        path.addData(cmd, cpx, cpy);
+                        break;
+                    case 'V':
+                        cpy = p[off++];
+                        cmd = CMD.L;
+                        path.addData(cmd, cpx, cpy);
+                        break;
+                    case 'C':
+                        cmd = CMD.C;
+                        path.addData(
+                            cmd, p[off++], p[off++], p[off++], p[off++], p[off++], p[off++]
+                        );
+                        cpx = p[off - 2];
+                        cpy = p[off - 1];
+                        break;
+                    case 'c':
+                        cmd = CMD.C;
+                        path.addData(
+                            cmd,
+                            p[off++] + cpx, p[off++] + cpy,
+                            p[off++] + cpx, p[off++] + cpy,
+                            p[off++] + cpx, p[off++] + cpy
+                        );
+                        cpx += p[off - 2];
+                        cpy += p[off - 1];
+                        break;
+                    case 'S':
+                        ctlPtx = cpx;
+                        ctlPty = cpy;
+                        var len = path.len();
+                        var pathData = path.data;
+                        if (prevCmd === CMD.C) {
+                            ctlPtx += cpx - pathData[len - 4];
+                            ctlPty += cpy - pathData[len - 3];
+                        }
+                        cmd = CMD.C;
+                        x1 = p[off++];
+                        y1 = p[off++];
+                        cpx = p[off++];
+                        cpy = p[off++];
+                        path.addData(cmd, ctlPtx, ctlPty, x1, y1, cpx, cpy);
+                        break;
+                    case 's':
+                        ctlPtx = cpx;
+                        ctlPty = cpy;
+                        var len = path.len();
+                        var pathData = path.data;
+                        if (prevCmd === CMD.C) {
+                            ctlPtx += cpx - pathData[len - 4];
+                            ctlPty += cpy - pathData[len - 3];
+                        }
+                        cmd = CMD.C;
+                        x1 = cpx + p[off++];
+                        y1 = cpy + p[off++];
+                        cpx += p[off++];
+                        cpy += p[off++];
+                        path.addData(cmd, ctlPtx, ctlPty, x1, y1, cpx, cpy);
+                        break;
+                    case 'Q':
+                        x1 = p[off++];
+                        y1 = p[off++];
+                        cpx = p[off++];
+                        cpy = p[off++];
+                        cmd = CMD.Q;
+                        path.addData(cmd, x1, y1, cpx, cpy);
+                        break;
+                    case 'q':
+                        x1 = p[off++] + cpx;
+                        y1 = p[off++] + cpy;
+                        cpx += p[off++];
+                        cpy += p[off++];
+                        cmd = CMD.Q;
+                        path.addData(cmd, x1, y1, cpx, cpy);
+                        break;
+                    case 'T':
+                        ctlPtx = cpx;
+                        ctlPty = cpy;
+                        var len = path.len();
+                        var pathData = path.data;
+                        if (prevCmd === CMD.Q) {
+                            ctlPtx += cpx - pathData[len - 4];
+                            ctlPty += cpy - pathData[len - 3];
+                        }
+                        cpx = p[off++];
+                        cpy = p[off++];
+                        cmd = CMD.Q;
+                        path.addData(cmd, ctlPtx, ctlPty, cpx, cpy);
+                        break;
+                    case 't':
+                        ctlPtx = cpx;
+                        ctlPty = cpy;
+                        var len = path.len();
+                        var pathData = path.data;
+                        if (prevCmd === CMD.Q) {
+                            ctlPtx += cpx - pathData[len - 4];
+                            ctlPty += cpy - pathData[len - 3];
+                        }
+                        cpx += p[off++];
+                        cpy += p[off++];
+                        cmd = CMD.Q;
+                        path.addData(cmd, ctlPtx, ctlPty, cpx, cpy);
+                        break;
+                    case 'A':
+                        rx = p[off++];
+                        ry = p[off++];
+                        psi = p[off++];
+                        fa = p[off++];
+                        fs = p[off++];
+
+                        x1 = cpx, y1 = cpy;
+                        cpx = p[off++];
+                        cpy = p[off++];
+                        cmd = CMD.A;
+                        processArc(
+                            x1, y1, cpx, cpy, fa, fs, rx, ry, psi, cmd, path
+                        );
+                        break;
+                    case 'a':
+                        rx = p[off++];
+                        ry = p[off++];
+                        psi = p[off++];
+                        fa = p[off++];
+                        fs = p[off++];
+
+                        x1 = cpx, y1 = cpy;
+                        cpx += p[off++];
+                        cpy += p[off++];
+                        cmd = CMD.A;
+                        processArc(
+                            x1, y1, cpx, cpy, fa, fs, rx, ry, psi, cmd, path
+                        );
+                        break;
+                }
+            }
+
+            if (c === 'z' || c === 'Z') {
+                cmd = CMD.Z;
+                path.addData(cmd);
+            }
+
+            prevCmd = cmd;
+        }
+
+        path.toStatic();
+
+        return path;
+    }
+
+    // TODO Optimize double memory cost problem
+    function createPathOptions(str, opts) {
+        var pathProxy = createPathProxyFromString(str);
+        opts = opts || {};
+        opts.buildPath = function (path) {
+            if (path.setData) {
+                path.setData(pathProxy.data);
+                // Svg and vml renderer don't have context
+                var ctx = path.getContext();
+                if (ctx) {
+                    path.rebuildPath(ctx);
+                }
+            }
+            else {
+                var ctx = path;
+                pathProxy.rebuildPath(ctx);
+            }
+        };
+
+        opts.applyTransform = function (m) {
+            transformPath(pathProxy, m);
+
+            this.dirty(true);
+        };
+
+        return opts;
+    }
+
+    return {
+        /**
+         * Create a Path object from path string data
+         * http://www.w3.org/TR/SVG/paths.html#PathData
+         * @param  {Object} opts Other options
+         */
+        createFromString: function (str, opts) {
+            return new Path(createPathOptions(str, opts));
+        },
+
+        /**
+         * Create a Path class from path string data
+         * @param  {string} str
+         * @param  {Object} opts Other options
+         */
+        extendFromString: function (str, opts) {
+            return Path.extend(createPathOptions(str, opts));
+        },
+
+        /**
+         * Merge multiple paths
+         */
+        // TODO Apply transform
+        // TODO stroke dash
+        // TODO Optimize double memory cost problem
+        mergePath: function (pathEls, opts) {
+            var pathList = [];
+            var len = pathEls.length;
+            for (var i = 0; i < len; i++) {
+                var pathEl = pathEls[i];
+                if (!pathEl.path) {
+                    pathEl.createPathProxy();
+                }
+                if (pathEl.__dirtyPath) {
+                    pathEl.buildPath(pathEl.path, pathEl.shape, true);
+                }
+                pathList.push(pathEl.path);
+            }
+
+            var pathBundle = new Path(opts);
+            // Need path proxy.
+            pathBundle.createPathProxy();
+            pathBundle.buildPath = function (path) {
+                path.appendPath(pathList);
+                // Svg and vml renderer don't have context
+                var ctx = path.getContext();
+                if (ctx) {
+                    path.rebuildPath(ctx);
+                }
+            };
+
+            return pathBundle;
+        }
+    };
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 784:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+
+    var CMD = __webpack_require__(153).CMD;
+    var vec2 = __webpack_require__(74);
+    var v2ApplyTransform = vec2.applyTransform;
+
+    var points = [[], [], []];
+    var mathSqrt = Math.sqrt;
+    var mathAtan2 = Math.atan2;
+    function transformPath(path, m) {
+        var data = path.data;
+        var cmd;
+        var nPoint;
+        var i;
+        var j;
+        var k;
+        var p;
+
+        var M = CMD.M;
+        var C = CMD.C;
+        var L = CMD.L;
+        var R = CMD.R;
+        var A = CMD.A;
+        var Q = CMD.Q;
+
+        for (i = 0, j = 0; i < data.length;) {
+            cmd = data[i++];
+            j = i;
+            nPoint = 0;
+
+            switch (cmd) {
+                case M:
+                    nPoint = 1;
+                    break;
+                case L:
+                    nPoint = 1;
+                    break;
+                case C:
+                    nPoint = 3;
+                    break;
+                case Q:
+                    nPoint = 2;
+                    break;
+                case A:
+                    var x = m[4];
+                    var y = m[5];
+                    var sx = mathSqrt(m[0] * m[0] + m[1] * m[1]);
+                    var sy = mathSqrt(m[2] * m[2] + m[3] * m[3]);
+                    var angle = mathAtan2(-m[1] / sy, m[0] / sx);
+                    // cx
+                    data[i] *= sx;
+                    data[i++] += x;
+                    // cy
+                    data[i] *= sy;
+                    data[i++] += y;
+                    // Scale rx and ry
+                    // FIXME Assume psi is 0 here
+                    data[i++] *= sx;
+                    data[i++] *= sy;
+
+                    // Start angle
+                    data[i++] += angle;
+                    // end angle
+                    data[i++] += angle;
+                    // FIXME psi
+                    i += 2;
+                    j = i;
+                    break;
+                case R:
+                    // x0, y0
+                    p[0] = data[i++];
+                    p[1] = data[i++];
+                    v2ApplyTransform(p, p, m);
+                    data[j++] = p[0];
+                    data[j++] = p[1];
+                    // x1, y1
+                    p[0] += data[i++];
+                    p[1] += data[i++];
+                    v2ApplyTransform(p, p, m);
+                    data[j++] = p[0];
+                    data[j++] = p[1];
+            }
+
+            for (k = 0; k < nPoint; k++) {
+                var p = points[k];
+                p[0] = data[i++];
+                p[1] = data[i++];
+
+                v2ApplyTransform(p, p, m);
+                // Write back
+                data[j++] = p[0];
+                data[j++] = p[1];
+            }
+        }
+    }
+
+    return transformPath;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 785:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * ZRender, a high performance 2d drawing library.
+ *
+ * Copyright (c) 2013, Baidu Inc.
+ * All rights reserved.
+ *
+ * LICENSE
+ * https://github.com/ecomfe/zrender/blob/master/LICENSE.txt
+ */
+// Global defines
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
+    var guid = __webpack_require__(336);
+    var env = __webpack_require__(154);
+    var zrUtil = __webpack_require__(33);
+
+    var Handler = __webpack_require__(758);
+    var Storage = __webpack_require__(761);
+    var Animation = __webpack_require__(762);
+    var HandlerProxy = __webpack_require__(774);
+
+    var useVML = !env.canvasSupported;
+
+    var painterCtors = {
+        canvas: __webpack_require__(760)
+    };
+
+    var instances = {};    // ZRender实例map索引
+
+    var zrender = {};
+
+    /**
+     * @type {string}
+     */
+    zrender.version = '3.5.2';
+
+    /**
+     * Initializing a zrender instance
+     * @param {HTMLElement} dom
+     * @param {Object} opts
+     * @param {string} [opts.renderer='canvas'] 'canvas' or 'svg'
+     * @param {number} [opts.devicePixelRatio]
+     * @param {number|string} [opts.width] Can be 'auto' (the same as null/undefined)
+     * @param {number|string} [opts.height] Can be 'auto' (the same as null/undefined)
+     * @return {module:zrender/ZRender}
+     */
+    zrender.init = function(dom, opts) {
+        var zr = new ZRender(guid(), dom, opts);
+        instances[zr.id] = zr;
+        return zr;
+    };
+
+    /**
+     * Dispose zrender instance
+     * @param {module:zrender/ZRender} zr
+     */
+    zrender.dispose = function (zr) {
+        if (zr) {
+            zr.dispose();
+        }
+        else {
+            for (var key in instances) {
+                if (instances.hasOwnProperty(key)) {
+                    instances[key].dispose();
+                }
+            }
+            instances = {};
+        }
+
+        return zrender;
+    };
+
+    /**
+     * Get zrender instance by id
+     * @param {string} id zrender instance id
+     * @return {module:zrender/ZRender}
+     */
+    zrender.getInstance = function (id) {
+        return instances[id];
+    };
+
+    zrender.registerPainter = function (name, Ctor) {
+        painterCtors[name] = Ctor;
+    };
+
+    function delInstance(id) {
+        delete instances[id];
+    }
+
+    /**
+     * @module zrender/ZRender
+     */
+    /**
+     * @constructor
+     * @alias module:zrender/ZRender
+     * @param {string} id
+     * @param {HTMLDomElement} dom
+     * @param {Object} opts
+     * @param {string} [opts.renderer='canvas'] 'canvas' or 'svg'
+     * @param {number} [opts.devicePixelRatio]
+     * @param {number} [opts.width] Can be 'auto' (the same as null/undefined)
+     * @param {number} [opts.height] Can be 'auto' (the same as null/undefined)
+     */
+    var ZRender = function(id, dom, opts) {
+
+        opts = opts || {};
+
+        /**
+         * @type {HTMLDomElement}
+         */
+        this.dom = dom;
+
+        /**
+         * @type {string}
+         */
+        this.id = id;
+
+        var self = this;
+        var storage = new Storage();
+
+        var rendererType = opts.renderer;
+        // TODO WebGL
+        if (useVML) {
+            if (!painterCtors.vml) {
+                throw new Error('You need to require \'zrender/vml/vml\' to support IE8');
+            }
+            rendererType = 'vml';
+        }
+        else if (!rendererType || !painterCtors[rendererType]) {
+            rendererType = 'canvas';
+        }
+        var painter = new painterCtors[rendererType](dom, storage, opts);
+
+        this.storage = storage;
+        this.painter = painter;
+
+        var handerProxy = !env.node ? new HandlerProxy(painter.getViewportRoot()) : null;
+        this.handler = new Handler(storage, painter, handerProxy, painter.root);
+
+        /**
+         * @type {module:zrender/animation/Animation}
+         */
+        this.animation = new Animation({
+            stage: {
+                update: zrUtil.bind(this.flush, this)
+            }
+        });
+        this.animation.start();
+
+        /**
+         * @type {boolean}
+         * @private
+         */
+        this._needsRefresh;
+
+        // 修改 storage.delFromStorage, 每次删除元素之前删除动画
+        // FIXME 有点ugly
+        var oldDelFromStorage = storage.delFromStorage;
+        var oldAddToStorage = storage.addToStorage;
+
+        storage.delFromStorage = function (el) {
+            oldDelFromStorage.call(storage, el);
+
+            el && el.removeSelfFromZr(self);
+        };
+
+        storage.addToStorage = function (el) {
+            oldAddToStorage.call(storage, el);
+
+            el.addSelfToZr(self);
+        };
+    };
+
+    ZRender.prototype = {
+
+        constructor: ZRender,
+        /**
+         * 获取实例唯一标识
+         * @return {string}
+         */
+        getId: function () {
+            return this.id;
+        },
+
+        /**
+         * 添加元素
+         * @param  {module:zrender/Element} el
+         */
+        add: function (el) {
+            this.storage.addRoot(el);
+            this._needsRefresh = true;
+        },
+
+        /**
+         * 删除元素
+         * @param  {module:zrender/Element} el
+         */
+        remove: function (el) {
+            this.storage.delRoot(el);
+            this._needsRefresh = true;
+        },
+
+        /**
+         * Change configuration of layer
+         * @param {string} zLevel
+         * @param {Object} config
+         * @param {string} [config.clearColor=0] Clear color
+         * @param {string} [config.motionBlur=false] If enable motion blur
+         * @param {number} [config.lastFrameAlpha=0.7] Motion blur factor. Larger value cause longer trailer
+        */
+        configLayer: function (zLevel, config) {
+            this.painter.configLayer(zLevel, config);
+            this._needsRefresh = true;
+        },
+
+        /**
+         * Repaint the canvas immediately
+         */
+        refreshImmediately: function () {
+            // Clear needsRefresh ahead to avoid something wrong happens in refresh
+            // Or it will cause zrender refreshes again and again.
+            this._needsRefresh = false;
+            this.painter.refresh();
+            /**
+             * Avoid trigger zr.refresh in Element#beforeUpdate hook
+             */
+            this._needsRefresh = false;
+        },
+
+        /**
+         * Mark and repaint the canvas in the next frame of browser
+         */
+        refresh: function() {
+            this._needsRefresh = true;
+        },
+
+        /**
+         * Perform all refresh
+         */
+        flush: function () {
+            if (this._needsRefresh) {
+                this.refreshImmediately();
+            }
+            if (this._needsRefreshHover) {
+                this.refreshHoverImmediately();
+            }
+        },
+
+        /**
+         * Add element to hover layer
+         * @param  {module:zrender/Element} el
+         * @param {Object} style
+         */
+        addHover: function (el, style) {
+            if (this.painter.addHover) {
+                this.painter.addHover(el, style);
+                this.refreshHover();
+            }
+        },
+
+        /**
+         * Add element from hover layer
+         * @param  {module:zrender/Element} el
+         */
+        removeHover: function (el) {
+            if (this.painter.removeHover) {
+                this.painter.removeHover(el);
+                this.refreshHover();
+            }
+        },
+
+        /**
+         * Clear all hover elements in hover layer
+         * @param  {module:zrender/Element} el
+         */
+        clearHover: function () {
+            if (this.painter.clearHover) {
+                this.painter.clearHover();
+                this.refreshHover();
+            }
+        },
+
+        /**
+         * Refresh hover in next frame
+         */
+        refreshHover: function () {
+            this._needsRefreshHover = true;
+        },
+
+        /**
+         * Refresh hover immediately
+         */
+        refreshHoverImmediately: function () {
+            this._needsRefreshHover = false;
+            this.painter.refreshHover && this.painter.refreshHover();
+        },
+
+        /**
+         * Resize the canvas.
+         * Should be invoked when container size is changed
+         * @param {Object} [opts]
+         * @param {number|string} [opts.width] Can be 'auto' (the same as null/undefined)
+         * @param {number|string} [opts.height] Can be 'auto' (the same as null/undefined)
+         */
+        resize: function(opts) {
+            opts = opts || {};
+            this.painter.resize(opts.width, opts.height);
+            this.handler.resize();
+        },
+
+        /**
+         * Stop and clear all animation immediately
+         */
+        clearAnimation: function () {
+            this.animation.clear();
+        },
+
+        /**
+         * Get container width
+         */
+        getWidth: function() {
+            return this.painter.getWidth();
+        },
+
+        /**
+         * Get container height
+         */
+        getHeight: function() {
+            return this.painter.getHeight();
+        },
+
+        /**
+         * Export the canvas as Base64 URL
+         * @param {string} type
+         * @param {string} [backgroundColor='#fff']
+         * @return {string} Base64 URL
+         */
+        // toDataURL: function(type, backgroundColor) {
+        //     return this.painter.getRenderedCanvas({
+        //         backgroundColor: backgroundColor
+        //     }).toDataURL(type);
+        // },
+
+        /**
+         * Converting a path to image.
+         * It has much better performance of drawing image rather than drawing a vector path.
+         * @param {module:zrender/graphic/Path} e
+         * @param {number} width
+         * @param {number} height
+         */
+        pathToImage: function(e, dpr) {
+            return this.painter.pathToImage(e, dpr);
+        },
+
+        /**
+         * Set default cursor
+         * @param {string} [cursorStyle='default'] 例如 crosshair
+         */
+        setCursorStyle: function (cursorStyle) {
+            this.handler.setCursorStyle(cursorStyle);
+        },
+
+        /**
+         * Find hovered element
+         * @param {number} x
+         * @param {number} y
+         * @return {Object} {target, topTarget}
+         */
+        findHover: function (x, y) {
+            return this.handler.findHover(x, y);
+        },
+
+        /**
+         * Bind event
+         *
+         * @param {string} eventName Event name
+         * @param {Function} eventHandler Handler function
+         * @param {Object} [context] Context object
+         */
+        on: function(eventName, eventHandler, context) {
+            this.handler.on(eventName, eventHandler, context);
+        },
+
+        /**
+         * Unbind event
+         * @param {string} eventName Event name
+         * @param {Function} [eventHandler] Handler function
+         */
+        off: function(eventName, eventHandler) {
+            this.handler.off(eventName, eventHandler);
+        },
+
+        /**
+         * Trigger event manually
+         *
+         * @param {string} eventName Event name
+         * @param {event=} event Event object
+         */
+        trigger: function (eventName, event) {
+            this.handler.trigger(eventName, event);
+        },
+
+
+        /**
+         * Clear all objects and the canvas.
+         */
+        clear: function () {
+            this.storage.delRoot();
+            this.painter.clear();
+        },
+
+        /**
+         * Dispose self.
+         */
+        dispose: function () {
+            this.animation.stop();
+
+            this.clear();
+            this.storage.dispose();
+            this.painter.dispose();
+            this.handler.dispose();
+
+            this.animation =
+            this.storage =
+            this.painter =
+            this.handler = null;
+
+            delInstance(this.id);
+        }
+    };
+
+    return zrender;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ 81:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * Expose `Emitter`.
+ */
+
+if (true) {
+  module.exports = Emitter;
+}
+
+/**
+ * Initialize a new `Emitter`.
+ *
+ * @api public
+ */
+
+function Emitter(obj) {
+  if (obj) return mixin(obj);
+};
+
+/**
+ * Mixin the emitter properties.
+ *
+ * @param {Object} obj
+ * @return {Object}
+ * @api private
+ */
+
+function mixin(obj) {
+  for (var key in Emitter.prototype) {
+    obj[key] = Emitter.prototype[key];
+  }
+  return obj;
+}
+
+/**
+ * Listen on the given `event` with `fn`.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.on =
+Emitter.prototype.addEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
+    .push(fn);
+  return this;
+};
+
+/**
+ * Adds an `event` listener that will be invoked a single
+ * time then automatically removed.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.once = function(event, fn){
+  function on() {
+    this.off(event, on);
+    fn.apply(this, arguments);
+  }
+
+  on.fn = fn;
+  this.on(event, on);
+  return this;
+};
+
+/**
+ * Remove the given callback for `event` or all
+ * registered callbacks.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.off =
+Emitter.prototype.removeListener =
+Emitter.prototype.removeAllListeners =
+Emitter.prototype.removeEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+
+  // all
+  if (0 == arguments.length) {
+    this._callbacks = {};
+    return this;
+  }
+
+  // specific event
+  var callbacks = this._callbacks['$' + event];
+  if (!callbacks) return this;
+
+  // remove all handlers
+  if (1 == arguments.length) {
+    delete this._callbacks['$' + event];
+    return this;
+  }
+
+  // remove specific handler
+  var cb;
+  for (var i = 0; i < callbacks.length; i++) {
+    cb = callbacks[i];
+    if (cb === fn || cb.fn === fn) {
+      callbacks.splice(i, 1);
+      break;
+    }
+  }
+  return this;
+};
+
+/**
+ * Emit `event` with the given args.
+ *
+ * @param {String} event
+ * @param {Mixed} ...
+ * @return {Emitter}
+ */
+
+Emitter.prototype.emit = function(event){
+  this._callbacks = this._callbacks || {};
+  var args = [].slice.call(arguments, 1)
+    , callbacks = this._callbacks['$' + event];
+
+  if (callbacks) {
+    callbacks = callbacks.slice(0);
+    for (var i = 0, len = callbacks.length; i < len; ++i) {
+      callbacks[i].apply(this, args);
+    }
+  }
+
+  return this;
+};
+
+/**
+ * Return array of callbacks for `event`.
+ *
+ * @param {String} event
+ * @return {Array}
+ * @api public
+ */
+
+Emitter.prototype.listeners = function(event){
+  this._callbacks = this._callbacks || {};
+  return this._callbacks['$' + event] || [];
+};
+
+/**
+ * Check if this emitter has `event` handlers.
+ *
+ * @param {String} event
+ * @return {Boolean}
+ * @api public
+ */
+
+Emitter.prototype.hasListeners = function(event){
+  return !! this.listeners(event).length;
+};
+
+
+/***/ }),
+
+/***/ 86:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Module dependencies.
+ */
+
+var keys = __webpack_require__(655);
+var hasBinary = __webpack_require__(270);
+var sliceBuffer = __webpack_require__(400);
+var after = __webpack_require__(461);
+var utf8 = __webpack_require__(656);
+
+var base64encoder;
+if (global && global.ArrayBuffer) {
+  base64encoder = __webpack_require__(402);
+}
+
+/**
+ * Check if we are running an android browser. That requires us to use
+ * ArrayBuffer with polling transports...
+ *
+ * http://ghinda.net/jpeg-blob-ajax-android/
+ */
+
+var isAndroid = typeof navigator !== 'undefined' && /Android/i.test(navigator.userAgent);
+
+/**
+ * Check if we are running in PhantomJS.
+ * Uploading a Blob with PhantomJS does not work correctly, as reported here:
+ * https://github.com/ariya/phantomjs/issues/11395
+ * @type boolean
+ */
+var isPhantomJS = typeof navigator !== 'undefined' && /PhantomJS/i.test(navigator.userAgent);
+
+/**
+ * When true, avoids using Blobs to encode payloads.
+ * @type boolean
+ */
+var dontSendBlobs = isAndroid || isPhantomJS;
+
+/**
+ * Current protocol version.
+ */
+
+exports.protocol = 3;
+
+/**
+ * Packet types.
+ */
+
+var packets = exports.packets = {
+    open:     0    // non-ws
+  , close:    1    // non-ws
+  , ping:     2
+  , pong:     3
+  , message:  4
+  , upgrade:  5
+  , noop:     6
+};
+
+var packetslist = keys(packets);
+
+/**
+ * Premade error packet.
+ */
+
+var err = { type: 'error', data: 'parser error' };
+
+/**
+ * Create a blob api even for blob builder when vendor prefixes exist
+ */
+
+var Blob = __webpack_require__(399);
+
+/**
+ * Encodes a packet.
+ *
+ *     <packet type id> [ <data> ]
+ *
+ * Example:
+ *
+ *     5hello world
+ *     3
+ *     4
+ *
+ * Binary is encoded in an identical principle
+ *
+ * @api private
+ */
+
+exports.encodePacket = function (packet, supportsBinary, utf8encode, callback) {
+  if (typeof supportsBinary === 'function') {
+    callback = supportsBinary;
+    supportsBinary = false;
+  }
+
+  if (typeof utf8encode === 'function') {
+    callback = utf8encode;
+    utf8encode = null;
+  }
+
+  var data = (packet.data === undefined)
+    ? undefined
+    : packet.data.buffer || packet.data;
+
+  if (global.ArrayBuffer && data instanceof ArrayBuffer) {
+    return encodeArrayBuffer(packet, supportsBinary, callback);
+  } else if (Blob && data instanceof global.Blob) {
+    return encodeBlob(packet, supportsBinary, callback);
+  }
+
+  // might be an object with { base64: true, data: dataAsBase64String }
+  if (data && data.base64) {
+    return encodeBase64Object(packet, callback);
+  }
+
+  // Sending data as a utf-8 string
+  var encoded = packets[packet.type];
+
+  // data fragment is optional
+  if (undefined !== packet.data) {
+    encoded += utf8encode ? utf8.encode(String(packet.data), { strict: false }) : String(packet.data);
+  }
+
+  return callback('' + encoded);
+
+};
+
+function encodeBase64Object(packet, callback) {
+  // packet data is an object { base64: true, data: dataAsBase64String }
+  var message = 'b' + exports.packets[packet.type] + packet.data.data;
+  return callback(message);
+}
+
+/**
+ * Encode packet helpers for binary types
+ */
+
+function encodeArrayBuffer(packet, supportsBinary, callback) {
+  if (!supportsBinary) {
+    return exports.encodeBase64Packet(packet, callback);
+  }
+
+  var data = packet.data;
+  var contentArray = new Uint8Array(data);
+  var resultBuffer = new Uint8Array(1 + data.byteLength);
+
+  resultBuffer[0] = packets[packet.type];
+  for (var i = 0; i < contentArray.length; i++) {
+    resultBuffer[i+1] = contentArray[i];
+  }
+
+  return callback(resultBuffer.buffer);
+}
+
+function encodeBlobAsArrayBuffer(packet, supportsBinary, callback) {
+  if (!supportsBinary) {
+    return exports.encodeBase64Packet(packet, callback);
+  }
+
+  var fr = new FileReader();
+  fr.onload = function() {
+    packet.data = fr.result;
+    exports.encodePacket(packet, supportsBinary, true, callback);
+  };
+  return fr.readAsArrayBuffer(packet.data);
+}
+
+function encodeBlob(packet, supportsBinary, callback) {
+  if (!supportsBinary) {
+    return exports.encodeBase64Packet(packet, callback);
+  }
+
+  if (dontSendBlobs) {
+    return encodeBlobAsArrayBuffer(packet, supportsBinary, callback);
+  }
+
+  var length = new Uint8Array(1);
+  length[0] = packets[packet.type];
+  var blob = new Blob([length.buffer, packet.data]);
+
+  return callback(blob);
+}
+
+/**
+ * Encodes a packet with binary data in a base64 string
+ *
+ * @param {Object} packet, has `type` and `data`
+ * @return {String} base64 encoded message
+ */
+
+exports.encodeBase64Packet = function(packet, callback) {
+  var message = 'b' + exports.packets[packet.type];
+  if (Blob && packet.data instanceof global.Blob) {
+    var fr = new FileReader();
+    fr.onload = function() {
+      var b64 = fr.result.split(',')[1];
+      callback(message + b64);
+    };
+    return fr.readAsDataURL(packet.data);
+  }
+
+  var b64data;
+  try {
+    b64data = String.fromCharCode.apply(null, new Uint8Array(packet.data));
+  } catch (e) {
+    // iPhone Safari doesn't let you apply with typed arrays
+    var typed = new Uint8Array(packet.data);
+    var basic = new Array(typed.length);
+    for (var i = 0; i < typed.length; i++) {
+      basic[i] = typed[i];
+    }
+    b64data = String.fromCharCode.apply(null, basic);
+  }
+  message += global.btoa(b64data);
+  return callback(message);
+};
+
+/**
+ * Decodes a packet. Changes format to Blob if requested.
+ *
+ * @return {Object} with `type` and `data` (if any)
+ * @api private
+ */
+
+exports.decodePacket = function (data, binaryType, utf8decode) {
+  if (data === undefined) {
+    return err;
+  }
+  // String data
+  if (typeof data === 'string') {
+    if (data.charAt(0) === 'b') {
+      return exports.decodeBase64Packet(data.substr(1), binaryType);
+    }
+
+    if (utf8decode) {
+      data = tryDecode(data);
+      if (data === false) {
+        return err;
+      }
+    }
+    var type = data.charAt(0);
+
+    if (Number(type) != type || !packetslist[type]) {
+      return err;
+    }
+
+    if (data.length > 1) {
+      return { type: packetslist[type], data: data.substring(1) };
+    } else {
+      return { type: packetslist[type] };
+    }
+  }
+
+  var asArray = new Uint8Array(data);
+  var type = asArray[0];
+  var rest = sliceBuffer(data, 1);
+  if (Blob && binaryType === 'blob') {
+    rest = new Blob([rest]);
+  }
+  return { type: packetslist[type], data: rest };
+};
+
+function tryDecode(data) {
+  try {
+    data = utf8.decode(data, { strict: false });
+  } catch (e) {
+    return false;
+  }
+  return data;
+}
+
+/**
+ * Decodes a packet encoded in a base64 string
+ *
+ * @param {String} base64 encoded message
+ * @return {Object} with `type` and `data` (if any)
+ */
+
+exports.decodeBase64Packet = function(msg, binaryType) {
+  var type = packetslist[msg.charAt(0)];
+  if (!base64encoder) {
+    return { type: type, data: { base64: true, data: msg.substr(1) } };
+  }
+
+  var data = base64encoder.decode(msg.substr(1));
+
+  if (binaryType === 'blob' && Blob) {
+    data = new Blob([data]);
+  }
+
+  return { type: type, data: data };
+};
+
+/**
+ * Encodes multiple messages (payload).
+ *
+ *     <length>:data
+ *
+ * Example:
+ *
+ *     11:hello world2:hi
+ *
+ * If any contents are binary, they will be encoded as base64 strings. Base64
+ * encoded strings are marked with a b before the length specifier
+ *
+ * @param {Array} packets
+ * @api private
+ */
+
+exports.encodePayload = function (packets, supportsBinary, callback) {
+  if (typeof supportsBinary === 'function') {
+    callback = supportsBinary;
+    supportsBinary = null;
+  }
+
+  var isBinary = hasBinary(packets);
+
+  if (supportsBinary && isBinary) {
+    if (Blob && !dontSendBlobs) {
+      return exports.encodePayloadAsBlob(packets, callback);
+    }
+
+    return exports.encodePayloadAsArrayBuffer(packets, callback);
+  }
+
+  if (!packets.length) {
+    return callback('0:');
+  }
+
+  function setLengthHeader(message) {
+    return message.length + ':' + message;
+  }
+
+  function encodeOne(packet, doneCallback) {
+    exports.encodePacket(packet, !isBinary ? false : supportsBinary, false, function(message) {
+      doneCallback(null, setLengthHeader(message));
+    });
+  }
+
+  map(packets, encodeOne, function(err, results) {
+    return callback(results.join(''));
+  });
+};
+
+/**
+ * Async array map using after
+ */
+
+function map(ary, each, done) {
+  var result = new Array(ary.length);
+  var next = after(ary.length, done);
+
+  var eachWithIndex = function(i, el, cb) {
+    each(el, function(error, msg) {
+      result[i] = msg;
+      cb(error, result);
+    });
+  };
+
+  for (var i = 0; i < ary.length; i++) {
+    eachWithIndex(i, ary[i], next);
+  }
+}
+
+/*
+ * Decodes data when a payload is maybe expected. Possible binary contents are
+ * decoded from their base64 representation
+ *
+ * @param {String} data, callback method
+ * @api public
+ */
+
+exports.decodePayload = function (data, binaryType, callback) {
+  if (typeof data !== 'string') {
+    return exports.decodePayloadAsBinary(data, binaryType, callback);
+  }
+
+  if (typeof binaryType === 'function') {
+    callback = binaryType;
+    binaryType = null;
+  }
+
+  var packet;
+  if (data === '') {
+    // parser error - ignoring payload
+    return callback(err, 0, 1);
+  }
+
+  var length = '', n, msg;
+
+  for (var i = 0, l = data.length; i < l; i++) {
+    var chr = data.charAt(i);
+
+    if (chr !== ':') {
+      length += chr;
+      continue;
+    }
+
+    if (length === '' || (length != (n = Number(length)))) {
+      // parser error - ignoring payload
+      return callback(err, 0, 1);
+    }
+
+    msg = data.substr(i + 1, n);
+
+    if (length != msg.length) {
+      // parser error - ignoring payload
+      return callback(err, 0, 1);
+    }
+
+    if (msg.length) {
+      packet = exports.decodePacket(msg, binaryType, false);
+
+      if (err.type === packet.type && err.data === packet.data) {
+        // parser error in individual packet - ignoring payload
+        return callback(err, 0, 1);
+      }
+
+      var ret = callback(packet, i + n, l);
+      if (false === ret) return;
+    }
+
+    // advance cursor
+    i += n;
+    length = '';
+  }
+
+  if (length !== '') {
+    // parser error - ignoring payload
+    return callback(err, 0, 1);
+  }
+
+};
+
+/**
+ * Encodes multiple messages (payload) as binary.
+ *
+ * <1 = binary, 0 = string><number from 0-9><number from 0-9>[...]<number
+ * 255><data>
+ *
+ * Example:
+ * 1 3 255 1 2 3, if the binary contents are interpreted as 8 bit integers
+ *
+ * @param {Array} packets
+ * @return {ArrayBuffer} encoded payload
+ * @api private
+ */
+
+exports.encodePayloadAsArrayBuffer = function(packets, callback) {
+  if (!packets.length) {
+    return callback(new ArrayBuffer(0));
+  }
+
+  function encodeOne(packet, doneCallback) {
+    exports.encodePacket(packet, true, true, function(data) {
+      return doneCallback(null, data);
+    });
+  }
+
+  map(packets, encodeOne, function(err, encodedPackets) {
+    var totalLength = encodedPackets.reduce(function(acc, p) {
+      var len;
+      if (typeof p === 'string'){
+        len = p.length;
+      } else {
+        len = p.byteLength;
+      }
+      return acc + len.toString().length + len + 2; // string/binary identifier + separator = 2
+    }, 0);
+
+    var resultArray = new Uint8Array(totalLength);
+
+    var bufferIndex = 0;
+    encodedPackets.forEach(function(p) {
+      var isString = typeof p === 'string';
+      var ab = p;
+      if (isString) {
+        var view = new Uint8Array(p.length);
+        for (var i = 0; i < p.length; i++) {
+          view[i] = p.charCodeAt(i);
+        }
+        ab = view.buffer;
+      }
+
+      if (isString) { // not true binary
+        resultArray[bufferIndex++] = 0;
+      } else { // true binary
+        resultArray[bufferIndex++] = 1;
+      }
+
+      var lenStr = ab.byteLength.toString();
+      for (var i = 0; i < lenStr.length; i++) {
+        resultArray[bufferIndex++] = parseInt(lenStr[i]);
+      }
+      resultArray[bufferIndex++] = 255;
+
+      var view = new Uint8Array(ab);
+      for (var i = 0; i < view.length; i++) {
+        resultArray[bufferIndex++] = view[i];
+      }
+    });
+
+    return callback(resultArray.buffer);
+  });
+};
+
+/**
+ * Encode as Blob
+ */
+
+exports.encodePayloadAsBlob = function(packets, callback) {
+  function encodeOne(packet, doneCallback) {
+    exports.encodePacket(packet, true, true, function(encoded) {
+      var binaryIdentifier = new Uint8Array(1);
+      binaryIdentifier[0] = 1;
+      if (typeof encoded === 'string') {
+        var view = new Uint8Array(encoded.length);
+        for (var i = 0; i < encoded.length; i++) {
+          view[i] = encoded.charCodeAt(i);
+        }
+        encoded = view.buffer;
+        binaryIdentifier[0] = 0;
+      }
+
+      var len = (encoded instanceof ArrayBuffer)
+        ? encoded.byteLength
+        : encoded.size;
+
+      var lenStr = len.toString();
+      var lengthAry = new Uint8Array(lenStr.length + 1);
+      for (var i = 0; i < lenStr.length; i++) {
+        lengthAry[i] = parseInt(lenStr[i]);
+      }
+      lengthAry[lenStr.length] = 255;
+
+      if (Blob) {
+        var blob = new Blob([binaryIdentifier.buffer, lengthAry.buffer, encoded]);
+        doneCallback(null, blob);
+      }
+    });
+  }
+
+  map(packets, encodeOne, function(err, results) {
+    return callback(new Blob(results));
+  });
+};
+
+/*
+ * Decodes data when a payload is maybe expected. Strings are decoded by
+ * interpreting each byte as a key code for entries marked to start with 0. See
+ * description of encodePayloadAsBinary
+ *
+ * @param {ArrayBuffer} data, callback method
+ * @api public
+ */
+
+exports.decodePayloadAsBinary = function (data, binaryType, callback) {
+  if (typeof binaryType === 'function') {
+    callback = binaryType;
+    binaryType = null;
+  }
+
+  var bufferTail = data;
+  var buffers = [];
+
+  while (bufferTail.byteLength > 0) {
+    var tailArray = new Uint8Array(bufferTail);
+    var isString = tailArray[0] === 0;
+    var msgLength = '';
+
+    for (var i = 1; ; i++) {
+      if (tailArray[i] === 255) break;
+
+      // 310 = char length of Number.MAX_VALUE
+      if (msgLength.length > 310) {
+        return callback(err, 0, 1);
+      }
+
+      msgLength += tailArray[i];
+    }
+
+    bufferTail = sliceBuffer(bufferTail, 2 + msgLength.length);
+    msgLength = parseInt(msgLength);
+
+    var msg = sliceBuffer(bufferTail, 0, msgLength);
+    if (isString) {
+      try {
+        msg = String.fromCharCode.apply(null, new Uint8Array(msg));
+      } catch (e) {
+        // iPhone Safari doesn't let you apply to typed arrays
+        var typed = new Uint8Array(msg);
+        msg = '';
+        for (var i = 0; i < typed.length; i++) {
+          msg += String.fromCharCode(typed[i]);
+        }
+      }
+    }
+
+    buffers.push(msg);
+    bufferTail = sliceBuffer(bufferTail, msgLength);
+  }
+
+  var total = buffers.length;
+  buffers.forEach(function(buffer, i) {
+    callback(exports.decodePacket(buffer, binaryType, true), i, total);
+  });
+};
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+
+/***/ }),
+
+/***/ 90:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * @module echarts/core/BoundingRect
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
+    'use strict';
+
+    var vec2 = __webpack_require__(74);
+    var matrix = __webpack_require__(338);
+
+    var v2ApplyTransform = vec2.applyTransform;
+    var mathMin = Math.min;
+    var mathMax = Math.max;
+    /**
+     * @alias module:echarts/core/BoundingRect
+     */
+    function BoundingRect(x, y, width, height) {
+
+        if (width < 0) {
+            x = x + width;
+            width = -width;
+        }
+        if (height < 0) {
+            y = y + height;
+            height = -height;
+        }
+
+        /**
+         * @type {number}
+         */
+        this.x = x;
+        /**
+         * @type {number}
+         */
+        this.y = y;
+        /**
+         * @type {number}
+         */
+        this.width = width;
+        /**
+         * @type {number}
+         */
+        this.height = height;
+    }
+
+    BoundingRect.prototype = {
+
+        constructor: BoundingRect,
+
+        /**
+         * @param {module:echarts/core/BoundingRect} other
+         */
+        union: function (other) {
+            var x = mathMin(other.x, this.x);
+            var y = mathMin(other.y, this.y);
+
+            this.width = mathMax(
+                    other.x + other.width,
+                    this.x + this.width
+                ) - x;
+            this.height = mathMax(
+                    other.y + other.height,
+                    this.y + this.height
+                ) - y;
+            this.x = x;
+            this.y = y;
+        },
+
+        /**
+         * @param {Array.<number>} m
+         * @methods
+         */
+        applyTransform: (function () {
+            var lt = [];
+            var rb = [];
+            var lb = [];
+            var rt = [];
+            return function (m) {
+                // In case usage like this
+                // el.getBoundingRect().applyTransform(el.transform)
+                // And element has no transform
+                if (!m) {
+                    return;
+                }
+                lt[0] = lb[0] = this.x;
+                lt[1] = rt[1] = this.y;
+                rb[0] = rt[0] = this.x + this.width;
+                rb[1] = lb[1] = this.y + this.height;
+
+                v2ApplyTransform(lt, lt, m);
+                v2ApplyTransform(rb, rb, m);
+                v2ApplyTransform(lb, lb, m);
+                v2ApplyTransform(rt, rt, m);
+
+                this.x = mathMin(lt[0], rb[0], lb[0], rt[0]);
+                this.y = mathMin(lt[1], rb[1], lb[1], rt[1]);
+                var maxX = mathMax(lt[0], rb[0], lb[0], rt[0]);
+                var maxY = mathMax(lt[1], rb[1], lb[1], rt[1]);
+                this.width = maxX - this.x;
+                this.height = maxY - this.y;
+            };
+        })(),
+
+        /**
+         * Calculate matrix of transforming from self to target rect
+         * @param  {module:zrender/core/BoundingRect} b
+         * @return {Array.<number>}
+         */
+        calculateTransform: function (b) {
+            var a = this;
+            var sx = b.width / a.width;
+            var sy = b.height / a.height;
+
+            var m = matrix.create();
+
+            // 矩阵右乘
+            matrix.translate(m, m, [-a.x, -a.y]);
+            matrix.scale(m, m, [sx, sy]);
+            matrix.translate(m, m, [b.x, b.y]);
+
+            return m;
+        },
+
+        /**
+         * @param {(module:echarts/core/BoundingRect|Object)} b
+         * @return {boolean}
+         */
+        intersect: function (b) {
+            if (!b) {
+                return false;
+            }
+
+            if (!(b instanceof BoundingRect)) {
+                // Normalize negative width/height.
+                b = BoundingRect.create(b);
+            }
+
+            var a = this;
+            var ax0 = a.x;
+            var ax1 = a.x + a.width;
+            var ay0 = a.y;
+            var ay1 = a.y + a.height;
+
+            var bx0 = b.x;
+            var bx1 = b.x + b.width;
+            var by0 = b.y;
+            var by1 = b.y + b.height;
+
+            return ! (ax1 < bx0 || bx1 < ax0 || ay1 < by0 || by1 < ay0);
+        },
+
+        contain: function (x, y) {
+            var rect = this;
+            return x >= rect.x
+                && x <= (rect.x + rect.width)
+                && y >= rect.y
+                && y <= (rect.y + rect.height);
+        },
+
+        /**
+         * @return {module:echarts/core/BoundingRect}
+         */
+        clone: function () {
+            return new BoundingRect(this.x, this.y, this.width, this.height);
+        },
+
+        /**
+         * Copy from another rect
+         */
+        copy: function (other) {
+            this.x = other.x;
+            this.y = other.y;
+            this.width = other.width;
+            this.height = other.height;
+        },
+
+        plain: function () {
+            return {
+                x: this.x,
+                y: this.y,
+                width: this.width,
+                height: this.height
+            };
+        }
+    };
+
+    /**
+     * @param {Object|module:zrender/core/BoundingRect} rect
+     * @param {number} rect.x
+     * @param {number} rect.y
+     * @param {number} rect.width
+     * @param {number} rect.height
+     * @return {module:zrender/core/BoundingRect}
+     */
+    BoundingRect.create = function (rect) {
+        return new BoundingRect(rect.x, rect.y, rect.width, rect.height);
+    };
+
+    return BoundingRect;
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 91:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * 曲线辅助模块
+ * @module zrender/core/curve
+ * @author pissang(https://www.github.com/pissang)
+ */
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
+
+    'use strict';
+
+    var vec2 = __webpack_require__(74);
+    var v2Create = vec2.create;
+    var v2DistSquare = vec2.distSquare;
+    var mathPow = Math.pow;
+    var mathSqrt = Math.sqrt;
+
+    var EPSILON = 1e-8;
+    var EPSILON_NUMERIC = 1e-4;
+
+    var THREE_SQRT = mathSqrt(3);
+    var ONE_THIRD = 1 / 3;
+
+    // 临时变量
+    var _v0 = v2Create();
+    var _v1 = v2Create();
+    var _v2 = v2Create();
+    // var _v3 = vec2.create();
+
+    function isAroundZero(val) {
+        return val > -EPSILON && val < EPSILON;
+    }
+    function isNotAroundZero(val) {
+        return val > EPSILON || val < -EPSILON;
+    }
+    /**
+     * 计算三次贝塞尔值
+     * @memberOf module:zrender/core/curve
+     * @param  {number} p0
+     * @param  {number} p1
+     * @param  {number} p2
+     * @param  {number} p3
+     * @param  {number} t
+     * @return {number}
+     */
+    function cubicAt(p0, p1, p2, p3, t) {
+        var onet = 1 - t;
+        return onet * onet * (onet * p0 + 3 * t * p1)
+             + t * t * (t * p3 + 3 * onet * p2);
+    }
+
+    /**
+     * 计算三次贝塞尔导数值
+     * @memberOf module:zrender/core/curve
+     * @param  {number} p0
+     * @param  {number} p1
+     * @param  {number} p2
+     * @param  {number} p3
+     * @param  {number} t
+     * @return {number}
+     */
+    function cubicDerivativeAt(p0, p1, p2, p3, t) {
+        var onet = 1 - t;
+        return 3 * (
+            ((p1 - p0) * onet + 2 * (p2 - p1) * t) * onet
+            + (p3 - p2) * t * t
+        );
+    }
+
+    /**
+     * 计算三次贝塞尔方程根，使用盛金公式
+     * @memberOf module:zrender/core/curve
+     * @param  {number} p0
+     * @param  {number} p1
+     * @param  {number} p2
+     * @param  {number} p3
+     * @param  {number} val
+     * @param  {Array.<number>} roots
+     * @return {number} 有效根数目
+     */
+    function cubicRootAt(p0, p1, p2, p3, val, roots) {
+        // Evaluate roots of cubic functions
+        var a = p3 + 3 * (p1 - p2) - p0;
+        var b = 3 * (p2 - p1 * 2 + p0);
+        var c = 3 * (p1  - p0);
+        var d = p0 - val;
+
+        var A = b * b - 3 * a * c;
+        var B = b * c - 9 * a * d;
+        var C = c * c - 3 * b * d;
+
+        var n = 0;
+
+        if (isAroundZero(A) && isAroundZero(B)) {
+            if (isAroundZero(b)) {
+                roots[0] = 0;
+            }
+            else {
+                var t1 = -c / b;  //t1, t2, t3, b is not zero
+                if (t1 >= 0 && t1 <= 1) {
+                    roots[n++] = t1;
+                }
+            }
+        }
+        else {
+            var disc = B * B - 4 * A * C;
+
+            if (isAroundZero(disc)) {
+                var K = B / A;
+                var t1 = -b / a + K;  // t1, a is not zero
+                var t2 = -K / 2;  // t2, t3
+                if (t1 >= 0 && t1 <= 1) {
+                    roots[n++] = t1;
+                }
+                if (t2 >= 0 && t2 <= 1) {
+                    roots[n++] = t2;
+                }
+            }
+            else if (disc > 0) {
+                var discSqrt = mathSqrt(disc);
+                var Y1 = A * b + 1.5 * a * (-B + discSqrt);
+                var Y2 = A * b + 1.5 * a * (-B - discSqrt);
+                if (Y1 < 0) {
+                    Y1 = -mathPow(-Y1, ONE_THIRD);
+                }
+                else {
+                    Y1 = mathPow(Y1, ONE_THIRD);
+                }
+                if (Y2 < 0) {
+                    Y2 = -mathPow(-Y2, ONE_THIRD);
+                }
+                else {
+                    Y2 = mathPow(Y2, ONE_THIRD);
+                }
+                var t1 = (-b - (Y1 + Y2)) / (3 * a);
+                if (t1 >= 0 && t1 <= 1) {
+                    roots[n++] = t1;
+                }
+            }
+            else {
+                var T = (2 * A * b - 3 * a * B) / (2 * mathSqrt(A * A * A));
+                var theta = Math.acos(T) / 3;
+                var ASqrt = mathSqrt(A);
+                var tmp = Math.cos(theta);
+
+                var t1 = (-b - 2 * ASqrt * tmp) / (3 * a);
+                var t2 = (-b + ASqrt * (tmp + THREE_SQRT * Math.sin(theta))) / (3 * a);
+                var t3 = (-b + ASqrt * (tmp - THREE_SQRT * Math.sin(theta))) / (3 * a);
+                if (t1 >= 0 && t1 <= 1) {
+                    roots[n++] = t1;
+                }
+                if (t2 >= 0 && t2 <= 1) {
+                    roots[n++] = t2;
+                }
+                if (t3 >= 0 && t3 <= 1) {
+                    roots[n++] = t3;
+                }
+            }
+        }
+        return n;
+    }
+
+    /**
+     * 计算三次贝塞尔方程极限值的位置
+     * @memberOf module:zrender/core/curve
+     * @param  {number} p0
+     * @param  {number} p1
+     * @param  {number} p2
+     * @param  {number} p3
+     * @param  {Array.<number>} extrema
+     * @return {number} 有效数目
+     */
+    function cubicExtrema(p0, p1, p2, p3, extrema) {
+        var b = 6 * p2 - 12 * p1 + 6 * p0;
+        var a = 9 * p1 + 3 * p3 - 3 * p0 - 9 * p2;
+        var c = 3 * p1 - 3 * p0;
+
+        var n = 0;
+        if (isAroundZero(a)) {
+            if (isNotAroundZero(b)) {
+                var t1 = -c / b;
+                if (t1 >= 0 && t1 <=1) {
+                    extrema[n++] = t1;
+                }
+            }
+        }
+        else {
+            var disc = b * b - 4 * a * c;
+            if (isAroundZero(disc)) {
+                extrema[0] = -b / (2 * a);
+            }
+            else if (disc > 0) {
+                var discSqrt = mathSqrt(disc);
+                var t1 = (-b + discSqrt) / (2 * a);
+                var t2 = (-b - discSqrt) / (2 * a);
+                if (t1 >= 0 && t1 <= 1) {
+                    extrema[n++] = t1;
+                }
+                if (t2 >= 0 && t2 <= 1) {
+                    extrema[n++] = t2;
+                }
+            }
+        }
+        return n;
+    }
+
+    /**
+     * 细分三次贝塞尔曲线
+     * @memberOf module:zrender/core/curve
+     * @param  {number} p0
+     * @param  {number} p1
+     * @param  {number} p2
+     * @param  {number} p3
+     * @param  {number} t
+     * @param  {Array.<number>} out
+     */
+    function cubicSubdivide(p0, p1, p2, p3, t, out) {
+        var p01 = (p1 - p0) * t + p0;
+        var p12 = (p2 - p1) * t + p1;
+        var p23 = (p3 - p2) * t + p2;
+
+        var p012 = (p12 - p01) * t + p01;
+        var p123 = (p23 - p12) * t + p12;
+
+        var p0123 = (p123 - p012) * t + p012;
+        // Seg0
+        out[0] = p0;
+        out[1] = p01;
+        out[2] = p012;
+        out[3] = p0123;
+        // Seg1
+        out[4] = p0123;
+        out[5] = p123;
+        out[6] = p23;
+        out[7] = p3;
+    }
+
+    /**
+     * 投射点到三次贝塞尔曲线上，返回投射距离。
+     * 投射点有可能会有一个或者多个，这里只返回其中距离最短的一个。
+     * @param {number} x0
+     * @param {number} y0
+     * @param {number} x1
+     * @param {number} y1
+     * @param {number} x2
+     * @param {number} y2
+     * @param {number} x3
+     * @param {number} y3
+     * @param {number} x
+     * @param {number} y
+     * @param {Array.<number>} [out] 投射点
+     * @return {number}
+     */
+    function cubicProjectPoint(
+        x0, y0, x1, y1, x2, y2, x3, y3,
+        x, y, out
+    ) {
+        // http://pomax.github.io/bezierinfo/#projections
+        var t;
+        var interval = 0.005;
+        var d = Infinity;
+        var prev;
+        var next;
+        var d1;
+        var d2;
+
+        _v0[0] = x;
+        _v0[1] = y;
+
+        // 先粗略估计一下可能的最小距离的 t 值
+        // PENDING
+        for (var _t = 0; _t < 1; _t += 0.05) {
+            _v1[0] = cubicAt(x0, x1, x2, x3, _t);
+            _v1[1] = cubicAt(y0, y1, y2, y3, _t);
+            d1 = v2DistSquare(_v0, _v1);
+            if (d1 < d) {
+                t = _t;
+                d = d1;
+            }
+        }
+        d = Infinity;
+
+        // At most 32 iteration
+        for (var i = 0; i < 32; i++) {
+            if (interval < EPSILON_NUMERIC) {
+                break;
+            }
+            prev = t - interval;
+            next = t + interval;
+            // t - interval
+            _v1[0] = cubicAt(x0, x1, x2, x3, prev);
+            _v1[1] = cubicAt(y0, y1, y2, y3, prev);
+
+            d1 = v2DistSquare(_v1, _v0);
+
+            if (prev >= 0 && d1 < d) {
+                t = prev;
+                d = d1;
+            }
+            else {
+                // t + interval
+                _v2[0] = cubicAt(x0, x1, x2, x3, next);
+                _v2[1] = cubicAt(y0, y1, y2, y3, next);
+                d2 = v2DistSquare(_v2, _v0);
+
+                if (next <= 1 && d2 < d) {
+                    t = next;
+                    d = d2;
+                }
+                else {
+                    interval *= 0.5;
+                }
+            }
+        }
+        // t
+        if (out) {
+            out[0] = cubicAt(x0, x1, x2, x3, t);
+            out[1] = cubicAt(y0, y1, y2, y3, t);
+        }
+        // console.log(interval, i);
+        return mathSqrt(d);
+    }
+
+    /**
+     * 计算二次方贝塞尔值
+     * @param  {number} p0
+     * @param  {number} p1
+     * @param  {number} p2
+     * @param  {number} t
+     * @return {number}
+     */
+    function quadraticAt(p0, p1, p2, t) {
+        var onet = 1 - t;
+        return onet * (onet * p0 + 2 * t * p1) + t * t * p2;
+    }
+
+    /**
+     * 计算二次方贝塞尔导数值
+     * @param  {number} p0
+     * @param  {number} p1
+     * @param  {number} p2
+     * @param  {number} t
+     * @return {number}
+     */
+    function quadraticDerivativeAt(p0, p1, p2, t) {
+        return 2 * ((1 - t) * (p1 - p0) + t * (p2 - p1));
+    }
+
+    /**
+     * 计算二次方贝塞尔方程根
+     * @param  {number} p0
+     * @param  {number} p1
+     * @param  {number} p2
+     * @param  {number} t
+     * @param  {Array.<number>} roots
+     * @return {number} 有效根数目
+     */
+    function quadraticRootAt(p0, p1, p2, val, roots) {
+        var a = p0 - 2 * p1 + p2;
+        var b = 2 * (p1 - p0);
+        var c = p0 - val;
+
+        var n = 0;
+        if (isAroundZero(a)) {
+            if (isNotAroundZero(b)) {
+                var t1 = -c / b;
+                if (t1 >= 0 && t1 <= 1) {
+                    roots[n++] = t1;
+                }
+            }
+        }
+        else {
+            var disc = b * b - 4 * a * c;
+            if (isAroundZero(disc)) {
+                var t1 = -b / (2 * a);
+                if (t1 >= 0 && t1 <= 1) {
+                    roots[n++] = t1;
+                }
+            }
+            else if (disc > 0) {
+                var discSqrt = mathSqrt(disc);
+                var t1 = (-b + discSqrt) / (2 * a);
+                var t2 = (-b - discSqrt) / (2 * a);
+                if (t1 >= 0 && t1 <= 1) {
+                    roots[n++] = t1;
+                }
+                if (t2 >= 0 && t2 <= 1) {
+                    roots[n++] = t2;
+                }
+            }
+        }
+        return n;
+    }
+
+    /**
+     * 计算二次贝塞尔方程极限值
+     * @memberOf module:zrender/core/curve
+     * @param  {number} p0
+     * @param  {number} p1
+     * @param  {number} p2
+     * @return {number}
+     */
+    function quadraticExtremum(p0, p1, p2) {
+        var divider = p0 + p2 - 2 * p1;
+        if (divider === 0) {
+            // p1 is center of p0 and p2
+            return 0.5;
+        }
+        else {
+            return (p0 - p1) / divider;
+        }
+    }
+
+    /**
+     * 细分二次贝塞尔曲线
+     * @memberOf module:zrender/core/curve
+     * @param  {number} p0
+     * @param  {number} p1
+     * @param  {number} p2
+     * @param  {number} t
+     * @param  {Array.<number>} out
+     */
+    function quadraticSubdivide(p0, p1, p2, t, out) {
+        var p01 = (p1 - p0) * t + p0;
+        var p12 = (p2 - p1) * t + p1;
+        var p012 = (p12 - p01) * t + p01;
+
+        // Seg0
+        out[0] = p0;
+        out[1] = p01;
+        out[2] = p012;
+
+        // Seg1
+        out[3] = p012;
+        out[4] = p12;
+        out[5] = p2;
+    }
+
+    /**
+     * 投射点到二次贝塞尔曲线上，返回投射距离。
+     * 投射点有可能会有一个或者多个，这里只返回其中距离最短的一个。
+     * @param {number} x0
+     * @param {number} y0
+     * @param {number} x1
+     * @param {number} y1
+     * @param {number} x2
+     * @param {number} y2
+     * @param {number} x
+     * @param {number} y
+     * @param {Array.<number>} out 投射点
+     * @return {number}
+     */
+    function quadraticProjectPoint(
+        x0, y0, x1, y1, x2, y2,
+        x, y, out
+    ) {
+        // http://pomax.github.io/bezierinfo/#projections
+        var t;
+        var interval = 0.005;
+        var d = Infinity;
+
+        _v0[0] = x;
+        _v0[1] = y;
+
+        // 先粗略估计一下可能的最小距离的 t 值
+        // PENDING
+        for (var _t = 0; _t < 1; _t += 0.05) {
+            _v1[0] = quadraticAt(x0, x1, x2, _t);
+            _v1[1] = quadraticAt(y0, y1, y2, _t);
+            var d1 = v2DistSquare(_v0, _v1);
+            if (d1 < d) {
+                t = _t;
+                d = d1;
+            }
+        }
+        d = Infinity;
+
+        // At most 32 iteration
+        for (var i = 0; i < 32; i++) {
+            if (interval < EPSILON_NUMERIC) {
+                break;
+            }
+            var prev = t - interval;
+            var next = t + interval;
+            // t - interval
+            _v1[0] = quadraticAt(x0, x1, x2, prev);
+            _v1[1] = quadraticAt(y0, y1, y2, prev);
+
+            var d1 = v2DistSquare(_v1, _v0);
+
+            if (prev >= 0 && d1 < d) {
+                t = prev;
+                d = d1;
+            }
+            else {
+                // t + interval
+                _v2[0] = quadraticAt(x0, x1, x2, next);
+                _v2[1] = quadraticAt(y0, y1, y2, next);
+                var d2 = v2DistSquare(_v2, _v0);
+                if (next <= 1 && d2 < d) {
+                    t = next;
+                    d = d2;
+                }
+                else {
+                    interval *= 0.5;
+                }
+            }
+        }
+        // t
+        if (out) {
+            out[0] = quadraticAt(x0, x1, x2, t);
+            out[1] = quadraticAt(y0, y1, y2, t);
+        }
+        // console.log(interval, i);
+        return mathSqrt(d);
+    }
+
+    return {
+
+        cubicAt: cubicAt,
+
+        cubicDerivativeAt: cubicDerivativeAt,
+
+        cubicRootAt: cubicRootAt,
+
+        cubicExtrema: cubicExtrema,
+
+        cubicSubdivide: cubicSubdivide,
+
+        cubicProjectPoint: cubicProjectPoint,
+
+        quadraticAt: quadraticAt,
+
+        quadraticDerivativeAt: quadraticDerivativeAt,
+
+        quadraticRootAt: quadraticRootAt,
+
+        quadraticExtremum: quadraticExtremum,
+
+        quadraticSubdivide: quadraticSubdivide,
+
+        quadraticProjectPoint: quadraticProjectPoint
+    };
+}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ })
+
+},[1026]);
