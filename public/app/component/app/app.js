@@ -55,37 +55,22 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        let _this = this;
-
-        window.webSocket.on('link',  function(data) {
+        window.webSocket.on('link', (data) => {
             let { origin, target, type, live } = JSON.parse(data.info);
-            let origins = _this.state.origins,
-                targets = _this.state.targets,
-                types = _this.state.types,
-                attacks = _this.state.attacks;
+            let { origins, targets, types, attacks } = this.state;
 
             origins.push(origin);
             targets.push(target);
             types.push(type);
             attacks.push(live);
 
-            if (origins.length >= 8) {
-                origins.shift();
-            }
+            [origins, targets, types, attacks].forEach((a) => {
+                if(a.length >= 8) {
+                    a.shift();
+                }
+            });
 
-            if (targets.length >= 8) {
-                targets.shift();
-            }
-
-            if (types.length >= 8) {
-                types.shift();
-            }
-
-            if (attacks.length >= 8) {
-                attacks.shift();
-            }
-
-            _this.setState({
+            this.setState({
                 'origins': origins,
                 'targets': targets,
                 'types': types,
@@ -95,7 +80,7 @@ export default class App extends Component {
     }
 
     componentWillUnMount() {
-        if (window.webSocket) {
+        if(window.webSocket) {
             delete window.webSocket;
         }
     }

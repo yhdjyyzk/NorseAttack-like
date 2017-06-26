@@ -1,12 +1,16 @@
 var path = require('path');
+var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     devtool: false,
-    entry: './public/app/Main.js',
+    entry: {
+        bundle: './public/app/Main.js',
+        vendor:['react', 'react-dom', 'echarts-gl', 'echarts', 'jquery', 'zrender', 'leaflet']
+    },
     output: {
-        path: __dirname,
-        filename: './public/dist/bundle.js',
+        path: __dirname + '/public/dist/',
+        filename: '[name].js',
     },
     module: {
         loaders: [
@@ -52,7 +56,16 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin({ filename: './public/dist/[name].css', allChunks: true })
+        new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['vendor'],
+            minChunks: 2
+        })
     ]
     // devtool: 'inline-source-map' //可以在调试面板source中打开源文件
 }
