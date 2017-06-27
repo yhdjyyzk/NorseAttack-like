@@ -72,11 +72,10 @@ export default class App extends PureComponent {
 
         this.map = new Map({
             dom: this.refs.map,
+            mapType: 'baidu',
             // tileLayer: tileLayer['Google Satellite']
             tileLayer: tileLayer['baidu']
         }).render();
-
-        this.map.setView([39.91349, 116.407945], 3);
 
         this.map.on('move', (event) => {
             if (this.zr) { //每次重绘  清空界面.
