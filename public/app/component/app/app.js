@@ -94,7 +94,7 @@ export default class App extends Component {
                     <InfoPanel items={this.state.types} title='ATTACK TYPES' />
                     <InfoPanel items={this.state.targets} title='ATTACK TARGETS' />
                     <InfoPanel items={this.state.attacks} title='LIVE ATTACKS' />
-                    {/*{Detector.webgl ? <Globe data={this.state.flight} /> : null}*/}
+                    {Detector.webgl ? <Globe data={this.state.flight} /> : null}
                 </InfoContainer>
             </div>
         );
