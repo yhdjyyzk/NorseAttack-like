@@ -72,9 +72,9 @@ export default class App extends PureComponent {
 
         this.map = new Map({
             dom: this.refs.map,
-            mapType: 'baidu',
+            mapType: 'Mapbox Dark',
             // tileLayer: tileLayer['Google Satellite']
-            tileLayer: tileLayer['baidu']
+            tileLayer: tileLayer['Mapbox Dark']
         }).render();
 
         this.map.on('move', (event) => {

@@ -25,7 +25,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
     var zrUtil = __webpack_require__(32);
     var Element = __webpack_require__(353);
-    var BoundingRect = __webpack_require__(89);
+    var BoundingRect = __webpack_require__(90);
 
     /**
      * @alias module:zrender/graphic/Group
@@ -430,10 +430,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 !(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
     'use strict';
 
-    var curve = __webpack_require__(90);
+    var curve = __webpack_require__(91);
     var vec2 = __webpack_require__(75);
     var bbox = __webpack_require__(937);
-    var BoundingRect = __webpack_require__(89);
+    var BoundingRect = __webpack_require__(90);
     var dpr = __webpack_require__(149).devicePixelRatio;
 
     var CMD = {
@@ -1664,7 +1664,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
  * Module dependencies.
  */
 
-var parser = __webpack_require__(81);
+var parser = __webpack_require__(82);
 var Emitter = __webpack_require__(76);
 
 /**
@@ -2818,7 +2818,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Config = __webpack_require__(91);
+var _Config = __webpack_require__(92);
 
 var _Config2 = _interopRequireDefault(_Config);
 
@@ -2905,7 +2905,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Config = __webpack_require__(91);
+var _Config = __webpack_require__(92);
 
 var _Config2 = _interopRequireDefault(_Config);
 
@@ -3097,7 +3097,7 @@ function polling (opts) {
 
 var Transport = __webpack_require__(180);
 var parseqs = __webpack_require__(132);
-var parser = __webpack_require__(81);
+var parser = __webpack_require__(82);
 var inherit = __webpack_require__(116);
 var yeast = __webpack_require__(339);
 var debug = __webpack_require__(48)('engine.io-client:polling');
@@ -8091,7 +8091,7 @@ var _socket = __webpack_require__(885);
 
 var _socket2 = _interopRequireDefault(_socket);
 
-var _react = __webpack_require__(55);
+var _react = __webpack_require__(56);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -8315,7 +8315,7 @@ var _reactDom = __webpack_require__(155);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _react = __webpack_require__(55);
+var _react = __webpack_require__(56);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -8337,7 +8337,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(55);
+var _react = __webpack_require__(56);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -8390,7 +8390,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(55);
+var _react = __webpack_require__(56);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -8481,7 +8481,7 @@ var _AttackLine = __webpack_require__(376);
 
 var _AttackLine2 = _interopRequireDefault(_AttackLine);
 
-var _Config = __webpack_require__(91);
+var _Config = __webpack_require__(92);
 
 var _Config2 = _interopRequireDefault(_Config);
 
@@ -8513,7 +8513,7 @@ var _RadialGradient = __webpack_require__(364);
 
 var _RadialGradient2 = _interopRequireDefault(_RadialGradient);
 
-var _react = __webpack_require__(55);
+var _react = __webpack_require__(56);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -8602,9 +8602,9 @@ var App = function (_PureComponent) {
 
             this.map = new _map2.default({
                 dom: this.refs.map,
-                mapType: 'baidu',
+                mapType: 'Mapbox Dark',
                 // tileLayer: tileLayer['Google Satellite']
-                tileLayer: tileLayer['baidu']
+                tileLayer: tileLayer['Mapbox Dark']
             }).render();
 
             this.map.on('move', function (event) {
@@ -8871,7 +8871,7 @@ var _echartsGl = __webpack_require__(219);
 
 var _echartsGl2 = _interopRequireDefault(_echartsGl);
 
-var _react = __webpack_require__(55);
+var _react = __webpack_require__(56);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -9009,7 +9009,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Config = __webpack_require__(91);
+var _Config = __webpack_require__(92);
 
 var _Config2 = _interopRequireDefault(_Config);
 
@@ -9175,7 +9175,7 @@ exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Config = __webpack_require__(91);
+var _Config = __webpack_require__(92);
 
 var _Config2 = _interopRequireDefault(_Config);
 
@@ -10173,7 +10173,7 @@ module.exports = __webpack_require__(727);
  * @api public
  *
  */
-module.exports.parser = __webpack_require__(81);
+module.exports.parser = __webpack_require__(82);
 
 
 /***/ }),
@@ -10189,7 +10189,7 @@ var transports = __webpack_require__(282);
 var Emitter = __webpack_require__(76);
 var debug = __webpack_require__(48)('engine.io-client:socket');
 var index = __webpack_require__(288);
-var parser = __webpack_require__(81);
+var parser = __webpack_require__(82);
 var parseuri = __webpack_require__(290);
 var parsejson = __webpack_require__(756);
 var parseqs = __webpack_require__(132);
@@ -10327,7 +10327,7 @@ Socket.protocol = parser.protocol; // this is an int
 Socket.Socket = Socket;
 Socket.Transport = __webpack_require__(180);
 Socket.transports = __webpack_require__(282);
-Socket.parser = __webpack_require__(81);
+Socket.parser = __webpack_require__(82);
 
 /**
  * Creates transport of the given type.
@@ -11598,7 +11598,7 @@ function unloadHandler () {
  */
 
 var Transport = __webpack_require__(180);
-var parser = __webpack_require__(81);
+var parser = __webpack_require__(82);
 var parseqs = __webpack_require__(132);
 var inherit = __webpack_require__(116);
 var yeast = __webpack_require__(339);
@@ -13098,7 +13098,7 @@ exports.encode = exports.stringify = __webpack_require__(800);
 
 /***/ }),
 
-/***/ 81:
+/***/ 82:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -14065,7 +14065,7 @@ function toArray(list, index) {
 
 /***/ }),
 
-/***/ 89:
+/***/ 90:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -14271,7 +14271,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ 90:
+/***/ 91:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -14820,7 +14820,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ 91:
+/***/ 92:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15444,7 +15444,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
     var config = __webpack_require__(149);
     var util = __webpack_require__(32);
     var log = __webpack_require__(359);
-    var BoundingRect = __webpack_require__(89);
+    var BoundingRect = __webpack_require__(90);
     var timsort = __webpack_require__(361);
 
     var Layer = __webpack_require__(923);
@@ -17628,7 +17628,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (re
 
 var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
 
-    var curve = __webpack_require__(90);
+    var curve = __webpack_require__(91);
 
     return {
         /**
@@ -17735,7 +17735,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (re
     var quadratic = __webpack_require__(933);
     var arc = __webpack_require__(929);
     var normalizeRadian = __webpack_require__(356).normalizeRadian;
-    var curve = __webpack_require__(90);
+    var curve = __webpack_require__(91);
 
     var windingLine = __webpack_require__(935);
 
@@ -18136,7 +18136,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (re
 
 var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
 
-    var curve = __webpack_require__(90);
+    var curve = __webpack_require__(91);
 
     return {
         /**
@@ -18188,7 +18188,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_RESULT__ = function (re
     var TEXT_CACHE_MAX = 5000;
 
     var util = __webpack_require__(32);
-    var BoundingRect = __webpack_require__(89);
+    var BoundingRect = __webpack_require__(90);
     var retrieve = util.retrieve;
 
     function getTextWidth(text, textFont) {
@@ -18629,7 +18629,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 !(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
 
     var vec2 = __webpack_require__(75);
-    var curve = __webpack_require__(90);
+    var curve = __webpack_require__(91);
 
     var bbox = {};
     var mathMin = Math.min;
@@ -19288,7 +19288,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 !(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
 
     var Displayable = __webpack_require__(362);
-    var BoundingRect = __webpack_require__(89);
+    var BoundingRect = __webpack_require__(90);
     var zrUtil = __webpack_require__(32);
 
     var LRU = __webpack_require__(357);
@@ -19454,7 +19454,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 !(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
 
     var textContain = __webpack_require__(934);
-    var BoundingRect = __webpack_require__(89);
+    var BoundingRect = __webpack_require__(90);
 
     var tmpRect = new BoundingRect();
 
@@ -19612,7 +19612,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 !(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
     'use strict';
 
-    var curveTool = __webpack_require__(90);
+    var curveTool = __webpack_require__(91);
     var vec2 = __webpack_require__(75);
     var quadraticSubdivide = curveTool.quadraticSubdivide;
     var cubicSubdivide = curveTool.cubicSubdivide;
