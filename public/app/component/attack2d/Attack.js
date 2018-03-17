@@ -7,7 +7,7 @@ import Map from '../../map/map';
 import Symbol from '../../graphic/2d/Symbol';
 import Tail from '../../graphic/2d/Tail';
 import querystring from 'querystring';
-import zrender from 'zrender/src/zrender';
+import * as zrender from 'zrender/src/zrender';
 import RadialGradient from 'zrender/src/graphic/RadialGradient';
 import React, { PureComponent } from 'react';
 import './attack.scss';

@@ -48,6 +48,7 @@
 .leaflet-container .leaflet-tile-pane img,
 .leaflet-container img.leaflet-image-layer {
 	max-width: none !important;
+	max-height: none !important;
 	}
 
 .leaflet-container.leaflet-touch-zoom {
@@ -56,7 +57,10 @@
 	}
 .leaflet-container.leaflet-touch-drag {
 	-ms-touch-action: pinch-zoom;
-	}
+	/* Fallback for FF which doesn't support pinch-zoom */
+	touch-action: none;
+	touch-action: pinch-zoom;
+}
 .leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
 	-ms-touch-action: none;
 	touch-action: none;
@@ -169,16 +173,13 @@
 	opacity: 1;
 	}
 .leaflet-zoom-animated {
-	-webkit-transform-origin: 0 0;
-	        transform-origin: 0 0;
+	transform-origin: 0 0;
 	}
 .leaflet-zoom-anim .leaflet-zoom-animated {
 	will-change: transform;
 	}
 .leaflet-zoom-anim .leaflet-zoom-animated {
-	transition:         -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
 	transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
-	transition:         transform 0.25s cubic-bezier(0,0,0.25,1), -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
 	}
 .leaflet-zoom-anim .leaflet-tile,
 .leaflet-pan-anim .leaflet-tile {
@@ -359,6 +360,7 @@
 	}
 .leaflet-control-layers-scrollbar {
 	overflow-y: scroll;
+	overflow-x: hidden;
 	padding-right: 5px;
 	}
 .leaflet-control-layers-selector {
@@ -477,9 +479,7 @@
 	padding: 1px;
 
 	margin: -10px auto 0;
-
-	-webkit-transform: rotate(45deg);
-	        transform: rotate(45deg);
+	transform: rotate(45deg);
 	}
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
@@ -630,7 +630,6 @@
     height: 30px;
     background-color: skyblue; }
 .globe {
-  -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
   height: 200px;
@@ -650,10 +649,8 @@
   background-color: rgba(77, 173, 247, 0.8);
   cursor: pointer; }
 .container {
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
   height: 200px;
@@ -663,7 +660,6 @@
   bottom: 0px;
   color: white; }
 .infoPanel {
-  -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
   height: 200px;
@@ -675,26 +671,19 @@
     height: 30px;
     background-color: #a3daff; }
   .infoPanel .items {
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-box-pack: start;
     -ms-flex-pack: start;
     justify-content: flex-start; }
     .infoPanel .items .row {
-      display: -webkit-inline-box;
       display: -ms-inline-flexbox;
       display: inline-flex;
-      -webkit-box-pack: start;
       -ms-flex-pack: start;
       justify-content: flex-start;
       width: 100%; }
       .infoPanel .items .row .item {
-        -webkit-box-flex: 1;
         -ms-flex-positive: 1;
         flex-grow: 1;
         -ms-flex-negative: 1;
@@ -1163,7 +1152,6 @@ template {
 body {
   background-color: #222; }
   body .app {
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     height: 100%; }

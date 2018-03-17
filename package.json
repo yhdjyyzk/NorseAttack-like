@@ -40,8 +40,6 @@
     "cookie-parser": "~1.4.3",
     "css-loader": "^0.28.0",
     "debug": "~2.6.0",
-    "echarts": "^3.5.4",
-    "echarts-gl": "^1.0.0-alpha.5",
     "express": "~4.14.1",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.1",
@@ -71,6 +69,8 @@
     "zrender": "^3.4.4"
   },
   "dependencies": {
+    "echarts": "^4.0.4",
+    "echarts-gl": "^1.1.0",
     "express-ws": "^3.0.0"
   }
 }
