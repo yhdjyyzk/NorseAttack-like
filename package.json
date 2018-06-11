@@ -1,7 +1,7 @@
 {
-  "name": "migrate-map",
+  "name": "norse-attack-like",
   "version": "1.0.0",
-  "description": "a migrate map using ZRender.",
+  "description": "A system like norse attack map.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yuanzhaokang/migrate-map.git"
+    "url": "git+https://github.com/yuanzhaokang/NorseAttack-like.git"
   },
   "keywords": [
-    "migrate",
+    "norse attack",
     "map",
-    "ZRender",
+    "leaflet",
     "ZRender",
     "canvas",
     "visualization"
@@ -25,9 +25,8 @@
   "author": "yuanzhaokang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yuanzhaokang/migrate-map/issues"
+    "url": "https://github.com/yuanzhaokang/NorseAttack-like/issues"
   },
-  "homepage": "https://github.com/yuanzhaokang/migrate-map#readme",
   "devDependencies": {
     "babel-core": "^6.23.1",
     "babel-loader": "^6.4.0",
