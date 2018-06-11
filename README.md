@@ -8,6 +8,6 @@
 > * npm run build  
   
 > run server  
-> * npm run server  
+> * npm start 
 
-Open [localhost:4000](localhost:4000) will paint the map and data panel. And open [localhost:4000/wsSender](localhost:4000/wsSender) will mock data.
+Open [localhost:4000](localhost:4000) will see the map and data panel. And open [localhost:4000/wsSender](localhost:4000/wsSender) will mock data.
