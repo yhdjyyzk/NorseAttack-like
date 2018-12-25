@@ -1,18 +1,19 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
+var bus = require("../bus/socketEventBus");
 
-// 发送页面.
+// index page.
 router.get('/', function (req, res, next) {
     res.setHeader('Content-type', 'text/html');
     res.sendFile(path.join(__dirname, '/public/wsSender/index.html'));
 });
 
-// 接受sender的内容.
+// receive sender's data.
 router.post('/receiver', function (req, res, next) {
     let body = req.body;
-    // 然后websocket发送数据给visual.
-    global.webSocket.emit('link', body);
+    // push body to socket.io and will push to browser.
+    bus.emit("push", body);
     res.end();
 });
 
